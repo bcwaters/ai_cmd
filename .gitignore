@@ -1,0 +1,9 @@
+.env
+grok/context/currentChat/currentChat.html
+grok/context/currentChat/summary.json
+grok/context/currentChat/currentChat.json
+grok/context/history/*
+grok/context/fullCompletion/*
+grok/responses/*
+node_modules/*
+grok/context/context.data
