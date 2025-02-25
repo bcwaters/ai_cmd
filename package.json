@@ -9,7 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dompurify": "^3.2.4",
     "dotenv": "^16.4.7",
+    "jsdom": "^26.0.0",
+    "marked": "^15.0.7",
     "openai": "^4.83.0"
   }
 }

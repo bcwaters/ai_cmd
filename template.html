@@ -9,10 +9,10 @@
     <button id="saveButton" onclick="saveButton()">Save</button>
     <button id="openSavedChats" onclick="selectSavedChat()">Open Saved Chats</button>
     <a id="previous" href="../responses/@PREVIOUS_ID@.html?responseId=@CURRENT_ID@">Previous</a>
-    <a id="next" href="../responses/@NEXT_ID@.html">Next</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
   </nav>
 
-  <div id="content"></div>
+  <div id="content">REPLACEME</div>
 
 
   <script>
@@ -49,14 +49,9 @@
         document.getElementById('next').href = "../responses/" + responseId + ".html";
       }
     </script>
-   <script> let unprocessedReadme = 'REPLACEME' ;
-   console.log("unprocessedReadme", unprocessedReadme);
+
    </script>
-  <script src="marked.min.js"></script>
-  <script>
-    document.getElementById('content').innerHTML =
-      marked.parse('REPLACEME');
-  </script>
+
 </body>
 </html>
 

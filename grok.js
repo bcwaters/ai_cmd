@@ -4,6 +4,13 @@ import fs from 'fs/promises'
 import { exec } from 'child_process'
 import os from 'os'
 import { json } from "stream/consumers";
+import { JSDOM } from 'jsdom';
+import createDOMPurify from 'dompurify';
+import { marked } from 'marked';
+
+// Initialize DOMPurify with JSDOM
+const window = new JSDOM('').window;
+const DOMPurify = createDOMPurify(window);
 
 dotenv.config();
 
@@ -143,18 +150,14 @@ async function saveResponses(completion, userPrompt, responseId) {
     });
 }
 
+
 async function saveHtmlResponse(userPrompt, responseId, markdownContent, priorContextId) {
     //let pwd = process.cwd();
     //console.log("pwd", pwd);
     // Save HTML response
     let indexHtml = await fs.readFile('./template.html', "utf8");
     markdownContent =  markdownContent + "\ResponseID:" + responseId ;
-    let sanitizedMarkdownContent = markdownContent
-        .replace(/\\/g, '\\\\') // Escape backslashes
-        .replace(/"/g, '\\"')   // Escape double quotes
-        .replace(/'/g, "\\'")   // Escape single quotes
-        .replace(/\n/g, '\\n'); // Escape newlines
-
+    let sanitizedMarkdownContent = preprocessResponse(markdownContent);
 
     indexHtml = indexHtml.replaceAll("REPLACEME", sanitizedMarkdownContent);
     indexHtml = indexHtml.replaceAll("@PREVIOUS_ID@", priorContextId.substring(0, 8));
@@ -192,6 +195,34 @@ async function saveMarkdownResponse(userPrompt, responseId, markdownContent) {
         "utf8"
     );
 }
+
+function preprocessResponse(response) {
+    // response = response
+    //     .replace(/\\/g, '\\\\') // Escape backslashes
+    //     .replace(/"/g, '\\"')   // Escape double quotes
+    //     .replace(/'/g, "\\'")   // Escape single quotes
+    //     .replace(/\n/g, '\\n')   // Escape newlines
+    //     .replace(/&/g, '&amp;') // Escape ampersands
+    //     .replace(/\r/g, '')     // Remove carriage returns
+    //     .replace(/\s+/g, ' ');  // Replace multiple whitespace with a single space
+
+    // Sanitize the response using DOMPurify if available
+    if (DOMPurify) {
+        response = DOMPurify.sanitize(response);
+    }
+    
+    // Use marked to parse the response if available
+    if (marked) {
+        response = marked.parse(response);
+    }
+    console.log("response bing added to html", response);
+    while(response.charAt(0) != "<"){
+        response = response.substring(1);
+    }
+    return response;
+}
+
+
 
 async function saveContextFiles(fullResponseId, jsonContent, completion, markdownContent) {
     // Save context files
@@ -257,9 +288,9 @@ async function main() {
     const messagesString = await getConversationContext(setContext); // Ensure context is fetched based on setContext
     const contextData = await fs.readFile("./grok/context/context.data", "utf8");
   
-    console.log("\n userPrompt:", userPrompt);
-    setContext ? console.log("contextID:", setContext,"\n") : console.log("\n"); // Log the setContext for debugging
-    console.log("*---------------------*");
+ 
+    setContext ? console.log("\ncontextID:", setContext,"\n") : console.log("\n"); // Log the setContext for debugging
+    console.log("*---------------------*")
     const finalRequest = createApiRequest(userPrompt, messagesString, isNew, isShort, contextData, setContext);
     const completion = await openai.chat.completions.create(finalRequest);
     const responseId = completion.id.substring(0, 4);
