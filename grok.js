@@ -17,9 +17,11 @@ const openai = new OpenAI({
 // Parse command line arguments and return prompt and flags
 function parseCommandLineArgs() {
     const args = process.argv.slice(2);
+    console.log("args", args);
     let userPrompt = "Default prompt if none provided";
     let isShort = false;
     let isNew = false;
+    let setContext = "";
 
     if (args.includes("--short")) {
         isShort = true;
@@ -27,26 +29,44 @@ function parseCommandLineArgs() {
         if (promptIndex < args.length) {
             userPrompt = args.slice(promptIndex).join(" ");
         }
-    } else if (args.includes("--new")) {
+    } if (args.includes("--new")) {
         isNew = true;
         const promptIndex = args.indexOf("--new") + 1;
         if (promptIndex < args.length) {
             userPrompt = args.slice(promptIndex).join(" ");
         }
+    }  if (args.includes("--setContext")) {
+        const contextIndex = args.indexOf("--setContext") + 1;
+     
+        if (contextIndex < args.length) {
+            setContext = args[contextIndex];
+            if (contextIndex + 1 < args.length) {
+                userPrompt = args.slice(contextIndex + 1).join(" ");
+            }
+        }
     } else if (args.length > 0) {
         userPrompt = args.join(" ");
     }
 
-    return { userPrompt, isShort, isNew };
+    return { userPrompt, isShort, isNew, setContext };
 }
 
 // Read and parse the context file
-async function getConversationContext() {
+async function getConversationContext(setContext) {
     try {
-        const context = await fs.readFile('./grok/context/currentChat/currentChat.json', "utf8");
-        const parsedContext = JSON.parse(context);
-        const messages = parsedContext.choices[0].message;
-        return JSON.stringify(messages.content) || "";
+       
+        if (setContext == "") {
+            const context = await fs.readFile('./grok/context/currentChat/currentChat.json', "utf8");
+            const parsedContext = JSON.parse(context);
+            const messages = parsedContext.choices[0].message;
+            return JSON.stringify(messages.content) || "";
+        } else {
+      
+            const context = await fs.readFile('./grok/context/history/' + setContext + '.json', "utf8");
+            const parsedContext = JSON.parse(context);
+            const messages = parsedContext.choices[0].message;
+            return JSON.stringify(messages.content) || "";
+        }
     } catch (error) {
         console.error("Error reading or processing the context file:", error);
         return "";
@@ -54,7 +74,7 @@ async function getConversationContext() {
 }
 
 // Create the request object for the API
-function createApiRequest(userPrompt, messagesString, isNew, isShort, contextData) {
+function createApiRequest(userPrompt, messagesString, isNew, isShort, contextData, setContext) {
     return {
         model: "grok-2-latest",
         messages: [
@@ -97,23 +117,24 @@ function createApiRequest(userPrompt, messagesString, isNew, isShort, contextDat
 }
 
 // Save response to files
-async function saveResponses(completion, userPrompt) {
-    console.log("saving responses called");
+async function saveResponses(completion, userPrompt, responseId) {
+    //console.log("saving responses called");
 
-    const responseId = completion.id.substring(0, 4);
+
     const fullResponseId = completion.id.substring(0, 8);
+    responseId = fullResponseId;
     const content = completion.choices[0].message.content.replace(/\\n/g, '\n');
     const [markdownContent, jsonContent] = content.split("@EOF@");
     //console.log("markdownContent", markdownContent);
     //console.log("jsonContent", jsonContent);
 
-    await saveHtmlResponse(userPrompt, responseId, markdownContent);
+    await saveHtmlResponse(userPrompt, fullResponseId, markdownContent);
     await saveMarkdownResponse(userPrompt, responseId, markdownContent);
     await saveContextFiles(fullResponseId, jsonContent, completion, markdownContent);
     
     // Open currentChat.html in the default browser
     const openCommand = os.platform() === 'win32' ? 'start' : 'open';
-    exec(`${openCommand} ./grok/context/currentChat/currentChat.html`, (err) => {
+    exec(`${openCommand} ./grok/context/currentChat/${fullResponseId}.html`, (err) => {
         if (err) {
             console.error("Error opening the HTML file:", err);
         }
@@ -123,15 +144,24 @@ async function saveResponses(completion, userPrompt) {
 async function saveHtmlResponse(userPrompt, responseId, markdownContent) {
     // Save HTML response
     let indexHtml = await fs.readFile('./template.html', "utf8");
-    const sanitizedMarkdownContent = markdownContent
+    markdownContent =  markdownContent + "\ResponseID:" + responseId ;
+    let sanitizedMarkdownContent = markdownContent
         .replace(/\\/g, '\\\\') // Escape backslashes
         .replace(/"/g, '\\"')   // Escape double quotes
         .replace(/'/g, "\\'")   // Escape single quotes
         .replace(/\n/g, '\\n'); // Escape newlines
 
+
     indexHtml = indexHtml.replace("REPLACEME", sanitizedMarkdownContent);
+    indexHtml = indexHtml.replaceAll("@PREVIOUS_ID@", responseId);
     await fs.writeFile(
-        `./grok/responses/${userPrompt.replaceAll(" ", "_")}-${responseId}.html`,
+        `./grok/context/responses/${responseId}.html`,
+        indexHtml,
+        "utf8"
+    );
+
+    await fs.writeFile(
+        `./grok/context/currentChat/${responseId}.html`,
         indexHtml,
         "utf8"
     );
@@ -141,12 +171,13 @@ async function saveHtmlResponse(userPrompt, responseId, markdownContent) {
         indexHtml,
         "utf8"
     );
+
 }
 
 async function saveMarkdownResponse(userPrompt, responseId, markdownContent) {
     // Save markdown response
     await fs.writeFile(
-        `./grok/responses/${userPrompt.replaceAll(" ", "_")}-${responseId}.md`,
+        `./grok/context/responses/${userPrompt.replaceAll(" ", "_")}-${responseId}.md`,
         markdownContent,
         "utf8"
     );
@@ -178,7 +209,7 @@ async function saveContextFiles(fullResponseId, jsonContent, completion, markdow
 
 async function appendToContext(newContent, MAX_CONTEXT_LENGTH) {
     let contextData = await fs.readFile("./grok/context/context.data", "utf8");
-    console.log("\n\nnewContent", newContent);
+    //console.log("\n\nnewContent", newContent);
     let newContextDataKeywords = newContent.split(",");
     newContextDataKeywords.forEach(element => {
         contextData = contextData.replace(element, "");
@@ -189,7 +220,7 @@ async function appendToContext(newContent, MAX_CONTEXT_LENGTH) {
  
     contextData = contextData.substring(0, MAX_CONTEXT_LENGTH);
     contextData = contextData.replaceAll(/\\n/g, '').replaceAll(/\\/g, '').replaceAll(/"/g, '').replaceAll(/'/g, "").replaceAll(/\n/g, '').replaceAll(/` `/g, '');
-    console.log("new contextData", contextData);
+
     await fs.writeFile("./grok/context/context.data", contextData);
 
 }
@@ -201,21 +232,20 @@ async function moveContextFile(id) {
     );
 }
 
+// Main function
 async function main() {
-    const { userPrompt, isShort, isNew } = parseCommandLineArgs();
-    const messagesString = await getConversationContext();
+    const { userPrompt, isShort, isNew, setContext } = parseCommandLineArgs();
+    const messagesString = await getConversationContext(setContext); // Ensure context is fetched based on setContext
     const contextData = await fs.readFile("./grok/context/context.data", "utf8");
 
-   
-    
     console.log("\n\nuserPrompt:", userPrompt);
+    setContext ? console.log("setContext:", setContext) : console.log("no setContext"); // Log the setContext for debugging
 
-    const finalRequest = createApiRequest(userPrompt, messagesString, isNew, isShort, contextData);
+    const finalRequest = createApiRequest(userPrompt, messagesString, isNew, isShort, contextData, setContext);
     const completion = await openai.chat.completions.create(finalRequest);
-    
+    const responseId = completion.id.substring(0, 4);
 
-
-    await saveResponses(completion, userPrompt);
+    await saveResponses(completion, userPrompt, responseId);
 }
 
 main().catch(console.error);

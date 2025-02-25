@@ -4,6 +4,7 @@ grok/context/currentChat/summary.json
 grok/context/currentChat/currentChat.json
 grok/context/history/*
 grok/context/fullCompletion/*
-grok/responses/*
+grok/context/responses/*
 node_modules/*
 grok/context/context.data
+grok/context/currentChat/*.html

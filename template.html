@@ -5,10 +5,21 @@
   <title>Grok Response</title>
 </head>
 <body>
- 
-  <div id="content"></div>
+  <nav>
     <button id="saveButton" onclick="saveButton()">Save</button>
+    <button id="openSavedChats" onclick="selectSavedChat()">Open Saved Chats</button>
+    <a id="previous" href="../responses/@PREVIOUS_ID@.html?responseId=@PREVIOUS_ID@">Previous</a>
+    <a id="next" href="../responses/@NEXT_ID@.html">Next</a>
+  </nav>
 
+  <div id="content"></div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
     <script>
         function saveButton() {
           const content = document.documentElement.outerHTML; // Get the entire HTML content
@@ -25,8 +36,20 @@
           URL.revokeObjectURL(url); // Release the Blob URL
         }
     </script>
-   
+    <script>
 
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../responses/" + responseId + ".html";
+      }
+    </script>
+   
+  
   <script src="marked.min.js"></script>
   <script>
     document.getElementById('content').innerHTML =
