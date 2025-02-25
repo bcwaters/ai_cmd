@@ -17,7 +17,7 @@ const openai = new OpenAI({
 // Parse command line arguments and return prompt and flags
 function parseCommandLineArgs() {
     const args = process.argv.slice(2);
-    console.log("args", args);
+    //console.log(...args);
     let userPrompt = "Default prompt if none provided";
     let isShort = false;
     let isNew = false;
@@ -87,7 +87,7 @@ function createApiRequest(userPrompt, messagesString, isNew, isShort, contextDat
                     },
                     {
                         type: "text",
-                        text: "This is the context of the conversation so far: " + (isNew ? "No prior context" : messagesString + contextData)
+                        text: "Context of the conversation so far: " + (isNew ? "This is the beginning of the conversation. after answering the question suggest a few follow up questions." : messagesString + contextData)
                     },
                     {
                         type: "text",
@@ -128,9 +128,11 @@ async function saveResponses(completion, userPrompt, responseId) {
     //console.log("markdownContent", markdownContent);
     //console.log("jsonContent", jsonContent);
 
-    await saveHtmlResponse(userPrompt, fullResponseId, markdownContent);
+    let priorContextId = await saveContextFiles(fullResponseId, jsonContent, completion, markdownContent);
+    await saveHtmlResponse(userPrompt, fullResponseId, markdownContent, priorContextId);
     await saveMarkdownResponse(userPrompt, responseId, markdownContent);
-    await saveContextFiles(fullResponseId, jsonContent, completion, markdownContent);
+
+  
     
     // Open currentChat.html in the default browser
     const openCommand = os.platform() === 'win32' ? 'start' : 'open';
@@ -141,7 +143,9 @@ async function saveResponses(completion, userPrompt, responseId) {
     });
 }
 
-async function saveHtmlResponse(userPrompt, responseId, markdownContent) {
+async function saveHtmlResponse(userPrompt, responseId, markdownContent, priorContextId) {
+    //let pwd = process.cwd();
+    //console.log("pwd", pwd);
     // Save HTML response
     let indexHtml = await fs.readFile('./template.html', "utf8");
     markdownContent =  markdownContent + "\ResponseID:" + responseId ;
@@ -153,7 +157,9 @@ async function saveHtmlResponse(userPrompt, responseId, markdownContent) {
 
 
     indexHtml = indexHtml.replace("REPLACEME", sanitizedMarkdownContent);
-    indexHtml = indexHtml.replaceAll("@PREVIOUS_ID@", responseId);
+    indexHtml = indexHtml.replaceAll("@PREVIOUS_ID@", priorContextId.substring(0, 8));
+    indexHtml = indexHtml.replaceAll("@DIRECTORY@", ""); // absolute path to the directory not compatible with firefox
+    indexHtml = indexHtml.replaceAll("@CURRENT_ID@", responseId);
     await fs.writeFile(
         `./grok/context/responses/${responseId}.html`,
         indexHtml,
@@ -172,12 +178,14 @@ async function saveHtmlResponse(userPrompt, responseId, markdownContent) {
         "utf8"
     );
 
+    console.log("saved html response", indexHtml);
+
 }
 
 async function saveMarkdownResponse(userPrompt, responseId, markdownContent) {
     // Save markdown response
     await fs.writeFile(
-        `./grok/context/responses/${userPrompt.replaceAll(" ", "_")}-${responseId}.md`,
+        `./grok/context/responses/${userPrompt.replaceAll(" ", "_").replaceAll(":", "_").replaceAll("/", "_").replaceAll(".", "")}-${responseId}.md`,
         markdownContent,
         "utf8"
     );
@@ -185,7 +193,7 @@ async function saveMarkdownResponse(userPrompt, responseId, markdownContent) {
 
 async function saveContextFiles(fullResponseId, jsonContent, completion, markdownContent) {
     // Save context files
-    await moveContextFile(fullResponseId);
+    let priorContextId = await moveContextFile();
 
     // Load the old summary.json into memory
     let oldSummaryContent = "";
@@ -205,6 +213,7 @@ async function saveContextFiles(fullResponseId, jsonContent, completion, markdow
         markdownContent,
         "utf8"
     );
+    return priorContextId;
 }
 
 async function appendToContext(newContent, MAX_CONTEXT_LENGTH) {
@@ -225,11 +234,15 @@ async function appendToContext(newContent, MAX_CONTEXT_LENGTH) {
 
 }
 
-async function moveContextFile(id) {
+async function moveContextFile() {
+    let oldContextFile = await fs.readFile('./grok/context/currentChat/currentChat.json', "utf8");
+    let parsedContext = JSON.parse(oldContextFile);
+    let parsedContextId = parsedContext.id.substring(0, 8);
     await fs.copyFile(
         './grok/context/currentChat/currentChat.json',
-        `./grok/context/history/${id}.json`
+        `./grok/context/history/${parsedContextId}.json`
     );
+    return parsedContextId;
 }
 
 // Main function
@@ -239,7 +252,7 @@ async function main() {
     const contextData = await fs.readFile("./grok/context/context.data", "utf8");
 
     console.log("\n\nuserPrompt:", userPrompt);
-    setContext ? console.log("setContext:", setContext) : console.log("no setContext"); // Log the setContext for debugging
+    setContext ? console.log("context:", setContext,"\n") : console.log("\n"); // Log the setContext for debugging
 
     const finalRequest = createApiRequest(userPrompt, messagesString, isNew, isShort, contextData, setContext);
     const completion = await openai.chat.completions.create(finalRequest);

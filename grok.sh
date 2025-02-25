@@ -1,7 +1,7 @@
 #!/bin/bash
 cd /home/bcwaters/repo/grok_cmd/grok_cmd/
 # Greet the user
-echo "  ____              _   _   ___    __    ___"
+echo "  ____             _   _   ___    __    ___"
 echo " / ___|_ __  __   | | / /|  _ \ / _ \  / __|  "
 echo "| |  _  '__|/ _ \ | |/ / | | | | | | || |       "
 echo "| |_| | |  | |_| || |\ \\ | |_| | |_| || |__   "
@@ -42,6 +42,7 @@ while true; do
     else
     if [ "$prompt" == "new" ]; then 
         # Run node with the absolute path to grok.js and the provided prompt
+        read -p "Enter your question or prompt (type 'exit' to quit): " prompt
         node --no-warnings /home/bcwaters/repo/grok_cmd/grok_cmd/grok.js "--new" "$prompt"
     else
     if [ "$prompt" == "short" ]; then
@@ -49,6 +50,7 @@ while true; do
         echo " " 
         echo -e "\e[33mHow many words max? 1 to 16000\e[0m"
         read -p "Enter the short value: " shortValue
+        read -p "[short:$shortValue] Enter your question or prompt (type 'exit' to quit): " prompt
         node --no-warnings /home/bcwaters/repo/grok_cmd/grok_cmd/grok.js "--short" "$shortValue" "$prompt"
     else
         # Run node with the absolute path to grok.js and the provided prompt
