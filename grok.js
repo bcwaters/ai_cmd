@@ -156,7 +156,7 @@ async function saveHtmlResponse(userPrompt, responseId, markdownContent, priorCo
         .replace(/\n/g, '\\n'); // Escape newlines
 
 
-    indexHtml = indexHtml.replace("REPLACEME", sanitizedMarkdownContent);
+    indexHtml = indexHtml.replaceAll("REPLACEME", sanitizedMarkdownContent);
     indexHtml = indexHtml.replaceAll("@PREVIOUS_ID@", priorContextId.substring(0, 8));
     indexHtml = indexHtml.replaceAll("@DIRECTORY@", ""); // absolute path to the directory not compatible with firefox
     indexHtml = indexHtml.replaceAll("@CURRENT_ID@", responseId);
@@ -178,14 +178,16 @@ async function saveHtmlResponse(userPrompt, responseId, markdownContent, priorCo
         "utf8"
     );
 
-    console.log("saved html response", indexHtml);
 
 }
 
 async function saveMarkdownResponse(userPrompt, responseId, markdownContent) {
+    console.log("-----------------------------------------------");
+    console.log("markdownContent", markdownContent);
+    console.log("-----------------------------------------------");
     // Save markdown response
     await fs.writeFile(
-        `./grok/context/responses/${userPrompt.replaceAll(" ", "_").replaceAll(":", "_").replaceAll("/", "_").replaceAll(".", "")}-${responseId}.md`,
+        `./grok/context/responses/${userPrompt.replaceAll(" ", "_").replaceAll(":", "_").replaceAll("/", "_").replaceAll(".", "").substring(0, 40)}-${responseId}.md`,
         markdownContent,
         "utf8"
     );
@@ -221,15 +223,19 @@ async function appendToContext(newContent, MAX_CONTEXT_LENGTH) {
     //console.log("\n\nnewContent", newContent);
     let newContextDataKeywords = newContent.split(",");
     newContextDataKeywords.forEach(element => {
-        contextData = contextData.replace(element, "");
+        contextData = contextData.replaceAll(element, "");
     });
+    contextData = contextData.replaceAll(" ", "");
     contextData = contextData.replaceAll(",","");
     contextData =  newContent + contextData;
     contextData = contextData.replaceAll("KEYWORDS", "");
  
     contextData = contextData.substring(0, MAX_CONTEXT_LENGTH);
     contextData = contextData.replaceAll(/\\n/g, '').replaceAll(/\\/g, '').replaceAll(/"/g, '').replaceAll(/'/g, "").replaceAll(/\n/g, '').replaceAll(/` `/g, '');
-
+    console.log("-----------------------------------------------");
+    console.log("Current Subject:", newContent);
+    console.log("-----------------------------------------------");
+    console.log("-----------------------------------------------");
     await fs.writeFile("./grok/context/context.data", contextData);
 
 }
@@ -250,10 +256,10 @@ async function main() {
     const { userPrompt, isShort, isNew, setContext } = parseCommandLineArgs();
     const messagesString = await getConversationContext(setContext); // Ensure context is fetched based on setContext
     const contextData = await fs.readFile("./grok/context/context.data", "utf8");
-
-    console.log("\n\nuserPrompt:", userPrompt);
-    setContext ? console.log("context:", setContext,"\n") : console.log("\n"); // Log the setContext for debugging
-
+  
+    console.log("\n userPrompt:", userPrompt);
+    setContext ? console.log("contextID:", setContext,"\n") : console.log("\n"); // Log the setContext for debugging
+    console.log("*---------------------*");
     const finalRequest = createApiRequest(userPrompt, messagesString, isNew, isShort, contextData, setContext);
     const completion = await openai.chat.completions.create(finalRequest);
     const responseId = completion.id.substring(0, 4);
