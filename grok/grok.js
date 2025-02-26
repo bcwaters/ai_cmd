@@ -394,7 +394,12 @@ async function main() {
     console.log( "current contextId", colors.blue, responseId, colors.reset);
     console.log(logDivider);
 
+    //TODO harded code price function should be dynamic for differnt models.
+    const INPUT_TOKEN_PRICE = 200/1000000;
+    const OUTPUT_TOKEN_PRICE = 1000/1000000;
+    const totalPrice = (completion.usage.prompt_tokens * INPUT_TOKEN_PRICE) + (completion.usage.completion_tokens * OUTPUT_TOKEN_PRICE);
     console.log(colors.green, "Tokens used", colors.yellow, "prompt:", colors.reset, completion.usage.prompt_tokens, colors.yellow, "completion:", colors.reset, completion.usage.completion_tokens, colors.reset);
+    console.log(colors.green, "Aprox price of prompt", colors.yellow, totalPrice, colors.reset, "cents ");
     //write settings to ../.grokRuntime
     await fs.writeFile(".grokRuntime", `depthState=${depth}\nnewState=""\nsetContextState=${responseId}`);
     return responseId;
