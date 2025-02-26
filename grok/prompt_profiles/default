@@ -1,5 +1,10 @@
 export class PromptProfile {
+    static isLogging = false;
+
     static getDefaultProfile(isNew, messagesString, contextData, userPrompt) {
+        if (this.isLogging) {
+            console.log({ isNew, messagesString, contextData, userPrompt });
+        }
         this.profile = [
             {
                 role: "system",

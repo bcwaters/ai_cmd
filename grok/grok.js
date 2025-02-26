@@ -65,26 +65,72 @@ function parseCommandLineArgs() {
         }
     } else if (args.length > 0) {
         userPrompt = args.join(" ");
+    }parseCommandLineArgs
+
+    let indexOfPrompt = args.indexOf("PROMPT");
+    if (indexOfPrompt != -1) {
+        userPrompt = args[indexOfPrompt + 1];
     }
 
     return { userPrompt, isShort, isNew, setContext, depth };
 }
 
+function cleanString(string) {
+    return string.replaceAll("```json", "")
+    .replaceAll("```", "")
+    .replaceAll(" ", "")
+    .replaceAll("\n", "")
+    .replaceAll("\\", "")
+    .replaceAll("'", "")
+    .replaceAll("\"", "")
+    .replaceAll(":", "")
+    .replaceAll(",", "")
+    .replaceAll(".", "")
+    .replaceAll("-", "")
+    .replaceAll("_", "")
+    .replaceAll("*", "")
+    .replaceAll("`", "")
+    .replaceAll("~", "")
+    .replaceAll("^", "")
+    .replaceAll("=", "")
+    .replaceAll("(", "")
+    .replaceAll(")", "")
+    .replaceAll("[", "")
+    .replaceAll("]", "")
+    .replaceAll("{", "")
+    .replaceAll("}", "")
+    .replaceAll(";", "")
+    .replaceAll(":", "")
+}
+
 // Read and parse the context file
-async function getConversationContext(setContext) {
+async function getConversationContext(setContext, isNew) {
     try {
-       
+        console.log(colors.green, "setContext", setContext, colors.reset);
+        //TODO FIX CONTEXT HSITRY for new flag
         if (setContext == "") {
             const context = await fs.readFile('./grok/context/currentChat/currentChat.json', "utf8");
             const parsedContext = JSON.parse(context);
-            const messages = parsedContext.choices[0].message;
-            return JSON.stringify(messages.content) || "";
+           
+            const messages = parsedContext.choices[0]
+            console.log(colors.green, "parsedContext", messages.message.content, colors.reset);
+            let messageContent = messages.message.content;
+        
+            messageContent = cleanString(messageContent);
+   
+            return messageContent || "Error returning context";
         } else {
       
             const context = await fs.readFile('./grok/context/history/' + setContext + '.json', "utf8");
             const parsedContext = JSON.parse(context);
-            const messages = parsedContext.choices[0].message;
-            return JSON.stringify(messages.content) || "";
+           
+            const messages = parsedContext.choices[0]
+            console.log(colors.green, "parsedContextSET", messages.message.content, colors.reset);
+            let messageContent = messages.message.content;
+          
+            messageContent = cleanString(messageContent);
+
+            return messageContent || "Error returning context for " + setContext;
         }
     } catch (error) {
         console.error("Error reading or processing the context file:", error);
@@ -100,9 +146,10 @@ function createApiRequest(userPrompt, messagesString, isNew, isShort, contextDat
         profile = "short";
     }
   
+    PromptProfile.isLogging = true;
         messages = PromptProfile.getDefaultProfile(isNew, messagesString, contextData, userPrompt); // Load the array from the default file
     
-    console.log(colors.green, "messages", messages, colors.reset);
+    console.log(colors.green, "messages", JSON.stringify(messages, null, 4), colors.reset);
   
 
 
@@ -132,7 +179,7 @@ async function saveResponses(completion, userPrompt, responseId, contextHistoryL
     
     // Open currentChat.html in the default browser
     const openCommand = os.platform() === 'win32' ? 'start' : 'open';
-    exec(`${openCommand} ./grok/context/currentChat/${responseId}.html`, (err) => {
+    exec(`${openCommand} ./grok/context/currentChat/currentChat.html`, (err) => {
         if (err) {
             console.error("Error opening the HTML file:", err);
         }
@@ -241,6 +288,20 @@ async function saveContextFiles(fullResponseId, jsonContent, completion, markdow
         markdownContent,
         "utf8"
     );
+
+    await fs.writeFile(
+        `./grok/context/currentChat/markdown/${fullResponseId}.md`,
+        markdownContent,
+        "utf8"
+    );
+
+    await fs.writeFile(
+        `./grok/context/html/markdown/${fullResponseId}.md`,
+        markdownContent,
+        "utf8"
+    );
+    
+    
     //I think these prompts can be used to profile the user and make a better system prompt
     return priorContextId;
 }
@@ -317,7 +378,9 @@ async function moveContextFile() {
 async function main() {
     const { userPrompt, isShort, isNew, setContext, depth } = parseCommandLineArgs();
     let contextHistoryLength = depth/500;
-    const messagesString = await getConversationContext(setContext); // Ensure context is fetched based on setContext
+    const messagesString = await getConversationContext(setContext, isNew); // Ensure context is fetched based on setContext
+    
+    console.log(colors.green, "PARSED MESSAGE STATUS", messagesString, colors.reset);
     const contextData = await fs.readFile("./grok/context/context.data", "utf8");
   
  
@@ -330,7 +393,8 @@ async function main() {
     await saveResponses(completion, userPrompt, responseId, contextHistoryLength, depth);
     console.log( "current contextId", colors.blue, responseId, colors.reset);
     console.log(logDivider);
-    
+
+    console.log(colors.green, "Tokens used", colors.yellow, "prompt:", colors.reset, completion.usage.prompt_tokens, colors.yellow, "completion:", colors.reset, completion.usage.completion_tokens, colors.reset);
     //write settings to ../.grokRuntime
     await fs.writeFile(".grokRuntime", `depthState=${depth}\nnewState=""\nsetContextState=${responseId}`);
     return responseId;

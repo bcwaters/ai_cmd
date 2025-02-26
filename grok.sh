@@ -122,7 +122,7 @@ while true; do
     else
         echo "grokking..."
         # Run node with the absolute path to grok.js and the provided prompt
-        node --no-warnings /home/bcwaters/repo/grok_cmd/grok_cmd/grok/grok.js $flags "$prompt" &
+        node --no-warnings /home/bcwaters/repo/grok_cmd/grok_cmd/grok/grok.js $flags "PROMPT" "$prompt" &
         spin $!  # Start spinner while waiting for the node process
     fi
     fi

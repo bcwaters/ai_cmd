@@ -27,6 +27,7 @@ now to query grok run ```./grok.sh "your prompt" ```
   update CMD prompt to show current flags selected
   
   more robust cmd options
+    -doc mode.  keep writing the doc . this appends the final prompt to say up the the document and retun the full reposne
     --update mode.  appends additional profile user prompts
     dynamic context setting.
      set root context for quick switching
@@ -35,6 +36,9 @@ now to query grok run ```./grok.sh "your prompt" ```
     set context depth: default of 1 but it can be increased at the cost of larger api calls.
     when displaying the context id display the parent context and any current children
     set the context hirtory length
+    a file option to load a file form the specified path the user givesj
+    image mode to switch models
+    a flag to switch the model
 
   Encapulate system prompt in a file and load it.
      allow for different profiles
