@@ -37,22 +37,23 @@ function parseCommandLineArgs() {
     const args = process.argv.slice(2);
     //console.log(...args);
     let userPrompt = "Default prompt if none provided";
-    let isShort = false;
+    let depth = 500;
     let isNew = false;
     let setContext = "";
 
-    if (args.includes("--short")) {
-        isShort = true;
-        const promptIndex = args.indexOf("--short") + 1;
-        if (promptIndex < args.length) {
-            userPrompt = args.slice(promptIndex).join(" ");
+    let isShort = false;
+
+    if (args.includes("--depth")) {
+      
+        const depthIndex = args.indexOf("--depth") + 1;
+        if (depthIndex < args.length) {
+            depth = args[depthIndex];
         }
-    } if (args.includes("--new")) {
+    } 
+    //BUG ALERT this my cause issues since new has no value
+    if (args.includes("--new")) {
         isNew = true;
-        const promptIndex = args.indexOf("--new") + 1;
-        if (promptIndex < args.length) {
-            userPrompt = args.slice(promptIndex).join(" ");
-        }
+
     }  if (args.includes("--setContext")) {
         const contextIndex = args.indexOf("--setContext") + 1;
      
@@ -66,7 +67,7 @@ function parseCommandLineArgs() {
         userPrompt = args.join(" ");
     }
 
-    return { userPrompt, isShort, isNew, setContext };
+    return { userPrompt, isShort, isNew, setContext, depth };
 }
 
 // Read and parse the context file
@@ -112,18 +113,18 @@ function createApiRequest(userPrompt, messagesString, isNew, isShort, contextDat
 }
 
 // Save response to files
-async function saveResponses(completion, userPrompt, responseId, contextHistoryLength) {
+async function saveResponses(completion, userPrompt, responseId, contextHistoryLength, depth) {
     //console.log("saving responses called");
 
 
 
     const content = completion.choices[0].message.content.replace(/\\n/g, '\n');
-    console.log(colors.green, "content", content, colors.reset);
+    console.log(colors.yellow, "\n\ncontent", colors.green, content, colors.reset);
     const [markdownContent, jsonContent] = content.split("@EOF@");
     console.log(colors.green, "markdownContent", colors.reset, markdownContent);
     console.log(colors.green, "jsonContent", colors.reset, jsonContent);
 
-    let priorContextId = await saveContextFiles(responseId, jsonContent, completion, markdownContent);
+    let priorContextId = await saveContextFiles(responseId, jsonContent, completion, markdownContent, depth);
     await saveHtmlResponse(userPrompt, responseId, markdownContent, priorContextId);
     await saveMarkdownResponse(userPrompt, responseId, markdownContent);
     await savePreviousId(responseId, userPrompt, contextHistoryLength);
@@ -213,7 +214,7 @@ function preprocessResponse(response) {
 
 
 
-async function saveContextFiles(fullResponseId, jsonContent, completion, markdownContent) {
+async function saveContextFiles(fullResponseId, jsonContent, completion, markdownContent, depth) {
     // Save context files
     let priorContextId = await moveContextFile();
 
@@ -227,7 +228,7 @@ async function saveContextFiles(fullResponseId, jsonContent, completion, markdow
         console.error("Error reading the old summary.json:", error);
     }
   
-    await appendToContext(jsonContent, 1000);
+    await appendToContext(jsonContent, depth);
     await fs.writeFile("./grok/context/currentChat/summary.json", JSON.stringify(jsonContent));
     await fs.writeFile('./grok/context/currentChat/currentChat.json', JSON.stringify(completion));
     await fs.writeFile(
@@ -240,12 +241,19 @@ async function saveContextFiles(fullResponseId, jsonContent, completion, markdow
         markdownContent,
         "utf8"
     );
+    //I think these prompts can be used to profile the user and make a better system prompt
     return priorContextId;
 }
 
 async function appendToContext(newContent, MAX_CONTEXT_LENGTH) {
+    if (typeof newContent !== 'string') {
+        console.error("newContent is not a valid string:", newContent);
+        return; // Exit the function if newContent is invalid
+    }
+    
+    
     let contextData = await fs.readFile("./grok/context/context.data", "utf8");
-    //console.log("\n\nnewContent", newContent);
+    newContent = newContent.replaceAll("[", "").replaceAll("]", "");
     let newContextDataKeywords = newContent.split(",");
     newContextDataKeywords.forEach(element => {
         contextData = contextData.replaceAll(element, "");
@@ -255,11 +263,22 @@ async function appendToContext(newContent, MAX_CONTEXT_LENGTH) {
     contextData =  newContent + contextData;
     contextData = contextData.replaceAll("KEYWORDS", "");
  
+    //CONTEXT can be improved by having separate lists. one is composed of Headings. another is keywords.
     contextData = contextData.substring(0, MAX_CONTEXT_LENGTH);
-    contextData = contextData.replaceAll(/\\n/g, '').replaceAll(/\\/g, '').replaceAll(/"/g, '').replaceAll(/'/g, "").replaceAll(/\n/g, '').replaceAll(/` `/g, '');
+    contextData = contextData
+    .replaceAll(/\\n/g, '')
+    .replaceAll(/\\/g, '')
+    .replaceAll(/"/g, '')
+    .replaceAll(/'/g, "")
+    .replaceAll(/\n/g, '')
+    .replaceAll(/` `/g, '')
+    .replaceAll("[", "")
+    .replaceAll("]", "");
+
     console.log(logDivider);
     console.log(colors.green, "Current Subject:",colors.reset, newContent);
     console.log(logDivider);
+    console.log(colors.green, "Current Context[",MAX_CONTEXT_LENGTH,"]:",colors.reset, contextData);
     console.log(logDivider);
     await fs.writeFile("./grok/context/context.data", contextData);
 
@@ -296,8 +315,8 @@ async function moveContextFile() {
 
 // Main function
 async function main() {
-    const { userPrompt, isShort, isNew, setContext } = parseCommandLineArgs();
-    let contextHistoryLength = 3;
+    const { userPrompt, isShort, isNew, setContext, depth } = parseCommandLineArgs();
+    let contextHistoryLength = depth/500;
     const messagesString = await getConversationContext(setContext); // Ensure context is fetched based on setContext
     const contextData = await fs.readFile("./grok/context/context.data", "utf8");
   
@@ -308,9 +327,12 @@ async function main() {
     const completion = await openai.chat.completions.create(finalRequest);
     const responseId = completion.id.substring(0, 8);
 
-    await saveResponses(completion, userPrompt, responseId, contextHistoryLength);
+    await saveResponses(completion, userPrompt, responseId, contextHistoryLength, depth);
     console.log( "current contextId", colors.blue, responseId, colors.reset);
     console.log(logDivider);
+    
+    //write settings to ../.grokRuntime
+    await fs.writeFile(".grokRuntime", `depthState=${depth}\nnewState=""\nsetContextState=${responseId}`);
     return responseId;
 
 }

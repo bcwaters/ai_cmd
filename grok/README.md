@@ -51,4 +51,5 @@ now to query grok run ```./grok.sh "your prompt" ```
 
   cursor rule for debugging: That fixed it.  The jpeg is encoding. If possible can you generate a readme doc which gives an overview of our troubleshotting process for casting uint8
 
+  improve the context file structure to be more robust. KEYWORDS HEADINGS PROMPTS USESRPROFILE 
 

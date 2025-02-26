@@ -21,3 +21,4 @@ grok/context/responses/*
 grok/context/context.history
 grok/context/currentChat/*.html
 grok/context/html/*
+grok/context/markdown/*

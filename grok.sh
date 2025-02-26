@@ -45,15 +45,37 @@ spin() {
 }
 
 # Continuously receive prompts until "exit" is typed
+firstRun=true
 while true; do
+    if [ $firstRun = true ]; then
+
+        # Declare variables for commands
+        setContext="setContext"
+        new="new"
+        depth="depth"
+        flags=""
+        displayContext=""
+        displayNew=""
+        displayDepth="--depth 500"
+        source .grokRuntime
+        firstRun=false
+        displayContext=$contextState
+        displayNew=$newState
+        displayDepth=$depthState
+        echo -e "current settings: \e[34m[ $contextState]\e[0m \e[32m[ $newState]\e[0m \e[33m[ $depthState]\e[0m"
+    fi
+    #GOTO here
+    #branch feature added next    
     # Prompt the user for input
+    echo -e "\e[30m--------------------------------\e[0m"
     echo -e "type \e[34msetContext\e[0m to set the context" 
     echo -e "type \e[32mnew\e[0m to start a new conversation"
-    echo -e "type \e[33mshort\e[0m to get a short answer."
+    echo -e "type \e[33mdepth\e[0m set the context depth for better memory"
     echo -e "type \e[31mexit\e[0m to quit"
 
-    echo ""
-
+    echo -e "\e[30m--------------------------------\e[0m"
+    echo -e "current settings: \e[34m[ $displayContext]\e[0m \e[32m[ $displayNew]\e[0m \e[33m[ $displayDepth]\e[0m"
+    echo -e "\e[30m--------------------------------\e[0m"
     read -p "enter you prompt: " prompt
 
     # Check if the user wants to exit
@@ -66,30 +88,46 @@ while true; do
     if [ "$prompt" == "setContext" ]; then
         echo -e "\e[32mSetting context...\e[0m"
         read -p "Enter the context: " context
-        read -p "[context:$context] Enter your question or prompt (type 'exit' to quit): " prompt
+  
+        #GOTO begining of loop
+        context=$context
+        flags="$flags --setContext $context"
+        displayContext="$context"
+        continue
         node --no-warnings /home/bcwaters/repo/grok_cmd/grok_cmd/grok/grok.js "--setContext" "$context" "$prompt" &
         spin $!  # Start spinner while waiting for the node process
     else
     if [ "$prompt" == "new" ]; then 
         # Run node with the absolute path to grok.js and the provided prompt
-        read -p "Enter your question or prompt (type 'exit' to quit): " prompt
+
+        new=$prompt
+        flags="$flags --new" 
+        displayNew="$new"
+        continue
         node --no-warnings /home/bcwaters/repo/grok_cmd/grok_cmd/grok/grok.js "--new" "$prompt" &
         spin $!  # Start spinner while waiting for the node process
     else
-    if [ "$prompt" == "short" ]; then
+    if [ "$prompt" == "depth" ]; then
         # Run node with the absolute path to grok.js and the provided prompt
         echo " " 
-        echo -e "\e[33mHow many words max? 1 to 16000\e[0m"
-        read -p "Enter the short value: " shortValue
-        read -p "[short:$shortValue] Enter your question or prompt (type 'exit' to quit): " prompt
-        node --no-warnings /home/bcwaters/repo/grok_cmd/grok_cmd/grok/grok.js "--short" "$shortValue" "$prompt" &
+        echo -e "\e[33mHow many words stored in context memory? 1 to 10000\e[0m"
+        read -p "Enter the depth value(default 500): " depthValue
+
+        depth=$depthValue
+        flags="$flags --depth $depthValue"
+        displayDepth="$depthValue"
+        continue
+        node --no-warnings /home/bcwaters/repo/grok_cmd/grok_cmd/grok/grok.js "--depth" "$depthValue" "$prompt" &
         spin $!  # Start spinner while waiting for the node process
     else
+        echo "grokking..."
         # Run node with the absolute path to grok.js and the provided prompt
-        node --no-warnings /home/bcwaters/repo/grok_cmd/grok_cmd/grok/grok.js "$prompt" &
+        node --no-warnings /home/bcwaters/repo/grok_cmd/grok_cmd/grok/grok.js $flags "$prompt" &
         spin $!  # Start spinner while waiting for the node process
     fi
     fi
     fi
+    firstRun=true
+
     
 done
