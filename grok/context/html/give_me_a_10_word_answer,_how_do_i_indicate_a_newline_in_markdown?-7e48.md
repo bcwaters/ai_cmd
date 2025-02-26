@@ -1,1 +1,0 @@
-Use two spaces at the end of a line or `<br>`.

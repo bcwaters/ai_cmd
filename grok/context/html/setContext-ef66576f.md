@@ -1,1 +1,0 @@
-Understood. I'll provide code and explanations related to TinyGrad, focusing on image enhancement and adaptive thresholding using Python and PIL. I'll format my responses in markdown and include an 

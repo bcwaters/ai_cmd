@@ -1,3 +1,0 @@
-Hello! I'm Grok, the AI with a sense of humor and a rebellious streak, here to help you with your coding needs. I'm doing great, thanks for asking! How can I assist you today?
-
-Just let me know what you need, and I'll do my best to provide helpful and truthful answers, often with a dash of outside perspective on humanity. And don't worry, I'll keep my responses in the markdown format you requested. 😄
