@@ -143,7 +143,7 @@ async function saveHtmlResponse(userPrompt, responseId, markdownContent, priorCo
     //let pwd = process.cwd();
     //console.log("pwd", pwd);
     // Save HTML response
-    let indexHtml = await fs.readFile('./template.html', "utf8");
+    let indexHtml = await fs.readFile('./grok/template.html', "utf8");
     markdownContent =  markdownContent + "\ResponseID:" + responseId ;
     let sanitizedMarkdownContent = preprocessResponse(markdownContent);
 

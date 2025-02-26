@@ -18,6 +18,6 @@ grok/context/currentChat/html/*
 grok/context/history/*
 grok/context/fullCompletion/*
 grok/context/responses/*
-grok/context/context.data
+grok/context/context.history
 grok/context/currentChat/*.html
-grok/context/currentChat/*.md
+grok/context/html/*
