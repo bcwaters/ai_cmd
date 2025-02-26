@@ -16,7 +16,9 @@ const colors = {
     red: "\x1b[31m",
     green: "\x1b[32m",
     yellow: "\x1b[33m",
-    blue: "\x1b[34m"
+    blue: "\x1b[34m",
+    purple: "\x1b[35m",
+    cyan: "\x1b[36m"
   };
 
 // Initialize DOMPurify with JSDOM
@@ -40,7 +42,7 @@ function parseCommandLineArgs() {
     let depth = 500;
     let isNew = false;
     let setContext = "";
-
+    let filePath = "";
     let isShort = false;
 
     if (args.includes("--depth")) {
@@ -50,6 +52,12 @@ function parseCommandLineArgs() {
             depth = args[depthIndex];
         }
     } 
+    if (args.includes("--file")) {
+        const filePathIndex = args.indexOf("--file") + 1;
+        if (filePathIndex < args.length) {
+            filePath = args[filePathIndex];
+        }
+    }
     //BUG ALERT this my cause issues since new has no value
     if (args.includes("--new")) {
         isNew = true;
@@ -65,14 +73,14 @@ function parseCommandLineArgs() {
         }
     } else if (args.length > 0) {
         userPrompt = args.join(" ");
-    }parseCommandLineArgs
+    }
 
     let indexOfPrompt = args.indexOf("PROMPT");
     if (indexOfPrompt != -1) {
         userPrompt = args[indexOfPrompt + 1];
     }
 
-    return { userPrompt, isShort, isNew, setContext, depth };
+    return { userPrompt, isShort, isNew, setContext, depth, filePath };
 }
 
 function cleanString(string) {
@@ -106,14 +114,14 @@ function cleanString(string) {
 // Read and parse the context file
 async function getConversationContext(setContext, isNew) {
     try {
-        console.log(colors.green, "setContext", setContext, colors.reset);
+        //console.log(colors.green, "setContext", setContext, colors.reset);
         //TODO FIX CONTEXT HSITRY for new flag
         if (setContext == "") {
             const context = await fs.readFile('./grok/context/currentChat/currentChat.json', "utf8");
             const parsedContext = JSON.parse(context);
            
             const messages = parsedContext.choices[0]
-            console.log(colors.green, "parsedContext", messages.message.content, colors.reset);
+            //console.log(colors.green, "parsedContext", messages.message.content, colors.reset);
             let messageContent = messages.message.content;
         
             messageContent = cleanString(messageContent);
@@ -125,7 +133,7 @@ async function getConversationContext(setContext, isNew) {
             const parsedContext = JSON.parse(context);
            
             const messages = parsedContext.choices[0]
-            console.log(colors.green, "parsedContextSET", messages.message.content, colors.reset);
+            //console.log(colors.green, "parsedContextSET", messages.message.content, colors.reset);
             let messageContent = messages.message.content;
           
             messageContent = cleanString(messageContent);
@@ -139,7 +147,7 @@ async function getConversationContext(setContext, isNew) {
 }
 
 // Create the request object for the API
-function createApiRequest(userPrompt, messagesString, isNew, isShort, contextData, setContext) {
+function createApiRequest(userPrompt, messagesString, isNew, isShort, contextData, setContext, filePath) {
     let profile = "default";
     let messages = [];
     if (isShort) {
@@ -149,7 +157,7 @@ function createApiRequest(userPrompt, messagesString, isNew, isShort, contextDat
     PromptProfile.isLogging = true;
         messages = PromptProfile.getDefaultProfile(isNew, messagesString, contextData, userPrompt); // Load the array from the default file
     
-    console.log(colors.green, "messages", JSON.stringify(messages, null, 4), colors.reset);
+    console.log(colors.green, "Prompt Sent to Grok", colors.reset, JSON.stringify(messages, null, 4));
   
 
 
@@ -166,11 +174,10 @@ async function saveResponses(completion, userPrompt, responseId, contextHistoryL
 
 
     const content = completion.choices[0].message.content.replace(/\\n/g, '\n');
-    console.log(colors.yellow, "\n\ncontent", colors.green, content, colors.reset);
+    console.log(colors.yellow, "\n\nunprocessed response", colors.green, content, colors.reset);
     const [markdownContent, jsonContent] = content.split("@EOF@");
-    console.log(colors.green, "markdownContent", colors.reset, markdownContent);
-    console.log(colors.green, "jsonContent", colors.reset, jsonContent);
-
+    //console.log(colors.green, "markdownContent", colors.reset, markdownContent);
+ 
     let priorContextId = await saveContextFiles(responseId, jsonContent, completion, markdownContent, depth);
     await saveHtmlResponse(userPrompt, responseId, markdownContent, priorContextId);
     await saveMarkdownResponse(userPrompt, responseId, markdownContent);
@@ -351,6 +358,7 @@ async function savePreviousId(responseId, userPrompt, contextHistoryLength){
     parsedPreviousId.push({id: responseId, prompt: userPrompt});
     await fs.writeFile("./grok/context/context.history", JSON.stringify(parsedPreviousId));
     console.log(logDivider);
+    
     console.log(colors.green, "\nPrevious Context", colors.reset);
 
     // Log only the last 3 context entries
@@ -376,15 +384,16 @@ async function moveContextFile() {
 
 // Main function
 async function main() {
-    const { userPrompt, isShort, isNew, setContext, depth } = parseCommandLineArgs();
+    const { userPrompt, isShort, isNew, setContext, depth ,filePath} = parseCommandLineArgs();
+
     let contextHistoryLength = depth/500;
     const messagesString = await getConversationContext(setContext, isNew); // Ensure context is fetched based on setContext
     
-    console.log(colors.green, "PARSED MESSAGE STATUS", messagesString, colors.reset);
+    //console.log(colors.green, "PARSED MESSAGE STATUS", messagesString, colors.reset);
     const contextData = await fs.readFile("./grok/context/context.data", "utf8");
   
  
-    setContext ? console.log(colors.green, "\ncontextID:",colors.reset, setContext,"\n") : console.log(colors.green, "\n", colors.reset); // Log the setContext for debugging
+    //setContext ? console.log(colors.green, "\ncontextID:",colors.reset, setContext,"\n") : console.log(colors.green, "\n", colors.reset); // Log the setContext for debugging
     console.log("*---------------------*")
     const finalRequest = createApiRequest(userPrompt, messagesString, isNew, isShort, contextData, setContext);
     const completion = await openai.chat.completions.create(finalRequest);
@@ -392,6 +401,7 @@ async function main() {
 
     await saveResponses(completion, userPrompt, responseId, contextHistoryLength, depth);
     console.log( "current contextId", colors.blue, responseId, colors.reset);
+    console.log(colors.purple, "\nfile used:", colors.reset, filePath?filePath:"none");
     console.log(logDivider);
 
     //TODO harded code price function should be dynamic for differnt models.

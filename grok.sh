@@ -53,16 +53,19 @@ while true; do
         setContext="setContext"
         new="new"
         depth="depth"
+        file=""
         flags=""
         displayContext=""
         displayNew=""
         displayDepth="--depth 500"
+        displayFile=""
         source .grokRuntime
         firstRun=false
         displayContext=$contextState
         displayNew=$newState
         displayDepth=$depthState
-        echo -e "current settings: \e[34m[ $contextState]\e[0m \e[32m[ $newState]\e[0m \e[33m[ $depthState]\e[0m"
+        displayFile=$fileState
+        echo -e "Loaded State: \e[34m[ $contextState]\e[0m \e[32m[ $newState]\e[0m \e[33m[ $depthState]\e[0m \e[35m[ $fileState]\e[0m"
     fi
     #GOTO here
     #branch feature added next    
@@ -71,10 +74,11 @@ while true; do
     echo -e "type \e[34msetContext\e[0m to set the context" 
     echo -e "type \e[32mnew\e[0m to start a new conversation"
     echo -e "type \e[33mdepth\e[0m set the context depth for better memory"
+    echo -e "type \e[35mfile\e[0m to load a file"
     echo -e "type \e[31mexit\e[0m to quit"
 
     echo -e "\e[30m--------------------------------\e[0m"
-    echo -e "current settings: \e[34m[ $displayContext]\e[0m \e[32m[ $displayNew]\e[0m \e[33m[ $displayDepth]\e[0m"
+    echo -e "current settings: \e[34m[ $displayContext]\e[0m \e[32m[ $displayNew]\e[0m \e[33m[ $displayDepth]\e[0m \e[35m[ $displayFile]\e[0m"
     echo -e "\e[30m--------------------------------\e[0m"
     read -p "enter you prompt: " prompt
 
@@ -82,6 +86,14 @@ while true; do
     if [ "$prompt" == "exit" ]; then
         echo -e "\e[31mExiting...\e[0m"
         break
+    fi
+    if [ "$prompt" == "file" ]; then
+        echo -e "\e[35mLoading file...\e[0m"
+        read -p "Enter the file path: " filePath
+        flags="$flags --file $filePath"
+        file=$filePath
+        displayFile=$filePath
+        continue
     fi
 
     # Check if the user wants to set the context
