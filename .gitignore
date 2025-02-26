@@ -8,3 +8,8 @@ grok/context/responses/*
 node_modules/*
 grok/context/context.data
 grok/context/currentChat/*.html
+grok_cmd/
+docker-compose.yml
+docs/
+grok-nest-ms/
+infrastructure/

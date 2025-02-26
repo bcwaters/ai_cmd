@@ -8,6 +8,8 @@ import { JSDOM } from 'jsdom';
 import createDOMPurify from 'dompurify';
 import { marked } from 'marked';
 
+const logDivider = "*---------------------*";
+
 // Initialize DOMPurify with JSDOM
 const window = new JSDOM('').window;
 const DOMPurify = createDOMPurify(window);
@@ -138,7 +140,7 @@ async function saveResponses(completion, userPrompt, responseId) {
     let priorContextId = await saveContextFiles(fullResponseId, jsonContent, completion, markdownContent);
     await saveHtmlResponse(userPrompt, fullResponseId, markdownContent, priorContextId);
     await saveMarkdownResponse(userPrompt, responseId, markdownContent);
-
+    await savePreviousId(responseId, userPrompt);
   
     
     // Open currentChat.html in the default browser
@@ -185,9 +187,9 @@ async function saveHtmlResponse(userPrompt, responseId, markdownContent, priorCo
 }
 
 async function saveMarkdownResponse(userPrompt, responseId, markdownContent) {
-    console.log("-----------------------------------------------");
+    console.log(logDivider);
     console.log("markdownContent", markdownContent);
-    console.log("-----------------------------------------------");
+    console.log(logDivider);
     // Save markdown response
     await fs.writeFile(
         `./grok/context/responses/${userPrompt.replaceAll(" ", "_").replaceAll(":", "_").replaceAll("/", "_").replaceAll(".", "").substring(0, 40)}-${responseId}.md`,
@@ -263,12 +265,28 @@ async function appendToContext(newContent, MAX_CONTEXT_LENGTH) {
  
     contextData = contextData.substring(0, MAX_CONTEXT_LENGTH);
     contextData = contextData.replaceAll(/\\n/g, '').replaceAll(/\\/g, '').replaceAll(/"/g, '').replaceAll(/'/g, "").replaceAll(/\n/g, '').replaceAll(/` `/g, '');
-    console.log("-----------------------------------------------");
+    console.log(logDivider);
     console.log("Current Subject:", newContent);
-    console.log("-----------------------------------------------");
-    console.log("-----------------------------------------------");
+    console.log(logDivider);
+    console.log(logDivider);
     await fs.writeFile("./grok/context/context.data", contextData);
 
+}
+
+async function savePreviousId(responseId, userPrompt){
+    let previousId = await fs.readFile("./grok/context/previousId", "utf8");
+    let parsedPreviousId = JSON.parse(previousId);
+    parsedPreviousId.push({id: responseId, prompt: userPrompt});
+    await fs.writeFile("./grok/context/previousId", JSON.stringify(parsedPreviousId));
+    console.log(logDivider);
+    console.log("\nPrevious Context")
+    parsedPreviousId.forEach(element => {
+        
+        console.log("ID:", element.id,  "\nPrompt:\n", element.prompt);
+        console.log(" - - - - - - - - - - - - -");
+    });
+    console.log(logDivider);
+    return parsedPreviousId;
 }
 
 async function moveContextFile() {
