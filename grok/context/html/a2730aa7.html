@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+    <button id="openSavedChats" onclick="selectSavedChat()">Open Saved Chats</button>
+    <a id="previous" href="../responses/d13c9d15.html?responseId=a2730aa7">Previous</a>
+    <a id="next" href="../responses/@NEXT_ID@.html">Next</a>
+  </nav>
+
+  <div id="content"></div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  ""+ filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../responses/" + responseId + ".html";
+      }
+    </script>
+   <script> let unprocessedReadme = 'To ensure that `marked.js` properly parses the responses, you can take several preprocessing steps. Here are a few suggestions:\n\n1. **Remove or Escape Special Characters**:\n   - Use `response.replaceAll(/[^\\x20-\\x7E]/g, \'\')` to remove non-ASCII characters.\n   - Use `response.replaceAll(\'\\\\\', \'\\\\\\\\\')` to escape backslashes.\n   - Use `response.replaceAll(\'&\', \'&amp;\')` to escape ampersands.\n\n2. **Normalize Line Breaks**:\n   - Use `response.replaceAll(\'\\r\n\', \'\n\').replaceAll(\'\\r\', \'\n\')` to ensure consistent line breaks.\n\n3. **Trim Extra Whitespace**:\n   - Use `response.trim()` to remove leading and trailing whitespace.\n   - Use `response.replaceAll(/\\s+/g, \' \')` to replace multiple whitespace characters with a single space.\n\n4. **Check Markdown Syntax**:\n   - Ensure that code blocks are properly formatted with triple backticks (```).\n   - Verify that headers are correctly formatted with appropriate number of `#` symbols.\n\n5. **Validate HTML Tags**:\n   - Ensure that HTML tags within the markdown are properly closed and nested.\n\nHere\'s an example of how you might preprocess the string:\n\n```javascript\nfunction preprocessResponse(response) {\n  return response\n    .replaceAll(/[^\\x20-\\x7E]/g, \'\') // Remove non-ASCII characters\n    .replaceAll(\'\\\\\', \'\\\\\\\\\') // Escape backslashes\n    .replaceAll(\'&\', \'&amp;\') // Escape ampersands\n    .replaceAll(\'\\r\n\', \'\n\').replaceAll(\'\\r\', \'\n\') // Normalize line breaks\n    .trim() // Remove leading and trailing whitespace\n    .replaceAll(/\\s+/g, \' \') // Replace multiple whitespace with a single space\n    // Additional checks for markdown syntax and HTML tags can be added here\n}\n\nconst processedResponse = preprocessResponse(yourResponseString);\n```\n\nBy applying these preprocessing steps, you should be able to ensure that `marked.js` can parse the responses correctly.\n\nResponseID:a2730aa7' ;
+   console.log("unprocessedReadme", unprocessedReadme);
+   </script>
+  <script src="marked.min.js"></script>
+  <script>
+    const content = document.getElementById('content').innerHTML;
+    console.log("processing content", content);
+    document.getElementById('content').innerHTML =
+      marked.parse('To ensure that `marked.js` properly parses the responses, you can take several preprocessing steps. Here are a few suggestions:\n\n1. **Remove or Escape Special Characters**:\n   - Use `response.replaceAll(/[^\\x20-\\x7E]/g, \'\')` to remove non-ASCII characters.\n   - Use `response.replaceAll(\'\\\\\', \'\\\\\\\\\')` to escape backslashes.\n   - Use `response.replaceAll(\'&\', \'&amp;\')` to escape ampersands.\n\n2. **Normalize Line Breaks**:\n   - Use `response.replaceAll(\'\\r\n\', \'\n\').replaceAll(\'\\r\', \'\n\')` to ensure consistent line breaks.\n\n3. **Trim Extra Whitespace**:\n   - Use `response.trim()` to remove leading and trailing whitespace.\n   - Use `response.replaceAll(/\\s+/g, \' \')` to replace multiple whitespace characters with a single space.\n\n4. **Check Markdown Syntax**:\n   - Ensure that code blocks are properly formatted with triple backticks (```).\n   - Verify that headers are correctly formatted with appropriate number of `#` symbols.\n\n5. **Validate HTML Tags**:\n   - Ensure that HTML tags within the markdown are properly closed and nested.\n\nHere\'s an example of how you might preprocess the string:\n\n```javascript\nfunction preprocessResponse(response) {\n  return response\n    .replaceAll(/[^\\x20-\\x7E]/g, \'\') // Remove non-ASCII characters\n    .replaceAll(\'\\\\\', \'\\\\\\\\\') // Escape backslashes\n    .replaceAll(\'&\', \'&amp;\') // Escape ampersands\n    .replaceAll(\'\\r\n\', \'\n\').replaceAll(\'\\r\', \'\n\') // Normalize line breaks\n    .trim() // Remove leading and trailing whitespace\n    .replaceAll(/\\s+/g, \' \') // Replace multiple whitespace with a single space\n    // Additional checks for markdown syntax and HTML tags can be added here\n}\n\nconst processedResponse = preprocessResponse(yourResponseString);\n```\n\nBy applying these preprocessing steps, you should be able to ensure that `marked.js` can parse the responses correctly.\n\nResponseID:a2730aa7');
+  </script>
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

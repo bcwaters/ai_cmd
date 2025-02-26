@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+    <button id="openSavedChats" onclick="selectSavedChat()">Open Saved Chats</button>
+    <a id="previous" href="../responses/44e87a60.html?responseId=db202b1c">Previous</a>
+    <a id="next" href="../responses/@NEXT_ID@.html">Next</a>
+  </nav>
+
+  <div id="content"></div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  ""+ filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../responses/" + responseId + ".html";
+      }
+    </script>
+   <script> let unprocessedReadme = '### Extensible Features of Marked.js\n\nMarked.js is highly extensible, allowing developers to customize and enhance its functionality through plugins and options. Here are some of the key extensible features:\n\n1. **Plugins**:\n   Marked.js supports plugins that can modify the parsing and rendering process. You can create custom plugins to add new syntax or alter the output. Here\'s an example of how to create a simple plugin:\n\n   ```javascript\n   const marked = require(\'marked\');\n\n   // Define a plugin\n   const myPlugin = {\n     name: \'my-plugin\',\n     level: \'block\', // Can be \'block\' or \'inline\'\n     start(src) { return src.match(/^:::/)?.index; },\n     tokenizer(src, tokens) {\n       const rule = /^:::\\s*(.*)\\s*\n([\\s\\S]+?)\\s*:::/;\n       const match = rule.exec(src);\n       if (match) {\n         const token = {\n           type: \'my-plugin\',\n           raw: match[0],\n           text: match[2].trim(),\n           title: match[1]\n         };\n         return token;\n       }\n     },\n     renderer(token) {\n       return `<div class=\"my-plugin\"><h3>${token.title}</h3><p>${token.text}</p></div>`;\n     }\n   };\n\n   // Register the plugin\n   marked.use({ extensions: [myPlugin] });\n\n   // Use marked with the plugin\n   const markdown = \':::My Custom Block\nThis is inside the custom block.\n:::\';\n   const html = marked.parse(markdown);\n   console.log(html);\n   ```\n\n   This plugin adds support for a custom block syntax (`:::Title\nContent\n:::`) and renders it as a specific HTML structure.\n\n2. **Options**:\n   Marked.js provides numerous options to configure its behavior. Some key options include:\n\n   - **gfm**: Enable GitHub Flavored Markdown. When set to `true`, it enables features like tables, strikethrough, and autolinks.\n   - **breaks**: Treat `\n` in paragraphs as hard breaks.\n   - **pedantic**: Conform to obscure parts of `markdown.pl` as much as possible. Don\'t fix any of the original markdown bugs or poor behavior.\n   - **sanitize**: Sanitize the output. Ignore any HTML that has been input.\n   - **smartLists**: Use smarter list behavior than the original markdown.\n   - **smartypants**: Use \"smart\" typographic punctuation for things like quotes and dashes.\n\n   Here\'s how you might use some of these options:\n\n   ```javascript\n   const marked = require(\'marked\');\n\n   marked.setOptions({\n     gfm: true,\n     breaks: true,\n     smartLists: true\n   });\n\n   const markdown = \"# Heading\n\n- Item 1\n- Item 2\";\n   const html = marked.parse(markdown);\n   console.log(html);\n   ```\n\n3. **Custom Renderers**:\n   You can also create custom renderers to modify how specific elements are rendered. This is useful for integrating with specific UI frameworks or for custom styling. Here\'s an example of a custom renderer for headings:\n\n   ```javascript\n   const marked = require(\'marked\');\n\n   const renderer = new marked.Renderer();\n\n   renderer.heading = function(text, level) {\n     return `<h${level} class=\"custom-heading\">${text}</h${level}>`;\n   };\n\n   marked.setOptions({\n     renderer: renderer\n   });\n\n   const markdown = \"# Heading\n## Subheading\";\n   const html = marked.parse(markdown);\n   console.log(html);\n   ```\n\nThese extensible features make marked.js a versatile tool for Markdown parsing and rendering, allowing you to tailor it to your specific needs.\n\n---\n\nFollow-up questions you might consider:\n\n1. Are there specific plugins or customizations you\'re interested in exploring further?\n2. Do you need help integrating any of these features into your project?\n3. Are you looking for examples of other libraries that offer similar extensibility?\n\nResponseID:db202b1c' ;
+   console.log("unprocessedReadme", unprocessedReadme);
+   </script>
+  <script src="marked.min.js"></script>
+  <script>
+    document.getElementById('content').innerHTML =
+      marked.parse('### Extensible Features of Marked.js\n\nMarked.js is highly extensible, allowing developers to customize and enhance its functionality through plugins and options. Here are some of the key extensible features:\n\n1. **Plugins**:\n   Marked.js supports plugins that can modify the parsing and rendering process. You can create custom plugins to add new syntax or alter the output. Here\'s an example of how to create a simple plugin:\n\n   ```javascript\n   const marked = require(\'marked\');\n\n   // Define a plugin\n   const myPlugin = {\n     name: \'my-plugin\',\n     level: \'block\', // Can be \'block\' or \'inline\'\n     start(src) { return src.match(/^:::/)?.index; },\n     tokenizer(src, tokens) {\n       const rule = /^:::\\s*(.*)\\s*\n([\\s\\S]+?)\\s*:::/;\n       const match = rule.exec(src);\n       if (match) {\n         const token = {\n           type: \'my-plugin\',\n           raw: match[0],\n           text: match[2].trim(),\n           title: match[1]\n         };\n         return token;\n       }\n     },\n     renderer(token) {\n       return `<div class=\"my-plugin\"><h3>${token.title}</h3><p>${token.text}</p></div>`;\n     }\n   };\n\n   // Register the plugin\n   marked.use({ extensions: [myPlugin] });\n\n   // Use marked with the plugin\n   const markdown = \':::My Custom Block\nThis is inside the custom block.\n:::\';\n   const html = marked.parse(markdown);\n   console.log(html);\n   ```\n\n   This plugin adds support for a custom block syntax (`:::Title\nContent\n:::`) and renders it as a specific HTML structure.\n\n2. **Options**:\n   Marked.js provides numerous options to configure its behavior. Some key options include:\n\n   - **gfm**: Enable GitHub Flavored Markdown. When set to `true`, it enables features like tables, strikethrough, and autolinks.\n   - **breaks**: Treat `\n` in paragraphs as hard breaks.\n   - **pedantic**: Conform to obscure parts of `markdown.pl` as much as possible. Don\'t fix any of the original markdown bugs or poor behavior.\n   - **sanitize**: Sanitize the output. Ignore any HTML that has been input.\n   - **smartLists**: Use smarter list behavior than the original markdown.\n   - **smartypants**: Use \"smart\" typographic punctuation for things like quotes and dashes.\n\n   Here\'s how you might use some of these options:\n\n   ```javascript\n   const marked = require(\'marked\');\n\n   marked.setOptions({\n     gfm: true,\n     breaks: true,\n     smartLists: true\n   });\n\n   const markdown = \"# Heading\n\n- Item 1\n- Item 2\";\n   const html = marked.parse(markdown);\n   console.log(html);\n   ```\n\n3. **Custom Renderers**:\n   You can also create custom renderers to modify how specific elements are rendered. This is useful for integrating with specific UI frameworks or for custom styling. Here\'s an example of a custom renderer for headings:\n\n   ```javascript\n   const marked = require(\'marked\');\n\n   const renderer = new marked.Renderer();\n\n   renderer.heading = function(text, level) {\n     return `<h${level} class=\"custom-heading\">${text}</h${level}>`;\n   };\n\n   marked.setOptions({\n     renderer: renderer\n   });\n\n   const markdown = \"# Heading\n## Subheading\";\n   const html = marked.parse(markdown);\n   console.log(html);\n   ```\n\nThese extensible features make marked.js a versatile tool for Markdown parsing and rendering, allowing you to tailor it to your specific needs.\n\n---\n\nFollow-up questions you might consider:\n\n1. Are there specific plugins or customizations you\'re interested in exploring further?\n2. Do you need help integrating any of these features into your project?\n3. Are you looking for examples of other libraries that offer similar extensibility?\n\nResponseID:db202b1c');
+  </script>
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

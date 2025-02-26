@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+    <button id="openSavedChats" onclick="selectSavedChat()">Open Saved Chats</button>
+    <a id="previous" href="../responses/f22036c0.html?responseId=1df3bb4a">Previous</a>
+    <a id="next" href="../responses/@NEXT_ID@.html">Next</a>
+  </nav>
+
+  <div id="content"></div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  ""+ filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../responses/" + responseId + ".html";
+      }
+    </script>
+   <script> let unprocessedReadme = 'Highlight.js is primarily a syntax highlighting library designed to enhance the readability of code snippets within HTML pages. It is not inherently designed to function as a standalone README previewer. However, it can be integrated into a larger system or tool that renders README files, particularly those containing code blocks, to provide syntax highlighting for those code snippets.\n\nIf you want to create a README previewer that utilizes Highlight.js, you would typically follow these steps:\n\n1. **Parse the README File**: Use a Markdown parser to convert the Markdown content of the README into HTML. Libraries like `marked` or `showdown` can be used for this purpose.\n\n2. **Integrate Highlight.js**: Once the Markdown is converted to HTML, you can apply Highlight.js to the `<code>` elements within the `<pre>` tags to highlight the code blocks. This would involve including the Highlight.js library in your HTML and calling `hljs.highlightAll()` after the DOM is loaded.\n\n3. **Display the Result**: Render the resulting HTML in a web page or a dedicated preview pane within your application.\n\nHere\'s a simple example of how this might look:\n\n```html\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>README Previewer</title>\n    <script src=\"path/to/marked.min.js\"></script>\n    <script src=\"path/to/highlight.min.js\"></script>\n    <link rel=\"stylesheet\" href=\"path/to/styles/default.css\">\n</head>\n<body>\n    <div id=\"readme-content\"></div>\n    <script>\n        const markdown = `# Example README\n\\`\\`\\`javascript\nfunction helloWorld() {\n    console.log(\"Hello, World!\");\n}\n\\`\\`\\`\n`;\n        document.getElementById(\'readme-content\').innerHTML = marked.parse(markdown);\n        hljs.highlightAll();\n    </script>\n</body>\n</html>\n```\n\nIn this setup, Highlight.js enhances the readability of code within the README, but it doesn\'t handle the parsing of Markdown or the overall structure of the README previewer. For a full-fledged README previewer, you would need additional components to handle file loading, navigation, and other features typical of such tools.\n\nResponseID:1df3bb4a' ;
+   console.log("unprocessedReadme", unprocessedReadme);
+   </script>
+  <script src="marked.min.js"></script>
+  <script>
+    document.getElementById('content').innerHTML =
+      marked.parse('Highlight.js is primarily a syntax highlighting library designed to enhance the readability of code snippets within HTML pages. It is not inherently designed to function as a standalone README previewer. However, it can be integrated into a larger system or tool that renders README files, particularly those containing code blocks, to provide syntax highlighting for those code snippets.\n\nIf you want to create a README previewer that utilizes Highlight.js, you would typically follow these steps:\n\n1. **Parse the README File**: Use a Markdown parser to convert the Markdown content of the README into HTML. Libraries like `marked` or `showdown` can be used for this purpose.\n\n2. **Integrate Highlight.js**: Once the Markdown is converted to HTML, you can apply Highlight.js to the `<code>` elements within the `<pre>` tags to highlight the code blocks. This would involve including the Highlight.js library in your HTML and calling `hljs.highlightAll()` after the DOM is loaded.\n\n3. **Display the Result**: Render the resulting HTML in a web page or a dedicated preview pane within your application.\n\nHere\'s a simple example of how this might look:\n\n```html\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>README Previewer</title>\n    <script src=\"path/to/marked.min.js\"></script>\n    <script src=\"path/to/highlight.min.js\"></script>\n    <link rel=\"stylesheet\" href=\"path/to/styles/default.css\">\n</head>\n<body>\n    <div id=\"readme-content\"></div>\n    <script>\n        const markdown = `# Example README\n\\`\\`\\`javascript\nfunction helloWorld() {\n    console.log(\"Hello, World!\");\n}\n\\`\\`\\`\n`;\n        document.getElementById(\'readme-content\').innerHTML = marked.parse(markdown);\n        hljs.highlightAll();\n    </script>\n</body>\n</html>\n```\n\nIn this setup, Highlight.js enhances the readability of code within the README, but it doesn\'t handle the parsing of Markdown or the overall structure of the README previewer. For a full-fledged README previewer, you would need additional components to handle file loading, navigation, and other features typical of such tools.\n\nResponseID:1df3bb4a');
+  </script>
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

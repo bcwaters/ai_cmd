@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+    <button id="openSavedChats" onclick="selectSavedChat()">Open Saved Chats</button>
+    <a id="previous" href="../responses/14ea3317.html?responseId=6844c4b6">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+  </nav>
+
+  <div id="content"><h1>Custom Logger Helper Class</h1>
+<p>Yes, creating a helper class for a custom logger is an excellent approach. Below is an example of how you can structure such a helper class in JavaScript to manage your logging needs effectively:</p>
+<pre><code class="language-javascript">class CustomLogger {
+  constructor() {
+    // Store the original console.log function
+    this.originalLog = console.log;
+
+    // Override console.log with a custom function
+    console.log = (...args) =&gt; {
+      // Your middleware logic here
+      const timestamp = new Date().toISOString();
+      args.unshift(`[${timestamp}]`); // Prepend a timestamp
+
+      // Call the original console.log with modified arguments
+      this.originalLog.apply(console, args);
+    };
+  }
+
+  // Method to log with additional information
+  logWithInfo(message, additionalInfo) {
+    console.log(message, { info: additionalInfo });
+  }
+
+  // Method to restore the original console.log
+  restoreOriginalLog() {
+    console.log = this.originalLog;
+  }
+}
+
+// Usage
+const logger = new CustomLogger();
+logger.logWithInfo(&#39;This is a custom log message&#39;, { user: &#39;John Doe&#39;, action: &#39;login&#39; });
+
+// If needed, restore the original console.log
+// logger.restoreOriginalLog();
+</code></pre>
+<h2>Considerations for a Custom Logger Helper Class</h2>
+<ul>
+<li><strong>Flexibility</strong>: This helper class allows you to easily add or modify logging behavior across your application by extending the class or adding new methods.</li>
+<li><strong>Reusability</strong>: You can instantiate the <code>CustomLogger</code> once and use it across your application, ensuring consistent logging behavior.</li>
+<li><strong>Control</strong>: The ability to restore the original <code>console.log</code> gives you control over when and where the custom logging is applied.</li>
+<li><strong>Additional Features</strong>: You can add more logging methods like <code>logWithInfo</code> to cater to different logging needs, such as logging with additional context or metadata.</li>
+</ul>
+<p>By using a helper class for your custom logger, you can manage and enhance your logging capabilities in a modular and maintainable way.</p>
+<p>ResponseID:6844c4b6</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  ""+ filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../responses/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

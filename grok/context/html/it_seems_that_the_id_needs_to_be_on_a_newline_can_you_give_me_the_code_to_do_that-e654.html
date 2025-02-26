@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+ 
+  <div id="content"></div>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+   
+
+  <script src="marked.min.js"></script>
+  <script>
+    document.getElementById('content').innerHTML =
+      marked.parse('Here\'s the code to ensure that the `id` is placed on a new line:\n\n```markdown\n# Ensuring ID on a New Line\n\nTo place the `id` on a new line, you can use the following Python code snippet. This example assumes you\'re working with a list of dictionaries where each dictionary contains an `id` key among other keys.\n\n```python\ndata = [\n    {\"id\": 1, \"name\": \"Alice\", \"age\": 30},\n    {\"id\": 2, \"name\": \"Bob\", \"age\": 25},\n    # ... more entries ...\n]\n\n# Function to format each dictionary with id on a new line\ndef format_entry(entry):\n    id_line = f\"id: {entry[\'id\']}\"\n    other_lines = [f\"{key}: {value}\" for key, value in entry.items() if key != \'id\']\n    return id_line + \"\n\" + \"\n\".join(other_lines)\n\n# Format all entries\nformatted_data = [format_entry(entry) for entry in data]\n\n# Print the formatted data\nfor entry in formatted_data:\n    print(entry)\n    print()  # Add a blank line between entries for readability\n```\n\nThis code will output each entry with the `id` on its own line, followed by the other key-value pairs. Here\'s an example of what the output might look like:\n\n```\nid: 1\nname: Alice\nage: 30\n\nid: 2\nname: Bob\nage: 25\n```\n\n  ResponseID:e654');
+  </script>
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+    <button id="openSavedChats" onclick="selectSavedChat()">Open Saved Chats</button>
+    <a id="previous" href="../responses/6abad12b.html?responseId=d1b44b10">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+  </nav>
+
+  <div id="content"><h3>Variations on &quot;Pocket Mentor&quot;</h3>
+<p>Here are some variations on the theme of &quot;Pocket Mentor&quot; that could be used to name educational tools or platforms, focusing on the concept of a compact, efficient mentoring system that is easily accessible:</p>
+<ol>
+<li><strong>PocketGuide</strong> - Suggests a compact, portable guide for learning and mentoring.</li>
+<li><strong>PocketCoach</strong> - Implies a coaching tool that is always within reach.</li>
+<li><strong>PocketTutor</strong> - Indicates a tutoring service that is easily accessible and portable.</li>
+<li><strong>PocketInstructor</strong> - Suggests an instructional tool that fits in your pocket for on-the-go learning.</li>
+<li><strong>PocketAdvisor</strong> - Conveys the idea of a portable advisory tool for guidance and mentoring.</li>
+<li><strong>PocketEducator</strong> - Highlights the educational aspect of a compact mentoring tool.</li>
+<li><strong>PocketTrainer</strong> - Emphasizes the training aspect of a mentoring tool that is always accessible.</li>
+</ol>
+<p>These names would be particularly suitable for educational apps or software that aim to provide quick, effective guidance and support in a learning environment, emphasizing portability and ease of access.</p>
+<p>ResponseID:d1b44b10</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  ""+ filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../responses/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

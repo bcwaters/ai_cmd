@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+    <button id="openSavedChats" onclick="selectSavedChat()">Open Saved Chats</button>
+    <a id="previous" href="../responses/af43848c.html?responseId=8a203be5">Previous</a>
+    <a id="next" href="../responses/@NEXT_ID@.html">Next</a>
+  </nav>
+
+  <div id="content"></div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  ""+ filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../responses/" + responseId + ".html";
+      }
+    </script>
+   <script> let unprocessedReadme = 'In most modern IDEs and text editors, there are several keyboard commands for text selection that can significantly boost your productivity. Here are some common selection commands:\n\n### Highlighting the Whole Line\n\nTo highlight the entire line where your cursor is currently positioned, you can typically use the following keyboard shortcut:\n\n- **Windows/Linux**: `Ctrl + L`\n- **Mac**: `Cmd + L`\n\nThis command selects the entire line, allowing you to easily copy, cut, or modify it.\n\n### Other Useful Selection Commands\n\n1. **Select All Text**:\n   - **Windows/Linux**: `Ctrl + A`\n   - **Mac**: `Cmd + A`\n   This command selects all the text in the current document or file.\n\n2. **Select Word**:\n   - **Windows/Linux**: `Ctrl + D` (in some IDEs, this might duplicate the line instead)\n   - **Mac**: `Cmd + D` (same caveat as above)\n   This typically selects the word where the cursor is placed. Note that the exact behavior might differ between IDEs.\n\n3. **Expand Selection**:\n   - **Windows/Linux**: `Ctrl + Shift + Right Arrow` (to expand right) or `Ctrl + Shift + Left Arrow` (to expand left)\n   - **Mac**: `Cmd + Shift + Right Arrow` or `Cmd + Shift + Left Arrow`\n   This command allows you to expand your current selection character by character.\n\n4. **Select to Line End/Start**:\n   - **Windows/Linux**: `Shift + End` (to line end) or `Shift + Home` (to line start)\n   - **Mac**: `Shift + Right Arrow` (to line end) or `Shift + Left Arrow` (to line start)\n   These commands select from the cursor position to the end or start of the line.\n\n5. **Select Multiple Lines**:\n   - **Windows/Linux**: `Shift + Up Arrow` or `Shift + Down Arrow`\n   - **Mac**: `Shift + Up Arrow` or `Shift + Down Arrow`\n   These commands allow you to select multiple lines by moving the cursor up or down while holding the shift key.\n\n### IDE-Specific Commands\n\nSome IDEs might have additional or slightly different commands. For instance:\n\n- **Visual Studio Code**: `Ctrl + L` (Windows/Linux) or `Cmd + L` (Mac) selects the current line, but `Ctrl + D` (Windows/Linux) or `Cmd + D` (Mac) selects the next occurrence of the current selection, which is useful for multiple cursors.\n\n- **Sublime Text**: Similar to VS Code, but `Ctrl + D` (Windows/Linux) or `Cmd + D` (Mac) will select the next occurrence of the current word.\n\n- **Atom**: `Ctrl + L` (Windows/Linux) or `Cmd + L` (Mac) for line selection, and `Ctrl + D` (Windows/Linux) or `Cmd + D` (Mac) for selecting the next occurrence.\n\nRemember, these shortcuts can be customized in most IDEs, so it\'s worth checking your specific IDE\'s settings if these commands don\'t work as expected.\n\nResponseID:8a203be5' ;
+   console.log("unprocessedReadme", unprocessedReadme);
+   </script>
+  <script src="marked.min.js"></script>
+  <script>
+    document.getElementById('content').innerHTML =
+      marked.parse('In most modern IDEs and text editors, there are several keyboard commands for text selection that can significantly boost your productivity. Here are some common selection commands:\n\n### Highlighting the Whole Line\n\nTo highlight the entire line where your cursor is currently positioned, you can typically use the following keyboard shortcut:\n\n- **Windows/Linux**: `Ctrl + L`\n- **Mac**: `Cmd + L`\n\nThis command selects the entire line, allowing you to easily copy, cut, or modify it.\n\n### Other Useful Selection Commands\n\n1. **Select All Text**:\n   - **Windows/Linux**: `Ctrl + A`\n   - **Mac**: `Cmd + A`\n   This command selects all the text in the current document or file.\n\n2. **Select Word**:\n   - **Windows/Linux**: `Ctrl + D` (in some IDEs, this might duplicate the line instead)\n   - **Mac**: `Cmd + D` (same caveat as above)\n   This typically selects the word where the cursor is placed. Note that the exact behavior might differ between IDEs.\n\n3. **Expand Selection**:\n   - **Windows/Linux**: `Ctrl + Shift + Right Arrow` (to expand right) or `Ctrl + Shift + Left Arrow` (to expand left)\n   - **Mac**: `Cmd + Shift + Right Arrow` or `Cmd + Shift + Left Arrow`\n   This command allows you to expand your current selection character by character.\n\n4. **Select to Line End/Start**:\n   - **Windows/Linux**: `Shift + End` (to line end) or `Shift + Home` (to line start)\n   - **Mac**: `Shift + Right Arrow` (to line end) or `Shift + Left Arrow` (to line start)\n   These commands select from the cursor position to the end or start of the line.\n\n5. **Select Multiple Lines**:\n   - **Windows/Linux**: `Shift + Up Arrow` or `Shift + Down Arrow`\n   - **Mac**: `Shift + Up Arrow` or `Shift + Down Arrow`\n   These commands allow you to select multiple lines by moving the cursor up or down while holding the shift key.\n\n### IDE-Specific Commands\n\nSome IDEs might have additional or slightly different commands. For instance:\n\n- **Visual Studio Code**: `Ctrl + L` (Windows/Linux) or `Cmd + L` (Mac) selects the current line, but `Ctrl + D` (Windows/Linux) or `Cmd + D` (Mac) selects the next occurrence of the current selection, which is useful for multiple cursors.\n\n- **Sublime Text**: Similar to VS Code, but `Ctrl + D` (Windows/Linux) or `Cmd + D` (Mac) will select the next occurrence of the current word.\n\n- **Atom**: `Ctrl + L` (Windows/Linux) or `Cmd + L` (Mac) for line selection, and `Ctrl + D` (Windows/Linux) or `Cmd + D` (Mac) for selecting the next occurrence.\n\nRemember, these shortcuts can be customized in most IDEs, so it\'s worth checking your specific IDE\'s settings if these commands don\'t work as expected.\n\nResponseID:8a203be5');
+  </script>
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

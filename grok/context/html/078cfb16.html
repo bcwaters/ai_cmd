@@ -1,0 +1,132 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    <a id="markdown" href="./markdown/078cfb16.md"> markdown</a>
+    <a id="previous" href="../responses/b218f39a.html?responseId=078cfb16">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+  </nav>
+
+  <div id="content"><h1>Gardening in Fayetteville, Arkansas: Starting Your Garden in Early Spring</h1>
+<p>Before we dive into the steps for starting your garden, let&#39;s consider a few important factors specific to your location and timing:</p>
+<ol>
+<li><p><strong>What type of plants are you interested in growing?</strong> Different vegetables and fruits have varying requirements for sunlight, water, and soil type. Knowing what you want to grow will help tailor the advice more accurately.</p>
+</li>
+<li><p><strong>How much space do you have available for your garden?</strong> The size of your garden will influence the types and quantities of plants you can grow. It&#39;s also important for planning the layout and spacing of your plants.</p>
+</li>
+<li><p><strong>Do you have any experience with gardening, or is this your first time?</strong> Your level of experience can affect the complexity of the advice given. For beginners, starting with easier-to-grow plants might be advisable.</p>
+</li>
+<li><p><strong>Are you interested in organic gardening, or are you open to using chemical fertilizers and pesticides?</strong> This decision will impact the methods and products you use in your garden.</p>
+</li>
+</ol>
+<p>Once we have these details, we can proceed with more specific advice on starting your garden in early spring in Fayetteville, Arkansas.</p>
+<h3>Suggested Follow-up Questions:</h3>
+<ul>
+<li>What specific vegetables or fruits are you thinking about planting?</li>
+<li>Do you have a preference for organic gardening methods?</li>
+<li>Have you considered the soil type in your area, and do you know if it needs amendment?</li>
+</ul>
+<p>ResponseID:078cfb16</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+
+  <script>
+    function saveMarkdown() {
+      const content = document.documentElement.outerHTML; // Get the entire HTML content
+
+      let markdownLocation = "./markdown/";
+      let markdownFileName = "078cfb16.md";
+      let markdownFile = markdownLocation + markdownFileName;
+      
+
+      const url = URL.createObjectURL(blob); // Create a URL for the Blob
+      const divInnerText = document.getElementById('content').innerText;
+      let filename = divInnerText.substring(0, 25);
+      const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+          a.download =  filename + '.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+      
+    }
+  </script>
+
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../html/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+  <script>
+    function loadMarkdownFile() {
+      const markdownFilePath = "./markdown/078cfb16.md"; // Path to the markdown file
+      fetch(markdownFilePath)
+        .then(response => response.text())
+        .then(data => {
+          const blob = new Blob([data], { type: 'text/markdown' }); // Create a Blob from the markdown content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download = '078cfb16.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        })
+        .catch(error => console.error('Error loading markdown file:', error));
+    }
+  </script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

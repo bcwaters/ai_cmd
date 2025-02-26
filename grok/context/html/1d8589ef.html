@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+    <button id="openSavedChats" onclick="selectSavedChat()">Open Saved Chats</button>
+    <a id="previous" href="../responses/1d8589ef.html?responseId=1d8589ef">Previous</a>
+    <a id="next" href="../responses/@NEXT_ID@.html">Next</a>
+  </nav>
+
+  <div id="content"></div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../responses/" + responseId + ".html";
+      }
+    </script>
+   
+  
+  <script src="marked.min.js"></script>
+  <script>
+    document.getElementById('content').innerHTML =
+      marked.parse('Here\'s an expanded version of the \"Getting Started\" section with more specific examples and techniques related to TinyGrad:\n\n```markdown\n## Getting Started\n\nTo start using TinyGrad, you can dive into the following resources:\n\n- **Further Reading: [Install Guide](https://tinyurl.com/tinygrad-install)**\n- **Further Reading: [Getting Started](https://tinyurl.com/tinygrad-start)**\n- **Further Reading: [Advanced Topics](https://tinyurl.com/tinygrad-advanced)**\n- **Further Reading: [Model Zoo](https://tinyurl.com/tinygrad-models)**\n- **Further Reading: [Community](https://tinyurl.com/tinygrad-community)**\n\nTinyGrad is a versatile framework that can be used for various deep learning and image processing tasks. Here are some specific examples and techniques you can explore:\n\n### Transfer Learning with Pre-trained Models\n\nTinyGrad supports transfer learning, allowing you to fine-tune pre-trained models like VGG or Inception for your specific tasks:\n\n```python\nimport tinygrad as tg\n\n# Load pre-trained VGG16 model\nmodel = tg.models.VGG16(pretrained=True)\n\n# Modify the last layer for your specific task\nmodel.classifier[6] = tg.nn.Linear(4096, num_classes)\n\n# Fine-tune the model\noptimizer = tg.optim.Adam(model.parameters(), lr=0.001)\ncriterion = tg.nn.CrossEntropyLoss()\n\n# Training loop\nfor epoch in range(10):\n    for x, y in dataset:\n        optimizer.zero_grad()\n        output = model(x)\n        loss = criterion(output, y)\n        loss.backward()\n        optimizer.step()\n```\n\n### Batch Normalization and GPU Acceleration\n\nTinyGrad allows you to use batch normalization to improve model training and inference, and leverage GPU acceleration for faster computations:\n\n```python\nimport tinygrad as tg\n\n# Define a model with batch normalization\nmodel = tg.nn.Sequential(\n    tg.nn.Conv2d(3, 64, 3, 1, padding=1),\n    tg.nn.BatchNorm2d(64),\n    tg.nn.ReLU(),\n    tg.nn.MaxPool2d(2),\n    tg.nn.Flatten(),\n    tg.nn.Linear(64*16*16, 128),\n    tg.nn.BatchNorm1d(128),\n    tg.nn.ReLU(),\n    tg.nn.Linear(128, 10)\n)\n\n# Move the model to GPU\nmodel = model.cuda()\n\n# Train the model\noptimizer = tg.optim.Adam(model.parameters(), lr=0.001)\ncriterion = tg.nn.CrossEntropyLoss()\n\n# Training loop\nfor epoch in range(10):\n    for x, y in dataset:\n        x, y = x.cuda(), y.cuda()\n        optimizer.zero_grad()\n        output = model(x)\n        loss = criterion(output, y)\n        loss.backward()\n        optimizer.step()\n```\n\n### Noise Reduction and Image Enhancement\n\nTinyGrad can be used for noise reduction and image enhancement techniques:\n\n```python\nimport tinygrad as tg\nimport numpy as np\n\n# Gaussian Blur for noise reduction\ndef gaussian_blur(image, kernel_size=(5, 5), sigma=1):\n    return tg.gaussian_blur(image, kernel_size, sigma)\n\n# Adaptive Thresholding for image enhancement\ndef adaptive_threshold(image, block_size=11, c=2):\n    return tg.adaptive_threshold(image, block_size, c)\n\n# Example usage\nnoisy_image = tg.imread(\'noisy_image.jpg\')\nblurred_image = gaussian_blur(noisy_image)\nenhanced_image = adaptive_threshold(blurred_image)\n\n# Visualization\nimport matplotlib.pyplot as plt\n\nplt.subplot(131), plt.imshow(noisy_image), plt.title(\'Noisy Image\')\nplt.subplot(132), plt.imshow(blurred_image), plt.title(\'Blurred Image\')\nplt.subplot(133), plt.imshow(enhanced_image, cmap=\'gray\'), plt.title(\'Enhanced Image\')\nplt.show()\n```\n\nTinyGrad is continuously evolving, with new features and improvements being added regularly. Join our community to stay updated and contribute to the project!\n\nResponseID:1d8589ef');
+  </script>
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

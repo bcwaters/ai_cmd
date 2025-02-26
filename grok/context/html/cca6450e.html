@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+    <button id="openSavedChats" onclick="selectSavedChat()">Open Saved Chats</button>
+    <a id="previous" href="../responses/38616df5.html?responseId=cca6450e">Previous</a>
+    <a id="next" href="../responses/@NEXT_ID@.html">Next</a>
+  </nav>
+
+  <div id="content"></div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../responses/" + responseId + ".html";
+      }
+    </script>
+   
+  
+  <script src="marked.min.js"></script>
+  <script>
+    document.getElementById('content').innerHTML =
+      marked.parse('# Caring for Citrus Trees: A Comprehensive Guide\n\nWelcome, Syvlia! Caring for citrus trees can be a rewarding endeavor, bringing the joy of fresh citrus fruits to your home. Here\'s a step-by-step guide to ensure your citrus trees thrive:\n\n## 1. **Choosing the Right Location**\nCitrus trees require full sun exposure to produce the best fruits. Choose a spot in your garden that gets at least 6 hours of direct sunlight daily. If you\'re growing citrus indoors, a south-facing window is ideal.\n\n## 2. **Soil and Planting**\n- **Soil Type**: Citrus trees prefer well-drained, slightly acidic soil with a pH between 6.0 and 7.0.\n- **Planting**: Dig a hole twice the size of the root ball. Place the tree in the hole, ensuring the top of the root ball is level with the soil surface. Backfill the hole, firm the soil gently, and water thoroughly.\n\n## 3. **Watering**\n- **Frequency**: Water citrus trees deeply once a week, adjusting based on weather conditions. The soil should be moist but not waterlogged.\n- **Method**: Use a drip irrigation system or water directly at the base of the tree to avoid wetting the foliage, which can lead to disease.\n\n## 4. **Fertilization**\n- **Type**: Use a citrus-specific fertilizer, which is formulated to provide the nutrients citrus trees need.\n- **Schedule**: Fertilize every 4-6 weeks during the growing season (spring through summer). Reduce to every 8 weeks in the fall and winter.\n\n## 5. **Pruning**\n- **When to Prune**: Prune in late winter or early spring before new growth begins.\n- **How to Prune**: Remove any dead, diseased, or crossing branches. Shape the tree to maintain an open center for better air circulation.\n\n## 6. **Pest and Disease Management**\n- **Common Pests**: Watch for aphids, scale, and citrus mites. Use insecticidal soap or neem oil for control.\n- **Diseases**: Prevent diseases like citrus canker and root rot by ensuring good air circulation and avoiding overwatering.\n\n## 7. **Harvesting**\n- **When to Harvest**: Citrus fruits are ready to harvest when they reach full color and are slightly soft to the touch.\n- **How to Harvest**: Use pruning shears to cut the fruit from the tree, leaving a small piece of stem attached.\n\nBy following these steps, you\'ll be well on your way to successfully growing and enjoying your own citrus fruits, Syvlia!\n\n### Follow-Up Questions:\n- Do you have any specific citrus varieties in mind that you want to grow?\n- Are you planning to grow your citrus tree indoors or outdoors?\n- Would you like more detailed information on any of the care steps mentioned?\n\nResponseID:cca6450e');
+  </script>
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

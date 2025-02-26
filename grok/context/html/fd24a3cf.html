@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+    <button id="openSavedChats" onclick="selectSavedChat()">Open Saved Chats</button>
+    <a id="previous" href="../responses/2b3c7571.html?responseId=fd24a3cf">Previous</a>
+    <a id="next" href="../responses/@NEXT_ID@.html">Next</a>
+  </nav>
+
+  <div id="content"></div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../responses/" + responseId + ".html";
+      }
+    </script>
+   
+  
+  <script src="marked.min.js"></script>
+  <script>
+    document.getElementById('content').innerHTML =
+      marked.parse('To specify a download location using plain JavaScript and HTML, you can create an HTML file with a download link and use JavaScript to set the download attribute dynamically. Here\'s how you can do it:\n\n### HTML\n\n```html\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Download File</title>\n</head>\n<body>\n    <a id=\"downloadLink\" href=\"#\" download>Download File</a>\n    <script src=\"script.js\"></script>\n</body>\n</html>\n```\n\n### JavaScript (script.js)\n\n```javascript\n// Function to set the download link\nfunction setDownloadLink(url, filename) {\n    const downloadLink = document.getElementById(\'downloadLink\');\n    downloadLink.href = url;\n    downloadLink.download = filename;\n}\n\n// Example usage\nsetDownloadLink(\'path/to/your/file.txt\', \'custom_filename.txt\');\n```\n\nIn this example, the `setDownloadLink` function takes a URL and a filename. It then sets the `href` attribute of the link to the URL and the `download` attribute to the filename. This allows you to specify where the file will be downloaded from and what it will be named upon download.\n\nTo use this, you would replace `\'path/to/your/file.txt\'` with the actual path to the file you want to download, and `\'custom_filename.txt\'` with the desired filename for the downloaded file.\n\n---\n\nFollow-up questions you might have:\n\n1. How can I handle different file types in the download?\n2. Is it possible to trigger the download automatically without user interaction?\n3. How can I ensure the download link works across different browsers?\n\nResponseID:fd24a3cf');
+  </script>
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+    <button id="openSavedChats" onclick="selectSavedChat()">Open Saved Chats</button>
+    <a id="previous" href="../responses/167cd6be-e836-4025-8efd-189e4e5ccc96.html?responseId=167cd6be-e836-4025-8efd-189e4e5ccc96">Previous</a>
+    <a id="next" href="../responses/@NEXT_ID@.html">Next</a>
+  </nav>
+
+  <div id="content"></div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../responses/" + responseId + ".html";
+      }
+    </script>
+   
+  
+  <script src="marked.min.js"></script>
+  <script>
+    document.getElementById('content').innerHTML =
+      marked.parse('When annotating a Next.js application for documentation purposes, especially if you\'re using TypeDoc or similar tools, you should consider the unique aspects of Next.js projects. Here are some suggestions on how to approach annotating a Next.js app:\n\n### 1. **Understanding Next.js Structure**\nNext.js has a specific project structure with pages, components, and API routes. When annotating, consider these sections separately to reflect their roles in the application.\n\n### 2. **Using TSDoc for TypeScript Files**\nNext.js projects are typically written in TypeScript. Use TSDoc annotations to document your TypeScript files, which can be processed by TypeDoc.\n\n#### **Pages and Components**\n- **@description**: Provide a brief overview of what the page or component does.\n  ```typescript\n  /**\n   * @description Home page of the application, displaying welcome message and navigation.\n   */\n  export default function Home() {\n    // Implementation\n  }\n  ```\n\n- **@param** and **@returns**: For components, use these to describe props and return values.\n  ```typescript\n  /**\n   * @param {string} title - The title to display in the header.\n   * @returns {JSX.Element} The header component with the provided title.\n   */\n  const Header: React.FC<{ title: string }> = ({ title }) => {\n    // Implementation\n  }\n  ```\n\n#### **API Routes**\n- **@description**: Describe the purpose of the API route.\n  ```typescript\n  /**\n   * @description API route to fetch user data.\n   */\n  export default function handler(req, res) {\n    // Implementation\n  }\n  ```\n\n- **@param** and **@returns**: Document the request and response types.\n  ```typescript\n  /**\n   * @param {NextApiRequest} req - The incoming request object.\n   * @returns {Promise<NextApiResponse>} A promise resolving to the response object.\n   */\n  export default function handler(req: NextApiRequest, res: NextApiResponse) {\n    // Implementation\n  }\n  ```\n\n### 3. **Custom Hooks and Utils**\n- **@description**: Explain the purpose and usage of custom hooks or utility functions.\n  ```typescript\n  /**\n   * @description Custom hook to manage user authentication state.\n   */\n  export function useAuth() {\n    // Implementation\n  }\n  ```\n\n### 4. **Global Types and Interfaces**\n- **@description**: Use this to explain the purpose of global types or interfaces.\n  ```typescript\n  /**\n   * @description Interface for user data structure.\n   */\n  interface User {\n    id: number;\n    name: string;\n    email: string;\n  }\n  ```\n\n### 5. **Next.js Specific Configurations**\n- **@description**: Document configurations in `next.config.js` or other configuration files.\n  ```javascript\n  /**\n   * @description Configuration for Next.js project, including webpack and environment settings.\n   */\n  module.exports = {\n    // Configuration\n  }\n  ```\n\n### 6. **Integration with TypeDoc**\n- Ensure your `tsdoc.json` or `typedoc.json` configuration file includes settings to process Next.js specific files correctly. You might need to specify include patterns to cover `pages`, `components`, and `api` directories.\n\n### 7. **Documentation Structure**\n- Organize your documentation to reflect the Next.js project structure. Use `@module` and `@category` to group related parts of your application.\n\n### 8. **Generating Documentation**\n- Use TypeDoc to generate documentation. Ensure you\'re using the correct command-line options to include all relevant files and generate a structured output.\n\nBy following these suggestions, you can effectively annotate your Next.js application to produce comprehensive and well-organized documentation using TypeDoc.\n\n---\n\nResponseID:6c6a9706');
+  </script>
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+    <button id="openSavedChats" onclick="selectSavedChat()">Open Saved Chats</button>
+    <a id="previous" href="../responses/7d56f7ef.html?responseId=2b3c7571">Previous</a>
+    <a id="next" href="../responses/@NEXT_ID@.html">Next</a>
+  </nav>
+
+  <div id="content"></div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../responses/" + responseId + ".html";
+      }
+    </script>
+   
+  
+  <script src="marked.min.js"></script>
+  <script>
+    document.getElementById('content').innerHTML =
+      marked.parse('### Growing Castor Beans in Arizona: Size, Lifecycle, and Oil Production\n\n#### Size of Castor Bean Plants\nCastor bean plants (Ricinus communis) can grow quite large. Under optimal conditions, they can reach heights of up to 10 feet or more, with some varieties even growing taller. The plants have large, palmate leaves that can span up to 2 feet across, contributing to their impressive stature.\n\n#### Lifecycle: Annual or Perennial?\nIn Arizona, castor beans are typically grown as annuals. This means they complete their lifecycle within one growing season. While the plant can technically be perennial in warmer climates (USDA zones 9-11), in most parts of Arizona, it\'s treated as an annual due to the potential for frost in winter.\n\n#### Producing Your Own Castor Oil\nTo produce your own castor oil, you would need to grow enough castor bean plants to harvest a substantial amount of seeds. Here’s a rough guide:\n\n1. **Number of Plants**: A single castor bean plant can produce several seed pods, with each pod containing multiple seeds. However, to produce enough oil for personal use, you might need to grow at least 10-20 plants, depending on the yield per plant and your oil needs.\n\n2. **Harvesting**: Wait until the seed pods turn brown and dry on the plant before harvesting. This usually occurs in late summer to early fall.\n\n3. **Processing**: After harvesting, the seeds need to be cleaned, dried, and then cold-pressed to extract the oil. This process requires specialized equipment, such as a cold press oil machine.\n\n4. **Yield**: The oil yield from castor beans is approximately 40-50% of the seed weight. For example, if you harvest 1 kg of seeds, you might get around 400-500 grams of oil.\n\n5. **Considerations**: Remember that all parts of the castor bean plant, especially the seeds, are toxic due to ricin. Proper handling and safety measures are crucial during the harvesting and processing stages.\n\nIn summary, while it\'s feasible to grow enough castor beans in Arizona to produce your own oil, it requires careful planning, a sufficient number of plants, and the right equipment for processing the seeds into oil.\n\nResponseID:2b3c7571');
+  </script>
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

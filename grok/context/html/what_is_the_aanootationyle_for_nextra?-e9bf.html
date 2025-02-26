@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+ 
+  <div id="content"></div>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+   
+
+  <script src="marked.min.js"></script>
+  <script>
+    document.getElementById('content').innerHTML =
+      marked.parse('In Nextra, you can use annotations to enhance your documentation with additional features and metadata. Here\'s an overview of the annotation style used in Nextra:\n\n### Nextra Annotation Style\n\nNextra supports annotations through the use of YAML front matter at the beginning of your Markdown or MDX files. These annotations allow you to customize the behavior and appearance of your documentation pages.\n\n#### Basic Syntax\n\nThe annotations are placed at the top of your Markdown or MDX file, enclosed by `---` lines. Here\'s the basic structure:\n\n```markdown\n---\ntitle: Your Page Title\ndescription: A brief description of the page\n---\n```\n\n#### Common Annotations\n\nHere are some common annotations you might use in Nextra:\n\n1. **title**: Sets the title of the page.\n2. **description**: Provides a brief description of the page, which can be useful for SEO.\n3. **sidebarLabel**: Customizes the label that appears in the sidebar for the page.\n4. **draft**: Marks the page as a draft, which can be useful during development.\n\n#### Example\n\nHere\'s an example of how you might use annotations in a Nextra documentation file:\n\n```markdown\n---\ntitle: Getting Started with Nextra\ndescription: Learn how to set up and use Nextra for your Next.js project.\nsidebarLabel: Quick Start\ndraft: false\n---\n\n# Getting Started with Nextra\n\nWelcome to the quick start guide for Nextra. Here\'s how to get started...\n\n```\n\n#### Additional Custom Annotations\n\nNextra allows you to define custom annotations, which can be used to add metadata or control specific behaviors. For instance, you might use custom annotations to control the layout or add specific metadata for your documentation system.\n\n```markdown\n---\ncustomLayout: wide\ntags: [tutorial, beginner]\n---\n\n# Your Documentation Content\n\n...\n```\n\nThese custom annotations can then be processed by your Next.js application to apply specific styles or behaviors.\n\n### Conclusion\n\nUsing annotations in Nextra allows you to add metadata and customize the behavior of your documentation pages. By leveraging YAML front matter, you can enhance the functionality and appearance of your Next.js documentation.\n\n');
+  </script>
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+    <button id="openSavedChats" onclick="selectSavedChat()">Open Saved Chats</button>
+    <a id="previous" href="../responses/b5479310.html?responseId=c28c38a5">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+  </nav>
+
+  <div id="content"><h1>Setting Up TensorFlow.js</h1>
+<p>TensorFlow.js is a JavaScript library for training and deploying machine learning models in the browser and on Node.js. Here&#39;s a step-by-step guide to set up TensorFlow.js:</p>
+<h2>Step 1: Install Node.js</h2>
+<p>First, ensure you have Node.js installed on your machine. You can download it from the <a href="https://nodejs.org/en/download/">official Node.js website</a>.</p>
+<h2>Step 2: Create a New Project</h2>
+<p>Open your terminal and create a new directory for your project:</p>
+<pre><code class="language-bash">mkdir tensorflow-js-project
+cd tensorflow-js-project
+</code></pre>
+<p>Initialize a new Node.js project:</p>
+<pre><code class="language-bash">npm init -y
+</code></pre>
+<h2>Step 3: Install TensorFlow.js</h2>
+<p>Install TensorFlow.js using npm:</p>
+<pre><code class="language-bash">npm install @tensorflow/tfjs
+</code></pre>
+<h2>Step 4: Create a Simple Script</h2>
+<p>Create a file named <code>index.js</code> in your project directory and add the following code to test TensorFlow.js:</p>
+<pre><code class="language-javascript">const tf = require(&#39;@tensorflow/tfjs&#39;);
+
+// Define a simple tensor
+const tensor = tf.tensor([1, 2, 3, 4]);
+
+// Print the tensor
+tensor.print();
+</code></pre>
+<h2>Step 5: Run the Script</h2>
+<p>Run your script using Node.js:</p>
+<pre><code class="language-bash">node index.js
+</code></pre>
+<p>You should see the output of the tensor printed in your terminal.</p>
+<p>That&#39;s it! You&#39;ve successfully set up TensorFlow.js. Now you can start exploring more advanced features and building your own machine learning models.</p>
+<hr>
+<p>Follow-up questions you might consider:</p>
+<ol>
+<li>Do you need help with setting up a specific model in TensorFlow.js?</li>
+<li>Are you interested in learning about deploying TensorFlow.js models in a web application?</li>
+<li>Would you like to know more about the different data types and operations available in TensorFlow.js?</li>
+</ol>
+<p>ResponseID:c28c38a5</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../html/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

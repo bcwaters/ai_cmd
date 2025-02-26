@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+ 
+  <div id="content"></div>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+   
+
+  <script src="marked.min.js"></script>
+  <script>
+    document.getElementById('content').innerHTML =
+      marked.parse('# README: Flood Fill Oval Interior Script\n\n## Overview\n\nThis Python script uses the Pillow library to perform a flood fill operation specifically designed to fill the interior of an oval shape in an image, respecting any transparent areas. The script automatically detects a starting point for the flood fill and ensures that only the solid interior of the oval is filled.\n\n## Features\n\n- **Automatic Starting Point Detection**: Searches for the first non-transparent pixel from the top of the image.\n- **Interior Filling Only**: Ensures that only the interior of the oval is filled, stopping at transparent areas.\n- **Error Handling**: Provides feedback if no non-transparent pixels are found.\n\n## Prerequisites\n\n- Python 3.7+\n- Pillow (PIL) library\n\n## Setup Environment with `uv`\n\nTo set up your environment using `uv`, follow these steps:\n\n1. **Install `uv`**:\n   ```bash\n   curl -LsSf https://astral.sh/uv/install.sh | sh\n   ```\n\n2. **Create a Virtual Environment**:\n   ```bash\n   uv venv\n   ```\n\n3. **Activate the Virtual Environment**:\n   - On Unix or MacOS:\n     ```bash\n     source .venv/bin/activate\n     ```\n   - On Windows:\n     ```cmd\n     .venv\\Scripts\\activate\n     ```\n\n4. **Install Dependencies**:\n   ```bash\n   uv pip install Pillow\n   ```\n\n## Usage\n\n1. **Place your input image** in the same directory as the script or provide the full path.\n2. **Run the script**:\n   ```bash\n   python flood_fill_oval_interior.py input_image.png output_filled_image.png\n   ```\n\n## Code\n\n```python\nfrom PIL import Image, ImageDraw\n\ndef flood_fill_oval_interior(image_path, output_path):\n    # Open the image and keep it in RGBA mode\n    image = Image.open(image_path).convert(\'RGBA\')\n    draw = ImageDraw.Draw(image)\n\n    # Get the image dimensions\n    width, height = image.size\n\n    # Function to find the first non-transparent pixel from the top\n    def find_top_edge():\n        for y in range(height):\n            for x in range(width):\n                if image.getpixel((x, y))[3] > 0:  # Alpha channel value\n                    return x, y\n        return None  # If no non-transparent pixel found\n\n    # Find the top edge of the oval\n    start_point = find_top_edge()\n    if start_point is None:\n        print(\"No non-transparent pixels found in the image.\")\n        return\n\n    # Flood fill using the alpha channel, starting from the top edge\n    draw.floodfill(start_point, (255, 255, 255, 255), thresh=50)\n\n    # Save the result\n    image.save(output_path)\n\n# Example usage\nflood_fill_oval_interior(\'input_image.png\', \'output_filled_image.png\')\n```\n\n## Considerations\n\n- The script assumes the oval has a solid, non-transparent top edge. Adjust `find_top_edge` if needed.\n- The `thresh` parameter in `floodfill` may need adjustment based on image transparency.\n- For images with multiple ovals or complex shapes, multiple `floodfill` calls might be necessary.\n\n## License\n\nThis project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.\n\n');
+  </script>
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

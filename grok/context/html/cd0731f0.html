@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+    <button id="openSavedChats" onclick="selectSavedChat()">Open Saved Chats</button>
+    <a id="previous" href="../responses/80b02208.html?responseId=cd0731f0">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+  </nav>
+
+  <div id="content"><h1>Using Different Colors in Console Output</h1>
+<p>Yes, it is relatively easy to get <code>console.log</code> to return different colors in the terminal, especially when working with Node.js or modern browsers that support ANSI color codes. Here&#39;s how you can achieve this:</p>
+<h2>Using ANSI Color Codes</h2>
+<p>ANSI escape codes can be used to add color to your terminal output. Here&#39;s a simple example in JavaScript for Node.js:</p>
+<pre><code class="language-javascript">// Define ANSI color codes
+const colors = {
+  reset: &quot;\x1b[0m&quot;,
+  red: &quot;\x1b[31m&quot;,
+  green: &quot;\x1b[32m&quot;,
+  yellow: &quot;\x1b[33m&quot;,
+  blue: &quot;\x1b[34m&quot;
+};
+
+// Using colors in console.log
+console.log(colors.red + &quot;This is red text&quot; + colors.reset);
+console.log(colors.green + &quot;This is green text&quot; + colors.reset);
+console.log(colors.yellow + &quot;This is yellow text&quot; + colors.reset);
+console.log(colors.blue + &quot;This is blue text&quot; + colors.reset);
+</code></pre>
+<p>In the example above, <code>colors.reset</code> is used to reset the text color back to the default after each colored output.</p>
+<h2>Using Libraries</h2>
+<p>For a more convenient approach, you can use libraries like <code>chalk</code> in Node.js:</p>
+<pre><code class="language-javascript">// Install chalk: npm install chalk
+const chalk = require(&#39;chalk&#39;);
+
+console.log(chalk.red(&#39;This is red text&#39;));
+console.log(chalk.green(&#39;This is green text&#39;));
+console.log(chalk.yellow(&#39;This is yellow text&#39;));
+console.log(chalk.blue(&#39;This is blue text&#39;));
+</code></pre>
+<p><code>chalk</code> simplifies the use of colors and supports additional styling options.</p>
+<h2>Browser Support</h2>
+<p>In modern browsers, you can use CSS styles within <code>console.log</code> to achieve similar results:</p>
+<pre><code class="language-javascript">console.log(&#39;%c This is red text&#39;, &#39;color: red&#39;);
+console.log(&#39;%c This is green text&#39;, &#39;color: green&#39;);
+console.log(&#39;%c This is yellow text&#39;, &#39;color: yellow&#39;);
+console.log(&#39;%c This is blue text&#39;, &#39;color: blue&#39;);
+</code></pre>
+<p>The <code>%c</code> format specifier allows you to apply CSS styles directly to the console output.</p>
+<h2>Considerations</h2>
+<ul>
+<li><strong>Terminal Compatibility</strong>: Not all terminals support ANSI codes equally, so colors might not display as intended in some environments.</li>
+<li><strong>Readability</strong>: Use colors judiciously to enhance readability rather than detract from it.</li>
+</ul>
+<p>By following these methods, you can easily add color to your <code>console.log</code> outputs, making your terminal interactions more visually engaging and informative.</p>
+<p>ResponseID:cd0731f0</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  ""+ filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../responses/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

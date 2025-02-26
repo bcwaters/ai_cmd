@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+    <button id="openSavedChats" onclick="selectSavedChat()">Open Saved Chats</button>
+    <a id="previous" href="../responses/d818acbf.html?responseId=96d07f17">Previous</a>
+    <a id="next" href="../responses/@NEXT_ID@.html">Next</a>
+  </nav>
+
+  <div id="content"></div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  ""+ filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../responses/" + responseId + ".html";
+      }
+    </script>
+   <script> let unprocessedReadme = 'Besides `cjs` (CommonJS), Rollup supports several other output formats. Here are the main ones:\n\n- **es**: ECMAScript module format, suitable for modern JavaScript environments that support ES modules.\n- **esm**: Alias for `es`, explicitly indicating ECMAScript module format.\n- **umd**: Universal Module Definition, can be used in both CommonJS and AMD environments, as well as in the browser as a global variable.\n- **amd**: Asynchronous Module Definition, used for environments that support AMD, like RequireJS.\n- **iife**: Immediately Invoked Function Expression, suitable for inclusion in a `<script>` tag in a browser.\n- **system**: SystemJS module format, used with SystemJS loader.\n\nHere\'s how you might configure Rollup to output in multiple formats:\n\n```javascript\nexport default {\n  input: \'src/main.js\',\n  output: [\n    {\n      file: \'bundle.cjs.js\',\n      format: \'cjs\'\n    },\n    {\n      file: \'bundle.esm.js\',\n      format: \'es\'\n    },\n    {\n      file: \'bundle.umd.js\',\n      format: \'umd\',\n      name: \'MyBundle\'\n    },\n    {\n      file: \'bundle.iife.js\',\n      format: \'iife\',\n      name: \'MyBundle\'\n    }\n  ]\n};\n```\n\nIn this configuration, Rollup will generate four different bundle files, each in a different format. Note that for `umd` and `iife` formats, you need to specify a `name` for the global variable that will be used in non-module environments.\n\nResponseID:96d07f17' ;
+   console.log("unprocessedReadme", unprocessedReadme);
+   </script>
+  <script src="marked.min.js"></script>
+  <script>
+    document.getElementById('content').innerHTML =
+      marked.parse('Besides `cjs` (CommonJS), Rollup supports several other output formats. Here are the main ones:\n\n- **es**: ECMAScript module format, suitable for modern JavaScript environments that support ES modules.\n- **esm**: Alias for `es`, explicitly indicating ECMAScript module format.\n- **umd**: Universal Module Definition, can be used in both CommonJS and AMD environments, as well as in the browser as a global variable.\n- **amd**: Asynchronous Module Definition, used for environments that support AMD, like RequireJS.\n- **iife**: Immediately Invoked Function Expression, suitable for inclusion in a `<script>` tag in a browser.\n- **system**: SystemJS module format, used with SystemJS loader.\n\nHere\'s how you might configure Rollup to output in multiple formats:\n\n```javascript\nexport default {\n  input: \'src/main.js\',\n  output: [\n    {\n      file: \'bundle.cjs.js\',\n      format: \'cjs\'\n    },\n    {\n      file: \'bundle.esm.js\',\n      format: \'es\'\n    },\n    {\n      file: \'bundle.umd.js\',\n      format: \'umd\',\n      name: \'MyBundle\'\n    },\n    {\n      file: \'bundle.iife.js\',\n      format: \'iife\',\n      name: \'MyBundle\'\n    }\n  ]\n};\n```\n\nIn this configuration, Rollup will generate four different bundle files, each in a different format. Note that for `umd` and `iife` formats, you need to specify a `name` for the global variable that will be used in non-module environments.\n\nResponseID:96d07f17');
+  </script>
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+    <button id="openSavedChats" onclick="selectSavedChat()">Open Saved Chats</button>
+    <a id="previous" href="../responses/3c7ef505.html?responseId=3c7ef505">Previous</a>
+    <a id="next" href="../responses/@NEXT_ID@.html">Next</a>
+  </nav>
+
+  <div id="content"></div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../responses/" + responseId + ".html";
+      }
+    </script>
+   
+  
+  <script src="marked.min.js"></script>
+  <script>
+    document.getElementById('content').innerHTML =
+      marked.parse('### What is TSDoc?\n\nTSDoc is a documentation specification for TypeScript. It extends the standard JSDoc tags and syntax to provide more detailed and structured documentation for TypeScript projects. TSDoc allows developers to document their code in a way that can be easily understood and utilized by other developers and tools.\n\n#### Key Features of TSDoc:\n- **Extended Tags:** TSDoc introduces additional tags that are specific to TypeScript, such as `@typeParam`, `@override`, and `@sealed`.\n- **Better Type Documentation:** It provides more precise ways to document types, interfaces, and generics.\n- **Integration with Tools:** TSDoc is designed to work well with TypeScript-aware tools, such as API extractors and documentation generators.\n- **Improved Readability:** The syntax is designed to be clear and concise, making it easier for developers to write and read documentation.\n\n#### Example of TSDoc:\n```typescript\n/**\n * Adds two numbers.\n * @param a - The first number to add.\n * @param b - The second number to add.\n * @returns The sum of `a` and `b`.\n * @example\n * ```typescript\n * add(2, 3); // Returns 5\n * ```\n */\nfunction add(a: number, b: number): number {\n  return a + b;\n}\n```\n\nTSDoc is particularly useful in large projects where maintaining clear and accurate documentation is crucial for team collaboration and project maintainability.\n\n---\n\nDo you have any follow-up questions about TSDoc? Here are a few suggestions:\n1. How can I start using TSDoc in my TypeScript project?\n2. What are some tools that support TSDoc for generating documentation?\n3. Can TSDoc be used with JavaScript, or is it strictly for TypeScript?\n\nResponseID:3c7ef505');
+  </script>
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

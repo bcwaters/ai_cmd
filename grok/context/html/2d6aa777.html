@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+ 
+  <div id="content"></div>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+    <a id="previvous" href="../responses/responseId.html">Previous</a>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      document.getElementById('previvous').href = "../responses/" + responseId + ".html";
+    </script>
+   
+
+  <script src="marked.min.js"></script>
+  <script>
+    document.getElementById('content').innerHTML =
+      marked.parse('To break down the Sobel edge detection implementation into helper functions, we can create two main functions: `edgeDetection` and `imageSegmentation`. Here\'s how we can refactor the code:\n\n```python\nimport tinygrad.tensor as ts\nimport numpy as np\nimport matplotlib.pyplot as plt\n\ndef grayscale_conversion(image):\n    \"\"\"\n    Convert an RGB image to grayscale.\n    \n    Args:\n    image (np.ndarray): Input image, can be RGB or grayscale.\n    \n    Returns:\n    np.ndarray: Grayscale image.\n    \"\"\"\n    if len(image.shape) == 3:\n        return np.mean(image, axis=2).astype(np.float32)\n    return image.astype(np.float32)\n\ndef edgeDetection(image):\n    \"\"\"\n    Perform Sobel edge detection on the input image.\n    \n    Args:\n    image (np.ndarray): Input image, can be RGB or grayscale.\n    \n    Returns:\n    np.ndarray: Edge map of the input image.\n    \"\"\"\n    # Convert image to grayscale if necessary\n    gray_image = grayscale_conversion(image)\n    \n    # Convert image to TinyGrad tensor\n    img_tensor = ts.Tensor(gray_image)\n    \n    # Define Sobel kernels\n    sobel_x = ts.Tensor(np.array([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]]).astype(np.float32))\n    sobel_y = ts.Tensor(np.array([[-1, -2, -1], [0, 0, 0], [1, 2, 1]]).astype(np.float32))\n    \n    # Perform convolution\n    gx = ts.abs(img_tensor.conv2d(sobel_x))\n    gy = ts.abs(img_tensor.conv2d(sobel_y))\n    \n    # Calculate gradient magnitude\n    g = ts.sqrt(gx**2 + gy**2)\n    \n    # Convert back to numpy array\n    g_np = g.numpy()\n    \n    # Normalize to 0-255 range\n    g_normalized = (g_np / np.max(g_np) * 255).astype(np.uint8)\n    \n    return g_normalized\n\ndef imageSegmentation(edge_map, threshold=100):\n    \"\"\"\n    Perform simple thresholding-based image segmentation.\n    \n    Args:\n    edge_map (np.ndarray): Input edge map.\n    threshold (int): Threshold value for edge detection.\n    \n    Returns:\n    np.ndarray: Binary edge map after segmentation.\n    \"\"\"\n    edges = (edge_map > threshold).astype(np.uint8) * 255\n    return edges\n\n# Example usage\nimage = plt.imread(\'path_to_image.jpg\')\n\n# Perform edge detection\nedge_map = edgeDetection(image)\n\n# Perform image segmentation\nedges = imageSegmentation(edge_map)\n\n# Visualize results\nplt.figure(figsize=(12, 6))\nplt.subplot(121)\nplt.imshow(edge_map, cmap=\'gray\')\nplt.title(\'Edge Map\')\nplt.subplot(122)\nplt.imshow(edges, cmap=\'gray\')\nplt.title(\'Segmented Edges\')\nplt.show()\n```\n\nThis refactoring breaks down the original function into three helper functions:\n\n1. `grayscale_conversion`: Converts an RGB image to grayscale if necessary.\n2. `edgeDetection`: Performs the Sobel edge detection, including convolution and gradient calculation.\n3. `imageSegmentation`: Applies a simple thresholding technique to segment the edges.\n\nThe example usage demonstrates how to use these functions together to process an image and visualize the results.\n\nResponseID:2d6aa777');
+  </script>
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

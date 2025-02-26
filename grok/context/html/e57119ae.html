@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+    <button id="openSavedChats" onclick="selectSavedChat()">Open Saved Chats</button>
+    <a id="previous" href="../responses/65254ae9.html?responseId=e57119ae">Previous</a>
+    <a id="next" href="../responses/@NEXT_ID@.html">Next</a>
+  </nav>
+
+  <div id="content"></div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../responses/" + responseId + ".html";
+      }
+    </script>
+   
+  
+  <script src="marked.min.js"></script>
+  <script>
+    document.getElementById('content').innerHTML =
+      marked.parse('### Hello Sylvia!\n\nOf course, I\'d be happy to help you learn Spanish! Let\'s start with some basics.\n\n#### Spanish Language Overview:\n\nSpanish, or Español, is a Romance language that originated in the Castile region of Spain. It\'s the second most spoken language by number of native speakers, with over 460 million speakers worldwide. Here are some key aspects to get you started:\n\n1. **Alphabet and Pronunciation:**\n   - The Spanish alphabet has 27 letters, including the unique letter \'ñ\'.\n   - Pronunciation is generally phonetic, meaning words are pronounced as they are written.\n\n2. **Basic Greetings:**\n   - **Hola** - Hello\n   - **Buenos días** - Good morning\n   - **Buenas tardes** - Good afternoon\n   - **Buenas noches** - Good evening/night\n   - **¿Cómo estás?** - How are you? (informal)\n   - **¿Cómo está usted?** - How are you? (formal)\n\n3. **Common Phrases:**\n   - **Por favor** - Please\n   - **Gracias** - Thank you\n   - **De nada** - You\'re welcome\n   - **Lo siento** - I\'m sorry\n   - **Perdón** - Excuse me\n\n4. **Basic Grammar:**\n   - **Nouns:** Spanish nouns have gender (masculine or feminine) and number (singular or plural).\n   - **Verbs:** Spanish verbs conjugate according to the subject, tense, and mood. The three main conjugations are -ar, -er, and -ir.\n\n#### Follow-up Questions:\n1. Are you interested in learning more about Spanish grammar or vocabulary?\n2. Do you have any specific goals for learning Spanish, such as travel, work, or personal interest?\n3. Would you like to practice with some simple sentences?\n\nResponseID:e57119ae');
+  </script>
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

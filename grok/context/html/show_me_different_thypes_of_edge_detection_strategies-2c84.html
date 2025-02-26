@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+ 
+  <div id="content"></div>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+   
+
+  <script src="marked.min.js"></script>
+  <script>
+    document.getElementById('content').innerHTML =
+      marked.parse('Here\'s an overview of different types of edge detection strategies, each with its own approach and use cases:\n\n### 1. **Sobel Edge Detection**\nThe Sobel operator is used for detecting edges in an image by approximating the gradient of the image intensity function. It uses two 3x3 kernels, one for horizontal changes and another for vertical changes.\n\n```python\nimport cv2\nimport numpy as np\n\n# Load the image\nimage = cv2.imread(\'path_to_your_image.jpg\', 0)  # 0 for grayscale\n\n# Apply Sobel edge detection\nsobelx = cv2.Sobel(image, cv2.CV_64F, 1, 0, ksize=5)\nsobely = cv2.Sobel(image, cv2.CV_64F, 0, 1, ksize=5)\n\n# Combine the results\nsobel = np.sqrt(sobelx**2 + sobely**2)\n\n# Display the result\ncv2.imshow(\'Sobel Edge Detection\', sobel)\ncv2.waitKey(0)\ncv2.destroyAllWindows()\n```\n\n### 2. **Canny Edge Detection**\nCanny edge detection is a multi-stage algorithm that uses gradient magnitude and direction to detect edges. It\'s known for its accuracy and ability to detect true weak edges.\n\n```python\nimport cv2\n\n# Load the image\nimage = cv2.imread(\'path_to_your_image.jpg\', 0)\n\n# Apply Canny edge detection\nedges = cv2.Canny(image, 100, 200)\n\n# Display the result\ncv2.imshow(\'Canny Edge Detection\', edges)\ncv2.waitKey(0)\ncv2.destroyAllWindows()\n```\n\n### 3. **Prewitt Edge Detection**\nSimilar to Sobel, the Prewitt operator uses two 3x3 kernels to detect horizontal and vertical edges. It\'s less sensitive to noise compared to Sobel.\n\n```python\nimport cv2\nimport numpy as np\n\n# Load the image\nimage = cv2.imread(\'path_to_your_image.jpg\', 0)\n\n# Define Prewitt kernels\nprewittx = np.array([[-1, 0, 1], [-1, 0, 1], [-1, 0, 1]])\nprewitty = np.array([[-1, -1, -1], [0, 0, 0], [1, 1, 1]])\n\n# Apply Prewitt edge detection\ngx = cv2.filter2D(image, -1, prewittx)\ngy = cv2.filter2D(image, -1, prewitty)\n\n# Combine the results\nprewitt = np.sqrt(gx**2 + gy**2)\n\n# Display the result\ncv2.imshow(\'Prewitt Edge Detection\', prewitt)\ncv2.waitKey(0)\ncv2.destroyAllWindows()\n```\n\n### 4. **Roberts Edge Detection**\nThe Roberts cross operator performs a simple 2D spatial gradient measurement on an image. It\'s particularly sensitive to diagonal edges.\n\n```python\nimport cv2\nimport numpy as np\n\n# Load the image\nimage = cv2.imread(\'path_to_your_image.jpg\', 0)\n\n# Define Roberts kernels\nrobertsx = np.array([[1, 0], [0, -1]])\nrobertsy = np.array([[0, 1], [-1, 0]])\n\n# Apply Roberts edge detection\ngx = cv2.filter2D(image, -1, robertsx)\ngy = cv2.filter2D(image, -1, robertsy)\n\n# Combine the results\nroberts = np.sqrt(gx**2 + gy**2)\n\n# Display the result\ncv2.imshow(\'Roberts Edge Detection\', roberts)\ncv2.waitKey(0)\ncv2.destroyAllWindows()\n```\n\n### 5. **Laplacian of Gaussian (LoG) Edge Detection**\nLoG involves applying a Gaussian blur to reduce noise and then using the Laplacian operator to find areas of rapid intensity change.\n\n```python\nimport cv2\n\n# Load the image\nimage = cv2.imread(\'path_to_your_image.jpg\', 0)\n\n# Apply Gaussian blur\nblurred = cv2.GaussianBlur(image, (3, 3), 0)\n\n# Apply Laplacian edge detection\nlaplacian = cv2.Laplacian(blurred, cv2.CV_64F)\n\n# Display the result\ncv2.imshow(\'Laplacian of Gaussian Edge Detection\', laplacian)\ncv2.waitKey(0)\ncv2.destroyAllWindows()\n```\n\n### 6. **Difference of Gaussians (DoG) Edge Detection**\nDoG is an approximation of the LoG, using the difference between two Gaussian blurred images with different sigma values.\n\n```python\nimport cv2\n\n# Load the image\nimage = cv2.imread(\'path_to_your_image.jpg\', 0)\n\n# Apply Gaussian blur with different sigma values\ngaussian1 = cv2.GaussianBlur(image, (0, 0), 1)\ngaussian2 = cv2.GaussianBlur(image, (0, 0), 2)\n\n# Compute the difference of Gaussians\ndog = gaussian1 - gaussian2\n\n# Display the result\ncv2.imshow(\'Difference of Gaussians Edge Detection\', dog)\ncv2.waitKey(0)\ncv2.destroyAllWindows()\n```\n\nEach of these methods has its strengths and is suited for different applications. The choice of edge detection method depends on the specific requirements of your project, such as noise tolerance, edge sensitivity, and computational efficiency.\n\n');
+  </script>
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

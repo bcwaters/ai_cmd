@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+ 
+  <div id="content"></div>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+   
+
+  <script src="marked.min.js"></script>
+  <script>
+    document.getElementById('content').innerHTML =
+      marked.parse('If you\'re looking for a TypeScript documentation package that generates documentation through annotations in your code, you might consider using TypeDoc. TypeDoc is a documentation generator specifically designed for TypeScript projects. It reads TypeScript code and generates API documentation based on the comments and annotations in your code.\n\nHere\'s how you can set up and use TypeDoc:\n\n### Step 1: Installing TypeDoc\n\nFirst, you need to install TypeDoc in your project. You can do this using npm:\n\n```bash\nnpm install --save-dev typedoc\n```\n\n### Step 2: Configuring TypeDoc\n\nTypeDoc can be configured using a `typedoc.json` file. Here\'s a basic configuration:\n\n```json\n{\n  \"entryPoints\": [\"src/index.ts\"],\n  \"out\": \"docs\",\n  \"name\": \"My Project\",\n  \"readme\": \"none\"\n}\n```\n\n### Step 3: Adding Annotations to Your Code\n\nTypeDoc uses JSDoc-style comments to generate documentation. Here\'s an example of how you might annotate your TypeScript code:\n\n```typescript\n/**\n * A simple greeter function\n * @param name The name of the person to greet\n * @returns A greeting message\n */\nfunction greet(name: string): string {\n  return `Hello, ${name}!`;\n}\n```\n\n### Step 4: Generating Documentation\n\nTo generate the documentation, you can use the following command:\n\n```bash\nnpx typedoc\n```\n\nThis will read your TypeScript files and generate HTML documentation in the `docs` directory specified in your `typedoc.json` configuration.\n\n### Step 5: Viewing Your Documentation\n\nAfter generating the documentation, you can view it by opening the `index.html` file in the `docs` directory in your web browser.\n\n### Conclusion\n\nTypeDoc is a powerful tool for generating documentation from TypeScript code annotations. It\'s easy to set up and use, and it provides a clean and professional-looking output for your project\'s API documentation.\n\n');
+  </script>
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

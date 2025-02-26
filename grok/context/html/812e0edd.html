@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+    <button id="openSavedChats" onclick="selectSavedChat()">Open Saved Chats</button>
+    <a id="previous" href="../responses/81a6924a.html?responseId=812e0edd">Previous</a>
+    <a id="next" href="../responses/@NEXT_ID@.html">Next</a>
+  </nav>
+
+  <div id="content"></div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  ""+ filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../responses/" + responseId + ".html";
+      }
+    </script>
+   <script> let unprocessedReadme = 'Here\'s a line-by-line explanation for Step 1 of installing `vim-plug`:\n\n```markdown\n# Step 1: Ensure `vim-plug` is installed\n\n1. **Check if `vim-plug` is already installed**:\n   ```vim\n   if empty(glob(\'~/.vim/autoload/plug.vim\'))\n   ```\n   This line checks if the `plug.vim` file exists in the `~/.vim/autoload/` directory. If the file does not exist, the `glob` function returns an empty string, and `empty()` will evaluate to true.\n\n2. **Install `vim-plug` if it\'s not found**:\n   ```vim\n   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs\n   ```\n   If `vim-plug` is not installed, this command uses `curl` to download the `plug.vim` file from the specified GitHub URL. The `silent` keyword suppresses output, and `--create-dirs` ensures that any necessary directories are created.\n\n3. **Specify the URL for downloading `vim-plug`**:\n   ```vim\n   \\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim\n   ```\n   This line continues the `curl` command, providing the exact URL where `plug.vim` can be downloaded from.\n\n4. **Automatically install plugins and reload `.vimrc` on first run**:\n   ```vim\n   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC\n   ```\n   This sets up an autocommand to run `PlugInstall` with the `--sync` flag when Vim starts for the first time after adding this to your `.vimrc`. The `| source $MYVIMRC` part reloads your `.vimrc` to apply any new settings.\n\n5. **Close the conditional block**:\n   ```vim\n   endif\n   ```\n   This line ends the `if` statement started in the first line, completing the conditional block for installing `vim-plug`.\n\nAfter adding these lines to your `.vimrc` file, save it and either source it or restart Vim to install `vim-plug`.\n```\n\nResponseID:812e0edd' ;
+   console.log("unprocessedReadme", unprocessedReadme);
+   </script>
+  <script src="marked.min.js"></script>
+  <script>
+    document.getElementById('content').innerHTML =
+      marked.parse('Here\'s a line-by-line explanation for Step 1 of installing `vim-plug`:\n\n```markdown\n# Step 1: Ensure `vim-plug` is installed\n\n1. **Check if `vim-plug` is already installed**:\n   ```vim\n   if empty(glob(\'~/.vim/autoload/plug.vim\'))\n   ```\n   This line checks if the `plug.vim` file exists in the `~/.vim/autoload/` directory. If the file does not exist, the `glob` function returns an empty string, and `empty()` will evaluate to true.\n\n2. **Install `vim-plug` if it\'s not found**:\n   ```vim\n   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs\n   ```\n   If `vim-plug` is not installed, this command uses `curl` to download the `plug.vim` file from the specified GitHub URL. The `silent` keyword suppresses output, and `--create-dirs` ensures that any necessary directories are created.\n\n3. **Specify the URL for downloading `vim-plug`**:\n   ```vim\n   \\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim\n   ```\n   This line continues the `curl` command, providing the exact URL where `plug.vim` can be downloaded from.\n\n4. **Automatically install plugins and reload `.vimrc` on first run**:\n   ```vim\n   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC\n   ```\n   This sets up an autocommand to run `PlugInstall` with the `--sync` flag when Vim starts for the first time after adding this to your `.vimrc`. The `| source $MYVIMRC` part reloads your `.vimrc` to apply any new settings.\n\n5. **Close the conditional block**:\n   ```vim\n   endif\n   ```\n   This line ends the `if` statement started in the first line, completing the conditional block for installing `vim-plug`.\n\nAfter adding these lines to your `.vimrc` file, save it and either source it or restart Vim to install `vim-plug`.\n```\n\nResponseID:812e0edd');
+  </script>
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+    <button id="openSavedChats" onclick="selectSavedChat()">Open Saved Chats</button>
+    <a id="previous" href="../responses/e6d45e7f.html?responseId=3b9e6d43">Previous</a>
+    <a id="next" href="../responses/@NEXT_ID@.html">Next</a>
+  </nav>
+
+  <div id="content"></div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  "/saved/"+ filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../responses/" + responseId + ".html";
+      }
+    </script>
+   
+  
+  <script src="marked.min.js"></script>
+  <script>
+    document.getElementById('content').innerHTML =
+      marked.parse('### Projected Future of JavaScript\n\nJavaScript continues to be a fundamental technology in web development and beyond. Its future looks promising due to its versatility, widespread adoption, and continuous evolution. Here are some key points about the projected future of JavaScript:\n\n#### Continued Evolution\nJavaScript is maintained by the ECMAScript standard, which is regularly updated. The latest version, ECMAScript 2022, introduced new features and improvements. Future versions will likely continue this trend, enhancing the language\'s capabilities and performance.\n\n#### TypeScript Adoption\nTypeScript, a typed superset of JavaScript, has gained significant popularity. While TypeScript compiles to JavaScript, it offers additional features like static typing, which can help catch errors early in development. Many developers and companies are adopting TypeScript for large-scale applications due to its benefits in maintainability and scalability.\n\n#### **Will JavaScript be Revamped to TypeScript?**\nIt\'s unlikely that JavaScript will be entirely revamped to TypeScript. JavaScript and TypeScript serve different purposes and cater to different needs. JavaScript will continue to be the standard for web browsers and general scripting, while TypeScript will be used where additional type safety and tooling are beneficial. However, the features developed in TypeScript often influence the evolution of JavaScript, leading to a symbiotic relationship between the two.\n\n#### Trends and Innovations\n- **WebAssembly**: JavaScript will likely integrate more closely with WebAssembly, allowing for better performance in computationally intensive tasks.\n- **Mobile and Desktop Applications**: Frameworks like React Native and Electron will continue to leverage JavaScript for cross-platform development.\n- **Server-Side Development**: Node.js will keep evolving, making JavaScript a robust choice for server-side programming.\n- **AI and Machine Learning**: JavaScript is increasingly being used in AI and machine learning applications, with libraries like TensorFlow.js.\n\n#### Community and Ecosystem\nThe JavaScript community is vibrant and active, with numerous libraries, frameworks, and tools being developed continuously. This ecosystem will likely grow, providing developers with more options and better tools.\n\nIn summary, JavaScript will not be replaced by TypeScript but will continue to evolve alongside it. Both languages will coexist, serving different but complementary roles in the development landscape.\n\nIs there anything specific about JavaScript\'s future you\'d like to explore further?\n\nResponseID:3b9e6d43');
+  </script>
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

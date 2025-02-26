@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+    <button id="openSavedChats" onclick="selectSavedChat()">Open Saved Chats</button>
+    <a id="previous" href="../responses/7e1dac33.html?responseId=65254ae9">Previous</a>
+    <a id="next" href="../responses/@NEXT_ID@.html">Next</a>
+  </nav>
+
+  <div id="content"></div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../responses/" + responseId + ".html";
+      }
+    </script>
+   
+  
+  <script src="marked.min.js"></script>
+  <script>
+    document.getElementById('content').innerHTML =
+      marked.parse('### Hello Sylvia!\n\nIt seems you\'re interested in discussing real estate rather than coding today. I can certainly help you with that. Let\'s start with some basics about real estate.\n\n#### Real Estate Overview:\n\nReal estate encompasses land along with any permanent improvements attached to it, such as buildings. It\'s a critical area for investment, housing, and business operations. Here are some key aspects of real estate:\n\n1. **Types of Real Estate:**\n   - **Residential:** Properties used for living, such as single-family homes, condos, and apartments.\n   - **Commercial:** Properties used for business purposes, like office buildings, shopping centers, and hotels.\n   - **Industrial:** Properties used for manufacturing, production, or storage, such as factories and warehouses.\n   - **Land:** Undeveloped land, farmland, or lots for future development.\n\n2. **Key Concepts:**\n   - **Market Value:** The estimated amount for which a property should exchange on the date of valuation between a willing buyer and a seller in an arm\'s length transaction.\n   - **Appraisal:** A professional analysis used to estimate the value of a property.\n   - **Comparative Market Analysis (CMA):** A report that compares the prices of recently sold properties that are similar to a subject property.\n\n3. **Real Estate Tools:**\n   - **Multiple Listing Service (MLS):** A database used by real estate professionals to list, find, and research properties for sale.\n   - **Real Estate Software:** Tools for managing client relationships, property listings, and conducting market analysis.\n\n#### Follow-up Questions:\n1. Are you interested in a particular aspect of real estate, such as buying, selling, or investing?\n2. Do you have any specific questions about real estate tools or processes?\n3. Are you looking to understand more about real estate market trends or analysis?\n\nResponseID:65254ae9');
+  </script>
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

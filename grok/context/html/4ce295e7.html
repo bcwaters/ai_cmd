@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+    <button id="openSavedChats" onclick="selectSavedChat()">Open Saved Chats</button>
+    <a id="previous" href="../responses/fc1d7dd4.html?responseId=4ce295e7">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+  </nav>
+
+  <div id="content"><p>Markdown is a lightweight markup language used to format text on the web. Here&#39;s a quick rundown of its basic syntax:</p>
+<h3>Headers</h3>
+<ul>
+<li><code># Heading 1</code></li>
+<li><code>## Heading 2</code></li>
+<li><code>### Heading 3</code></li>
+<li><code>#### Heading 4</code></li>
+<li><code>##### Heading 5</code></li>
+<li><code>###### Heading 6</code></li>
+</ul>
+<h3>Emphasis</h3>
+<ul>
+<li><em>Italic</em>: <code>*text*</code> or <code>_text_</code></li>
+<li><strong>Bold</strong>: <code>**text**</code> or <code>__text__</code></li>
+<li><del>Strikethrough</del>: <code>~~text~~</code></li>
+</ul>
+<h3>Lists</h3>
+<ul>
+<li><strong>Unordered</strong>: <pre><code>- Item 1
+- Item 2
+  - Subitem 1
+</code></pre>
+</li>
+<li><strong>Ordered</strong>:<pre><code>1. Item 1
+2. Item 2
+   1. Subitem 1
+</code></pre>
+</li>
+</ul>
+<h3>Links</h3>
+<ul>
+<li><code>[Link text](URL)</code>: <code>[Google](https://www.google.com)</code></li>
+</ul>
+<h3>Images</h3>
+<ul>
+<li><code>![Alt text](URL)</code>: <code>![Markdown Logo](/path/to/img.jpg)</code></li>
+</ul>
+<h3>Code</h3>
+<ul>
+<li><strong>Inline code</strong>: <code>Use </code>code<code> within backticks</code></li>
+<li><strong>Code blocks</strong>:<pre><code>```language
+code block
+```
+</code></pre>
+</li>
+</ul>
+<h3>Blockquotes</h3>
+<ul>
+<li><code>&gt; This is a blockquote</code></li>
+</ul>
+<h3>Horizontal Rule</h3>
+<ul>
+<li><code>---</code> or <code>***</code></li>
+</ul>
+<h3>Tables</h3>
+<pre><code>| Header 1 | Header 2 |
+|----------|----------|
+| Row 1, Cell 1 | Row 1, Cell 2 |
+| Row 2, Cell 1 | Row 2, Cell 2 |
+</code></pre>
+<h3>Task Lists</h3>
+<ul>
+<li><code>- [ ] Task 1</code></li>
+<li><code>- [x] Task 2 (completed)</code></li>
+</ul>
+<p>This covers the basics of Markdown syntax, which should be enough to get you started with formatting text effectively.</p>
+<p>ResponseID:4ce295e7</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  ""+ filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../responses/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

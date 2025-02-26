@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+ 
+  <div id="content"></div>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+    <a id="previvous" href="../responses/501bb662.html">Previous</a>
+    <a id="next" href="../responses/@NEXT_ID@.html">Next</a>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+
+      document.getElementById('next').href = responseId +".html";
+    </script>
+   
+  <script> 
+
+    let queryParams = window.location.search;
+    let previousId = queryParams.split('=')[1];
+    document.getElementById('previvous').href = "../responses/" + previousId + ".html";
+  </script>
+  <script src="marked.min.js"></script>
+  <script>
+    document.getElementById('content').innerHTML =
+      marked.parse('In the context of the Sobel Edge Detection with TinyGrad code, \"order M x N\" refers to the dimensions of the image being processed. Here\'s a detailed explanation:\n\n- **M**: This represents the height of the image in pixels. It is the number of rows in the image matrix.\n- **N**: This represents the width of the image in pixels. It is the number of columns in the image matrix.\n\nWhen we talk about the computational complexity as O(M * N), we are referring to the total number of pixels in the image. The complexity is linear with respect to the total number of pixels because operations such as convolution, gradient calculation, normalization, and thresholding are applied to each pixel in the image.\n\n### Example:\nFor an image of size 1024x1024 pixels:\n- **M = 1024** (height)\n- **N = 1024** (width)\n\nThe total number of pixels would be \\( M \\times N = 1024 \\times 1024 = 1,048,576 \\) pixels. The computational operations would be applied to each of these pixels, resulting in a total complexity of O(1,048,576), which simplifies to O(M * N).\n\nResponseID:501bb662');
+  </script>
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

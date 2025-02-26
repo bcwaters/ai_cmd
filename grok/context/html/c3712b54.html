@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+    <button id="openSavedChats" onclick="selectSavedChat()">Open Saved Chats</button>
+    <a id="previous" href="../responses/c3712b54.html?responseId=c3712b54">Previous</a>
+    <a id="next" href="../responses/@NEXT_ID@.html">Next</a>
+  </nav>
+
+  <div id="content"></div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../responses/" + responseId + ".html";
+      }
+    </script>
+   
+  
+  <script src="marked.min.js"></script>
+  <script>
+    document.getElementById('content').innerHTML =
+      marked.parse('To document a React application with components using TypeDoc, you\'ll need to set up your project to include TypeDoc and ensure your React components are properly documented with TSDoc comments. Below is an example of how you might structure your React application and document it with TypeDoc.\n\n### Project Structure\n\nAssuming a basic React project structure:\n\n```\nmy-react-app/\n├── src/\n│   ├── components/\n│   │   ├── Button.tsx\n│   │   └── Header.tsx\n│   └── index.tsx\n├── typedoc.json\n└── package.json\n```\n\n### Step 1: Install TypeDoc\n\nIn your `package.json`, add TypeDoc as a dev dependency:\n\n```json\n{\n  \"devDependencies\": {\n    \"typedoc\": \"^0.23.0\"\n  }\n}\n```\n\n### Step 2: Configure TypeDoc\n\nCreate a `typedoc.json` file in the root of your project to configure TypeDoc. Here\'s a basic configuration:\n\n```json\n{\n  \"entryPoints\": [\"src/index.tsx\"],\n  \"out\": \"docs\",\n  \"tsconfig\": \"tsconfig.json\",\n  \"excludeExternals\": true,\n  \"excludePrivate\": true,\n  \"excludeProtected\": true\n}\n```\n\n### Step 3: Document Your Components\n\nAdd TSDoc comments to your React components. Here\'s an example of how to document a `Button` component:\n\n```typescript\n// src/components/Button.tsx\n\n/**\n * A customizable button component.\n * \n * @param props - The props for the button.\n * @param props.children - The content of the button.\n * @param props.onClick - The function to call when the button is clicked.\n * @param props.className - Additional CSS classes for the button.\n * \n * @example\n * ```tsx\n * <Button onClick={() => alert(\'Clicked!\')}>Click me</Button>\n * ```\n */\nexport interface ButtonProps {\n  children: React.ReactNode;\n  onClick: () => void;\n  className?: string;\n}\n\nexport const Button: React.FC<ButtonProps> = ({ children, onClick, className = \'\' }) => (\n  <button onClick={onClick} className={`custom-button ${className}`}>\n    {children}\n  </button>\n);\n```\n\nAnd here\'s an example for a `Header` component:\n\n```typescript\n// src/components/Header.tsx\n\n/**\n * A header component that displays a title.\n * \n * @param props - The props for the header.\n * @param props.title - The title to display in the header.\n * \n * @example\n * ```tsx\n * <Header title=\"My App\" />\n * ```\n */\nexport interface HeaderProps {\n  title: string;\n}\n\nexport const Header: React.FC<HeaderProps> = ({ title }) => (\n  <header>\n    <h1>{title}</h1>\n  </header>\n);\n```\n\n### Step 4: Generate Documentation\n\nRun TypeDoc to generate the documentation:\n\n```sh\nnpx typedoc\n```\n\nThis command will use the configuration in `typedoc.json` to generate documentation in the `docs` folder. The `index.html` file in the `docs` folder will serve as the entry point to your documentation, providing an overview and links to your documented components.\n\n### Result\n\nAfter running TypeDoc, you\'ll have a `docs` directory containing an `index.html` file along with other necessary files and assets. When you open `index.html` in a browser, you\'ll see a structured documentation of your React application, including your `Button` and `Header` components with their descriptions, parameters, and examples.\n\nThis setup allows you to maintain clear and comprehensive documentation for your React components, which is crucial for team collaboration and project maintainability.\n\n---\n\nResponseID:c3712b54');
+  </script>
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+ 
+  <div id="content"></div>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+   
+
+  <script src="marked.min.js"></script>
+  <script>
+    document.getElementById('content').innerHTML =
+      marked.parse('Response ID: 12a4
+ Here\'s the complete code for the tiny grad project on edge detection and optional background removal:\n\n```python\nfrom PIL import Image\nimport cv2\nimport numpy as np\n\n# Load the image\nimage_path = \'path_to_your_image.jpg\'\nimage = Image.open(image_path)\nimage_array = np.array(image)\n\n# Convert the image to grayscale for edge detection\ngray_image = cv2.cvtColor(image_array, cv2.COLOR_RGB2GRAY)\n\n# Apply Canny edge detection\nedges = cv2.Canny(gray_image, 100, 200)\n\n# Display the original image and the edges\ncv2.imshow(\'Original Image\', image_array)\ncv2.imshow(\'Edge Image\', edges)\ncv2.waitKey(0)\ncv2.destroyAllWindows()\n\n# Optionally, save the edge image\ncv2.imwrite(\'edge_image.jpg\', edges)\n\n# Create a mask from the edges\nmask = np.zeros(image_array.shape[:2], dtype=\"uint8\")\ncv2.drawContours(mask, cv2.findContours(edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)[0], -1, 255, -1)\n\n# Apply the mask to the original image\nresult = cv2.bitwise_and(image_array, image_array, mask=mask)\n\n# Display the result\ncv2.imshow(\'Background Removed\', result)\ncv2.waitKey(0)\ncv2.destroyAllWindows()\n\n# Save the result\ncv2.imwrite(\'background_removed.jpg\', result)\n```\n\nThis code provides a complete tiny grad project for simple edge detection and optional background removal using Python, PIL, and OpenCV.\n\n');
+  </script>
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+    <button id="openSavedChats" onclick="selectSavedChat()">Open Saved Chats</button>
+    <a id="previous" href="../responses/534e3f99.html?responseId=15a67479">Previous</a>
+    <a id="next" href="../responses/@NEXT_ID@.html">Next</a>
+  </nav>
+
+  <div id="content"></div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  ""+ filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../responses/" + responseId + ".html";
+      }
+    </script>
+   <script> let unprocessedReadme = 'To find a suitable Highlight.js package for use as a browser script, you can follow these steps:\n\n1. **Visit the Highlight.js Website:**\n   Go to the official Highlight.js website at [https://highlightjs.org/](https://highlightjs.org/). This site provides all the necessary resources for downloading and using Highlight.js.\n\n2. **Download the Package:**\n   On the Highlight.js website, you can download the latest version of the library. There are several options available:\n   - **Full Version:** This includes all language support and is suitable if you need to highlight code in multiple languages.\n   - **Common Version:** This includes support for the most common languages and is a good choice if you want a smaller file size but still need broad language support.\n   - **Custom Build:** You can create a custom build with only the languages you need, which is ideal for minimizing the file size.\n\n   For a browser script, you can download the `.js` file directly. For example, you might download `highlight.min.js` or a custom build like `highlight.pack.js`.\n\n3. **Include in Your HTML:**\n   Once you have downloaded the appropriate `.js` file, you can include it in your HTML file using a `<script>` tag. Here\'s an example:\n\n   ```html\n   <!DOCTYPE html>\n   <html lang=\"en\">\n   <head>\n       <meta charset=\"UTF-8\">\n       <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n       <title>Highlight.js Example</title>\n       <script src=\"path/to/highlight.min.js\"></script>\n       <link rel=\"stylesheet\" href=\"path/to/styles/default.css\">\n   </head>\n   <body>\n       <pre><code class=\"language-javascript\">\n           function helloWorld() {\n               console.log(\"Hello, World!\");\n           }\n       </code></pre>\n       <script>hljs.highlightAll();</script>\n   </body>\n   </html>\n   ```\n\n   Make sure to replace `path/to/highlight.min.js` and `path/to/styles/default.css` with the actual paths to your Highlight.js script and stylesheet.\n\n4. **Initialize Highlight.js:**\n   After including the script, you need to initialize Highlight.js to highlight your code blocks. The simplest way is to call `hljs.highlightAll()` after the DOM is ready, as shown in the example above.\n\n5. **Customization:**\n   Highlight.js offers various themes and styles. You can choose one that matches your site\'s design. Download the corresponding CSS file and include it in your HTML as shown in the example.\n\nBy following these steps, you should be able to successfully integrate Highlight.js into your web page and start highlighting your code blocks.\n\nResponseID:15a67479' ;
+   console.log("unprocessedReadme", unprocessedReadme);
+   </script>
+  <script src="marked.min.js"></script>
+  <script>
+    document.getElementById('content').innerHTML =
+      marked.parse('To find a suitable Highlight.js package for use as a browser script, you can follow these steps:\n\n1. **Visit the Highlight.js Website:**\n   Go to the official Highlight.js website at [https://highlightjs.org/](https://highlightjs.org/). This site provides all the necessary resources for downloading and using Highlight.js.\n\n2. **Download the Package:**\n   On the Highlight.js website, you can download the latest version of the library. There are several options available:\n   - **Full Version:** This includes all language support and is suitable if you need to highlight code in multiple languages.\n   - **Common Version:** This includes support for the most common languages and is a good choice if you want a smaller file size but still need broad language support.\n   - **Custom Build:** You can create a custom build with only the languages you need, which is ideal for minimizing the file size.\n\n   For a browser script, you can download the `.js` file directly. For example, you might download `highlight.min.js` or a custom build like `highlight.pack.js`.\n\n3. **Include in Your HTML:**\n   Once you have downloaded the appropriate `.js` file, you can include it in your HTML file using a `<script>` tag. Here\'s an example:\n\n   ```html\n   <!DOCTYPE html>\n   <html lang=\"en\">\n   <head>\n       <meta charset=\"UTF-8\">\n       <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n       <title>Highlight.js Example</title>\n       <script src=\"path/to/highlight.min.js\"></script>\n       <link rel=\"stylesheet\" href=\"path/to/styles/default.css\">\n   </head>\n   <body>\n       <pre><code class=\"language-javascript\">\n           function helloWorld() {\n               console.log(\"Hello, World!\");\n           }\n       </code></pre>\n       <script>hljs.highlightAll();</script>\n   </body>\n   </html>\n   ```\n\n   Make sure to replace `path/to/highlight.min.js` and `path/to/styles/default.css` with the actual paths to your Highlight.js script and stylesheet.\n\n4. **Initialize Highlight.js:**\n   After including the script, you need to initialize Highlight.js to highlight your code blocks. The simplest way is to call `hljs.highlightAll()` after the DOM is ready, as shown in the example above.\n\n5. **Customization:**\n   Highlight.js offers various themes and styles. You can choose one that matches your site\'s design. Download the corresponding CSS file and include it in your HTML as shown in the example.\n\nBy following these steps, you should be able to successfully integrate Highlight.js into your web page and start highlighting your code blocks.\n\nResponseID:15a67479');
+  </script>
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

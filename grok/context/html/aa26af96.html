@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+    <button id="openSavedChats" onclick="selectSavedChat()">Open Saved Chats</button>
+    <a id="previous" href="../responses/b628e568.html?responseId=aa26af96">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+  </nav>
+
+  <div id="content"><p>Here are variations on &quot;PocketAid&quot; while maintaining the theme of quick, accessible, and efficient support:</p>
+<ol>
+<li><strong>PocketAssist</strong> - Suggests a handy tool that provides immediate assistance right from your pocket.</li>
+<li><strong>PocketBoost</strong> - Implies a portable solution that enhances your capabilities on the go.</li>
+<li><strong>PocketLift</strong> - Indicates a tool that uplifts your skills and knowledge conveniently.</li>
+<li><strong>PocketSupport</strong> - Conveys a supportive tool that you can carry with you for instant help.</li>
+<li><strong>PocketHelp</strong> - Suggests a readily available resource for quick guidance and support.</li>
+</ol>
+<p>For fun, here is an additional list of new words that could be used in this context, formed by combining the suggestions:</p>
+<ul>
+<li><strong>PocketAssistBoost</strong></li>
+<li><strong>PocketLiftSupport</strong></li>
+<li><strong>PocketHelpAid</strong></li>
+<li><strong>PocketBoostLift</strong></li>
+<li><strong>PocketSupportAssist</strong></li>
+</ul>
+<p>ResponseID:aa26af96</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  ""+ filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../responses/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

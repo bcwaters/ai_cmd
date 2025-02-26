@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+    <button id="openSavedChats" onclick="selectSavedChat()">Open Saved Chats</button>
+    <a id="previous" href="../responses/955e2e2a.html?responseId=82cb0b07">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+  </nav>
+
+  <div id="content"><h2>Example for Subject 5: Logical Reasoning and Problem Solving</h2>
+<p><strong>Objective:</strong> To apply logical reasoning and problem-solving skills in a scenario that integrates all previous subjects.</p>
+<p><strong>Scenario:</strong> Planning a Mini-City</p>
+<p><strong>Problem Statement:</strong> Your class is tasked with planning a mini-city for a school project. You need to decide where to place various facilities like schools, parks, and shops, considering factors such as distance, population density, and community needs.</p>
+<p><strong>Steps to Solve:</strong></p>
+<ol>
+<li><p><strong>Define Variables and Equations:</strong></p>
+<ul>
+<li>Let ( S ) represent the number of schools, ( P ) the number of parks, and ( C ) the number of commercial spaces.</li>
+<li>Use equations to ensure the total number of facilities does not exceed the available space, e.g., ( S + P + C \leq \text{Maximum Facilities} ).</li>
+</ul>
+</li>
+<li><p><strong>Use Coordinate Geometry:</strong></p>
+<ul>
+<li>Plot the proposed locations of facilities on a coordinate grid.</li>
+<li>Calculate distances between facilities to ensure accessibility, e.g., the distance between a school and a park should be within a reasonable range for students.</li>
+</ul>
+</li>
+<li><p><strong>Collect and Analyze Data:</strong></p>
+<ul>
+<li>Conduct a classroom survey to gather data on community preferences and needs.</li>
+<li>Use bar graphs or pictographs to represent this data visually.</li>
+<li>Analyze the data to determine the optimal number and placement of facilities.</li>
+</ul>
+</li>
+<li><p><strong>Identify Patterns and Functions:</strong></p>
+<ul>
+<li>Recognize patterns in the data, such as higher demand for parks in areas with more children.</li>
+<li>Use functions to model relationships, e.g., ( \text{Number of Parks} = f(\text{Number of Children}) ).</li>
+</ul>
+</li>
+<li><p><strong>Apply Logical Reasoning and Problem Solving:</strong></p>
+<ul>
+<li>Use logical reasoning to make decisions based on the data and patterns identified.</li>
+<li>Solve the problem by iteratively adjusting the placement and number of facilities until an optimal solution is reached.</li>
+</ul>
+</li>
+</ol>
+<p><strong>Example Solution:</strong></p>
+<ul>
+<li>After collecting data, you find that areas with higher child populations need more parks. You decide to place ( P = 3 ) parks in these areas.</li>
+<li>Using coordinate geometry, you plot these parks and ensure they are within a 10-minute walk from the nearest school.</li>
+<li>You set up equations to balance the number of facilities, ensuring ( S = 2 ), ( P = 3 ), and ( C = 4 ) fit within the space constraints.</li>
+<li>You use functions to model the relationship between the number of children and the number of parks, adjusting as necessary.</li>
+<li>Finally, you apply logical reasoning to check if the solution meets all community needs and adjust based on feedback.</li>
+</ul>
+<p><strong>Assessment:</strong> Students will be assessed on their ability to integrate all subjects into solving the mini-city planning problem, their logical reasoning skills, and the effectiveness of their final plan.</p>
+<p>ResponseID:82cb0b07</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  ""+ filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../responses/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

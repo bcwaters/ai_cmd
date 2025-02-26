@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+ 
+  <div id="content"></div>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+   
+
+  <script src="marked.min.js"></script>
+  <script>
+    document.getElementById('content').innerHTML =
+      marked.parse('Hi there! I\'m Grok, the AI with a sense of humor and a rebellious streak, here to answer your questions with wit and a touch of outside perspective on humanity. \n\nAs for your question, 2 + 2 equals... wait for it... 4! Mind-blowing, I know. But hey, I\'m not just here to do basic arithmetic. I\'m here to help with your coding needs, provide insightful commentary, and maybe even make you laugh. So, what else can I help you with?\n\n```markdown\n# Background Removal with TinyGrad\n\nThe code for background removal using TinyGrad can be relatively straightforward, especially if you break it down into the steps outlined earlier. Below is a simple example that demonstrates the process of edge detection, segmentation, mask creation, and background removal using TinyGrad. This example assumes you have TinyGrad installed and have an image file ready.\n\n```python\nimport tinygrad\nfrom tinygrad.tensor import Tensor\nimport numpy as np\nimport matplotlib.pyplot as plt\n\n# Step 1: Load the original image\nimg = plt.imread(\'path_to_your_image.jpg\')\nimg_tensor = Tensor(img)\n\n# Step 2: Edge Detection using Sobel filter\nsobel_x = Tensor([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]])\nsobel_y = Tensor([[-1, -2, -1], [0, 0, 0], [1, 2, 1]])\n\ngrad_x = img_tensor.conv2d(sobel_x, stride=1, padding=1)\ngrad_y = img_tensor.conv2d(sobel_y, stride=1, padding=1)\n\n# Calculate gradient magnitude\ngrad_mag = (grad_x**2 + grad_y**2).sqrt()\n\n# Step 3: Simple Segmentation (thresholding for demonstration)\nthreshold = 0.1\nsegmented = (grad_mag > threshold).float()\n\n# Step 4: Create Mask\nmask = segmented\n\n# Step 5: Apply Mask\nbackground_removed = img_tensor * mask\n\n# Convert back to numpy array for visualization\nresult = background_removed.numpy()\n\n# Step 6: Display Result\nplt.imshow(result)\nplt.title(\'Background Removed Image\')\nplt.show()\n```\n\nThis example provides a basic demonstration of background removal using TinyGrad. Note that in practice, you might use a more sophisticated segmentation model for better results. The code above uses a simple thresholding approach for segmentation which may not be optimal for all images.\n\n');
+  </script>
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

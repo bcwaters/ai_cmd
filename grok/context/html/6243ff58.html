@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+    <button id="openSavedChats" onclick="selectSavedChat()">Open Saved Chats</button>
+    <a id="previous" href="../responses/72199801.html?responseId=72199801">Previous</a>
+    <a id="next" href="../responses/@NEXT_ID@.html">Next</a>
+  </nav>
+
+  <div id="content"></div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../responses/" + responseId + ".html";
+      }
+    </script>
+   
+  
+  <script src="marked.min.js"></script>
+  <script>
+    document.getElementById('content').innerHTML =
+      marked.parse('### Comparative Market Analysis (CMA) Breakdown\n\nComparative Market Analysis (CMA) is a critical tool used by real estate professionals to estimate the value of a property by comparing it to similar properties that have recently sold, are currently on the market, or were listed but did not sell in the same area. Here\'s a detailed breakdown:\n\n#### **1. Purpose of CMA**\n- **Selling:** Helps sellers set a competitive and realistic price for their property.\n- **Buying:** Assists buyers in making informed offers by understanding the market value of similar properties.\n- **Investment Analysis:** Useful for investors to assess potential returns on investment.\n\n#### **2. Components of a CMA**\n- **Subject Property:** The property for which the analysis is being conducted.\n- **Comparable Properties (Comps):** Properties similar to the subject property in terms of location, size, condition, and features.\n- **Market Data:** Includes recent sales, current listings, and expired listings.\n\n#### **3. Steps to Conduct a CMA**\n- **Identify the Subject Property:** Gather all relevant details about the property in question.\n- **Select Comparable Properties:** Choose properties that closely match the subject property. Typically, comps should be within the same neighborhood or a similar area.\n- **Gather Data:** Collect data on the comps, including sale prices, listing prices, days on market, and any adjustments needed (e.g., for differences in size or condition).\n- **Analyze and Adjust:** Compare the comps to the subject property, making adjustments for differences. For example, if a comp has an additional bedroom, you might adjust its value down to align with the subject property.\n- **Calculate Value:** Use the adjusted values of the comps to estimate a fair market value for the subject property.\n- **Prepare the Report:** Compile the findings into a report that can be shared with clients.\n\n#### **4. Key Considerations**\n- **Location:** Proximity to the subject property is crucial as even small differences in location can significantly impact value.\n- **Time Frame:** Use recent data, typically within the last 3-6 months, to ensure relevance.\n- **Adjustments:** Be meticulous in making adjustments for differences in property features, condition, and market conditions.\n- **Market Trends:** Consider current market trends, such as whether it\'s a buyer\'s or seller\'s market, which can influence pricing.\n\n#### **5. Tools and Resources**\n- **MLS:** The Multiple Listing Service provides a wealth of data necessary for conducting a CMA.\n- **Real Estate Software:** Many platforms offer tools specifically designed to streamline the process of gathering and analyzing data for a CMA.\n- **Professional Networks:** Insights from other real estate professionals can enhance the accuracy of your analysis.\n\n#### **6. Benefits of CMA**\n- **Accuracy:** Provides a data-driven approach to pricing, reducing the risk of overpricing or underpricing.\n- **Client Confidence:** Helps clients feel more confident in their buying or selling decisions.\n- **Negotiation Tool:** A well-prepared CMA can be a powerful tool during price negotiations.\n\nBy mastering the art of conducting a Comparative Market Analysis, real estate agents can provide invaluable service to their clients, helping them navigate the complexities of the real estate market with confidence.\n\nResponseID:6243ff58');
+  </script>
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

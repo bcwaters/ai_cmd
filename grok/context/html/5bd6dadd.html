@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+    <button id="openSavedChats" onclick="selectSavedChat()">Open Saved Chats</button>
+    <a id="previous" href="../responses/65c20ba4.html?responseId=5bd6dadd">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+  </nav>
+
+  <div id="content"><h3>Guitar Chord Shapes and the CAGED Method</h3>
+<h4>Guitar Chord Shapes</h4>
+<p>Guitar chord shapes refer to the specific finger placements on the fretboard to form chords. These shapes are essential for guitarists as they allow for the playing of different chords by moving the same shape up or down the neck. Each chord shape has a unique configuration of fingers and strings, which can be represented using tablature (tabs) notation. For example:</p>
+<ul>
+<li><p><strong>C Major (C Shape)</strong>:</p>
+<pre><code>EADGBE
+x32010
+</code></pre>
+<p>Here, the numbers indicate which fret to press on each string, with &#39;x&#39; indicating that the string should not be played.</p>
+</li>
+<li><p><strong>G Major (E Shape)</strong>:</p>
+<pre><code>EADGBE
+320003
+</code></pre>
+<p>This shape is derived from the open E major chord but shifted up the neck.</p>
+</li>
+</ul>
+<h4>Introduction to the CAGED Method</h4>
+<p>The CAGED method is a popular system used by guitarists to understand and navigate the fretboard. It is based on the fact that the open chord shapes of C, A, G, E, and D can be moved up and down the neck to form barre chords and other chord voicings. Here&#39;s a brief overview:</p>
+<ul>
+<li><p><strong>CAGED</strong>: Stands for the five open chord shapes - C, A, G, E, and D.</p>
+</li>
+<li><p><strong>Purpose</strong>: The method helps guitarists visualize the fretboard in a more structured way, making it easier to find chord voicings and scales.</p>
+</li>
+<li><p><strong>How It Works</strong>: Each of the five shapes can be moved up the neck to form major chords at different positions. For instance:</p>
+<ul>
+<li><strong>C Shape</strong>: When moved up two frets, it becomes a D major chord.</li>
+<li><strong>A Shape</strong>: Moved up two frets, it becomes a B major chord.</li>
+<li><strong>G Shape</strong>: Moved up two frets, it becomes an A major chord.</li>
+<li><strong>E Shape</strong>: Moved up two frets, it becomes an F# major chord.</li>
+<li><strong>D Shape</strong>: Moved up two frets, it becomes an E major chord.</li>
+</ul>
+</li>
+<li><p><strong>Benefits</strong>: The CAGED system helps in understanding the relationship between chords and scales, making it easier to improvise and compose music.</p>
+</li>
+</ul>
+<p>By mastering the CAGED method, guitarists can unlock the full potential of the fretboard, allowing for greater flexibility and creativity in their playing.</p>
+<p>ResponseID:5bd6dadd</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  ""+ filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../responses/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

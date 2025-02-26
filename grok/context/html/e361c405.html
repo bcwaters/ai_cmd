@@ -1,0 +1,167 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    <a id="markdown" href="./markdown/e361c405.md"> markdown</a>
+    <a id="previous" href="../responses/078cfb16.html?responseId=e361c405">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+  </nav>
+
+  <div id="content"><p>Given that this is your first time gardening and you&#39;re interested in starting with easy plants, here are some tailored recommendations for your garden in Fayetteville, Arkansas, focusing on vegetables, herbs, and a few fruits like melons, all while adhering to organic gardening practices.</p>
+<h3>Vegetables for Beginners:</h3>
+<ul>
+<li><strong>Lettuce:</strong> Easy to grow and can be harvested multiple times. Plant seeds directly in the soil after the last frost, which is around mid-April in Fayetteville.</li>
+<li><strong>Radishes:</strong> Fast-growing and require minimal care. Sow seeds directly into the soil in early spring.</li>
+<li><strong>Spinach:</strong> Another cool-season crop that thrives in early spring. Can be sown directly into the soil or started indoors and transplanted.</li>
+</ul>
+<h3>Herbs for Beginners:</h3>
+<ul>
+<li><strong>Basil:</strong> Loves sunlight and is quite forgiving. Start seeds indoors and transplant after the last frost.</li>
+<li><strong>Mint:</strong> Very hardy and can be grown in pots to control its spread. Plant after the last frost.</li>
+</ul>
+<h3>Fruits:</h3>
+<ul>
+<li><strong>Paw Paw Tree:</strong> Plant in a sunny location with well-drained soil. It&#39;s a good idea to start with a young tree from a nursery. Paw paws can take a few years to produce fruit, but they&#39;re well-suited to Arkansas&#39;s climate.</li>
+<li><strong>Melons (like cantaloupe or watermelon):</strong> These require a longer growing season. Start seeds indoors 3-4 weeks before the last frost and transplant them after the danger of frost has passed. Ensure they get plenty of sunlight and space to spread.</li>
+</ul>
+<h3>Steps for Starting Your Organic Garden:</h3>
+<ol>
+<li><p><strong>Soil Preparation:</strong></p>
+<ul>
+<li>Test your soil for pH and nutrient levels. Add compost to improve soil fertility and structure. This is crucial for organic gardening as it helps maintain soil health without synthetic fertilizers.</li>
+</ul>
+</li>
+<li><p><strong>Planting:</strong></p>
+<ul>
+<li>Start with seeds indoors for plants like basil and melons, or purchase seedlings for immediate planting after the last frost.</li>
+<li>For vegetables like lettuce, radishes, and spinach, you can sow seeds directly into the soil after the last frost.</li>
+</ul>
+</li>
+<li><p><strong>Watering and Care:</strong></p>
+<ul>
+<li>Water consistently, especially in the early stages of growth. Use drip irrigation or a watering can to avoid wetting the leaves, which can lead to disease.</li>
+<li>Use organic mulch like straw or leaves to retain moisture and suppress weeds.</li>
+</ul>
+</li>
+<li><p><strong>Pest and Disease Management:</strong></p>
+<ul>
+<li>Monitor your garden regularly for signs of pests or disease. Use organic methods like neem oil or insecticidal soap to manage issues.</li>
+<li>Encourage beneficial insects by planting flowers that attract them, such as marigolds or dill.</li>
+</ul>
+</li>
+<li><p><strong>Harvesting:</strong></p>
+<ul>
+<li>Harvest vegetables and herbs at the peak of ripeness for the best flavor. For melons, wait until they slip easily from the vine.</li>
+</ul>
+</li>
+</ol>
+<h3>Suggested Follow-up Questions:</h3>
+<ul>
+<li>Do you have any specific concerns about starting your paw paw tree?</li>
+<li>Are there any other vegetables or herbs you&#39;re interested in trying?</li>
+<li>Would you like more detailed advice on managing pests organically?</li>
+</ul>
+<p>ResponseID:e361c405</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+
+  <script>
+    function saveMarkdown() {
+      const content = document.documentElement.outerHTML; // Get the entire HTML content
+
+      let markdownLocation = "./markdown/";
+      let markdownFileName = "e361c405.md";
+      let markdownFile = markdownLocation + markdownFileName;
+      
+
+      const url = URL.createObjectURL(blob); // Create a URL for the Blob
+      const divInnerText = document.getElementById('content').innerText;
+      let filename = divInnerText.substring(0, 25);
+      const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+          a.download =  filename + '.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+      
+    }
+  </script>
+
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../html/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+  <script>
+    function loadMarkdownFile() {
+      const markdownFilePath = "./markdown/e361c405.md"; // Path to the markdown file
+      fetch(markdownFilePath)
+        .then(response => response.text())
+        .then(data => {
+          const blob = new Blob([data], { type: 'text/markdown' }); // Create a Blob from the markdown content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download = 'e361c405.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        })
+        .catch(error => console.error('Error loading markdown file:', error));
+    }
+  </script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

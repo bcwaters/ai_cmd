@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+ 
+  <div id="content"></div>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+   
+
+  <script src="marked.min.js"></script>
+  <script>
+    document.getElementById('content').innerHTML =
+      marked.parse('### Setting Up a Neural Network in Tinygrad\n\nSetting up a neural network in Tinygrad is straightforward due to its minimalistic design. Below is an overview of the steps involved in creating a simple neural network using Tinygrad. This example will cover a basic feedforward neural network for a binary classification task.\n\n#### Step 1: Install Tinygrad\n\nFirst, you need to install Tinygrad. You can do this via pip:\n\n```bash\npip install tinygrad\n```\n\n#### Step 2: Import Necessary Modules\n\nIn your Python script, import the required modules from Tinygrad:\n\n```python\nfrom tinygrad.tensor import Tensor\nfrom tinygrad.nn import optim\n```\n\n#### Step 3: Define the Neural Network Architecture\n\nDefine the structure of your neural network. For a simple feedforward network, you can use the following code:\n\n```python\nclass SimpleNN:\n    def __init__(self):\n        self.l1 = Tensor.uniform(784, 128)  # Input layer to hidden layer\n        self.l2 = Tensor.uniform(128, 10)   # Hidden layer to output layer\n\n    def forward(self, x):\n        x = x.dot(self.l1).relu()\n        x = x.dot(self.l2).log_softmax()\n        return x\n```\n\nThis example defines a network with an input layer of 784 neurons (for MNIST dataset), a hidden layer of 128 neurons, and an output layer of 10 neurons.\n\n#### Step 4: Initialize the Model and Optimizer\n\nInitialize your model and the optimizer:\n\n```python\nmodel = SimpleNN()\noptimizer = optim.SGD([model.l1, model.l2], lr=0.01)\n```\n\n#### Step 5: Prepare the Data\n\nFor this example, we\'ll assume you have your data prepared as tensors. Here\'s a simple example of how you might load data:\n\n```python\n# Example data preparation\nimport numpy as np\n\n# Dummy data\nX = Tensor(np.random.rand(100, 784))\ny = Tensor(np.random.randint(0, 10, (100,)))\n```\n\n#### Step 6: Train the Model\n\nTrain your model using a simple training loop:\n\n```python\nfor epoch in range(100):\n    # Forward pass\n    out = model.forward(X)\n    loss = out.sparse_categorical_crossentropy(y)\n\n    # Backward pass\n    optimizer.zero_grad()\n    loss.backward()\n\n    # Update weights\n    optimizer.step()\n\n    if epoch % 10 == 0:\n        print(f\"Epoch {epoch}, Loss: {loss.numpy()}\")\n```\n\n#### Step 7: Evaluate the Model\n\nAfter training, you can evaluate your model on a test set:\n\n```python\n# Dummy test data\nX_test = Tensor(np.random.rand(20, 784))\ny_test = Tensor(np.random.randint(0, 10, (20,)))\n\n# Evaluate\ntest_out = model.forward(X_test)\ntest_loss = test_out.sparse_categorical_crossentropy(y_test)\nprint(f\"Test Loss: {test_loss.numpy()}\")\n```\n\nThis overview should give you a basic understanding of how to set up and train a neural network using Tinygrad. Remember, Tinygrad\'s simplicity is its strength, making it ideal for educational purposes and quick prototyping.\n\n');
+  </script>
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

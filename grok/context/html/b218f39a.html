@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    <a id="markdown" href="./markdown/b218f39a.md"> markdown</a>
+    <a id="previous" href="../responses/bdda2278.html?responseId=b218f39a">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+  </nav>
+
+  <div id="content"><h3>Friendly Tone:</h3>
+<p><strong>When discussing the bounced check and unauthorized resident:</strong></p>
+<p>&quot;Hi [Tenant&#39;s Name], I hope you&#39;re doing well. I wanted to talk about a couple of issues that have come up with your tenancy. It looks like the last rent check didn&#39;t go through, and I noticed there&#39;s someone living with you who isn&#39;t on the lease. I know these things can happen, and I&#39;m here to help sort it out. Can we find a way to resolve this together?&quot;</p>
+<p><strong>When serving the eviction notice:</strong></p>
+<p>&quot;Hello [Tenant&#39;s Name], I&#39;m sorry it&#39;s come to this, but I need to serve you with an eviction notice due to the issues we&#39;ve discussed - the bounced check and the unauthorized resident. You have five days to fix these or move out. I&#39;m here to help if you need it. Let&#39;s try to resolve this amicably.&quot;</p>
+<p><strong>When communicating the final steps:</strong></p>
+<p>&quot;[Tenant&#39;s Name], since the issues haven&#39;t been resolved, I have to proceed with the eviction lawsuit. Once the court rules, you&#39;ll need to leave the property. I wish it hadn&#39;t come to this, and I&#39;m still here if you need any assistance or have questions.&quot;</p>
+<h3>Angry Tone:</h3>
+<p><strong>When discussing the bounced check and unauthorized resident:</strong></p>
+<p>&quot;[Tenant&#39;s Name], what&#39;s going on? Your rent check bounced, and now there&#39;s some unauthorized person living in my property! This is unacceptable. You need to fix this immediately or there will be serious consequences!&quot;</p>
+<p><strong>When serving the eviction notice:</strong></p>
+<p>&quot;[Tenant&#39;s Name], I&#39;m serving you with an eviction notice right now. You&#39;ve got five days to sort out the bounced check and get rid of that unauthorized resident, or you&#39;re out! Don&#39;t test me on this.&quot;</p>
+<p><strong>When communicating the final steps:</strong></p>
+<p>&quot;[Tenant&#39;s Name], you didn&#39;t do what you were supposed to, so I&#39;m taking you to court for eviction. Once the judge agrees, you&#39;re out of there. Don&#39;t think you can drag this out any longer!&quot;</p>
+<h3>Neutral Tone:</h3>
+<p><strong>When discussing the bounced check and unauthorized resident:</strong></p>
+<p>&quot;[Tenant&#39;s Name], I need to address a couple of issues. Your rent check was returned unpaid, and there&#39;s an unauthorized resident living in the property. Please let me know how you intend to resolve these matters.&quot;</p>
+<p><strong>When serving the eviction notice:</strong></p>
+<p>&quot;[Tenant&#39;s Name], I am serving you with an eviction notice due to the bounced check and the unauthorized resident. You have five days to remedy these issues or vacate the premises. Please comply with the notice to avoid further legal action.&quot;</p>
+<p><strong>When communicating the final steps:</strong></p>
+<p>&quot;[Tenant&#39;s Name], as you have not complied with the eviction notice, I am proceeding with the eviction lawsuit. Once the court rules in my favor, you will be required to vacate the premises.&quot;</p>
+<p>ResponseID:b218f39a</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+
+  <script>
+    function saveMarkdown() {
+      const content = document.documentElement.outerHTML; // Get the entire HTML content
+
+      let markdownLocation = "./markdown/";
+      let markdownFileName = "b218f39a.md";
+      let markdownFile = markdownLocation + markdownFileName;
+      
+
+      const url = URL.createObjectURL(blob); // Create a URL for the Blob
+      const divInnerText = document.getElementById('content').innerText;
+      let filename = divInnerText.substring(0, 25);
+      const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+          a.download =  filename + '.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+      
+    }
+  </script>
+
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../html/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+  <script>
+    function loadMarkdownFile() {
+      const markdownFilePath = "./markdown/b218f39a.md"; // Path to the markdown file
+      fetch(markdownFilePath)
+        .then(response => response.text())
+        .then(data => {
+          const blob = new Blob([data], { type: 'text/markdown' }); // Create a Blob from the markdown content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download = 'b218f39a.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        })
+        .catch(error => console.error('Error loading markdown file:', error));
+    }
+  </script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

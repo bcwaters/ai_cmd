@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+    <button id="openSavedChats" onclick="selectSavedChat()">Open Saved Chats</button>
+    <a id="previous" href="../responses/63c304ba.html?responseId=02beb4ea">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+  </nav>
+
+  <div id="content"><h3>Introduction to Kirtan Strumming Patterns on Guitar</h3>
+<p>Kirtan, a form of devotional chanting, often utilizes the guitar to create rhythmic patterns that enhance the spiritual experience. Strumming patterns play a crucial role in setting the mood and tempo of the kirtan session. Here&#39;s an introduction to some common kirtan strumming patterns, along with the two you already know:</p>
+<ul>
+<li><p><strong>DUD DUD</strong>: This pattern is simple yet effective. It consists of Down, Up, Down followed by another Down, Up, Down. It&#39;s great for maintaining a steady rhythm and is commonly used in slower kirtan sessions.</p>
+</li>
+<li><p><strong>DDUUDU</strong>: This pattern is more complex and can add variation to your kirtan. It follows Down, Down, Up, Up, Down, Up. This pattern can be used to increase the energy of the session and is often used in faster-paced kirtans.</p>
+</li>
+</ul>
+<p>In addition to these, here are two more common kirtan strumming patterns:</p>
+<ul>
+<li><p><strong>DUDUDU</strong>: This pattern involves alternating Down and Up strokes in a continuous flow. It&#39;s versatile and can be used at various tempos, making it suitable for different types of kirtan chants.</p>
+</li>
+<li><p><strong>DDU DDU</strong>: This pattern is similar to the DDUUDU but with a pause after the second set of Down, Down, Up. It creates a rhythmic break that can be used to emphasize certain parts of the chant.</p>
+</li>
+</ul>
+<p>By mastering these strumming patterns, you can enhance your kirtan sessions and create a more immersive and engaging experience for participants.</p>
+<p>ResponseID:02beb4ea</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  ""+ filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../responses/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

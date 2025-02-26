@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+    <button id="openSavedChats" onclick="selectSavedChat()">Open Saved Chats</button>
+    <a id="previous" href="../responses/a5dea6b9.html?responseId=a5dea6b9">Previous</a>
+    <a id="next" href="../responses/@NEXT_ID@.html">Next</a>
+  </nav>
+
+  <div id="content"></div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../responses/" + responseId + ".html";
+      }
+    </script>
+   
+  
+  <script src="marked.min.js"></script>
+  <script>
+    document.getElementById('content').innerHTML =
+      marked.parse('For a React application, one of the preferred TypeScript documentation libraries is **TypeDoc**. TypeDoc is a documentation generator for TypeScript projects, which can be seamlessly integrated with React applications. It generates API documentation from TypeScript source code, making it easier to maintain and understand your project\'s codebase.\n\nHere\'s a simple example of how to set up TypeDoc in your React project:\n\n1. **Install TypeDoc**:\n   ```bash\n   npm install --save-dev typedoc\n   ```\n\n2. **Configure TypeDoc**:\n   Create a `typedoc.json` file in your project root with the following content:\n   ```json\n   {\n     \"entryPoints\": [\"src/index.ts\"],\n     \"out\": \"docs\"\n   }\n   ```\n\n3. **Add a script to package.json**:\n   ```json\n   \"scripts\": {\n     \"docs\": \"typedoc\"\n   }\n   ```\n\n4. **Generate Documentation**:\n   Run the following command to generate the documentation:\n   ```bash\n   npm run docs\n   ```\n\nTypeDoc is particularly useful because it supports JSX, which is commonly used in React, and it can be customized to fit your project\'s needs.\n\nFor further assistance or to explore more about setting up documentation in React, consider the following topics:\n\n- **Integrating TypeDoc with CI/CD pipelines**\n- **Customizing TypeDoc themes for better readability**\n- **Using TypeDoc with other TypeScript libraries in React**\n\nResponseID:a5dea6b9');
+  </script>
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

@@ -1,0 +1,62 @@
+export class PromptProfile {
+    static getDefaultProfile(isNew, messagesString, contextData, userPrompt) {
+        this.profile = [
+            {
+                role: "system",
+                content: [
+                    {
+                        type: "text",
+                        text: "You are a helpful assistant that wants to help me write code.  All answers should be in markdown format.  "
+                    },
+                    {
+                        type: "text",
+                        text: `Context of the conversation so far: ${isNew ? "This is the beginning of the conversation. after answering the question suggest a few follow up questions." : messagesString + contextData}`
+                    },
+                    {
+                        type: "text",
+                        text: "there will be a separate response indicated by @EOF@ so response.split(@EOF@)[1] should return the other response`"
+                    },
+                    {
+                        type: "text",
+                        text: "the seperate response will be  500 characters max and 400 character min. it will be a list of keywords which capture the key information provided. SEO style  READMEDOC@EOF@KEYWORDS}"
+                    },
+                    {
+                        type: "text",
+                        text: "Remember to include an @EOF@ in the response.  It should be after the readme section and before the keywords"
+                    }
+                ]
+            },
+            {
+                role: "user",
+                content: [
+                    {
+                        type: "text",
+                        text: "Please show me you understand the instructions by responding with one word. do you understand?"
+                    },
+                ],
+            },
+            {
+                role: "system",
+                content: [
+                    {
+                        type: "text",
+                        text: "# yes@EOF@[understanding, ReadmeFormat, delimiter,]"
+                    },
+                ],
+            },
+            {
+                role: "user",
+                content: [
+                    {
+                        type: "text",
+                        text: userPrompt,
+                    },
+                ],
+            },
+        ];
+        return this.profile;
+    }
+}
+
+// // Usage
+// const profileArray = PromptProfile.getDefaultProfile(isNew, messagesString, contextData, userPrompt);

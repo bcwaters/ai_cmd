@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    <a id="markdown" href="./markdown/ffbafd98.md"> markdown</a>
+    <a id="previous" href="../html/6ff02704.html?responseId=ffbafd98">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+  </nav>
+
+  <div id="content"><h1>Elijah in Biblical Context</h1>
+<p>Elijah was a prophet in the Hebrew Bible, known for his confrontations with the prophets of Baal and his miraculous deeds. He is a significant figure in both Judaism and Christianity.</p>
+<h2>Timeline Relative to Samson</h2>
+<p>Elijah came after Samson. Here is a brief timeline to clarify their positions in history:</p>
+<ul>
+<li><strong>Samson</strong>: Lived during the period of the Judges, around the 11th century BCE.</li>
+<li><strong>Elijah</strong>: Lived during the reign of King Ahab, around the 9th century BCE.</li>
+</ul>
+<p>Thus, Elijah&#39;s time on earth was several centuries after Samson&#39;s.</p>
+<p>ResponseID:ffbafd98</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+
+  <script>
+    function saveMarkdown() {
+      const content = document.documentElement.outerHTML; // Get the entire HTML content
+
+      let markdownLocation = "./markdown/";
+      let markdownFileName = "ffbafd98.md";
+      let markdownFile = markdownLocation + markdownFileName;
+      
+
+      const url = URL.createObjectURL(blob); // Create a URL for the Blob
+      const divInnerText = document.getElementById('content').innerText;
+      let filename = divInnerText.substring(0, 25);
+      const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+          a.download =  filename + '.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+      
+    }
+  </script>
+
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../html/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+  <script>
+    function loadMarkdownFile() {
+      const markdownFilePath = "./markdown/ffbafd98.md"; // Path to the markdown file
+      fetch(markdownFilePath)
+        .then(response => response.text())
+        .then(data => {
+          const blob = new Blob([data], { type: 'text/markdown' }); // Create a Blob from the markdown content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download = 'ffbafd98.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        })
+        .catch(error => console.error('Error loading markdown file:', error));
+    }
+  </script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

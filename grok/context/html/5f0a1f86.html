@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+    <button id="openSavedChats" onclick="selectSavedChat()">Open Saved Chats</button>
+    <a id="previous" href="../responses/c2de223d.html?responseId=5f0a1f86">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+  </nav>
+
+  <div id="content"><h1>Foundational Math Concepts</h1>
+<h2>Subject 1: Introduction to Variables and Equations</h2>
+<h2>Subject 2: Coordinate Geometry</h2>
+<h2>Subject 3: Basic Statistics and Data Analysis</h2>
+<h2>Subject 4: Pattern Recognition and Functions</h2>
+<h2>Subject 5: Logical Reasoning and Problem Solving</h2>
+<h3>Subject 5: Logical Reasoning and Problem Solving</h3>
+<p><strong>Purpose:</strong> To enhance logical thinking and problem-solving skills.</p>
+<p><strong>Relation to Prior Lessons:</strong> This final subject ties together all previous lessons, requiring students to apply their knowledge of variables, coordinates, data analysis, and patterns to solve complex problems, preparing them for the analytical thinking required in linear algebra and deep learning.</p>
+<p><strong>Detailed Content:</strong></p>
+<ol>
+<li><p><strong>Understanding Logical Sequences:</strong>
+Students will learn to identify and construct logical sequences. For example, they will be asked to determine the next number in a sequence such as:</p>
+<pre><code>2, 4, 6, 8, ...
+</code></pre>
+<p>The next number would be 10, as the sequence follows the rule of adding 2 to the previous number.</p>
+</li>
+<li><p><strong>Solving Word Problems:</strong>
+Students will practice translating real-world scenarios into mathematical problems and solving them. An example problem might be:</p>
+<blockquote>
+<p>&quot;If John has 3 apples and Mary gives him 2 more, how many apples does John have now?&quot;
+The solution involves simple addition:</p>
+</blockquote>
+<pre><code>3 + 2 = 5
+</code></pre>
+<p>John now has 5 apples.</p>
+</li>
+<li><p><strong>Using Variables in Problem Solving:</strong>
+Students will use variables to represent unknown quantities in problems. For instance:</p>
+<blockquote>
+<p>&quot;If ( x ) represents the number of apples John has, and he receives 2 more apples, the new total can be represented as ( x + 2 ).&quot;</p>
+</blockquote>
+</li>
+<li><p><strong>Applying Coordinate Geometry:</strong>
+Problems may require students to use coordinate geometry to visualize and solve problems. For example:</p>
+<blockquote>
+<p>&quot;Plot the points (2, 3) and (5, 7) on a coordinate plane and calculate the distance between them.&quot;
+The distance can be calculated using the distance formula:</p>
+</blockquote>
+<pre><code>\text{Distance} = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}
+</code></pre>
+<p>Substituting the values:</p>
+<pre><code>\text{Distance} = \sqrt{(5 - 2)^2 + (7 - 3)^2} = \sqrt{3^2 + 4^2} = \sqrt{9 + 16} = \sqrt{25} = 5
+</code></pre>
+</li>
+<li><p><strong>Data Analysis in Problem Solving:</strong>
+Students will apply data analysis techniques learned in Subject 3 to solve problems. For example:</p>
+<blockquote>
+<p>&quot;Given a set of test scores: 70, 80, 85, 90, 95, calculate the mean score.&quot;
+The mean is calculated as:</p>
+</blockquote>
+<pre><code>\text{Mean} = \frac{70 + 80 + 85 + 90 + 95}{5} = \frac{420}{5} = 84
+</code></pre>
+</li>
+<li><p><strong>Pattern Recognition and Functions:</strong>
+Students will use pattern recognition and functions to solve problems. For example:</p>
+<blockquote>
+<p>&quot;Identify the pattern in the sequence 1, 4, 9, 16, ... and find the next number.&quot;
+The sequence represents the squares of consecutive integers:</p>
+</blockquote>
+<pre><code>1^2, 2^2, 3^2, 4^2, ...
+</code></pre>
+<p>The next number is ( 5^2 = 25 ).</p>
+</li>
+</ol>
+<p><strong>Assessment:</strong>
+Students will be assessed through a combination of quizzes, problem-solving tasks, and projects that require them to apply all the concepts learned throughout the syllabus. The assessment will focus on their ability to integrate knowledge from all subjects to solve complex, multi-step problems.</p>
+<p>ResponseID:5f0a1f86</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  ""+ filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../responses/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

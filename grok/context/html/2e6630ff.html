@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+    <button id="openSavedChats" onclick="selectSavedChat()">Open Saved Chats</button>
+    <a id="previous" href="../responses/cca6450e.html?responseId=2e6630ff">Previous</a>
+    <a id="next" href="../responses/@NEXT_ID@.html">Next</a>
+  </nav>
+
+  <div id="content"></div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../responses/" + responseId + ".html";
+      }
+    </script>
+   
+  
+  <script src="marked.min.js"></script>
+  <script>
+    document.getElementById('content').innerHTML =
+      marked.parse('### Watering Citrus Trees: Effects of Overwatering and Tips\n\n#### Effects of Overwatering\n\nOverwatering is a common issue that can significantly harm citrus trees. Here\'s what can happen if you overwater your citrus tree:\n\n- **Root Rot**: Excess water can lead to root rot, a condition where the roots of the tree become waterlogged and start to decay. This impairs the tree\'s ability to absorb nutrients and water, leading to wilting, yellowing leaves, and eventually, the death of the tree.\n\n- **Fungal Diseases**: Overwatering creates a moist environment that is conducive to the growth of fungal diseases like root rot and citrus canker. These diseases can spread quickly and are difficult to treat once established.\n\n- **Nutrient Leaching**: Excessive water can wash away essential nutrients from the soil, leading to nutrient deficiencies in the tree. This can manifest as poor growth, yellowing leaves, and reduced fruit production.\n\n- **Oxygen Deprivation**: Roots need oxygen to function properly. Overwatering displaces oxygen in the soil, leading to root suffocation and damage.\n\n#### Tips for Proper Watering\n\n- **Check Soil Moisture**: Before watering, check the soil moisture by inserting your finger about an inch into the soil. If it feels dry, it\'s time to water. If it\'s still moist, wait a few days before watering again.\n\n- **Deep Watering**: Water deeply but infrequently to encourage deep root growth. This helps the tree become more drought-resistant and less susceptible to root rot.\n\n- **Avoid Wetting Foliage**: Water at the base of the tree to avoid wetting the leaves, which can lead to fungal diseases. Using a drip irrigation system can help with this.\n\n- **Adjust for Weather**: Reduce watering frequency during cooler, rainy periods and increase it during hot, dry spells.\n\n### Pruning Citrus Trees: Tips and Techniques\n\n#### Tips for Pruning\n\n- **Timing**: The best time to prune citrus trees is in late winter or early spring, before new growth begins. This allows the tree to heal quickly and minimizes the risk of disease.\n\n- **Tools**: Use sharp, clean pruning shears or loppers to make clean cuts. Sterilize your tools with rubbing alcohol or a bleach solution to prevent the spread of disease.\n\n- **What to Prune**:\n  - **Dead or Diseased Wood**: Remove any branches that are dead or show signs of disease to prevent the spread to healthy parts of the tree.\n  - **Crossing Branches**: Remove branches that rub against each other, as this can cause wounds that are susceptible to disease.\n  - **Suckers and Water Sprouts**: Cut off any suckers growing from the base of the tree or water sprouts from the trunk, as these can divert energy from the main tree.\n\n- **Shaping**: Prune to maintain an open center, which improves air circulation and sunlight penetration. This helps prevent disease and promotes even fruit ripening.\n\n- **Size Control**: If you need to control the size of the tree, prune back the tips of branches. However, avoid over-pruning, as this can reduce fruit production.\n\n- **After Pruning**: Water the tree well after pruning to help it recover, and consider applying a citrus-specific fertilizer to promote new growth.\n\nBy understanding the effects of overwatering and following these pruning tips, you\'ll be better equipped to care for your citrus tree, Syvlia!\n\n### Follow-Up Questions:\n- Do you have any specific concerns about watering or pruning that weren\'t covered here?\n- Would you like to know more about any other aspect of citrus tree care?\n\nResponseID:2e6630ff');
+  </script>
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+    <button id="openSavedChats" onclick="selectSavedChat()">Open Saved Chats</button>
+    <a id="previous" href="../responses/fdd5f773.html?responseId=5db216bd">Previous</a>
+    <a id="next" href="../responses/@NEXT_ID@.html">Next</a>
+  </nav>
+
+  <div id="content"></div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../responses/" + responseId + ".html";
+      }
+    </script>
+   
+  
+  <script src="marked.min.js"></script>
+  <script>
+    document.getElementById('content').innerHTML =
+      marked.parse('### Quiz on Present, Past, and Future Tenses in Spanish\n\nBelow is a quiz designed to test your understanding of the present, past (preterite and imperfect), and future tenses in Spanish. Each question provides a sentence in English, and you need to translate it into Spanish using the correct tense.\n\n#### Questions\n\n1. **Present Tense:**\n   - **English:** I speak Spanish every day.\n   - **Spanish:**\n\n2. **Preterite Tense:**\n   - **English:** Yesterday, I spoke with my friend.\n   - **Spanish:**\n\n3. **Imperfect Tense:**\n   - **English:** When I was young, I used to speak Spanish at home.\n   - **Spanish:**\n\n4. **Future Tense:**\n   - **English:** Tomorrow, I will speak at the conference.\n   - **Spanish:**\n\n5. **Conditional Tense:**\n   - **English:** If I had more time, I would speak Spanish more often.\n   - **Spanish:**\n\n#### Answers\n\n1. **Present Tense:**\n   - **Spanish:** Yo hablo español todos los días.\n     - **Pronunciation:** **yoh AH-bloh es-pah-NYOL toh-DOS lohs DEE-ahs**\n\n2. **Preterite Tense:**\n   - **Spanish:** Ayer, hablé con mi amigo.\n     - **Pronunciation:** **ah-YER, ah-BLAY kohn mee ah-MEE-goh**\n\n3. **Imperfect Tense:**\n   - **Spanish:** Cuando era joven, hablaba español en casa.\n     - **Pronunciation:** **KWAHN-doh EH-rah HOH-ven, ah-BLAH-bah es-pah-NYOL en KAH-sah**\n\n4. **Future Tense:**\n   - **Spanish:** Mañana, hablaré en la conferencia.\n     - **Pronunciation:** **mah-NYAH-nah, ah-blah-RAY en lah kohn-feh-REN-see-ah**\n\n5. **Conditional Tense:**\n   - **Spanish:** Si tuviera más tiempo, hablaría español más a menudo.\n     - **Pronunciation:** **see tuh-NEE-eh-rah MAS tee-EM-poh, ah-blah-REE-ah es-pah-NYOL MAS ah me-NOO-doh**\n\n#### Follow-up Questions:\n1. Would you like to see more examples of each tense in context?\n2. Do you need help understanding the differences between the preterite and imperfect past tenses?\n3. Are there any specific tenses you find challenging and would like to practice more?\n\nResponseID:5db216bd');
+  </script>
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

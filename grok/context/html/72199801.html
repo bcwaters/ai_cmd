@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+    <button id="openSavedChats" onclick="selectSavedChat()">Open Saved Chats</button>
+    <a id="previous" href="../responses/36d34366.html?responseId=36d34366">Previous</a>
+    <a id="next" href="../responses/@NEXT_ID@.html">Next</a>
+  </nav>
+
+  <div id="content"></div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../responses/" + responseId + ".html";
+      }
+    </script>
+   
+  
+  <script src="marked.min.js"></script>
+  <script>
+    document.getElementById('content').innerHTML =
+      marked.parse('As a real estate agent with access to the Multiple Listing Service (MLS), you can maximize its utility in several ways to enhance your service to clients. Here are some strategies to consider:\n\n### **1. Advanced Search Capabilities**\nUtilize the advanced search features of the MLS to filter properties based on specific client criteria such as price range, location, number of bedrooms, and other amenities. This can help you quickly find properties that match your client\'s needs.\n\n### **2. Staying Updated**\nSet up alerts and notifications for new listings, price changes, or status updates. This ensures you are among the first to know about new opportunities or changes that could affect your clients.\n\n### **3. Comparative Market Analysis (CMA)**\nLeverage the MLS data to perform CMAs. This involves comparing similar properties in the same area to determine a fair market price for listing or buying. This can be crucial in advising your clients on pricing strategies.\n\n### **4. Networking**\nUse the MLS to connect with other agents. The system often includes tools for direct communication, which can be beneficial for co-brokering deals or getting insider information on listings.\n\n### **5. Marketing Tools**\nSome MLS systems offer marketing tools like virtual tours, high-quality photos, and detailed property descriptions. Use these to create compelling listings that stand out.\n\n### **6. Client Management**\nKeep detailed notes and client preferences within the MLS system if it supports such features. This can help in providing personalized service and recalling client interactions easily.\n\n### **7. Continuing Education**\nMany MLS systems provide resources for continuing education. Use these to stay updated on real estate laws, market trends, and new technologies that can improve your practice.\n\n### **8. Data Analysis**\nAnalyze historical data available through the MLS to understand market trends, which can be invaluable in advising clients on the best times to buy or sell.\n\nBy integrating these practices, you can make the most out of your MLS access, enhancing your effectiveness as a real estate agent.\n\nResponseID:72199801');
+  </script>
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

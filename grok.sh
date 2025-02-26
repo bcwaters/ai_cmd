@@ -47,10 +47,10 @@ spin() {
 # Continuously receive prompts until "exit" is typed
 while true; do
     # Prompt the user for input
-    echo -e "\e[32mtype 'setContext' to set the context\e[0m" 
-    echo -e "\e[34mtype 'new' to start a new conversation\e[0m"
-    echo -e "\e[33mtype 'short' to get a short answer.\e[0m"
-    echo -e "\e[31mtype 'exit' to quit\e[0m"
+    echo -e "type \e[34msetContext\e[0m to set the context" 
+    echo -e "type \e[32mnew\e[0m to start a new conversation"
+    echo -e "type \e[33mshort\e[0m to get a short answer."
+    echo -e "type \e[31mexit\e[0m to quit"
 
     echo ""
 
@@ -67,13 +67,13 @@ while true; do
         echo -e "\e[32mSetting context...\e[0m"
         read -p "Enter the context: " context
         read -p "[context:$context] Enter your question or prompt (type 'exit' to quit): " prompt
-        node --no-warnings /home/bcwaters/repo/grok_cmd/grok_cmd/grok.js "--setContext" "$context" "$prompt" &
+        node --no-warnings /home/bcwaters/repo/grok_cmd/grok_cmd/grok/grok.js "--setContext" "$context" "$prompt" &
         spin $!  # Start spinner while waiting for the node process
     else
     if [ "$prompt" == "new" ]; then 
         # Run node with the absolute path to grok.js and the provided prompt
         read -p "Enter your question or prompt (type 'exit' to quit): " prompt
-        node --no-warnings /home/bcwaters/repo/grok_cmd/grok_cmd/grok.js "--new" "$prompt" &
+        node --no-warnings /home/bcwaters/repo/grok_cmd/grok_cmd/grok/grok.js "--new" "$prompt" &
         spin $!  # Start spinner while waiting for the node process
     else
     if [ "$prompt" == "short" ]; then
@@ -82,11 +82,11 @@ while true; do
         echo -e "\e[33mHow many words max? 1 to 16000\e[0m"
         read -p "Enter the short value: " shortValue
         read -p "[short:$shortValue] Enter your question or prompt (type 'exit' to quit): " prompt
-        node --no-warnings /home/bcwaters/repo/grok_cmd/grok_cmd/grok.js "--short" "$shortValue" "$prompt" &
+        node --no-warnings /home/bcwaters/repo/grok_cmd/grok_cmd/grok/grok.js "--short" "$shortValue" "$prompt" &
         spin $!  # Start spinner while waiting for the node process
     else
         # Run node with the absolute path to grok.js and the provided prompt
-        node --no-warnings /home/bcwaters/repo/grok_cmd/grok_cmd/grok.js "$prompt" &
+        node --no-warnings /home/bcwaters/repo/grok_cmd/grok_cmd/grok/grok.js "$prompt" &
         spin $!  # Start spinner while waiting for the node process
     fi
     fi

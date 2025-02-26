@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+    <button id="openSavedChats" onclick="selectSavedChat()">Open Saved Chats</button>
+    <a id="previous" href="../responses/5db216bd.html?responseId=4b557078">Previous</a>
+    <a id="next" href="../responses/@NEXT_ID@.html">Next</a>
+  </nav>
+
+  <div id="content"></div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../responses/" + responseId + ".html";
+      }
+    </script>
+   
+  
+  <script src="marked.min.js"></script>
+  <script>
+    document.getElementById('content').innerHTML =
+      marked.parse('Here is an outline of the pronunciation for each letter in the Spanish alphabet:\n\n### Spanish Alphabet Pronunciation\n\n| Letter | Pronunciation | Example Word | Pronunciation of Example |\n|--------|----------------|--------------|--------------------------|\n| A      | ah             | **A**migo     | **ah**-MEE-goh           |\n| B      | beh            | **B**ueno     | **beh**-EH-noh           |\n| C      | seh (before e, i) <br> keh (before a, o, u) | **C**asa <br> **C**ielo | **KAH**-sah <br> **see**-EH-loh |\n| D      | deh            | **D**ía       | **DEE**-ah               |\n| E      | eh             | **E**stado    | **eh**-STAH-doh          |\n| F      | efe            | **F**amilia   | **eh**-FEH-mee-ah        |\n| G      | heh (before e, i) <br> geh (before a, o, u) | **G**ente <br> **G**ato | **HEHN**-teh <br> **GAH**-toh |\n| H      | ah-cheh        | **H**ola      | **OH**-lah               |\n| I      | ee             | **I**glesia   | **ee**-GLEH-see-ah       |\n| J      | ho-tah         | **J**ugar     | **hoo**-GAHR             |\n| K      | kah            | **K**ilo      | **KEE**-loh              |\n| L      | ele            | **L**uz       | **LOOS**                 |\n| M      | eme            | **M**undo     | **MOON**-doh             |\n| N      | ene            | **N**oche     | **NOH**-cheh             |\n| Ñ      | en-yeh         | **Ñ**oño      | **NYOH**-nyoh            |\n| O      | oh             | **O**ro       | **OH**-roh               |\n| P      | peh            | **P**adre     | **PAH**-dreh             |\n| Q      | koo            | **Q**ueso     | **KEH**-soh              |\n| R      | ere            | **R**ey       | **REH**-ee               |\n| S      | ese            | **S**ol       | **SOHL**                 |\n| T      | teh            | **T**ierra    | **tee**-EH-rrah          |\n| U      | oo             | **U**niversidad | **oo**-nee-ber-see-DAD   |\n| V      | veh            | **V**ida      | **VEE**-dah              |\n| W      | doh-bleh-veh  | **W**aterpolo | **wah**-ter-POH-loh      |\n| X      | eh-kees        | **X**ilófono  | **see**-LOH-foh-noh      |\n| Y      | ee-gri-eh-gah | **Y**o        | **YOH**                  |\n| Z      | seh-tah        | **Z**apato    | **sah**-PAH-toh          |\n\n### Notes:\n- The letter **C** has two pronunciations depending on the vowel that follows it.\n- The letter **G** also has two pronunciations based on the following vowel.\n- The letter **H** is silent in Spanish.\n- The letter **J** has a unique pronunciation similar to the English \"h\" but with more friction.\n- The letter **Ñ** is unique to Spanish and has a distinct sound.\n- The letter **R** is rolled in Spanish, which is different from the English pronunciation.\n- The letter **Y** can function as both a consonant and a vowel in Spanish.\n- The letter **Z** is pronounced like the English \"s\" in most Spanish-speaking regions, except in parts of Spain where it\'s pronounced like \"th\" in \"thin.\"\n\n#### Follow-up Questions:\n1. Do you need help with the pronunciation of any specific letter?\n2. Would you like to practice the pronunciation of some common Spanish words?\n3. Are there any regional variations in pronunciation you\'re interested in learning about?\n\nResponseID:4b557078');
+  </script>
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

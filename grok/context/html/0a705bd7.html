@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+    <button id="openSavedChats" onclick="selectSavedChat()">Open Saved Chats</button>
+    <a id="previous" href="../responses/5e453a31.html?responseId=0a705bd7">Previous</a>
+    <a id="next" href="../responses/@NEXT_ID@.html">Next</a>
+  </nav>
+
+  <div id="content"></div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  ""+ filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../responses/" + responseId + ".html";
+      }
+    </script>
+   <script> let unprocessedReadme = '```markdown\n# Difference Between Vim and Vi\n\nVim and Vi are both text editors that originated from the same lineage, but they have evolved differently over time. Here\'s a detailed comparison:\n\n## Origins and Evolution\n\n- **Vi**: Vi, short for \"Visual,\" was first released in 1976 by Bill Joy. It is the original editor and became a standard on Unix systems.\n- **Vim**: Vim, which stands for \"Vi Improved,\" was created by Bram Moolenaar in 1991. It is an enhanced version of Vi, designed to offer additional features and improvements.\n\n## Key Differences\n\n### Functionality and Features\n\n- **Vi**:\n  - Basic text editing capabilities.\n  - Limited to the original command set.\n  - No built-in support for syntax highlighting, multi-level undo, or visual mode.\n\n- **Vim**:\n  - Offers extensive enhancements over Vi.\n  - Includes syntax highlighting, multi-level undo, visual mode, and many other advanced features.\n  - Supports plugins, which allow for further customization and extension of the editor\'s capabilities.\n\n### Compatibility\n\n- **Vi**:\n  - Available on most Unix-like systems.\n  - Follows POSIX standards for Vi.\n\n- **Vim**:\n  - Often used as a replacement for Vi on many systems.\n  - While designed to be compatible with Vi, Vim includes its own set of commands and features that go beyond Vi\'s capabilities.\n\n### User Experience\n\n- **Vi**:\n  - More minimalistic and straightforward.\n  - Ideal for users who need a simple, reliable text editor on Unix systems.\n\n- **Vim**:\n  - Provides a richer editing experience.\n  - Better suited for users who want advanced features and customization options.\n\n### Configuration\n\n- **Vi**:\n  - Limited configuration options, mainly through `.exrc` files.\n\n- **Vim**:\n  - Highly configurable through the `.vimrc` file.\n  - Allows for extensive personalization of the editing environment.\n\n## Usage\n\nBoth Vim and Vi operate in command and insert modes, but Vim offers more modes and commands for advanced editing. For instance:\n\n- **Vi** typically uses basic commands like `i` for insert mode, `dd` for deleting a line, and `:` for entering commands.\n- **Vim** extends these with commands like `v` for visual mode, `Ctrl + r` for redo, and numerous other features like split windows, tabs, and more.\n\n## Conclusion\n\nWhile Vi is the foundational text editor that many users still rely on for its simplicity and reliability, Vim has become the preferred choice for those seeking a more powerful and customizable editing experience. Both are excellent tools, but your choice between them should depend on your specific needs and preferences.\n\nResponseID:0a705bd7' ;
+   console.log("unprocessedReadme", unprocessedReadme);
+   </script>
+  <script src="marked.min.js"></script>
+  <script>
+    document.getElementById('content').innerHTML =
+      marked.parse('```markdown\n# Difference Between Vim and Vi\n\nVim and Vi are both text editors that originated from the same lineage, but they have evolved differently over time. Here\'s a detailed comparison:\n\n## Origins and Evolution\n\n- **Vi**: Vi, short for \"Visual,\" was first released in 1976 by Bill Joy. It is the original editor and became a standard on Unix systems.\n- **Vim**: Vim, which stands for \"Vi Improved,\" was created by Bram Moolenaar in 1991. It is an enhanced version of Vi, designed to offer additional features and improvements.\n\n## Key Differences\n\n### Functionality and Features\n\n- **Vi**:\n  - Basic text editing capabilities.\n  - Limited to the original command set.\n  - No built-in support for syntax highlighting, multi-level undo, or visual mode.\n\n- **Vim**:\n  - Offers extensive enhancements over Vi.\n  - Includes syntax highlighting, multi-level undo, visual mode, and many other advanced features.\n  - Supports plugins, which allow for further customization and extension of the editor\'s capabilities.\n\n### Compatibility\n\n- **Vi**:\n  - Available on most Unix-like systems.\n  - Follows POSIX standards for Vi.\n\n- **Vim**:\n  - Often used as a replacement for Vi on many systems.\n  - While designed to be compatible with Vi, Vim includes its own set of commands and features that go beyond Vi\'s capabilities.\n\n### User Experience\n\n- **Vi**:\n  - More minimalistic and straightforward.\n  - Ideal for users who need a simple, reliable text editor on Unix systems.\n\n- **Vim**:\n  - Provides a richer editing experience.\n  - Better suited for users who want advanced features and customization options.\n\n### Configuration\n\n- **Vi**:\n  - Limited configuration options, mainly through `.exrc` files.\n\n- **Vim**:\n  - Highly configurable through the `.vimrc` file.\n  - Allows for extensive personalization of the editing environment.\n\n## Usage\n\nBoth Vim and Vi operate in command and insert modes, but Vim offers more modes and commands for advanced editing. For instance:\n\n- **Vi** typically uses basic commands like `i` for insert mode, `dd` for deleting a line, and `:` for entering commands.\n- **Vim** extends these with commands like `v` for visual mode, `Ctrl + r` for redo, and numerous other features like split windows, tabs, and more.\n\n## Conclusion\n\nWhile Vi is the foundational text editor that many users still rely on for its simplicity and reliability, Vim has become the preferred choice for those seeking a more powerful and customizable editing experience. Both are excellent tools, but your choice between them should depend on your specific needs and preferences.\n\nResponseID:0a705bd7');
+  </script>
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

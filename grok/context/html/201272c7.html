@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+    <button id="openSavedChats" onclick="selectSavedChat()">Open Saved Chats</button>
+    <a id="previous" href="../responses/82cb0b07.html?responseId=201272c7">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+  </nav>
+
+  <div id="content"><h1>5th Grade Math Syllabus: Building Foundations for Linear Algebra and Deep Learning</h1>
+<p>This syllabus is designed to introduce 5th graders to foundational math concepts that will prepare them for advanced topics like linear algebra and deep learning. Each subject builds upon the previous one, creating a structured learning path.</p>
+<h2>Subject 1: Introduction to Variables and Equations</h2>
+<p><strong>Purpose:</strong> To understand the concept of variables and how to solve basic equations.
+<strong>Relation to Prior Lessons:</strong> This is the foundational lesson, introducing students to the concept of unknowns in mathematics, which is essential for all subsequent subjects.</p>
+<h3>Lesson Plan for Subject 1</h3>
+<p><strong>Objective:</strong> By the end of this lesson, students will be able to understand the concept of variables and solve simple equations.</p>
+<p><strong>Materials Needed:</strong></p>
+<ul>
+<li>Whiteboard and markers</li>
+<li>Worksheets with simple equations</li>
+<li>Manipulatives (e.g., algebra tiles)</li>
+</ul>
+<p><strong>Introduction (10 minutes):</strong></p>
+<ul>
+<li>Start with a discussion about how we use symbols in everyday life (e.g., emojis, road signs).</li>
+<li>Introduce the concept of variables as symbols that represent unknown numbers.</li>
+</ul>
+<p><strong>Direct Instruction (15 minutes):</strong></p>
+<ul>
+<li>Explain what an equation is and how it balances two sides.</li>
+<li>Demonstrate solving simple equations using examples like <code>x + 3 = 5</code>.</li>
+<li>Use algebra tiles to visually represent the equation and the process of solving it.</li>
+</ul>
+<p><strong>Guided Practice (20 minutes):</strong></p>
+<ul>
+<li>Hand out worksheets with simple equations.</li>
+<li>Walk around the classroom to assist students as they solve the equations.</li>
+<li>Encourage students to use algebra tiles if needed.</li>
+</ul>
+<p><strong>Independent Practice (15 minutes):</strong></p>
+<ul>
+<li>Students complete a set of more complex equations on their own.</li>
+<li>Provide immediate feedback and correction.</li>
+</ul>
+<p><strong>Closure (10 minutes):</strong></p>
+<ul>
+<li>Review the key concepts learned.</li>
+<li>Ask students to share one equation they solved and how they did it.</li>
+<li>Assign homework: Solve five equations at home and bring them to the next class.</li>
+</ul>
+<p>ResponseID:201272c7</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  ""+ filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../responses/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

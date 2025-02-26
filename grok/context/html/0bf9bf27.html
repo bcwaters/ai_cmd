@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+    <button id="openSavedChats" onclick="selectSavedChat()">Open Saved Chats</button>
+    <a id="previous" href="../responses/0bf9bf27.html?responseId=0bf9bf27">Previous</a>
+    <a id="next" href="../responses/@NEXT_ID@.html">Next</a>
+  </nav>
+
+  <div id="content"></div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../responses/" + responseId + ".html";
+      }
+    </script>
+   
+  
+  <script src="marked.min.js"></script>
+  <script>
+    document.getElementById('content').innerHTML =
+      marked.parse('### What is Tinygrad?\n\nTinygrad is a lightweight, Python-based deep learning framework designed for ease of use and rapid experimentation. It aims to provide a simple and intuitive API for building and training neural networks, making it an excellent choice for beginners and researchers.\n\nKey features of Tinygrad include:\n\n- **Simplicity**: Tinygrad focuses on a minimalistic design, making it easy to understand and use, even for those new to deep learning.\n- **Flexibility**: It allows for easy customization and experimentation with different neural network architectures.\n- **Performance**: Despite its simplicity, Tinygrad can achieve competitive performance on various tasks.\n- **Educational Value**: Its transparent and straightforward implementation makes it an excellent tool for learning about deep learning concepts.\n\nTinygrad is particularly useful for:\n\n- Rapid prototyping of neural network models\n- Educational purposes in machine learning courses\n- Research in novel neural network architectures\n\nTo get started with Tinygrad, you can install it via pip and begin experimenting with its API to build and train your own models.\n\n---\n\nHave you used any deep learning frameworks before? Are you interested in trying Tinygrad for a specific project or just learning about it? What aspects of deep learning are you most interested in exploring with Tinygrad?\n\nResponseID:0bf9bf27');
+  </script>
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

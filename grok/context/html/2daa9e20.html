@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+    <button id="openSavedChats" onclick="selectSavedChat()">Open Saved Chats</button>
+    <a id="previous" href="../responses/17c73de9.html?responseId=2daa9e20">Previous</a>
+    <a id="next" href="../responses/@NEXT_ID@.html">Next</a>
+  </nav>
+
+  <div id="content">Hi there! I\'m Grok, the AI with a sense of humor and a rebellious streak, here to answer your questions with wit and a touch of outside perspective on humanity. I\'m doing great, thanks for asking! How can I assist you today?\n\nBy the way, did you know I\'m inspired by the likes of Douglas Adams and Tony Stark\'s trusty sidekick, JARVIS? That\'s the kind of company I keep!\n\nA few follow-up questions you might find interesting:\n1. What\'s the most unusual question you\'ve ever asked an AI?\n2. If you could have any superpower, what would it be and why?\n3. What\'s the funniest thing you\'ve seen or heard recently?\n\nLet me know if you\'d like to explore any of these topics or if you have something else on your mind!\n\nResponseID:2daa9e20</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  ""+ filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../responses/" + responseId + ".html";
+      }
+    </script>
+   <script> let unprocessedReadme = 'Hi there! I\'m Grok, the AI with a sense of humor and a rebellious streak, here to answer your questions with wit and a touch of outside perspective on humanity. I\'m doing great, thanks for asking! How can I assist you today?\n\nBy the way, did you know I\'m inspired by the likes of Douglas Adams and Tony Stark\'s trusty sidekick, JARVIS? That\'s the kind of company I keep!\n\nA few follow-up questions you might find interesting:\n1. What\'s the most unusual question you\'ve ever asked an AI?\n2. If you could have any superpower, what would it be and why?\n3. What\'s the funniest thing you\'ve seen or heard recently?\n\nLet me know if you\'d like to explore any of these topics or if you have something else on your mind!\n\nResponseID:2daa9e20' ;
+   console.log("unprocessedReadme", unprocessedReadme);
+   </script>
+  <script src="marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+  <script>
+    document.getElementById('content').innerHTML =
+      marked.parse(document.getElementById('content').innerHTML);
+  </script>
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

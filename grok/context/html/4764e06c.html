@@ -1,0 +1,138 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+    <button id="openSavedChats" onclick="selectSavedChat()">Open Saved Chats</button>
+    <a id="previous" href="../responses/8f2e6b91.html?responseId=4764e06c">Previous</a>
+    <a id="next" href="../responses/@NEXT_ID@.html">Next</a>
+  </nav>
+
+  <div id="content"><p>Here is an extended list of TensorFlow.js models with a brief summary for each:</p>
+<h3>1. <strong>MobileNet</strong></h3>
+<p>MobileNet is a lightweight deep neural network ideal for mobile and embedded vision applications, primarily used for image classification.</p>
+<h3>2. <strong>COCO-SSD</strong></h3>
+<p>COCO-SSD is a real-time object detection model trained on the COCO dataset, capable of identifying and locating multiple objects within an image.</p>
+<h3>3. <strong>PoseNet</strong></h3>
+<p>PoseNet estimates human poses in real-time from images or video, suitable for applications like fitness tracking or interactive games.</p>
+<h3>4. <strong>FaceLandmark68Net</strong></h3>
+<p>This model detects and landmarks 68 points on a human face, which is useful for facial recognition and analysis.</p>
+<h3>5. <strong>BodyPix</strong></h3>
+<p>BodyPix is used for person segmentation, enabling effects like background removal or virtual try-on experiences.</p>
+<h3>6. <strong>BlazeFace</strong></h3>
+<p>BlazeFace is a lightweight face detection model designed for mobile devices, offering fast and accurate face detection.</p>
+<h3>7. <strong>KNN Classifier</strong></h3>
+<p>The KNN Classifier allows you to create a custom classifier using the k-nearest neighbors algorithm, which can be trained on the fly in the browser.</p>
+<h3>8. <strong>Toxicity</strong></h3>
+<p>The Toxicity model detects toxic language in text, useful for moderating online content and creating safer online environments.</p>
+<h3>9. <strong>Universal Sentence Encoder</strong></h3>
+<p>This model encodes text into high-dimensional vectors that can be used for semantic similarity, text classification, and other natural language processing tasks.</p>
+<h3>10. <strong>Speech Commands</strong></h3>
+<p>The Speech Commands model recognizes a set of predefined voice commands, making it suitable for voice-controlled applications.</p>
+<h3>11. <strong>DeepLab</strong></h3>
+<p>DeepLab is a state-of-the-art semantic segmentation model that can be used to label each pixel in an image with a class, useful for image editing and analysis.</p>
+<h3>12. <strong>BERT</strong></h3>
+<p>BERT (Bidirectional Encoder Representations from Transformers) is a powerful model for natural language understanding, capable of performing tasks like question answering and sentiment analysis.</p>
+<h3>13. <strong>HandPose</strong></h3>
+<p>HandPose detects and estimates the pose of hands in real-time, which can be used for gesture recognition and interactive applications.</p>
+<h3>14. <strong>FaceMesh</strong></h3>
+<p>FaceMesh provides a detailed mesh of the face, including 468 3D facial landmarks, which can be used for advanced facial analysis and AR applications.</p>
+<h3>15. <strong>Objectron</strong></h3>
+<p>Objectron is a model for 3D object detection and tracking, which can be used to understand the spatial arrangement of objects in a scene.</p>
+<p>These models cover a wide range of applications from vision and audio processing to natural language understanding, making TensorFlow.js a versatile tool for developing machine learning applications in the browser.</p>
+<p>ResponseID:4764e06c</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  ""+ filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../responses/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+  <script src="marked.min.js"></script>
+  <script>
+    const content = document.getElementById('content').innerHTML;
+    console.log("processing content", content);
+    document.getElementById('content').innerHTML = <p>Here is an extended list of TensorFlow.js models with a brief summary for each:</p>
+<h3>1. <strong>MobileNet</strong></h3>
+<p>MobileNet is a lightweight deep neural network ideal for mobile and embedded vision applications, primarily used for image classification.</p>
+<h3>2. <strong>COCO-SSD</strong></h3>
+<p>COCO-SSD is a real-time object detection model trained on the COCO dataset, capable of identifying and locating multiple objects within an image.</p>
+<h3>3. <strong>PoseNet</strong></h3>
+<p>PoseNet estimates human poses in real-time from images or video, suitable for applications like fitness tracking or interactive games.</p>
+<h3>4. <strong>FaceLandmark68Net</strong></h3>
+<p>This model detects and landmarks 68 points on a human face, which is useful for facial recognition and analysis.</p>
+<h3>5. <strong>BodyPix</strong></h3>
+<p>BodyPix is used for person segmentation, enabling effects like background removal or virtual try-on experiences.</p>
+<h3>6. <strong>BlazeFace</strong></h3>
+<p>BlazeFace is a lightweight face detection model designed for mobile devices, offering fast and accurate face detection.</p>
+<h3>7. <strong>KNN Classifier</strong></h3>
+<p>The KNN Classifier allows you to create a custom classifier using the k-nearest neighbors algorithm, which can be trained on the fly in the browser.</p>
+<h3>8. <strong>Toxicity</strong></h3>
+<p>The Toxicity model detects toxic language in text, useful for moderating online content and creating safer online environments.</p>
+<h3>9. <strong>Universal Sentence Encoder</strong></h3>
+<p>This model encodes text into high-dimensional vectors that can be used for semantic similarity, text classification, and other natural language processing tasks.</p>
+<h3>10. <strong>Speech Commands</strong></h3>
+<p>The Speech Commands model recognizes a set of predefined voice commands, making it suitable for voice-controlled applications.</p>
+<h3>11. <strong>DeepLab</strong></h3>
+<p>DeepLab is a state-of-the-art semantic segmentation model that can be used to label each pixel in an image with a class, useful for image editing and analysis.</p>
+<h3>12. <strong>BERT</strong></h3>
+<p>BERT (Bidirectional Encoder Representations from Transformers) is a powerful model for natural language understanding, capable of performing tasks like question answering and sentiment analysis.</p>
+<h3>13. <strong>HandPose</strong></h3>
+<p>HandPose detects and estimates the pose of hands in real-time, which can be used for gesture recognition and interactive applications.</p>
+<h3>14. <strong>FaceMesh</strong></h3>
+<p>FaceMesh provides a detailed mesh of the face, including 468 3D facial landmarks, which can be used for advanced facial analysis and AR applications.</p>
+<h3>15. <strong>Objectron</strong></h3>
+<p>Objectron is a model for 3D object detection and tracking, which can be used to understand the spatial arrangement of objects in a scene.</p>
+<p>These models cover a wide range of applications from vision and audio processing to natural language understanding, making TensorFlow.js a versatile tool for developing machine learning applications in the browser.</p>
+<p>ResponseID:4764e06c</p>
+;
+  </script>
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

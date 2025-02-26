@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+ 
+  <div id="content"></div>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+   
+
+  <script src="marked.min.js"></script>
+  <script>
+    document.getElementById('content').innerHTML =
+      marked.parse('To use Nextra to create documentation on a TSX file, you can leverage Nextra\'s support for MDX, which allows you to embed JSX and TypeScript directly within your Markdown files. Here\'s how you can set up and use Nextra with a TSX file:\n\n### Step 1: Setting Up Nextra\n\nFirst, ensure that you have Nextra installed in your Next.js project. If not, you can install it using:\n\n```bash\nnpm install nextra\n```\n\n### Step 2: Configuring Nextra\n\nNext, you need to configure Nextra in your `next.config.js` file:\n\n```javascript\nconst withNextra = require(\'nextra\')({\n  theme: \'nextra-theme-docs\',\n  themeConfig: \'./theme.config.js\',\n})\n\nmodule.exports = withNextra()\n```\n\nAnd in your `theme.config.js`, you can customize the theme settings:\n\n```javascript\nexport default {\n  logo: <strong>My Docs</strong>,\n  project: {\n    link: \'https://github.com/your-project\',\n  },\n  docsRepositoryBase: \'https://github.com/your-project/tree/main\',\n  footer: {\n    text: \'My Documentation\',\n  },\n}\n```\n\n### Step 3: Creating a TSX Documentation File\n\nCreate a new file with a `.mdx` extension (e.g., `getting-started.mdx`) in your `pages` directory. Inside this file, you can use Nextra annotations and embed TSX code:\n\n```markdown\n---\ntitle: Getting Started with My Project\ndescription: Learn how to set up and use My Project.\nsidebarLabel: Quick Start\ndraft: false\n---\n\n# Getting Started with My Project\n\nWelcome to the quick start guide for My Project. Here\'s how to get started:\n\n## Installation\n\nTo install My Project, run the following command:\n\n```bash\nnpm install my-project\n```\n\n## Usage\n\nHere\'s a simple example of how to use My Project in your React components:\n\n```tsx\nimport React from \'react\';\nimport { MyComponent } from \'my-project\';\n\nconst App: React.FC = () => {\n  return (\n    <div>\n      <MyComponent />\n    </div>\n  );\n};\n\nexport default App;\n```\n\nIn this example, we import `MyComponent` from `my-project` and use it in our `App` component.\n\n## Next Steps\n\nContinue exploring the documentation to learn more about My Project\'s features and capabilities.\n```\n\n### Step 4: Running Your Nextra Documentation\n\nWith your TSX documentation file set up, you can now run your Next.js application to see the documentation in action:\n\n```bash\nnpm run dev\n```\n\nThis will start the development server, and you can view your documentation at `localhost:3000`.\n\n### Conclusion\n\nBy using Nextra with MDX, you can seamlessly integrate TSX code into your documentation, making it easier to demonstrate and explain how to use your TypeScript-based components and libraries.\n\n');
+  </script>
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

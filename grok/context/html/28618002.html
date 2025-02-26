@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+    <button id="openSavedChats" onclick="selectSavedChat()">Open Saved Chats</button>
+    <a id="previous" href="../responses/0a705bd7.html?responseId=28618002">Previous</a>
+    <a id="next" href="../responses/@NEXT_ID@.html">Next</a>
+  </nav>
+
+  <div id="content"></div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  ""+ filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../responses/" + responseId + ".html";
+      }
+    </script>
+   <script> let unprocessedReadme = '```markdown\n# Setting Up Your .vimrc File\n\nThe `.vimrc` file is a configuration file for Vim, allowing you to customize your Vim environment to suit your preferences and workflow. Here\'s a step-by-step guide on how to set it up:\n\n## 1. Locating or Creating the .vimrc File\n\n- **Unix/Linux/MacOS**: The `.vimrc` file is usually located in your home directory. You can create or edit it using:\n  ```bash\n  vim ~/.vimrc\n  ```\n\n- **Windows**: The equivalent file is `_vimrc`, typically located in your user directory. You can create or edit it using:\n  ```cmd\n  vim ~/_vimrc\n  ```\n\nIf the file doesn\'t exist, Vim will create it when you save your changes.\n\n## 2. Basic Configuration\n\nHere are some basic settings you might want to include in your `.vimrc`:\n\n```vim\n\" Enable syntax highlighting\nsyntax on\n\n\" Set the number of spaces a tab is displayed as\nset tabstop=4\n\n\" Convert tabs to spaces\nset expandtab\n\n\" Set the number of spaces used for indentation\nset shiftwidth=4\n\n\" Enable line numbers\nset number\n\n\" Highlight current line\nset cursorline\n\n\" Enable auto indentation\nset autoindent\n\n\" Enable smart indentation\nset smartindent\n\n\" Show matching brackets\nset showmatch\n\n\" Enable incremental search\nset incsearch\n\n\" Highlight search results\nset hlsearch\n\n\" Ignore case in search patterns\nset ignorecase\n\n\" Override ignorecase if the search pattern contains upper case characters\nset smartcase\n\n\" Disable error bells\nset noerrorbells\n\n\" Enable mouse support\nset mouse=a\n```\n\n## 3. Adding Plugins\n\nVim supports plugins which can enhance its functionality. You can manage plugins using a plugin manager like `vim-plug`. Here\'s how to set it up:\n\n1. **Install vim-plug**:\n   - On Unix/Linux/MacOS:\n     ```bash\n     curl -fLo ~/.vim/autoload/plug.vim --create-dirs \\\n         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim\n     ```\n   - On Windows, download the `plug.vim` file and place it in `~/vimfiles/autoload/`.\n\n2. **Add plugins to your `.vimrc`**:\n   ```vim\n   call plug#begin(\'~/.vim/plugged\')\n\n   Plug \'tpope/vim-sensible\'\n   Plug \'preservim/nerdtree\'\n\n   call plug#end()\n   ```\n\n3. **Install the plugins**:\n   - Open Vim and run `:PlugInstall`.\n\n## 4. Custom Keybindings\n\nYou can define custom keybindings in your `.vimrc` to streamline your workflow:\n\n```vim\n\" Map Ctrl+n to toggle NERDTree\nnnoremap <C-n> :NERDTreeToggle<CR>\n\n\" Map Ctrl+s to save the current file\nnnoremap <C-s> :w<CR>\n```\n\n## 5. Saving and Reloading\n\nAfter making changes to your `.vimrc`, save the file and restart Vim, or reload the configuration by running:\n\n```vim\n:source ~/.vimrc\n```\n\n## Conclusion\n\nSetting up your `.vimrc` file allows you to tailor Vim to your specific needs, making your editing experience more efficient and enjoyable. Experiment with different settings and plugins to find what works best for you.\n\nResponseID:28618002' ;
+   console.log("unprocessedReadme", unprocessedReadme);
+   </script>
+  <script src="marked.min.js"></script>
+  <script>
+    document.getElementById('content').innerHTML =
+      marked.parse('```markdown\n# Setting Up Your .vimrc File\n\nThe `.vimrc` file is a configuration file for Vim, allowing you to customize your Vim environment to suit your preferences and workflow. Here\'s a step-by-step guide on how to set it up:\n\n## 1. Locating or Creating the .vimrc File\n\n- **Unix/Linux/MacOS**: The `.vimrc` file is usually located in your home directory. You can create or edit it using:\n  ```bash\n  vim ~/.vimrc\n  ```\n\n- **Windows**: The equivalent file is `_vimrc`, typically located in your user directory. You can create or edit it using:\n  ```cmd\n  vim ~/_vimrc\n  ```\n\nIf the file doesn\'t exist, Vim will create it when you save your changes.\n\n## 2. Basic Configuration\n\nHere are some basic settings you might want to include in your `.vimrc`:\n\n```vim\n\" Enable syntax highlighting\nsyntax on\n\n\" Set the number of spaces a tab is displayed as\nset tabstop=4\n\n\" Convert tabs to spaces\nset expandtab\n\n\" Set the number of spaces used for indentation\nset shiftwidth=4\n\n\" Enable line numbers\nset number\n\n\" Highlight current line\nset cursorline\n\n\" Enable auto indentation\nset autoindent\n\n\" Enable smart indentation\nset smartindent\n\n\" Show matching brackets\nset showmatch\n\n\" Enable incremental search\nset incsearch\n\n\" Highlight search results\nset hlsearch\n\n\" Ignore case in search patterns\nset ignorecase\n\n\" Override ignorecase if the search pattern contains upper case characters\nset smartcase\n\n\" Disable error bells\nset noerrorbells\n\n\" Enable mouse support\nset mouse=a\n```\n\n## 3. Adding Plugins\n\nVim supports plugins which can enhance its functionality. You can manage plugins using a plugin manager like `vim-plug`. Here\'s how to set it up:\n\n1. **Install vim-plug**:\n   - On Unix/Linux/MacOS:\n     ```bash\n     curl -fLo ~/.vim/autoload/plug.vim --create-dirs \\\n         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim\n     ```\n   - On Windows, download the `plug.vim` file and place it in `~/vimfiles/autoload/`.\n\n2. **Add plugins to your `.vimrc`**:\n   ```vim\n   call plug#begin(\'~/.vim/plugged\')\n\n   Plug \'tpope/vim-sensible\'\n   Plug \'preservim/nerdtree\'\n\n   call plug#end()\n   ```\n\n3. **Install the plugins**:\n   - Open Vim and run `:PlugInstall`.\n\n## 4. Custom Keybindings\n\nYou can define custom keybindings in your `.vimrc` to streamline your workflow:\n\n```vim\n\" Map Ctrl+n to toggle NERDTree\nnnoremap <C-n> :NERDTreeToggle<CR>\n\n\" Map Ctrl+s to save the current file\nnnoremap <C-s> :w<CR>\n```\n\n## 5. Saving and Reloading\n\nAfter making changes to your `.vimrc`, save the file and restart Vim, or reload the configuration by running:\n\n```vim\n:source ~/.vimrc\n```\n\n## Conclusion\n\nSetting up your `.vimrc` file allows you to tailor Vim to your specific needs, making your editing experience more efficient and enjoyable. Experiment with different settings and plugins to find what works best for you.\n\nResponseID:28618002');
+  </script>
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

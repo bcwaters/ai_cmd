@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+ 
+  <div id="content"></div>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+   
+
+  <script src="marked.min.js"></script>
+  <script>
+    document.getElementById('content').innerHTML =
+      marked.parse('To create a symlink for a `.sh` script that can be run from anywhere in Linux, you\'ll need to follow these steps:\n\n### Step 1: Create the Symlink\n\nFirst, you need to create the symlink itself. Navigate to the directory where your `.sh` file is located and use the `ln` command with the `-s` option to create a symbolic link. Here\'s how you can do it:\n\n```bash\nln -s /path/to/your/script.sh /usr/local/bin/your_script_name\n```\n\n- Replace `/path/to/your/script.sh` with the actual path to your `.sh` file.\n- Replace `your_script_name` with the name you want to use to call your script from the command line.\n\n### Step 2: Make the Script Executable\n\nEnsure that your script is executable. You can do this with the `chmod` command:\n\n```bash\nchmod +x /path/to/your/script.sh\n```\n\n### Step 3: Update the PATH (Optional)\n\nIf you\'ve placed the symlink in a directory that\'s already in your system\'s PATH (like `/usr/local/bin`), you won\'t need to do anything else. However, if you\'ve placed it somewhere else, you\'ll need to add that directory to your PATH environment variable.\n\nTo add a directory to your PATH, you can modify your shell\'s configuration file. For Bash, you would typically edit `~/.bashrc` or `~/.bash_profile`:\n\n```bash\nexport PATH=$PATH:/path/to/directory/with/symlink\n```\n\nAfter adding this line, you need to reload your shell configuration or restart your terminal for the changes to take effect:\n\n```bash\nsource ~/.bashrc  # or source ~/.bash_profile\n```\n\n### Step 4: Run Your Script\n\nNow you should be able to run your script from anywhere by simply typing `your_script_name` in the terminal.\n\n### Example\n\nLet\'s say you have a script named `my_script.sh` located at `/home/user/scripts/my_script.sh`. You want to be able to run it as `my_script` from anywhere.\n\n1. Create the symlink:\n   ```bash\n   ln -s /home/user/scripts/my_script.sh /usr/local/bin/my_script\n   ```\n\n2. Make sure the script is executable:\n   ```bash\n   chmod +x /home/user/scripts/my_script.sh\n   ```\n\nNow you can run `my_script` from any directory in your terminal.\n\n');
+  </script>
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

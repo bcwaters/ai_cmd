@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save</button>
+    <button id="openSavedChats" onclick="selectSavedChat()">Open Saved Chats</button>
+    <a id="previous" href="../responses/138fe478.html?responseId=86290970">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+  </nav>
+
+  <div id="content"><p>To prime an exchange between the system and the user using the OpenAI API, you can structure your prompt in a way that sets the context and defines the roles clearly. Here&#39;s how you can do it:</p>
+<h3>Structuring the Prompt</h3>
+<p>You can use the <code>messages</code> parameter in the API call to set up a conversation. Here&#39;s an example of how to structure your prompt:</p>
+<pre><code class="language-python">import openai
+
+# Set up the API call
+response = openai.ChatCompletion.create(
+    model=&quot;gpt-3.5-turbo&quot;,
+    messages=[
+        {&quot;role&quot;: &quot;system&quot;, &quot;content&quot;: &quot;You are a helpful assistant that provides concise and accurate information.&quot;},
+        {&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Can you explain what photosynthesis is?&quot;}
+    ]
+)
+
+# Print the response
+print(response[&#39;choices&#39;][0][&#39;message&#39;][&#39;content&#39;])
+</code></pre>
+<h3>Explanation of the Prompt Structure</h3>
+<ul>
+<li><p><strong>System Message</strong>: This sets the context for the entire conversation. It defines the role of the assistant and any specific instructions or tone you want to maintain throughout the exchange.</p>
+</li>
+<li><p><strong>User Message</strong>: This is where you input the user&#39;s query or statement, initiating the conversation.</p>
+</li>
+</ul>
+<h3>Example of Priming the Exchange</h3>
+<p>If you want to prime an exchange about a specific topic, you can include more detailed instructions in the system message:</p>
+<pre><code class="language-python">import openai
+
+# Set up the API call with a more detailed system message
+response = openai.ChatCompletion.create(
+    model=&quot;gpt-3.5-turbo&quot;,
+    messages=[
+        {&quot;role&quot;: &quot;system&quot;, &quot;content&quot;: &quot;You are a coding assistant specialized in Python. Provide code examples and explanations for any programming questions. Keep responses concise and focus on practical applications.&quot;},
+        {&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;How can I sort a list of numbers in Python?&quot;}
+    ]
+)
+
+# Print the response
+print(response[&#39;choices&#39;][0][&#39;message&#39;][&#39;content&#39;])
+</code></pre>
+<h3>Tips for Effective Priming</h3>
+<ol>
+<li><strong>Clear Role Definition</strong>: Clearly define the role of the assistant in the system message to set expectations.</li>
+<li><strong>Specific Instructions</strong>: Include any specific instructions about tone, length, or focus of the responses.</li>
+<li><strong>Contextual Information</strong>: If the conversation is part of a larger context, include relevant background information in the system message.</li>
+<li><strong>User&#39;s Initial Query</strong>: Ensure the user&#39;s initial query is clear and specific to guide the conversation effectively.</li>
+</ol>
+<p>By structuring your prompt in this way, you can effectively prime the exchange between the system and the user, setting the stage for a productive and focused conversation.</p>
+<p>ResponseID:86290970</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  ""+ filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../responses/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->
