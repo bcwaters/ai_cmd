@@ -1,5 +1,6 @@
 #!/bin/bash
-cd /home/bcwaters/repo/grok_cmd/grok_cmd/
+current_dir=/home/bcwaters/repo/ai_cmd/grok_cmd/
+cd $current_dir
 # Greet the user
 echo "  ____             _   _   ___    __    ___"
 echo " / ___|_ __  __   | | / /|  _ \ / _ \  / __|  "
@@ -12,6 +13,8 @@ echo "This is GrokDOC. Request a readme on any subject."
 
 echo "   "
 echo ""
+
+
 
 # Function to display a spinner
 spin() {
@@ -106,7 +109,7 @@ while true; do
         flags="$flags --setContext $context"
         displayContext="$context"
         continue
-        node --no-warnings /home/bcwaters/repo/grok_cmd/grok_cmd/grok/grok.js "--setContext" "$context" "$prompt" &
+        node --no-warnings $current_dir/grok/grok.js "--setContext" "$context" "$prompt" &
         spin $!  # Start spinner while waiting for the node process
     else
     if [ "$prompt" == "new" ]; then 
@@ -116,7 +119,7 @@ while true; do
         flags="$flags --new" 
         displayNew="$new"
         continue
-        node --no-warnings /home/bcwaters/repo/grok_cmd/grok_cmd/grok/grok.js "--new" "$prompt" &
+        node --no-warnings $current_dir/grok/grok.js "--new" "$prompt" &
         spin $!  # Start spinner while waiting for the node process
     else
     if [ "$prompt" == "depth" ]; then
@@ -129,12 +132,12 @@ while true; do
         flags="$flags --depth $depthValue"
         displayDepth="$depthValue"
         continue
-        node --no-warnings /home/bcwaters/repo/grok_cmd/grok_cmd/grok/grok.js "--depth" "$depthValue" "$prompt" &
+        node --no-warnings $current_dir/grok/grok.js "--depth" "$depthValue" "$prompt" &
         spin $!  # Start spinner while waiting for the node process
     else
         echo "grokking..."
         # Run node with the absolute path to grok.js and the provided prompt
-        node --no-warnings /home/bcwaters/repo/grok_cmd/grok_cmd/grok/grok.js $flags "PROMPT" "$prompt" &
+        node --no-warnings $current_dir/grok/grok.js $flags "PROMPT" "$prompt" &
         spin $!  # Start spinner while waiting for the node process
     fi
     fi
