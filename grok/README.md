@@ -70,6 +70,10 @@ now to query grok run ```./grok.sh "your prompt" ```
 
   How is the terminal breaker line dynamic to window size
 
+  It would be nice to output results to different mediumns.
+      - slack: runs slack.sh to output resuts to a chat
+      - facebook: runs facebook.sh to output results to a facebook post or message
+
 How do I change the terminal window title?
 
 I like the spinner and countdown timer
