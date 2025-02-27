@@ -12,6 +12,12 @@ update the `PLACEHOLDER.env` file to `.env` and edit the file to use your own ap
 now to query grok run ```./grok.sh ```
 
 
+TODO NOT IMPLEMENTED... set up automatic link to shell file
+global install with :
+  - ``` npm link ```
+  - ``` npm install -g ```
+
+
 
 NOTE: If you context info is tracked it can be fixed with ``` git update-index --assume-unchanged .grokRuntime grok/con
 text/context.data grok/context/context.history gro

@@ -3,9 +3,15 @@
   "version": "1.0.0",
   "description": "testing ground for personal ai projects",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "bin": {
+    "ai_cmd": "./grok.sh"
   },
+  
+    "scripts": {
+      "start": "./grok.sh",
+      "ai_cmd": ".grok.sh"
+    },
+  
   "author": "",
   "license": "ISC",
   "dependencies": {
