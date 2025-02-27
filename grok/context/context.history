@@ -1,1 +1,1 @@
-[{"id":"emptynone","prompt":""}]
+[{"id":"emptynone","prompt":""},{"id":"37edae18","prompt":"How does git tracking work?  Can i ignore what files are commited?"},{"id":"9e7bb8cd","prompt":"how do ignore files from being updated?  I want them to stay in the repository but never be changed.  for example a .env file with placeholder values"},{"id":"4aee8411","prompt":"can I see a simple git attributes file that ingore grok/context/contexta.data and grok/context/context.history"}]

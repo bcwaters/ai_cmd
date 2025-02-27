@@ -1,0 +1,7 @@
+grok/context/context.data linguist-generated=true merge=ours
+grok/context/context.history linguist-generated=true merge=ours
+grok/context/currentChat/currentChat.json linguist-generated=true merge=ours
+grok/context/currentChat/currentChat.html linguist-generated=true merge=ours
+grok/context/currentChat/summary.json linguist-generated=true merge=ours
+.grokRuntime linguist-generated=true merge=ours
+
