@@ -9,10 +9,7 @@ node_modules/*
 #grok/context/context.data
 grok/context/currentChat/*.html
 
-#docker-compose.yml
-#docs/
-#grok-nest-ms/
-#infrastructure/
+
 grok/context/currentChat/markdown/*
 grok/context/currentChat/html/*
 grok/context/history/*

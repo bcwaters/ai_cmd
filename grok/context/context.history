@@ -1,1 +1,1 @@
-{"id":"6d3e64fc-8daa-4fd3-a1826b3a2","object":"chat.completion","created":1740616951,"model":"grok-2-1212","choices":[{"index":0,"message":{"role":"assistant","content":"empty","refusal":null},"finish_reason":"stop"}],"usage":{"prompt_tokens":450,"completion_tokens":181,"total_tokens":631,"prompt_tokens_details":{"text_tokens":450,"audio_tokens":0,"image_tokens":0,"cached_tokens":0}},"system_fingerprint":"fp_c364da3"}
+[]
