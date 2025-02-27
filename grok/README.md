@@ -24,18 +24,21 @@ now to query grok run ```./grok.sh "your prompt" ```
 
   send as a facebook message from html
 
-  update CMD prompt to show current flags selected
-  
+ 
   more robust cmd options
-    -doc mode.  keep writing the doc . this appends the final prompt to say up the the document and retun the full reposne
+  ! BIG IDEA ! the runtime can set all the arguments and the js script loads them from the .grokRuntime file. this make the argument parsing so much easier.
+
+    -doc mode.  keep writing the doc . this appends the final prompt to say up the the document and retun the full reposnse. Imagine the html generates a next link which anticipates the next prompt based of the headings of the current response. really good for lists.  ie give me a list of 5 cities.  next would go into city 1, then next goes into city 2 etc.  all by chaining prompts.  Perhaps the next button indicates to switch from the eefault profile to a crawler profile.
+   
+  sticky mode.  the context is sticky to the prompt.  the context is not updated for the next prompt.
     --update mode.  appends additional profile user prompts
     dynamic context setting.
      set root context for quick switching
      an example would be branch: generate a readme doc for the prompt but do not update the context for the next prompt
-    The cmd should list the last 3 promprts and there ids.
-    set context depth: default of 1 but it can be increased at the cost of larger api calls.
+
+    clear context.  clear the context for the current prompt this can be done directly from the shell script.
     when displaying the context id display the parent context and any current children
-    set the context hirtory length
+
     a file option to load a file form the specified path the user givesj
     image mode to switch models
     a flag to switch the model

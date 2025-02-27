@@ -44,6 +44,14 @@ function parseCommandLineArgs() {
     let setContext = "";
     let filePath = "";
     let isShort = false;
+    let specialty = "";
+
+    if (args.includes("--specialty")) {
+        const specialtyIndex = args.indexOf("--specialty") + 1;
+        if (specialtyIndex < args.length) {
+            specialty = args[specialtyIndex]; //TODO: this should be a sentence and then passed to the profile... does a "sentence in quotes" work as one argument?
+        }
+    }
 
     if (args.includes("--depth")) {
       
@@ -80,7 +88,7 @@ function parseCommandLineArgs() {
         userPrompt = args[indexOfPrompt + 1];
     }
 
-    return { userPrompt, isShort, isNew, setContext, depth, filePath };
+    return { userPrompt, isShort, isNew, setContext, depth, filePath, specialty };
 }
 
 function cleanString(string) {
@@ -147,11 +155,14 @@ async function getConversationContext(setContext, isNew) {
 }
 
 // Create the request object for the API
-function createApiRequest(userPrompt, messagesString, isNew, isShort, contextData, setContext, filePath) {
+function createApiRequest(userPrompt, messagesString, isNew, isShort, contextData, setContext, filePath, specialty) {
     let profile = "default";
     let messages = [];
     if (isShort) {
         profile = "short";
+    }
+    if (specialty) {
+        PromptProfile.setSpecialty(specialty);
     }
   
     PromptProfile.isLogging = true;
@@ -168,9 +179,16 @@ function createApiRequest(userPrompt, messagesString, isNew, isShort, contextDat
 }
 
 // Save response to files
-async function saveResponses(completion, userPrompt, responseId, contextHistoryLength, depth) {
+/*
+  completion is the response from the api
+  userPrompt is the prompt that was sent to the api
+  responseId is the id of the response
+  contextHistoryLength is the length of the context history
+  depth is the depth of the context
+*/
+async function saveResponse(completion, userPrompt, responseId, contextHistoryLength, depth) {
     //console.log("saving responses called");
-
+    
 
 
     const content = completion.choices[0].message.content.replace(/\\n/g, '\n');
@@ -384,7 +402,7 @@ async function moveContextFile() {
 
 // Main function
 async function main() {
-    const { userPrompt, isShort, isNew, setContext, depth ,filePath} = parseCommandLineArgs();
+    const { userPrompt, isShort, isNew, setContext, depth ,filePath, specialty} = parseCommandLineArgs();
 
     let contextHistoryLength = depth/500;
     const messagesString = await getConversationContext(setContext, isNew); // Ensure context is fetched based on setContext
@@ -395,11 +413,13 @@ async function main() {
  
     //setContext ? console.log(colors.green, "\ncontextID:",colors.reset, setContext,"\n") : console.log(colors.green, "\n", colors.reset); // Log the setContext for debugging
     console.log("*---------------------*")
-    const finalRequest = createApiRequest(userPrompt, messagesString, isNew, isShort, contextData, setContext);
-    const completion = await openai.chat.completions.create(finalRequest);
+    const apiRequest = createApiRequest(userPrompt, messagesString, isNew, isShort, contextData, setContext, filePath, specialty);
+    const completion = await openai.chat.completions.create(apiRequest);
     const responseId = completion.id.substring(0, 8);
 
-    await saveResponses(completion, userPrompt, responseId, contextHistoryLength, depth);
+    await saveResponse(completion, userPrompt, responseId, contextHistoryLength, depth);
+    
+    
     console.log( "current contextId", colors.blue, responseId, colors.reset);
     console.log(colors.purple, "\nfile used:", colors.reset, filePath?filePath:"none");
     console.log(logDivider);

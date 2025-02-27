@@ -66,8 +66,9 @@ while true; do
         new="new"
         depth="depth"
         file=""
-        flags=""
+        flags=""  # flags should be set by depth flag, new flag, file flag, and specialty flag just before execution to allow multiple updating of flags between rens
         displayContext=""
+        displaySpecialty=""
         displayNew=""
         displayDepth="--depth 500"
         displayFile=""
@@ -77,7 +78,8 @@ while true; do
         displayNew=$newState
         displayDepth=$depthState
         displayFile=$fileState
-        echo -e "Loaded State: \e[34m[ $contextState]\e[0m \e[32m[ $newState]\e[0m \e[33m[ $depthState]\e[0m \e[35m[ $fileState]\e[0m"
+        displaySpecialty=$specialtyState
+        echo -e "Loaded State: \e[34m[ $contextState]\e[0m \e[32m[ $newState]\e[0m \e[33m[ $depthState]\e[0m \e[35m[ $fileState]\e[0m \e[36m[ $specialtyState]\e[0m"
     fi
     #GOTO here
     #branch feature added next    
@@ -87,10 +89,11 @@ while true; do
     echo -e "type \e[32mnew\e[0m to start a new conversation"
     echo -e "type \e[33mdepth\e[0m set the context depth for better memory"
     echo -e "type \e[35mfile\e[0m to load a file"
+    echo -e "type \e[36mspecialty\e[0m to set the specialty"
     echo -e "type \e[31mexit\e[0m to quit"
 
     echo -e "\e[30m--------------------------------\e[0m"
-    echo -e "current settings: \e[34m[ $displayContext]\e[0m \e[32m[ $displayNew]\e[0m \e[33m[ $displayDepth]\e[0m \e[35m[ $displayFile]\e[0m"
+    echo -e "current settings: \e[34m[ $displayContext]\e[0m \e[32m[ $displayNew]\e[0m \e[33m[ $displayDepth]\e[0m \e[35m[ $displayFile]\e[0m \e[36m[ $displaySpecialty]\e[0m"
     echo -e "\e[30m--------------------------------\e[0m"
     read -p "enter you prompt: " prompt
 
@@ -98,6 +101,14 @@ while true; do
     if [ "$prompt" == "exit" ]; then
         echo -e "\e[31mExiting...\e[0m"
         break
+    fi
+    if [ "$prompt" == "specialty" ]; then
+        echo -e "\e[36mroles available: software, teaching, writing\e[0m" #TODO: this can be abstracted to recieve a sentence and then pass it to the profile help me to: write code, write a readme, write a blog post etc.
+        read -p "Enter the specialty: " specialty
+        specialty=$specialty
+        displaySpecialty=$specialty
+        flags="$flags --specialty $specialty"
+        continue
     fi
     if [ "$prompt" == "file" ]; then
         echo -e "\e[35mLoading file...\e[0m"

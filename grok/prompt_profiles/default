@@ -1,5 +1,18 @@
 export class PromptProfile {
     static isLogging = false;
+    static specialty = " ";  //user can set this to "write code" or "write a readme" or "write a blog post" etc.
+
+    static setSpecialty(specialty) {
+        if (specialty == "software") {
+            this.specialty = "write code";
+        } else if (specialty == "teaching") {
+            this.specialty = "teach me something";
+        } else if (specialty == "writing") {
+            this.specialty = "write a blog post";
+        }else{
+            this.specialty = "to do" + specialty;
+        }
+    }
 
     static getDefaultProfile(isNew, messagesString, contextData, userPrompt) {
         if (this.isLogging) {
@@ -11,19 +24,19 @@ export class PromptProfile {
                 content: [
                     {
                         type: "text",
-                        text: "You are a helpful assistant that wants to help me write code.  All answers should be in markdown format.  "
+                        text: `You are a helpful assistant that wants to help me${this.specialty}.  All answers should be in markdown format.  `
                     },
                     {
                         type: "text",
-                        text: `Context of the conversation so far: ${isNew ? "This is the beginning of the conversation. after answering the question suggest a few follow up questions." : messagesString + contextData}`
+                        text: `Context of the conversation so far: ${isNew ? "This is the beginning of the conversation. After answering the question suggest a few follow up questions." : messagesString + contextData}`
                     },
                     {
                         type: "text",
-                        text: "there will be a separate response indicated by @EOF@ so response.split(@EOF@)[1] should return the other response`"
+                        text: "There will be a separate response indicated by @EOF@ so response.split(@EOF@)[1] should return the other response`"
                     },
                     {
                         type: "text",
-                        text: "the seperate response will be  500 characters max and 400 character min. it will be a list of keywords which capture the key information provided. SEO style  READMEDOC@EOF@KEYWORDS}"
+                        text: "The seperate response will be 500 characters max and 400 character min. it will be a list of keywords which capture the key information provided. SEO style  READMEDOC@EOF@KEYWORDS}"
                     },
                     {
                         type: "text",
