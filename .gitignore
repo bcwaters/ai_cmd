@@ -6,7 +6,7 @@ grok/context/history/*
 grok/context/fullCompletion/*
 grok/context/responses/*
 node_modules/*
-#grok/context/context.data
+grok/context/context.data
 grok/context/currentChat/*.html
 
 .grokRuntime
