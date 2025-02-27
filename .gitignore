@@ -1,21 +1,21 @@
 .env
 grok/context/currentChat/currentChat.html
-#grok/context/currentChat/summary.json
-#grok/context/currentChat/currentChat.json
+grok/context/currentChat/summary.json
+grok/context/currentChat/currentChat.json
 grok/context/history/*
 grok/context/fullCompletion/*
 grok/context/responses/*
 node_modules/*
-#grok/context/context.data
+grok/context/context.data
 grok/context/currentChat/*.html
 
-
+.grokRuntime
 grok/context/currentChat/markdown/*
 grok/context/currentChat/html/*
 grok/context/history/*
 grok/context/fullCompletion/*
 grok/context/responses/*
-#grok/context/context.history
+grok/context/context.history
 grok/context/currentChat/*.html
 grok/context/html/*
 grok/context/markdown/*
