@@ -160,7 +160,7 @@ async function getConversationContext(setContext, isNew) {
 }
 
 // Create the request object for the API
-function createApiRequest(userPrompt, messagesString, isNew, isShort, contextData, setContext, filePath, specialty) {
+function createApiRequest(userPrompt, messagesString, isNew, isShort, contextData, setContext, filePath, specialty, isTreeMode) {
     let profile = "default";
     let messages = [];
     if (isShort) {
@@ -170,8 +170,13 @@ function createApiRequest(userPrompt, messagesString, isNew, isShort, contextDat
         PromptProfile.setSpecialty(specialty);
     }
   
-    PromptProfile.isLogging = true;
+    PromptProfile.isLogging = false;
+    
+    if(isTreeMode){
         messages = TreeModeProfile.getDefaultProfile(isNew, messagesString, contextData, userPrompt); // Load the array from the default file
+    }else{
+        messages = PromptProfile.getDefaultProfile(isNew, messagesString, contextData, userPrompt); // Load the array from the default file
+    }
     
     console.log(colors.green, "Prompt Sent to Grok", colors.reset, JSON.stringify(messages, null, 4));
   
@@ -429,6 +434,7 @@ async function main() {
     let isTreeMode = treeMode;
     let dynamicPrompt = userPrompt;
     let dynamicResponseId = "";
+    let currentSubject = ""
     //These are used to crawl the list. start at the end and work your way back to 1;
     let branchList = [];
     let branchIndex = 0;
@@ -444,9 +450,9 @@ async function main() {
          // Simulate command line arguments userPrompt, isShort, isNew, setContext, depth ,filePath, specialty, treeMode
          // for now context can remain the same.  
          // Later a branch profile can be called for the api call.
-         if(branchIndex > 0){
-             //get the last index of the array
+         if(branchIndex >= 0){
            
+           currentSubject = branchList[branchIndex]
           
             dynamicPrompt = "Tell me more about item " + branchIndex + " of this list.  Go into more detail about and info you already included.: "  + branchList[branchIndex];
             await sleep(1000); // Replaced sleep with wait to avoid overwhelming the API.
@@ -466,7 +472,7 @@ async function main() {
  
     //setContext ? console.log(colors.green, "\ncontextID:",colors.reset, setContext,"\n") : console.log(colors.green, "\n", colors.reset); // Log the setContext for debugging
     console.log("*---------------------*")
-    let apiRequest = createApiRequest(dynamicPrompt, messagesString, isNew, isShort, contextData, setContext, filePath, specialty);
+    let apiRequest = createApiRequest(dynamicPrompt, messagesString, isNew, isShort, contextData, setContext, filePath, specialty, isTreeMode);
     const completion = await openai.chat.completions.create(apiRequest);
     dynamicResponseId = completion.id.substring(0, 8);
 
@@ -475,6 +481,7 @@ async function main() {
     
     console.log( "current contextId", colors.blue, dynamicResponseId, colors.reset);
     console.log(colors.purple, "\nfile used:", colors.reset, filePath?filePath:"none");
+    treeMode && !isTreeMode && console.log(colors.blue, "Tree--"+ treeMode.ParentId, colors.yellow, "/nbranches["+branchList.length+"]-", branchList);
     console.log(logDivider);
 
     //TODO harded code price function should be dynamic for differnt models.
@@ -483,9 +490,10 @@ async function main() {
     const totalPrice = (completion.usage.prompt_tokens * INPUT_TOKEN_PRICE) + (completion.usage.completion_tokens * OUTPUT_TOKEN_PRICE);
     console.log(colors.green, "Tokens used", colors.yellow, "prompt:", colors.reset, completion.usage.prompt_tokens, colors.yellow, "completion:", colors.reset, completion.usage.completion_tokens, colors.reset);
     console.log(colors.green, "Aprox price of prompt", colors.yellow, totalPrice, colors.reset, "cents ");
+    console.log(logDivider);
     //write settings to ../.grokRuntime
     await fs.writeFile(".grokRuntime", `depthState=${depth}\nnewState=""\nsetContextState=${dynamicResponseId}`);
-
+    
     if(isTreeMode){
         isTreeMode = false;
         branchList = TreeModeProfile.parseSubject(treeModeList);
