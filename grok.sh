@@ -1,6 +1,15 @@
 #!/bin/bash
-current_dir=/home/bcwaters/repo/ai_cmd/grok_cmd/
-cd $current_dir
+
+# Get the directory of the script, resolving any symbolic links
+SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
+
+# Change to the directory of the script
+cd "$SCRIPT_DIR"
+current_dir=$(pwd)
+
+# Your script commands go here
+echo "Current directory is now: $(pwd)"
+
 # Greet the user
 echo "  ____             _   _   ___    __    ___"
 echo " / ___|_ __  __   | | / /|  _ \ / _ \  / __|  "
