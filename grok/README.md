@@ -63,3 +63,20 @@ now to query grok run ```./grok.sh "your prompt" ```
 
   improve the context file structure to be more robust. KEYWORDS HEADINGS PROMPTS USESRPROFILE 
 
+
+  CLAUDE CODE NOTES
+  I like the usage of background colors to make the starting text
+  I also like the colored '-' for borders
+
+  How is the terminal breaker line dynamic to window size
+
+How do I change the terminal window title?
+
+I like the spinner and countdown timer
+
+  How do they login with a shell cript to browser? is it polling an enpoint to check for confirmation?
+
+ ```sudo chown -R $USER:$(id -gn) /usr/local && sudo chmod -R u+w /usr/local ``` why?
+
+ Does claude charge me for images in my repo? is there a .claudeignore to reduce costs?
+ 

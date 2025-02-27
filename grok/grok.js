@@ -19,8 +19,15 @@ const colors = {
     yellow: "\x1b[33m",
     blue: "\x1b[34m",
     purple: "\x1b[35m",
-    cyan: "\x1b[36m"
+    cyan: "\x1b[36m",
+    // context: "\x1b34m",
+    // new: "\x1b[32m",  //ARGCOLORS
+    // depth: "\x1b33m",           
+    // file: "\x1b35m",
+    // specialty: "\x1b36m",
+    // treeMode: "\x1b44m"
   };
+
 
 // Initialize DOMPurify with JSDOM
 const window = new JSDOM('').window;
@@ -450,11 +457,11 @@ async function main() {
          // Simulate command line arguments userPrompt, isShort, isNew, setContext, depth ,filePath, specialty, treeMode
          // for now context can remain the same.  
          // Later a branch profile can be called for the api call.
-         if(branchIndex >= 0){
+         if( treeMode && branchIndex >= 1){
            
-           currentSubject = branchList[branchIndex]
+            currentSubject = branchList[branchIndex-1]
           
-            dynamicPrompt = "Tell me more about item " + branchIndex + " of this list.  Go into more detail about and info you already included.: "  + branchList[branchIndex];
+            dynamicPrompt = "Tell me more about item " + branchIndex + " of this list.  Go into more detail about and info you already included.: "  + branchList[branchIndex-1];
             await sleep(1000); // Replaced sleep with wait to avoid overwhelming the API.
             console.log(colors.green, "User Prompt", colors.reset, dynamicPrompt);
             console.log(colors.green, "Branch List", colors.reset, branchList);
@@ -479,9 +486,9 @@ async function main() {
     let treeModeList = await saveResponse(completion, dynamicPrompt, dynamicResponseId, contextHistoryLength, depth);
     treeModeList = treeModeList.replace("@EOF@", "");
     
-    console.log( "current contextId", colors.blue, dynamicResponseId, colors.reset);
+    console.log( "current contextId",   colors.blue, dynamicResponseId, colors.reset);
     console.log(colors.purple, "\nfile used:", colors.reset, filePath?filePath:"none");
-    treeMode && !isTreeMode && console.log(colors.blue, "Tree--"+ treeMode.ParentId, colors.yellow, "/nbranches["+branchList.length+"]-", branchList);
+    treeMode && !isTreeMode && console.log(colors.green, "Tree-"+ colors.reset, treeMode.ParentId, colors.green, "/nbranches"+colors.treeMode+"["+branchList.length+"]-", branchList);
     console.log(logDivider);
 
     //TODO harded code price function should be dynamic for differnt models.
@@ -490,6 +497,7 @@ async function main() {
     const totalPrice = (completion.usage.prompt_tokens * INPUT_TOKEN_PRICE) + (completion.usage.completion_tokens * OUTPUT_TOKEN_PRICE);
     console.log(colors.green, "Tokens used", colors.yellow, "prompt:", colors.reset, completion.usage.prompt_tokens, colors.yellow, "completion:", colors.reset, completion.usage.completion_tokens, colors.reset);
     console.log(colors.green, "Aprox price of prompt", colors.yellow, totalPrice, colors.reset, "cents ");
+    //TODO ^^^in tree mode these values can be stored and added up
     console.log(logDivider);
     //write settings to ../.grokRuntime
     await fs.writeFile(".grokRuntime", `depthState=${depth}\nnewState=""\nsetContextState=${dynamicResponseId}`);
@@ -497,16 +505,17 @@ async function main() {
     if(isTreeMode){
         isTreeMode = false;
         branchList = TreeModeProfile.parseSubject(treeModeList);
-        branchIndex = branchList.length - 1;
+        branchIndex = branchList.length;
         TreeModeProfile.setParentId(dynamicResponseId);
         console.log(colors.yellow, "Parent ID", colors.reset, TreeModeProfile.ParentId);
         console.log(colors.blue, "Branches", colors.reset, branchList);
     }
    
     //TODO Optizmize this later. I might put at the top of the while loop to flex... this is more readable though.
+    //This index change is to fanagle the initial branch prompt to work.
     if(isTreeMode || branchIndex > 0){
-        console.log(colors.yellow, "parentId", colors.reset, TreeModeProfile.ParentId);
-        console.log(colors.blue, "branchId", colors.reset, dynamicResponseId);
+        console.log(colors.blue, "parentId", colors.reset, TreeModeProfile.ParentId);
+        console.log(colors.yellow, "branchId", colors.reset, dynamicResponseId);
         morePrompts = true;
     }else{
         morePrompts = false;
