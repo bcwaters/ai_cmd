@@ -28,6 +28,7 @@ now to query grok run ```./grok.sh "your prompt" ```
   more robust cmd options
   ! BIG IDEA ! the runtime can set all the arguments and the js script loads them from the .grokRuntime file. this make the argument parsing so much easier.
 
+     tree mode can be more intelligent.  increase depth when list has nested lists
     -doc mode.  keep writing the doc . this appends the final prompt to say up the the document and retun the full reposnse. Imagine the html generates a next link which anticipates the next prompt based of the headings of the current response. really good for lists.  ie give me a list of 5 cities.  next would go into city 1, then next goes into city 2 etc.  all by chaining prompts.  Perhaps the next button indicates to switch from the eefault profile to a crawler profile.
    
   sticky mode.  the context is sticky to the prompt.  the context is not updated for the next prompt.
@@ -42,6 +43,8 @@ now to query grok run ```./grok.sh "your prompt" ```
     a file option to load a file form the specified path the user givesj
     image mode to switch models
     a flag to switch the model
+
+    more... type more to get a full list of options
 
   Encapulate system prompt in a file and load it.
      allow for different profiles

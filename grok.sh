@@ -72,8 +72,10 @@ while true; do
         displayNew=""
         displayDepth="--depth 500"
         displayFile=""
+        treeMode=false
         source .grokRuntime
         firstRun=false
+        displayTreeMode=false
         displayContext=$contextState
         displayNew=$newState
         displayDepth=$depthState
@@ -91,9 +93,9 @@ while true; do
     echo -e "type \e[35mfile\e[0m to load a file"
     echo -e "type \e[36mspecialty\e[0m to set the specialty"
     echo -e "type \e[31mexit\e[0m to quit"
-
+    echo -e "type \e[44mtreeMode\e[0m to generate a set of organized documents"
     echo -e "\e[30m--------------------------------\e[0m"
-    echo -e "current settings: \e[34m[ $displayContext]\e[0m \e[32m[ $displayNew]\e[0m \e[33m[ $displayDepth]\e[0m \e[35m[ $displayFile]\e[0m \e[36m[ $displaySpecialty]\e[0m"
+    echo -e "current settings: \e[34m[ $displayContext]\e[0m \e[32m[ $displayNew]\e[0m \e[33m[ $displayDepth]\e[0m \e[35m[ $displayFile]\e[0m \e[36m[ $displaySpecialty]\e[0m \e[44m[$displayTreeMode]\e[0m"
     echo -e "\e[30m--------------------------------\e[0m"
     read -p "enter you prompt: " prompt
 
@@ -101,6 +103,13 @@ while true; do
     if [ "$prompt" == "exit" ]; then
         echo -e "\e[31mExiting...\e[0m"
         break
+    fi
+    if [ "$prompt" == "treeMode" ]; then
+        treeMode=true
+        displayTreeMode=true
+        echo -e "\e[44mTree mode: Dynamic Prompt Generation\e[0m"
+        flags="$flags --treeMode"
+        continue
     fi
     if [ "$prompt" == "specialty" ]; then
         echo -e "\e[36mroles available: software, teaching, writing\e[0m" #TODO: this can be abstracted to recieve a sentence and then pass it to the profile help me to: write code, write a readme, write a blog post etc.

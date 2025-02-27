@@ -8,6 +8,7 @@ import { JSDOM } from 'jsdom';
 import createDOMPurify from 'dompurify';
 import { marked } from 'marked';
 import {PromptProfile} from './prompt_profiles/default';
+import {TreeModeProfile} from './prompt_profiles/TreeMode';
 
 const logDivider = "*---------------------------------------------------------------*";
 // Define ANSI color codes
@@ -45,7 +46,11 @@ function parseCommandLineArgs() {
     let filePath = "";
     let isShort = false;
     let specialty = "";
+    let treeMode = false;
 
+    if (args.includes("--treeMode")) {
+        treeMode = true;
+    }
     if (args.includes("--specialty")) {
         const specialtyIndex = args.indexOf("--specialty") + 1;
         if (specialtyIndex < args.length) {
@@ -88,7 +93,7 @@ function parseCommandLineArgs() {
         userPrompt = args[indexOfPrompt + 1];
     }
 
-    return { userPrompt, isShort, isNew, setContext, depth, filePath, specialty };
+    return { userPrompt, isShort, isNew, setContext, depth, filePath, specialty, treeMode };
 }
 
 function cleanString(string) {
@@ -166,7 +171,7 @@ function createApiRequest(userPrompt, messagesString, isNew, isShort, contextDat
     }
   
     PromptProfile.isLogging = true;
-        messages = PromptProfile.getDefaultProfile(isNew, messagesString, contextData, userPrompt); // Load the array from the default file
+        messages = TreeModeProfile.getDefaultProfile(isNew, messagesString, contextData, userPrompt); // Load the array from the default file
     
     console.log(colors.green, "Prompt Sent to Grok", colors.reset, JSON.stringify(messages, null, 4));
   
@@ -188,12 +193,21 @@ function createApiRequest(userPrompt, messagesString, isNew, isShort, contextDat
 */
 async function saveResponse(completion, userPrompt, responseId, contextHistoryLength, depth) {
     //console.log("saving responses called");
-    
+    //TODO UNTANGLE THIS LOGIC
 
-
+    let jsonContent = "";
+    let markdownContent = "";
     const content = completion.choices[0].message.content.replace(/\\n/g, '\n');
     console.log(colors.yellow, "\n\nunprocessed response", colors.green, content, colors.reset);
-    const [markdownContent, jsonContent] = content.split("@EOF@");
+   try{
+     [markdownContent, jsonContent] = content.split("@EOF@"); 
+   }catch(error){
+    console.log(colors.red, "error", colors.reset, error);
+     [markdownContent, jsonContent] = ["## Heading 1\n\n## Heading 2\n\n## Heading 3\n\n", "@EOF[keywords,list,always]"];
+   }
+  
+  
+
     //console.log(colors.green, "markdownContent", colors.reset, markdownContent);
  
     let priorContextId = await saveContextFiles(responseId, jsonContent, completion, markdownContent, depth);
@@ -209,6 +223,9 @@ async function saveResponse(completion, userPrompt, responseId, contextHistoryLe
             console.error("Error opening the HTML file:", err);
         }
     });
+
+    //TODO need a better name for this.
+    return jsonContent;
 }
 
 
@@ -368,6 +385,7 @@ async function appendToContext(newContent, MAX_CONTEXT_LENGTH) {
     console.log(logDivider);
     await fs.writeFile("./grok/context/context.data", contextData);
 
+
 }
 
 async function savePreviousId(responseId, userPrompt, contextHistoryLength){
@@ -400,9 +418,44 @@ async function moveContextFile() {
     return parsedContextId;
 }
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 // Main function
 async function main() {
-    const { userPrompt, isShort, isNew, setContext, depth ,filePath, specialty} = parseCommandLineArgs();
+    const { userPrompt, isShort, isNew, setContext, depth ,filePath, specialty, treeMode} = parseCommandLineArgs();
+    let morePrompts = true;
+    let isTreeMode = treeMode;
+    let dynamicPrompt = userPrompt;
+    let dynamicResponseId = "";
+    //These are used to crawl the list. start at the end and work your way back to 1;
+    let branchList = [];
+    let branchIndex = 0;
+    //there will be a tree mode which "branches" off into each heading of the readme doc and send a prompt to grok.
+    //it will need a parent id make navlink navigation easier. add to template html
+    //TODO: add a tree mode flag
+    //for now there will be a treemode profile that sends the prompt specify a list of headings.  
+    // it will send the prompt. afterwards it will add each heading to an array.  
+    // the while loop will terminate when it is done making the default prmops for the branches.
+    
+    while( morePrompts == true){
+         //TODO in order to add depth I will need to simulate the command line arguments.
+         // Simulate command line arguments userPrompt, isShort, isNew, setContext, depth ,filePath, specialty, treeMode
+         // for now context can remain the same.  
+         // Later a branch profile can be called for the api call.
+         if(branchIndex > 0){
+             //get the last index of the array
+           
+          
+            dynamicPrompt = "Tell me more about item " + branchIndex + " of this list.  Go into more detail about and info you already included.: "  + branchList[branchIndex];
+            await sleep(1000); // Replaced sleep with wait to avoid overwhelming the API.
+            console.log(colors.green, "User Prompt", colors.reset, dynamicPrompt);
+            console.log(colors.green, "Branch List", colors.reset, branchList);
+            console.log(colors.green, "Branch Index", colors.reset, branchIndex);
+            branchIndex--;
+            
+         }
 
     let contextHistoryLength = depth/500;
     const messagesString = await getConversationContext(setContext, isNew); // Ensure context is fetched based on setContext
@@ -413,14 +466,14 @@ async function main() {
  
     //setContext ? console.log(colors.green, "\ncontextID:",colors.reset, setContext,"\n") : console.log(colors.green, "\n", colors.reset); // Log the setContext for debugging
     console.log("*---------------------*")
-    const apiRequest = createApiRequest(userPrompt, messagesString, isNew, isShort, contextData, setContext, filePath, specialty);
+    let apiRequest = createApiRequest(dynamicPrompt, messagesString, isNew, isShort, contextData, setContext, filePath, specialty);
     const completion = await openai.chat.completions.create(apiRequest);
-    const responseId = completion.id.substring(0, 8);
+    dynamicResponseId = completion.id.substring(0, 8);
 
-    await saveResponse(completion, userPrompt, responseId, contextHistoryLength, depth);
+    let treeModeList = await saveResponse(completion, dynamicPrompt, dynamicResponseId, contextHistoryLength, depth);
+    treeModeList = treeModeList.replace("@EOF@", "");
     
-    
-    console.log( "current contextId", colors.blue, responseId, colors.reset);
+    console.log( "current contextId", colors.blue, dynamicResponseId, colors.reset);
     console.log(colors.purple, "\nfile used:", colors.reset, filePath?filePath:"none");
     console.log(logDivider);
 
@@ -431,9 +484,27 @@ async function main() {
     console.log(colors.green, "Tokens used", colors.yellow, "prompt:", colors.reset, completion.usage.prompt_tokens, colors.yellow, "completion:", colors.reset, completion.usage.completion_tokens, colors.reset);
     console.log(colors.green, "Aprox price of prompt", colors.yellow, totalPrice, colors.reset, "cents ");
     //write settings to ../.grokRuntime
-    await fs.writeFile(".grokRuntime", `depthState=${depth}\nnewState=""\nsetContextState=${responseId}`);
-    return responseId;
+    await fs.writeFile(".grokRuntime", `depthState=${depth}\nnewState=""\nsetContextState=${dynamicResponseId}`);
 
+    if(isTreeMode){
+        isTreeMode = false;
+        branchList = TreeModeProfile.parseSubject(treeModeList);
+        branchIndex = branchList.length - 1;
+        TreeModeProfile.setParentId(dynamicResponseId);
+        console.log(colors.yellow, "Parent ID", colors.reset, TreeModeProfile.ParentId);
+        console.log(colors.blue, "Branches", colors.reset, branchList);
+    }
+   
+    //TODO Optizmize this later. I might put at the top of the while loop to flex... this is more readable though.
+    if(isTreeMode || branchIndex > 0){
+        console.log(colors.yellow, "parentId", colors.reset, TreeModeProfile.ParentId);
+        console.log(colors.blue, "branchId", colors.reset, dynamicResponseId);
+        morePrompts = true;
+    }else{
+        morePrompts = false;
+    }
+
+    }
 }
 
 main().catch(console.error);

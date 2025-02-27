@@ -1,6 +1,8 @@
-export class PromptProfile {
-    static isLogging = false;
+//Inheritance needs to be implemented.  This class will inherit from the same class as the default profile.
+export class TreeModeProfile {
+    static isLogging = true;
     static specialty = " ";  //user can set this to "write code" or "write a readme" or "write a blog post" etc.
+    static ParentId = "";
 
     static setSpecialty(specialty) {
         if (specialty == "software") {
@@ -16,6 +18,7 @@ export class PromptProfile {
 
     static getDefaultProfile(isNew, messagesString, contextData, userPrompt) {
         if (this.isLogging) {
+            console.log( "*-!-*---------TreeModeProfile--------*!-*");
             console.log({ isNew, messagesString, contextData, userPrompt });
         }
         this.profile = [
@@ -36,11 +39,15 @@ export class PromptProfile {
                     },
                     {
                         type: "text",
-                        text: "The seperate response will be 500 characters max and 400 character min. it will be a list of keywords which capture the key information provided. SEO style  READMEDOC@EOF@KEYWORDS}"
+                        text: "The seperate response will be a list of headings used for subjects in the doc.  READMEDOC@EOF@[HEADING1, HEADING2, HEADING3, ...]}"
                     },
                     {
                         type: "text",
                         text: "Remember to include an @EOF@ in the response.  It should be after the readme section and before the keywords"
+                    },
+                    {
+                        type: "text",
+                        text: "The response should be a list of headings.  Each heading should be a list of keywords.  The headings should be SEO friendly and have a summary of the key information .  The headings should be 6 words max and 2 words min."
                     }
                 ]
             },
@@ -49,7 +56,7 @@ export class PromptProfile {
                 content: [
                     {
                         type: "text",
-                        text: "Please show me you understand the instructions by responding with one word. do you understand?"
+                        text: "Please show me you understand the instructions by responding with a list of ## headings, you can leave out the summaries. do you understand?"
                     },
                 ],
             },
@@ -58,7 +65,7 @@ export class PromptProfile {
                 content: [
                     {
                         type: "text",
-                        text: "# yes@EOF@[understanding, ReadmeFormat, delimiter,]"
+                        text: "# Do I understand?  ## yes  ## demonstrate understanding ## how I respond  ## why respond this way ## summary of all topics covered ## @EOF@[yes, demonstrate understanding, how I respond, why respond this way, summary of all topics covered]"
                     },
                 ],
             },
@@ -73,6 +80,20 @@ export class PromptProfile {
             },
         ];
         return this.profile;
+    }
+
+    static setParentId(parentId){
+        this.ParentId = parentId;
+    }
+
+    //subject parser
+    static parseSubject(subjectList){
+        // subject.split(" ### ").map(word => word.trim()); // get the index of the ## headings and store the entire line as a string in an array
+        // Somehow we can improve our branch prompts at this point.    
+        // get the index of the ## headings and store the entire line as a string in an array
+        
+          return JSON.stringify(subjectList).replace("[","").replace("]","").split(","); //make an array
+
     }
 }
 
