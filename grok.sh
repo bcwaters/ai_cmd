@@ -7,6 +7,8 @@ SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
 cd "$SCRIPT_DIR"
 current_dir=$(pwd)
 
+startup=true;
+
 color_green="\e[32m"
 color_red="\e[31m"
 color_yellow="\e[33m"
@@ -55,6 +57,23 @@ color_background_white="\e[47m"
 color_background_black="\e[40m"
 color_background_reset="\e[49m"
 
+# Define the width of the box
+width=25
+
+# Function to draw a horizontal border
+draw_border() {
+    echo -e "$(printf -- '-%.0s' {1..55})"
+}
+draw_border_green() {
+   echo -e "$color_background_green$(printf -- '-%.0s' {1..55})"
+}
+
+
+
+
+
+
+
 # Your script commands go here
 echo "Current directory is now: $(pwd)"
 
@@ -91,16 +110,15 @@ spin() {
             
             
                 echo -ne "\r$color_white$temp-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp\n"
-           
+                echo ""
                 echo -ne "\r$color_red_light$temp-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp\n"
-          
+                echo ""
                 echo -ne "\r$color_yellow_light$temp-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp\n"
-       
+                echo ""
                 echo -ne "\r$color_blue_light$temp-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp\n"
-        
+                echo ""
                 echo -ne "\r$color_green_light$temp-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp\n"
-                echo ""
-                echo ""
+
 
             
     else
@@ -183,11 +201,15 @@ while true; do
         displayDepth=$depthState
         displayFile=$fileState
         displaySpecialty=$specialtyState
+    
 
-        echo "press enter to continue"
+  
+            echo -e "${color_background_black}${color_yellow}Press enter to continue                  ${color_background_reset}${color_reset}" 
+
+            # Call the function instead of the inline code
+            display_spinner_with_input "-------------------------"
         
-        # Call the function instead of the inline code
-        display_spinner_with_input "-------------------------"
+     
 
        # echo -e "Loaded State: \e[34m[ $contextState]\e[0m \e[32m[ $newState]\e[0m \e[33m[ $depthState]\e[0m \e[35m[ $fileState]\e[0m \e[36m[ $specialtyState]\e[0m"
     fi
@@ -197,7 +219,7 @@ while true; do
     #GOTO here
     #branch feature added next    
     # Prompt the user for input
-    echo -e "$color_white--------------------------------\e[0m"
+    draw_border
     echo -e "type $color_blue setContext\e[0m to set the context" 
     echo -e "type $color_green new\e[0m to start a new conversation"
     echo -e "type $color_yellow depth\e[0m set the context depth for better memory"
@@ -207,25 +229,35 @@ while true; do
 
     echo -e "type $color_background_green paste\e[0m to paste from clipboard"
     echo -e "type $color_background_blue treeMode\e[0m to generate a set of organized documents"
+    echo -e "type $color_background_yellow review\e[0m to review edit the edit the response in vim"
     echo -e "type $color_red exit\e[0m to quit or press ctrl+c"
-    echo -e "$color_white--------------------------------\e[0m"
+    draw_border
     echo -e "current settings: \e[34m[ $displayContext]\e[0m \e[32m[ $displayNew]\e[0m \e[33m[ $displayDepth]\e[0m \e[35m[ $displayFile]\e[0m \e[36m[ $displaySpecialty]\e[0m \e[44m[$displayTreeMode]\e[0m"
-    echo -e "$color_white--------------------------------\e[0m"
-    echo -e "${color_background_black}${color_yellow}enter your prompt:              ${color_background_reset}${color_reset}" 
+    draw_border
+    echo -e "${color_background_black}${color_yellow}enter your prompt:                                     ${color_background_reset}${color_reset}" 
     read -p "" prompt
 
 
     # Check if the user wants to exit
+
     if [ "$prompt" == "exit" ]; then
         echo -e "$color_red_light Exiting...\e[0m"
         break
     fi
+    if [ "$prompt" == "review" ]; then
+        vim ./grok/context/review.md
+        continue
+    fi
+    if [ "$prompt" == "terminalMode" ]; then
+        terminalMode="terminalMode"
+        continue
+    fi
     if [ "$prompt" == "paste" ]; then
         echo -e "Contents $color_background_green pasted\e[0m, they will be include in the prompt" 
         pasteText=$(xclip -selection clipboard -o)
-        echo -e "$color_background_green--------------------------------\e[0m"
+        draw_border_green
         echo -e "$color_green $pasteText\e[0m"
-        echo -e "$color_background_green--------------------------------\e[0m"
+        draw_border_green
 
       
         continue
@@ -264,8 +296,7 @@ while true; do
         flags="$flags --setContext $context"
         displayContext="$context"
         continue
-        node --no-warnings $current_dir/grok/grok.js "--setContext" "$context" "$prompt" &
-        spin $!  # Start spinner while waiting for the node process
+
     else
     if [ "$prompt" == "new" ]; then 
         # Run node with the absolute path to grok.js and the provided prompt
@@ -274,8 +305,7 @@ while true; do
         flags="$flags --new" 
         displayNew="$new"
         continue
-        node --no-warnings $current_dir/grok/grok.js "--new" "$prompt" &
-        spin $!  # Start spinner while waiting for the node process
+
     else
     if [ "$prompt" == "depth" ]; then
         # Run node with the absolute path to grok.js and the provided prompt
@@ -287,9 +317,11 @@ while true; do
         flags="$flags --depth $depthValue"
         displayDepth="$depthValue"
         continue
-        node --no-warnings $current_dir/grok/grok.js "--depth" "$depthValue" "$prompt" &
-        spin $!  # Start spinner while waiting for the node process
-    else
+
+    else if [ "$terminalMode" == "terminalMode" ]; then     
+
+        flags="$flags terminalMode"
+    fi
         echo "grokking..."
         # Run node with the absolute path to grok.js and the provided prompt
         node --no-warnings $current_dir/grok/grok.js $flags "PROMPT" "$pasteText$prompt" &

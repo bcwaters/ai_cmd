@@ -72,7 +72,7 @@ const openai = new OpenAI({
 // Parse command line arguments and return prompt and flags
 function parseCommandLineArgs() {
    
-    terminal.debugLogger = false;
+    terminal.debugLogger = true;
     const args = process.argv.slice(2);
     //console.log(...args);
     let userPrompt = "Default prompt if none provided";
@@ -83,14 +83,15 @@ function parseCommandLineArgs() {
     let isShort = false;
     let specialty = "";
     let treeMode = false;
-    let browserMode = false;
+    let terminalMode = false;
+    let browserMode = true;
 
     if (args.includes("--treeMode")) {
         treeMode = true;
     }
-    if (args.includes("--browserMode")) {
-        terminal.debugLogger = true;
-        browserMode = true;
+    if (args.includes("terminalMode")) {
+        terminal.debugLogger = false;
+        browserMode = false;
     }
     if (args.includes("--specialty")) {
         const specialtyIndex = args.indexOf("--specialty") + 1;
@@ -134,7 +135,7 @@ function parseCommandLineArgs() {
         userPrompt = args[indexOfPrompt + 1];
     }
 
-    return { userPrompt, isShort, isNew, setContext, depth, filePath, specialty, treeMode };
+    return { userPrompt, isShort, isNew, setContext, depth, filePath, specialty, treeMode , browserMode};
 }
 
 function cleanString(string) {
@@ -237,7 +238,7 @@ function createApiRequest(userPrompt, messagesString, isNew, isShort, contextDat
   contextHistoryLength is the length of the context history
   depth is the depth of the context
 */
-async function saveResponse(completion, userPrompt, responseId, contextHistoryLength, depth) {
+async function saveResponse(completion, userPrompt, responseId, contextHistoryLength, depth, browserMode) {
     //console.log("saving responses called");
     //TODO UNTANGLE THIS LOGIC
 
@@ -263,12 +264,14 @@ async function saveResponse(completion, userPrompt, responseId, contextHistoryLe
   
     
     // Open currentChat.html in the default browser
+    if(browserMode){
     const openCommand = os.platform() === 'win32' ? 'start' : 'open';
     exec(`${openCommand} ./grok/context/currentChat/currentChat.html`, (err) => {
         if (err) {
-            terminal.error("Error opening the HTML file:", err);
-        }
-    });
+                terminal.error("Error opening the HTML file:", err);
+            }
+        });
+    }
 
     //TODO need a better name for this.
     return {jsonContent, markdownResponse};
@@ -471,7 +474,7 @@ function sleep(ms) {
 
 // Main function
 async function main() {
-    const { userPrompt, isShort, isNew, setContext, depth ,filePath, specialty, treeMode} = parseCommandLineArgs();
+    const { userPrompt, isShort, isNew, setContext, depth ,filePath, specialty, treeMode, browserMode} = parseCommandLineArgs();
     let morePrompts = true;
     let isTreeMode = treeMode;
     let dynamicPrompt = userPrompt;
@@ -518,7 +521,7 @@ async function main() {
     const completion = await openai.chat.completions.create(apiRequest);
     dynamicResponseId = completion.id.substring(0, 8);
 
-    let responseOutput = await saveResponse(completion, dynamicPrompt, dynamicResponseId, contextHistoryLength, depth);
+    let responseOutput = await saveResponse(completion, dynamicPrompt, dynamicResponseId, contextHistoryLength, depth, browserMode);
     let treeModeList = responseOutput.jsonContent.replace("@EOF@", "");
     let markdownResponse = responseOutput.markdownResponse;
     
@@ -540,7 +543,9 @@ async function main() {
         terminal.log(colors.green, "\nResponse", colors.reset, markdownResponse);
     }
 
-    await fs.writeFile(".grokRuntime", `depthState=${depth}\nnewState=""\nsetContextState=${dynamicResponseId}`);
+    let terminalState = browserMode?"":"terminalMode";
+    await fs.writeFile("./grok/context/review.md", markdownResponse+"\ncontext:"+dynamicResponseId);
+    await fs.writeFile(".grokRuntime", `depthState=${depth}\nnewState=""\nsetContextState=${dynamicResponseId}\nterminalMode=${terminalState}`);
     
     if(isTreeMode){
         isTreeMode = false;
