@@ -27,7 +27,9 @@ now to query grok run ```./grok.sh "your prompt" ```
   improve the history storage approach
 
   send as a facebook message from html
+  
 
+  create a docker image to allow others to try this out easier
  
   more robust cmd options
   ! BIG IDEA ! the runtime can set all the arguments and the js script loads them from the .grokRuntime file. this make the argument parsing so much easier.
@@ -36,6 +38,9 @@ now to query grok run ```./grok.sh "your prompt" ```
       -- always site sources  (When provide information add a link to source the information)
       -- language tutor (From time to time add a note on how to say it in a different language)
 
+  Organize  directory structure for history and context
+
+  Refactor helper functions in grok.js to be more useful, I may pass around a state class to all functions to reference.
 
 tree mode can be more intelligent.  
    * increase depth when list has nested lists
