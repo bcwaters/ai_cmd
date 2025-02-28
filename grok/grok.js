@@ -260,7 +260,7 @@ async function saveResponse(completion, userPrompt, responseId, contextHistoryLe
     let priorContextId = await saveContextFiles(responseId, jsonContent, completion, markdownContent, depth);
   
 
-        await saveHtmlResponse(userPrompt, responseId, markdownContent, priorContextId, childDirectory);
+    await saveHtmlResponse(userPrompt, responseId, markdownContent, priorContextId, childDirectory, treeMode);
     
     let markdownResponse = await saveMarkdownResponse(userPrompt, responseId, markdownContent);
     await savePreviousId(responseId, userPrompt, contextHistoryLength);
@@ -273,7 +273,7 @@ async function saveResponse(completion, userPrompt, responseId, contextHistoryLe
 }
 
 //TODO i should open up threads for CHILD WRITES
-async function  saveHtmlResponse(userPrompt, responseId, markdownContent, priorContextId, childDirectory) {
+async function  saveHtmlResponse(userPrompt, responseId, markdownContent, priorContextId, childDirectory, treeMode) {
     //let pwd = process.cwd();
     //console.log("pwd", pwd);
     // Save HTML response
@@ -290,12 +290,13 @@ async function  saveHtmlResponse(userPrompt, responseId, markdownContent, priorC
 
     if(childDirectory != ""){
         let childHtml = await fs.readFile('./grok/child_template.html', "utf8");
+        
 
-        indexHtml = indexHtml.replaceAll("@PARENT_ID@", TreeModeProfile.ParentId); //NICE THIS IS STATIC AND AVAIALBLE!
-        indexHtml = indexHtml.replaceAll("REPLACEME", sanitizedMarkdownContent);
-        indexHtml = indexHtml.replaceAll("@PREVIOUS_ID@", priorContextId.substring(0, 8));
-        indexHtml = indexHtml.replaceAll("@DIRECTORY@", ""); // absolute path to the directory not compatible with firefox
-        indexHtml = indexHtml.replaceAll("@CURRENT_ID@", responseId);
+        childHtml = childHtml.replaceAll("@PARENT_ID@", TreeModeProfile.ParentId); //NICE THIS IS STATIC AND AVAIALBLE!
+        childHtml = childHtml.replaceAll("REPLACEME", sanitizedMarkdownContent);
+        childHtml = childHtml.replaceAll("@PREVIOUS_ID@", priorContextId.substring(0, 8));
+        childHtml = childHtml.replaceAll("@DIRECTORY@", ""); // absolute path to the directory not compatible with firefox
+        childHtml = childHtml.replaceAll("@CURRENT_ID@", responseId);
     
 
         console.log(colors.red,logDivider, colors.reset);
@@ -303,13 +304,15 @@ async function  saveHtmlResponse(userPrompt, responseId, markdownContent, priorC
         console.log(colors.red,logDivider, colors.reset );
         await fs.writeFile(
             `./grok/context/html/${childDirectory}/${responseId}.html`,
-            indexHtml,
+            childHtml,
             "utf8"
         );
     }else{
-        console.log(colors.red,logDivider, colors.reset);
-        console.log("this is a parent write:", childDirectory);
-        console.log(colors.red,logDivider, colors.reset );
+        if(treeMode){
+            console.log(colors.red,logDivider, colors.reset);
+            console.log("this is a parent write:", responseId);
+            console.log(colors.red,logDivider, colors.reset );
+        }
     }
         await fs.writeFile(
             `./grok/context/html/${responseId}.html`,
@@ -591,7 +594,13 @@ async function main() {
         TreeModeProfile.setParentId(dynamicResponseId);
         childDirectory = TreeModeProfile.ParentId+"_tree";
         await fs.mkdir("./grok/context/html/"+childDirectory, { recursive: true });
-        terminal.log(colors.yellow, "Parent ID", colors.reset, TreeModeProfile.ParentId);
+        try{
+            //TODO fix the saveHtmlResponse function to handle differnt typeps
+            await fs.copyFile("./grok/context/currentChat/currentChat.html", "./grok/context/html/"+childDirectory+"/"+dynamicResponseId+".html");
+        }catch(error){
+            terminal.error("Error copying the currentChat.html file:", error);
+        }
+        terminal.log(colors.yellow, "\nParent ID", colors.reset, TreeModeProfile.ParentId);
         terminal.log(colors.blue, "Branches", colors.reset, branchList);
     }
    
@@ -609,7 +618,8 @@ async function main() {
         if(!treeMode){
             htmlDir = "currentChat/currentChat.html";
         }else{
-            htmlDir = "html/"+childDirectory+"/"+TreeModeProfile.ParentId+".html";
+            //open the last child
+            htmlDir = "html/"+childDirectory+"/"+dynamicResponseId+".html";
         }
   
      

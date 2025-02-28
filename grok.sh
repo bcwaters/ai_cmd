@@ -176,15 +176,15 @@ while true; do
         depth="depth"
         file=""
         flags=""  # flags should be set by depth flag, new flag, file flag, and specialty flag just before execution to allow multiple updating of flags between rens
-        displayContext=""
+        displayContext=" "
         displaySpecialty=""
         displayNew=""
         displayDepth="--depth 500"
-        displayFile=""
+        displayFile=" "
         treeMode=false
         source .grokRuntime
         firstRun=false
-        displayTreeMode=false
+        displayTreeMode=" "
         displayContext=$contextState
         displayNew=$newState
         displayDepth=$depthState
@@ -237,7 +237,8 @@ while true; do
         break
     fi
     if [ "$prompt" == "save" ]; then
-        cp ./grok/context/html/markdown/${setContextState}.md ./user_saved_readmes/${setContextState}.md
+        read -p "Enter the name of the readme: " readmeName
+        cp ./grok/context/html/markdown/${setContextState}.md ./user_saved_readmes/${readmeName}-${setContextState}.md
         continue
     fi
     if [ "$prompt" == "open" ]; then
@@ -268,7 +269,7 @@ while true; do
     fi
     if [ "$prompt" == "treeMode" ]; then
         treeMode=true
-        displayTreeMode=true
+        displayTreeMode=tree
         echo -e "$color_background_blue_light Tree mode: Dynamic Prompt Generation\e[0m"
         flags="$flags --treeMode"
         continue
