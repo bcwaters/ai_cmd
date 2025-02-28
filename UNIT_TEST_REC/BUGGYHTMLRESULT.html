@@ -1,0 +1,117 @@
+<html><head>
+  <meta charset="utf-8">
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    <a id="markdown" href="./markdown/1b7cc372.md"> markdown</a>
+    <a id="previous" href="../html/9da1dd64.html?responseId=1b7cc372">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();" hidden="">Next</a>
+  </nav>
+
+  <div id="content"><p>Here's a simple example of how to load a file using JavaScript in the context of the previous conversation:</p>
+<pre><code class="language-html">
+
+
+    
+    &lt;title&gt;Simple File Loader&lt;/title&gt;
+
+
+    &lt;div id="content"&gt;&lt;/div&gt;
+    
+
+</code></pre>
+<p>This HTML file uses a simple JavaScript function <code>loadFile</code> to read a text file from a child directory named <code>texts</code>. The file path is relative to the location of the HTML file. The content of the file is then displayed in a <code>div</code> element with the id <code>content</code>.</p>
+<p>ResponseID:1b7cc372</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+
+  <script>
+    function saveMarkdown() {
+      const content = document.documentElement.outerHTML; // Get the entire HTML content
+
+      let markdownLocation = "./markdown/";
+      let markdownFileName = "1b7cc372.md";
+      let markdownFile = markdownLocation + markdownFileName;
+      
+
+      const url = URL.createObjectURL(blob); // Create a URL for the Blob
+      const divInnerText = document.getElementById('content').innerText;
+      let filename = divInnerText.substring(0, 25);
+      const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+          a.download =  filename + '.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+      
+    }
+  </script>
+
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log(window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../html/" + responseId + ".html";
+      }
+    </script>
+
+   
+
+  <script>
+    function loadMarkdownFile() {
+      const markdownFilePath = "./markdown/1b7cc372.md"; // Path to the markdown file
+      fetch(markdownFilePath)
+        .then(response => response.text())
+        .then(data => {
+          const blob = new Blob([data], { type: 'text/markdown' }); // Create a Blob from the markdown content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download = '1b7cc372.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        })
+        .catch(error => console.error('Error loading markdown file:', error));
+    }
+  </script>
+
+
+
+
+
+   
+    </body></html>

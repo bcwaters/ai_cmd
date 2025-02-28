@@ -15,6 +15,8 @@ color_magenta="\e[35m"
 color_cyan="\e[36m"
 color_white="\e[37m"
 color_reset="\e[0m"
+color_orange="\e[38m"
+color_black="\e[30m"
 
 color_green_light="\e[92m"
 color_red_light="\e[91m"
@@ -78,29 +80,81 @@ spin() {
     local delay=0.1
     local spinchars='*~*-^*~*-'
     local spinchars2='---***'
-    local i=0
+    local i=5
+    local singleSpin=${2:-false}  # Default to false for continuous spinning
 
-    while ps -p $pid > /dev/null; do
+    if [ "$singleSpin" = true ]; then
+        # Spin just once
         local temp2=${spinchars2:i%${#spinchars2}:1}
-        local temp=${spinchars:i++%${#spinchars}:1}
-        local temp3=${spinchars2:i%${#spinchars2}:1}
+            local temp=${spinchars:i++%${#spinchars}:1}
+            local temp3=${spinchars2:i%${#spinchars2}:1}
+            
+            
+                echo -ne "\r$color_white$temp-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp\n"
+           
+                echo -ne "\r$color_red_light$temp-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp\n"
+          
+                echo -ne "\r$color_yellow_light$temp-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp\n"
+       
+                echo -ne "\r$color_blue_light$temp-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp\n"
         
-        
-        if [ $((i%5)) -eq 0 ]; then
-            echo -ne "\r$color_white$temp-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp"
-        elif [ $((i%5)) -eq 1 ]; then
-            echo -ne "\r$color_red_light$temp-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp"
-        elif [ $((i%5)) -eq 2 ]; then
-            echo -ne "\r$color_yellow_light$temp-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp"
-        elif [ $((i%5)) -eq 3 ]; then
-            echo -ne "\r$color_blue_light$temp-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp"
-        elif [ $((i%5)) -eq 4 ]; then
-            echo -ne "\r$color_green_light$temp-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3--$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp"
-        fi
-        sleep $delay
-   
-    done
-    echo -ne "\r"  # Clear the spinner
+                echo -ne "\r$color_green_light$temp-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp\n"
+                echo ""
+                echo ""
+
+            
+    else
+        # Continuous spinning
+        while ps -p $pid > /dev/null; do
+            local temp2=${spinchars2:i%${#spinchars2}:1}
+            local temp=${spinchars:i++%${#spinchars}:1}
+            local temp3=${spinchars2:i%${#spinchars2}:1}
+            
+            if [ $((i%5)) -eq 0 ]; then
+                echo -ne "\r$color_white$temp-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp"
+            elif [ $((i%5)) -eq 1 ]; then
+                echo -ne "\r$color_red_light$temp-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp"
+            elif [ $((i%5)) -eq 2 ]; then
+                echo -ne "\r$color_yellow_light$temp-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp"
+            elif [ $((i%5)) -eq 3 ]; then
+                echo -ne "\r$color_blue_light$temp-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp"
+            elif [ $((i%5)) -eq 4 ]; then
+                echo -ne "\r$color_green_light$temp-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3--$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp"
+            fi
+            sleep $delay
+        done
+        echo -ne "\r"  # Clear the spinner
+    fi
+}
+
+# Function to display a spinner with user input
+display_spinner_with_input() {
+    local prompt_text="${1:--------------------------}"
+    
+    # Create a named pipe for communication
+    FIFO="/tmp/grok_fifo_$$"
+    [ -e "$FIFO" ] && rm "$FIFO"
+    mkfifo "$FIFO"
+    
+    # Start a background process that reads from the pipe
+    cat "$FIFO" > /dev/null &
+    wait_pid=$!
+    
+    # Start the spinner with the PID of the background process
+    spin $wait_pid &
+    spinner_pid=$!
+    
+    # Wait for user input
+    read -p "$prompt_text"
+    finalPrompt=$prompt
+    # Send data to the pipe to terminate the background process
+    echo "done" > "$FIFO"
+    
+    # Clean up
+    wait $wait_pid 2>/dev/null  # Wait for the background process to finish
+    kill $spinner_pid 2>/dev/null  # Stop the spinner
+    rm -f "$FIFO"  # Remove the named pipe
+    spin $! true
 }
 
 # Continuously receive prompts until "exit" is typed
@@ -109,6 +163,7 @@ while true; do
     if [ $firstRun = true ]; then
 
         # Declare variables for commands
+        pasteText=""
         setContext="setContext"
         new="new"
         depth="depth"
@@ -128,8 +183,17 @@ while true; do
         displayDepth=$depthState
         displayFile=$fileState
         displaySpecialty=$specialtyState
-        echo -e "Loaded State: \e[34m[ $contextState]\e[0m \e[32m[ $newState]\e[0m \e[33m[ $depthState]\e[0m \e[35m[ $fileState]\e[0m \e[36m[ $specialtyState]\e[0m"
+
+        echo "press enter to continue"
+        
+        # Call the function instead of the inline code
+        display_spinner_with_input "-------------------------"
+
+       # echo -e "Loaded State: \e[34m[ $contextState]\e[0m \e[32m[ $newState]\e[0m \e[33m[ $depthState]\e[0m \e[35m[ $fileState]\e[0m \e[36m[ $specialtyState]\e[0m"
     fi
+                    echo ""
+                echo ""
+
     #GOTO here
     #branch feature added next    
     # Prompt the user for input
@@ -138,18 +202,33 @@ while true; do
     echo -e "type $color_green new\e[0m to start a new conversation"
     echo -e "type $color_yellow depth\e[0m set the context depth for better memory"
     echo -e "type $color_magenta file\e[0m to load a file"
+ 
     echo -e "type $color_cyan specialty\e[0m to set the specialty"
-    echo -e "type $color_red exit\e[0m to quit"
-    echo -e "type $color_blue treeMode\e[0m to generate a set of organized documents"
+
+    echo -e "type $color_background_green paste\e[0m to paste from clipboard"
+    echo -e "type $color_background_blue treeMode\e[0m to generate a set of organized documents"
+    echo -e "type $color_red exit\e[0m to quit or press ctrl+c"
     echo -e "$color_white--------------------------------\e[0m"
     echo -e "current settings: \e[34m[ $displayContext]\e[0m \e[32m[ $displayNew]\e[0m \e[33m[ $displayDepth]\e[0m \e[35m[ $displayFile]\e[0m \e[36m[ $displaySpecialty]\e[0m \e[44m[$displayTreeMode]\e[0m"
     echo -e "$color_white--------------------------------\e[0m"
-    read -p "enter you prompt: " prompt
+    echo -e "${color_background_black}${color_yellow_dark}enter you prompt: ${color_background_reset}${color_reset}" 
+    read -p "" prompt
+
 
     # Check if the user wants to exit
     if [ "$prompt" == "exit" ]; then
         echo -e "$color_red_light Exiting...\e[0m"
         break
+    fi
+    if [ "$prompt" == "paste" ]; then
+        echo -e "Contents $color_background_green pasted\e[0m, they will be include in the prompt" 
+        pasteText=$(xclip -selection clipboard -o)
+        echo -e "$color_background_green--------------------------------\e[0m"
+        echo -e "$color_green $pasteText\e[0m"
+        echo -e "$color_background_green--------------------------------\e[0m"
+
+      
+        continue
     fi
     if [ "$prompt" == "treeMode" ]; then
         treeMode=true
@@ -213,11 +292,12 @@ while true; do
     else
         echo "grokking..."
         # Run node with the absolute path to grok.js and the provided prompt
-        node --no-warnings $current_dir/grok/grok.js $flags "PROMPT" "$prompt" &
+        node --no-warnings $current_dir/grok/grok.js $flags "PROMPT" "$pasteText$prompt" &
         spin $!  # Start spinner while waiting for the node process
     fi
     fi
     fi
+
     firstRun=true
 
     

@@ -10,6 +10,33 @@ import { marked } from 'marked';
 import {PromptProfile} from './prompt_profiles/default';
 import {TreeModeProfile} from './prompt_profiles/TreeMode';
 
+class terminal {
+    static debugLogger = false;
+    constructor() {
+     
+    }
+    
+    static log(...args) {
+        console.log(...args);
+    }
+    static error(...args) {
+        console.error(...args);
+    }
+    static warn(...args) {
+        console.warn(...args);
+    }
+    static info(...args) {
+        console.info(...args);
+    }
+    static debug(...args) {
+        if (this.debugLogger) {
+            console.log(...args);
+        }
+    }
+    
+}
+
+
 const logDivider = "*---------------------------------------------------------------*";
 // Define ANSI color codes
 const colors = {
@@ -44,6 +71,8 @@ const openai = new OpenAI({
 
 // Parse command line arguments and return prompt and flags
 function parseCommandLineArgs() {
+   
+    terminal.debugLogger = false;
     const args = process.argv.slice(2);
     //console.log(...args);
     let userPrompt = "Default prompt if none provided";
@@ -54,9 +83,14 @@ function parseCommandLineArgs() {
     let isShort = false;
     let specialty = "";
     let treeMode = false;
+    let browserMode = false;
 
     if (args.includes("--treeMode")) {
         treeMode = true;
+    }
+    if (args.includes("--browserMode")) {
+        terminal.debugLogger = true;
+        browserMode = true;
     }
     if (args.includes("--specialty")) {
         const specialtyIndex = args.indexOf("--specialty") + 1;
@@ -185,7 +219,7 @@ function createApiRequest(userPrompt, messagesString, isNew, isShort, contextDat
         messages = PromptProfile.getDefaultProfile(isNew, messagesString, contextData, userPrompt); // Load the array from the default file
     }
     
-    console.log(colors.green, "Prompt Sent to Grok", colors.reset, JSON.stringify(messages, null, 4));
+    terminal.debug(colors.green, "Prompt Sent to Grok", colors.reset, JSON.stringify(messages, null, 4));
   
 
 
@@ -210,11 +244,11 @@ async function saveResponse(completion, userPrompt, responseId, contextHistoryLe
     let jsonContent = "";
     let markdownContent = "";
     const content = completion.choices[0].message.content.replace(/\\n/g, '\n');
-    console.log(colors.yellow, "\n\nunprocessed response", colors.green, content, colors.reset);
+    terminal.debug(colors.yellow, "\n\nunprocessed response", colors.green, content, colors.reset);
    try{
      [markdownContent, jsonContent] = content.split("@EOF@"); 
    }catch(error){
-    console.log(colors.red, "error", colors.reset, error);
+    terminal.log(colors.red, "error", colors.reset, error);
      [markdownContent, jsonContent] = ["## Heading 1\n\n## Heading 2\n\n## Heading 3\n\n", "@EOF[keywords,list,always]"];
    }
   
@@ -224,7 +258,7 @@ async function saveResponse(completion, userPrompt, responseId, contextHistoryLe
  
     let priorContextId = await saveContextFiles(responseId, jsonContent, completion, markdownContent, depth);
     await saveHtmlResponse(userPrompt, responseId, markdownContent, priorContextId);
-    await saveMarkdownResponse(userPrompt, responseId, markdownContent);
+    let markdownResponse = await saveMarkdownResponse(userPrompt, responseId, markdownContent);
     await savePreviousId(responseId, userPrompt, contextHistoryLength);
   
     
@@ -232,12 +266,12 @@ async function saveResponse(completion, userPrompt, responseId, contextHistoryLe
     const openCommand = os.platform() === 'win32' ? 'start' : 'open';
     exec(`${openCommand} ./grok/context/currentChat/currentChat.html`, (err) => {
         if (err) {
-            console.error("Error opening the HTML file:", err);
+            terminal.error("Error opening the HTML file:", err);
         }
     });
 
     //TODO need a better name for this.
-    return jsonContent;
+    return {jsonContent, markdownResponse};
 }
 
 
@@ -275,15 +309,16 @@ async function saveHtmlResponse(userPrompt, responseId, markdownContent, priorCo
 }
 
 async function saveMarkdownResponse(userPrompt, responseId, markdownContent) {
-    console.log(logDivider);
-    console.log(colors.green, "markdownContent",colors.reset, markdownContent);
-    console.log(logDivider);
+    terminal.debug(logDivider);
+    terminal.debug(colors.green, "markdownContent\n",colors.reset, markdownContent);
+    terminal.debug(logDivider);
     // Save markdown response
     await fs.writeFile(
         `./grok/context/html/${userPrompt.replaceAll(" ", "_").replaceAll(":", "_").replaceAll("/", "_").replaceAll(".", "").substring(0, 40)}-${responseId}.md`,
         markdownContent,
         "utf8"
     );
+    return markdownContent;
     
 }
 
@@ -326,7 +361,7 @@ async function saveContextFiles(fullResponseId, jsonContent, completion, markdow
      
 
     } catch (error) {
-        console.error("Error reading the old summary.json:", error);
+        terminal.error("Error reading the old summary.json:", error);
     }
   
     await appendToContext(jsonContent, depth);
@@ -362,7 +397,7 @@ async function saveContextFiles(fullResponseId, jsonContent, completion, markdow
 
 async function appendToContext(newContent, MAX_CONTEXT_LENGTH) {
     if (typeof newContent !== 'string') {
-        console.error("newContent is not a valid string:", newContent);
+        terminal.error("newContent is not a valid string:", newContent);
         return; // Exit the function if newContent is invalid
     }
     
@@ -390,11 +425,11 @@ async function appendToContext(newContent, MAX_CONTEXT_LENGTH) {
     .replaceAll("[", "")
     .replaceAll("]", "");
 
-    console.log(logDivider);
-    console.log(colors.green, "Current Subject:",colors.reset, newContent);
-    console.log(logDivider);
-    console.log(colors.green, "Current Context[",MAX_CONTEXT_LENGTH,"]:",colors.reset, contextData);
-    console.log(logDivider);
+    terminal.debug(logDivider);
+    terminal.debug(colors.green, "Current Subject:",colors.reset, newContent);
+    terminal.debug(logDivider);
+    terminal.debug(colors.green, "Current Context[",MAX_CONTEXT_LENGTH,"]:",colors.reset, contextData);
+    terminal.debug(logDivider);
     await fs.writeFile("./grok/context/context.data", contextData);
 
 
@@ -405,17 +440,17 @@ async function savePreviousId(responseId, userPrompt, contextHistoryLength){
     let parsedPreviousId = JSON.parse(previousId);
     parsedPreviousId.push({id: responseId, prompt: userPrompt});
     await fs.writeFile("./grok/context/context.history", JSON.stringify(parsedPreviousId));
-    console.log(logDivider);
+    terminal.log(logDivider);
     
-    console.log(colors.green, "\nPrevious Context", colors.reset);
+    terminal.log(colors.green, "\nPrevious Context", colors.reset);
 
     // Log only the last 3 context entries
-    const EntriesToLog = parsedPreviousId.slice(-contextHistoryLength);
-    EntriesToLog.forEach(element => {
-        console.log(colors.green, "contextId:", colors.reset, element.id,  colors.yellow, "\n Prompt:\n",colors.reset, element.prompt);
-        console.log(colors.reset, " - - - - - - - - - - - - - - - - - - - - -", colors.reset);
-    });
-    console.log(logDivider);
+    const EntriesToLog = parsedPreviousId.slice(contextHistoryLength);
+    for(let i = 0; i < EntriesToLog.length && i < 5; i++){
+        terminal.log(colors.green, "contextId:", colors.reset, EntriesToLog[EntriesToLog.length - i - 1].id,  colors.yellow, "\n Prompt:\n",colors.reset, EntriesToLog[EntriesToLog.length - i - 1  ].prompt);
+        terminal.log(colors.reset, " - - - - - - - - - - - - - - - - - - - - -", colors.reset);
+    }
+    terminal.log(logDivider);
     return parsedPreviousId;
 }
 
@@ -463,9 +498,9 @@ async function main() {
           
             dynamicPrompt = "Tell me more about item " + branchIndex + " of this list.  Go into more detail about and info you already included.: "  + branchList[branchIndex-1];
             await sleep(1000); // Replaced sleep with wait to avoid overwhelming the API.
-            console.log(colors.green, "User Prompt", colors.reset, dynamicPrompt);
-            console.log(colors.green, "Branch List", colors.reset, branchList);
-            console.log(colors.green, "Branch Index", colors.reset, branchIndex);
+            terminal.log(colors.green, "User Prompt", colors.reset, dynamicPrompt);
+            terminal.log(colors.green, "Branch List", colors.reset, branchList);
+            terminal.log(colors.green, "Branch Index", colors.reset, branchIndex);
             branchIndex--;
             
          }
@@ -478,28 +513,33 @@ async function main() {
   
  
     //setContext ? console.log(colors.green, "\ncontextID:",colors.reset, setContext,"\n") : console.log(colors.green, "\n", colors.reset); // Log the setContext for debugging
-    console.log("*---------------------*")
+    //terminal.log("*---------------------*")
     let apiRequest = createApiRequest(dynamicPrompt, messagesString, isNew, isShort, contextData, setContext, filePath, specialty, isTreeMode);
     const completion = await openai.chat.completions.create(apiRequest);
     dynamicResponseId = completion.id.substring(0, 8);
 
-    let treeModeList = await saveResponse(completion, dynamicPrompt, dynamicResponseId, contextHistoryLength, depth);
-    treeModeList = treeModeList.replace("@EOF@", "");
+    let responseOutput = await saveResponse(completion, dynamicPrompt, dynamicResponseId, contextHistoryLength, depth);
+    let treeModeList = responseOutput.jsonContent.replace("@EOF@", "");
+    let markdownResponse = responseOutput.markdownResponse;
     
-    console.log( "current contextId",   colors.blue, dynamicResponseId, colors.reset);
-    console.log(colors.purple, "\nfile used:", colors.reset, filePath?filePath:"none");
-    treeMode && !isTreeMode && console.log(colors.green, "Tree-"+ colors.reset, treeMode.ParentId, colors.green, "/nbranches"+colors.treeMode+"["+branchList.length+"]-", branchList);
-    console.log(logDivider);
+    terminal.log( "current contextId",   colors.blue, dynamicResponseId, colors.reset);
+    terminal.log(colors.purple, "\nfile used:", colors.reset, filePath?filePath:"none");
+    treeMode && !isTreeMode && terminal.log(colors.green, "Tree-"+ colors.reset, treeMode.ParentId, colors.green, "/nbranches"+colors.treeMode+"["+branchList.length+"]-", branchList);
+    terminal.log(logDivider);
 
     //TODO harded code price function should be dynamic for differnt models.
     const INPUT_TOKEN_PRICE = 200/1000000;
     const OUTPUT_TOKEN_PRICE = 1000/1000000;
     const totalPrice = (completion.usage.prompt_tokens * INPUT_TOKEN_PRICE) + (completion.usage.completion_tokens * OUTPUT_TOKEN_PRICE);
-    console.log(colors.green, "Tokens used", colors.yellow, "prompt:", colors.reset, completion.usage.prompt_tokens, colors.yellow, "completion:", colors.reset, completion.usage.completion_tokens, colors.reset);
-    console.log(colors.green, "Aprox price of prompt", colors.yellow, totalPrice, colors.reset, "cents ");
+    terminal.log(colors.green, "Tokens used", colors.yellow, "prompt:", colors.reset, completion.usage.prompt_tokens, colors.yellow, "completion:", colors.reset, completion.usage.completion_tokens, colors.reset);
+    terminal.log(colors.green, "Aprox price of prompt", colors.yellow, totalPrice, colors.reset, "cents ");
     //TODO ^^^in tree mode these values can be stored and added up
-    console.log(logDivider);
-    //write settings to ../.grokRuntime
+    terminal.log(logDivider);
+    //write settings to ../.grokRuntimeterminal
+    if(terminal.debugLogger == false){
+        terminal.log(colors.green, "\nResponse", colors.reset, markdownResponse);
+    }
+
     await fs.writeFile(".grokRuntime", `depthState=${depth}\nnewState=""\nsetContextState=${dynamicResponseId}`);
     
     if(isTreeMode){
@@ -507,15 +547,15 @@ async function main() {
         branchList = TreeModeProfile.parseSubject(treeModeList);
         branchIndex = branchList.length;
         TreeModeProfile.setParentId(dynamicResponseId);
-        console.log(colors.yellow, "Parent ID", colors.reset, TreeModeProfile.ParentId);
-        console.log(colors.blue, "Branches", colors.reset, branchList);
+        terminal.log(colors.yellow, "Parent ID", colors.reset, TreeModeProfile.ParentId);
+        terminal.log(colors.blue, "Branches", colors.reset, branchList);
     }
    
     //TODO Optizmize this later. I might put at the top of the while loop to flex... this is more readable though.
     //This index change is to fanagle the initial branch prompt to work.
     if(isTreeMode || branchIndex > 0){
-        console.log(colors.blue, "parentId", colors.reset, TreeModeProfile.ParentId);
-        console.log(colors.yellow, "branchId", colors.reset, dynamicResponseId);
+        terminal.log(colors.blue, "parentId", colors.reset, TreeModeProfile.ParentId);
+        terminal.log(colors.yellow, "branchId", colors.reset, dynamicResponseId);
         morePrompts = true;
     }else{
         morePrompts = false;
@@ -524,7 +564,7 @@ async function main() {
     }
 }
 
-main().catch(console.error);
+main().catch(terminal.error);
 
 
 /*
