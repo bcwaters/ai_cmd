@@ -238,7 +238,7 @@ function createApiRequest(userPrompt, messagesString, isNew, isShort, contextDat
   contextHistoryLength is the length of the context history
   depth is the depth of the context
 */
-async function saveResponse(completion, userPrompt, responseId, contextHistoryLength, depth, browserMode) {
+async function saveResponse(completion, userPrompt, responseId, contextHistoryLength, depth, browserMode, childDirectory, treeMode) {
     //console.log("saving responses called");
     //TODO UNTANGLE THIS LOGIC
 
@@ -253,32 +253,27 @@ async function saveResponse(completion, userPrompt, responseId, contextHistoryLe
      [markdownContent, jsonContent] = ["## Heading 1\n\n## Heading 2\n\n## Heading 3\n\n", "@EOF[keywords,list,always]"];
    }
   
-  
+   
 
     //console.log(colors.green, "markdownContent", colors.reset, markdownContent);
  
     let priorContextId = await saveContextFiles(responseId, jsonContent, completion, markdownContent, depth);
-    await saveHtmlResponse(userPrompt, responseId, markdownContent, priorContextId);
+  
+
+        await saveHtmlResponse(userPrompt, responseId, markdownContent, priorContextId, childDirectory);
+    
     let markdownResponse = await saveMarkdownResponse(userPrompt, responseId, markdownContent);
     await savePreviousId(responseId, userPrompt, contextHistoryLength);
   
     
-    // Open currentChat.html in the default browser
-    if(browserMode){
-    const openCommand = os.platform() === 'win32' ? 'start' : 'open';
-    exec(`${openCommand} ./grok/context/currentChat/currentChat.html`, (err) => {
-        if (err) {
-                terminal.error("Error opening the HTML file:", err);
-            }
-        });
-    }
+
 
     //TODO need a better name for this.
     return {jsonContent, markdownResponse};
 }
 
-
-async function saveHtmlResponse(userPrompt, responseId, markdownContent, priorContextId) {
+//TODO i should open up threads for CHILD WRITES
+async function  saveHtmlResponse(userPrompt, responseId, markdownContent, priorContextId, childDirectory) {
     //let pwd = process.cwd();
     //console.log("pwd", pwd);
     // Save HTML response
@@ -286,15 +281,42 @@ async function saveHtmlResponse(userPrompt, responseId, markdownContent, priorCo
     markdownContent =  markdownContent + "\ResponseID:" + responseId ;
     let sanitizedMarkdownContent = preprocessResponse(markdownContent);
 
+
+    indexHtml = indexHtml.replaceAll("@PARENT_ID@", TreeModeProfile.ParentId); //NICE THIS IS STATIC AND AVAIALBLE!
     indexHtml = indexHtml.replaceAll("REPLACEME", sanitizedMarkdownContent);
     indexHtml = indexHtml.replaceAll("@PREVIOUS_ID@", priorContextId.substring(0, 8));
     indexHtml = indexHtml.replaceAll("@DIRECTORY@", ""); // absolute path to the directory not compatible with firefox
     indexHtml = indexHtml.replaceAll("@CURRENT_ID@", responseId);
-    await fs.writeFile(
-        `./grok/context/html/${responseId}.html`,
-        indexHtml,
-        "utf8"
-    );
+
+    if(childDirectory != ""){
+        let childHtml = await fs.readFile('./grok/child_template.html', "utf8");
+
+        indexHtml = indexHtml.replaceAll("@PARENT_ID@", TreeModeProfile.ParentId); //NICE THIS IS STATIC AND AVAIALBLE!
+        indexHtml = indexHtml.replaceAll("REPLACEME", sanitizedMarkdownContent);
+        indexHtml = indexHtml.replaceAll("@PREVIOUS_ID@", priorContextId.substring(0, 8));
+        indexHtml = indexHtml.replaceAll("@DIRECTORY@", ""); // absolute path to the directory not compatible with firefox
+        indexHtml = indexHtml.replaceAll("@CURRENT_ID@", responseId);
+    
+
+        console.log(colors.red,logDivider, colors.reset);
+        console.log("childDirectory being written to", childDirectory);
+        console.log(colors.red,logDivider, colors.reset );
+        await fs.writeFile(
+            `./grok/context/html/${childDirectory}/${responseId}.html`,
+            indexHtml,
+            "utf8"
+        );
+    }else{
+        console.log(colors.red,logDivider, colors.reset);
+        console.log("this is a parent write:", childDirectory);
+        console.log(colors.red,logDivider, colors.reset );
+    }
+        await fs.writeFile(
+            `./grok/context/html/${responseId}.html`,
+            indexHtml,
+            "utf8"
+        );
+    
 
     await fs.writeFile(
         `./grok/context/currentChat/${responseId}.html`,
@@ -368,8 +390,16 @@ async function saveContextFiles(fullResponseId, jsonContent, completion, markdow
     }
   
     await appendToContext(jsonContent, depth);
-    await fs.writeFile("./grok/context/currentChat/summary.json", JSON.stringify(jsonContent));
-    await fs.writeFile('./grok/context/currentChat/currentChat.json', JSON.stringify(completion));
+    try{
+        await fs.writeFile("./grok/context/currentChat/summary.json", JSON.stringify(jsonContent));
+    }catch(error){
+        terminal.error("Error writing the summary.json:", error);
+    }
+    try{
+        await fs.writeFile('./grok/context/currentChat/currentChat.json', JSON.stringify(completion));
+    }catch(error){
+        terminal.error("Error writing the currentChat.json:", error);
+    }
     await fs.writeFile(
         `./grok/context/markdown/${fullResponseId}.md`,
         markdownContent,
@@ -400,7 +430,7 @@ async function saveContextFiles(fullResponseId, jsonContent, completion, markdow
 
 async function appendToContext(newContent, MAX_CONTEXT_LENGTH) {
     if (typeof newContent !== 'string') {
-        terminal.error("newContent is not a valid string:", newContent);
+        terminal.error("Grok answered but forgot to include include the proper format! PROMPT AGAIN it should work", newContent);
         return; // Exit the function if newContent is invalid
     }
     
@@ -479,6 +509,7 @@ async function main() {
     let isTreeMode = treeMode;
     let dynamicPrompt = userPrompt;
     let dynamicResponseId = "";
+    let childDirectory = "";
     let currentSubject = ""
     //These are used to crawl the list. start at the end and work your way back to 1;
     let branchList = [];
@@ -521,13 +552,19 @@ async function main() {
     const completion = await openai.chat.completions.create(apiRequest);
     dynamicResponseId = completion.id.substring(0, 8);
 
-    let responseOutput = await saveResponse(completion, dynamicPrompt, dynamicResponseId, contextHistoryLength, depth, browserMode);
-    let treeModeList = responseOutput.jsonContent.replace("@EOF@", "");
-    let markdownResponse = responseOutput.markdownResponse;
+    let treeModeList = "";
+    let markdownResponse = "";
+    let responseOutput = await saveResponse(completion, dynamicPrompt, dynamicResponseId, contextHistoryLength, depth, browserMode, childDirectory, isTreeMode);
+    try{
+        treeModeList = responseOutput.jsonContent.replace("@EOF@", "");
+        markdownResponse = responseOutput.markdownResponse;
+    }catch(error){
+        terminal.error("AI_CMD bot forgot the @EOF@ tag in the response... try again and it should work", error);
+    }
     
     terminal.log( "current contextId",   colors.blue, dynamicResponseId, colors.reset);
     terminal.log(colors.purple, "\nfile used:", colors.reset, filePath?filePath:"none");
-    treeMode && !isTreeMode && terminal.log(colors.green, "Tree-"+ colors.reset, treeMode.ParentId, colors.green, "/nbranches"+colors.treeMode+"["+branchList.length+"]-", branchList);
+    treeMode && !isTreeMode && terminal.log(colors.green, "Tree-"+ colors.reset, TreeModeProfile.ParentId, colors.green, "\nbranches"+colors.green+"["+branchList.length+"]-", branchList);
     terminal.log(logDivider);
 
     //TODO harded code price function should be dynamic for differnt models.
@@ -552,6 +589,8 @@ async function main() {
         branchList = TreeModeProfile.parseSubject(treeModeList);
         branchIndex = branchList.length;
         TreeModeProfile.setParentId(dynamicResponseId);
+        childDirectory = TreeModeProfile.ParentId+"_tree";
+        await fs.mkdir("./grok/context/html/"+childDirectory, { recursive: true });
         terminal.log(colors.yellow, "Parent ID", colors.reset, TreeModeProfile.ParentId);
         terminal.log(colors.blue, "Branches", colors.reset, branchList);
     }
@@ -564,6 +603,24 @@ async function main() {
         morePrompts = true;
     }else{
         morePrompts = false;
+            // Open currentChat.html in the default browser
+    if(browserMode){
+        let htmlDir =   "currentChat/currentChat.html";
+        if(!treeMode){
+            htmlDir = "currentChat/currentChat.html";
+        }else{
+            htmlDir = "html/"+childDirectory+"/"+TreeModeProfile.ParentId+".html";
+        }
+  
+     
+    const openCommand = os.platform() === 'win32' ? 'start' : 'open';
+    exec(`${openCommand} ./grok/context/${htmlDir}`, (err) => {
+        if (err) {
+                terminal.error("Error opening the HTML file:", err);
+            }
+        });
+    }
+       
     }
 
     }

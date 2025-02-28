@@ -2,13 +2,13 @@
 <html>
 <head>
   <meta charset="utf-8"/>
-  <title>Grok Response</title>
+  <title>Grok Response - CHILD of @PARENT_ID@</title>
 </head>
 <body>
   <nav>
     <button id="saveButton" onclick="saveButton()">Save html</button>
-    <a id="markdown" href="./markdown/@CURRENT_ID@.md"> markdown</a>
-    <a id="previous" href="../html/@PREVIOUS_ID@.html?responseId=@CURRENT_ID@">Previous</a>
+    <a id="markdown" href="../markdown/@CURRENT_ID@.md"> markdown</a>
+    <a id="Parent" href="../@PARENT_ID@.html?responseId=@CURRENT_ID@">Parent</a>
     <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
   </nav>
 

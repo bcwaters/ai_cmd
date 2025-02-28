@@ -45,6 +45,7 @@ color_background_magenta_light="\e[105m"
 color_background_cyan_light="\e[106m"
 color_background_white_light="\e[107m"
 color_background_black_light="\e[100m"
+color_background_dark_grey="\e[100m"
 
 
 
@@ -211,14 +212,16 @@ while true; do
     echo -en "\n$color_background_blue current settings: $color_bluelight[$displayContext] \e[32m[ $displayNew] \e[33m[ $displayDepth] \e[35m[ $displayFile] \e[36m[ $displaySpecialty] \e[44m[$displayTreeMode]$color_background_black$color_yellow       "
     draw_border
   
-    echo -en "$color_background_black$color_blue \n type $color_blue setContext\e[0m$color_background_black to set the context" 
+    echo -en "$color_background_black$color_blue \n type $color_blue setContext\e[0m$color_background_black to set the grok's memory to a previous conversation" 
     echo -en "$color_background_black$color_green \n type $color_green new\e[0m$color_background_black to start a new conversation"
     echo -en "$color_background_black$color_yellow \n type $color_yellow depth\e[0m$color_background_black set the context depth for better memory"
-    echo -en "$color_background_black$color_magenta \n type $color_magenta file\e[0m$color_background_black to load a file"
     echo -en "$color_background_black$color_cyan \n type $color_cyan specialty\e[0m$color_background_black to set the specialty"
-    echo -en "$color_background_black$color_green \n type $color_green paste\e[0m$color_background_black to paste from clipboard"
-    echo -en "$color_background_black$color_blue \n type $color_blue treeMode\e[0m$color_background_black to generate a set of organized documents"
-    echo -en "$color_background_black$color_yellow \n type $color_yellow review\e[0m$color_background_black to review edit the edit the response in vim"
+    echo -en "$color_background_black$color_blue \n type $color_blue treeMode\e[0m$color_background_black to generate a set of organized documents from the prompt"
+    echo -en "$color_background_black$color_magenta \n type $color_magenta ${color_background_dark_grey}file\e[0m$color_background_black to load a file"
+    echo -en "$color_background_black$color_green \n type $color_green ${color_background_dark_grey}paste\e[0m$color_background_black to paste from clipboard"
+    echo -en "$color_background_black$color_blue \n type $color_cyan ${color_background_dark_grey}save\e[0m$color_background_black to save the current context to local folder"
+    echo -en "$color_background_black$color_blue \n type $color_cyan ${color_background_dark_grey}open\e[0m$color_background_black to open the saved the saved readmes in file explorer"
+    echo -en "$color_background_black$color_yellow \n type $color_yellow ${color_background_dark_grey}review\e[0m$color_background_black to review edit the edit the response in vim"
     echo -en "$color_background_black$color_red \n type $color_red exit\e[0m$color_background_black to quit or press ctrl+c"
     draw_border
 
@@ -228,9 +231,18 @@ while true; do
 
     # Check if the user wants to exit
 
+
     if [ "$prompt" == "exit" ]; then
         echo -e "$color_red_light Exiting...\e[0m"
         break
+    fi
+    if [ "$prompt" == "save" ]; then
+        cp ./grok/context/html/markdown/${setContextState}.md ./user_saved_readmes/${setContextState}.md
+        continue
+    fi
+    if [ "$prompt" == "open" ]; then
+        open ./user_saved_readmes
+        continue
     fi
     if [ "$prompt" == "browserMode" ]; then
         terminalMode=""

@@ -20,3 +20,4 @@ grok/context/currentChat/*.html
 grok/context/html/*
 grok/context/markdown/*
 terraform/*
+user_saved_readmes/*

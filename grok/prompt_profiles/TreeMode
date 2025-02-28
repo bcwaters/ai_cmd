@@ -47,7 +47,7 @@ export class TreeModeProfile {
                     },
                     {
                         type: "text",
-                        text: "The response should be a list of headings.  Each heading should be a list of keywords.  The headings should be SEO friendly and have a summary of the key information .  The headings should be 6 words max and 2 words min."
+                        text: "The response should be a list of headings. Keep it simple for the details about each item.  Each heading should be a list of keywords.  The headings should be SEO friendly and have a summary of the key information .  The headings should be 6 words max and 2 words min."
                     }
                 ]
             },

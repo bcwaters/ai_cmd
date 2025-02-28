@@ -19,9 +19,12 @@ global install with :
 
 
 
-NOTE: If you context info is tracked it can be fixed with ``` git update-index --assume-unchanged .grokRuntime grok/con
-text/context.data grok/context/context.history gro
-k/context/currentChat/currentChat.html grok/contex
-t/currentChat/currentChat.json grok/context/curren
-tChat/summary.json```
+NOTE: If you context info is tracked it can be fixed with 
+``` 
+ git update-index --skip .grokRuntime
+ git update-index --skip grok/context/context.data grok/context/context.history
+ git update-index --skip grok/context/context.data grok/context/currentChat/currentChat.html
+ git update-index --skip grok/context/context.data grok/context/currentChat/currentChat.json
+ git update-index --skip grok/context/context.data grok/context/currentChat/summary.json
+ ```
 
