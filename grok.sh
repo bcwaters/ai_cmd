@@ -62,10 +62,10 @@ width=25
 
 # Function to draw a horizontal border
 draw_border() {
-    echo -e "$(printf -- '-%.0s' {1..55})"
+    echo -en "\n$(printf -- '-%.0s' {1..55})"
 }
 draw_border_green() {
-   echo -e "$color_background_green$(printf -- '-%.0s' {1..55})$color_background_reset"
+   echo -en "\n$color_background_green$(printf -- '-%.0s' {1..55})$color_background_black"
 }
 
 
@@ -74,8 +74,6 @@ draw_border_green() {
 
 
 
-# Your script commands go here
-echo "Current directory is now: $(pwd)"
 
 # Greet the user
 echo -e  "${color_background_black}${color_yellow_dark}----------------------------------------------   ${color_reset}"
@@ -108,16 +106,6 @@ spin() {
             local temp=${spinchars:i++%${#spinchars}:1}
             local temp3=${spinchars2:i%${#spinchars2}:1}
             
-            
-                echo -ne "\r$color_white$temp-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp\n"
-                echo ""
-                echo -ne "\r$color_red_light$temp-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp\n"
-                echo ""
-                echo -ne "\r$color_yellow_light$temp-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp\n"
-                echo ""
-                echo -ne "\r$color_blue_light$temp-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp\n"
-                echo ""
-                echo -ne "\r$color_green_light$temp-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp\n"
 
 
             
@@ -147,7 +135,7 @@ spin() {
 
 # Function to display a spinner with user input
 display_spinner_with_input() {
-    local prompt_text="${1:--------------------------}"
+    local prompt_text="${1:--------------------}"
     
     # Create a named pipe for communication
     FIFO="/tmp/grok_fifo_$$"
@@ -204,7 +192,7 @@ while true; do
     
 
   
-            echo -e "${color_background_black}${color_yellow}Press enter to continue                  ${color_background_reset}${color_reset}" 
+            echo -en "${color_background_black}${color_yellow}-------------Press enter to continue------------$background_color_black\n" 
 
             # Call the function instead of the inline code
             display_spinner_with_input "-------------------------"
@@ -213,28 +201,28 @@ while true; do
 
        # echo -e "Loaded State: \e[34m[ $contextState]\e[0m \e[32m[ $newState]\e[0m \e[33m[ $depthState]\e[0m \e[35m[ $fileState]\e[0m \e[36m[ $specialtyState]\e[0m"
     fi
-                    echo ""
-                echo ""
+                    echo -e "$color_background_black"
+                    echo -e "$color_background_black"
 
     #GOTO here
     #branch feature added next    
     # Prompt the user for input
+    echo -en "$color_background_black$color_yellow\n------------------------GROK DOC-----------------------$color_background_black"
+    echo -en "\n$color_background_blue current settings: $color_bluelight[$displayContext] \e[32m[ $displayNew] \e[33m[ $displayDepth] \e[35m[ $displayFile] \e[36m[ $displaySpecialty] \e[44m[$displayTreeMode]$color_background_black$color_yellow       "
     draw_border
-    echo -e "type $color_blue setContext\e[0m to set the context" 
-    echo -e "type $color_green new\e[0m to start a new conversation"
-    echo -e "type $color_yellow depth\e[0m set the context depth for better memory"
-    echo -e "type $color_magenta file\e[0m to load a file"
- 
-    echo -e "type $color_cyan specialty\e[0m to set the specialty"
+  
+    echo -en "$color_background_black$color_blue \n type $color_blue setContext\e[0m$color_background_black to set the context" 
+    echo -en "$color_background_black$color_green \n type $color_green new\e[0m$color_background_black to start a new conversation"
+    echo -en "$color_background_black$color_yellow \n type $color_yellow depth\e[0m$color_background_black set the context depth for better memory"
+    echo -en "$color_background_black$color_magenta \n type $color_magenta file\e[0m$color_background_black to load a file"
+    echo -en "$color_background_black$color_cyan \n type $color_cyan specialty\e[0m$color_background_black to set the specialty"
+    echo -en "$color_background_black$color_green \n type $color_green paste\e[0m$color_background_black to paste from clipboard"
+    echo -en "$color_background_black$color_blue \n type $color_blue treeMode\e[0m$color_background_black to generate a set of organized documents"
+    echo -en "$color_background_black$color_yellow \n type $color_yellow review\e[0m$color_background_black to review edit the edit the response in vim"
+    echo -en "$color_background_black$color_red \n type $color_red exit\e[0m$color_background_black to quit or press ctrl+c"
+    draw_border
 
-    echo -e "type $color_background_green paste\e[0m to paste from clipboard"
-    echo -e "type $color_background_blue treeMode\e[0m to generate a set of organized documents"
-    echo -e "type $color_background_yellow review\e[0m to review edit the edit the response in vim"
-    echo -e "type $color_red exit\e[0m to quit or press ctrl+c"
-    draw_border
-    echo -e "current settings: \e[34m[ $displayContext]\e[0m \e[32m[ $displayNew]\e[0m \e[33m[ $displayDepth]\e[0m \e[35m[ $displayFile]\e[0m \e[36m[ $displaySpecialty]\e[0m \e[44m[$displayTreeMode]\e[0m"
-    draw_border
-    echo -e "${color_background_black}${color_yellow}enter your prompt:                                     ${color_background_reset}${color_reset}" 
+    echo -e "${color_background_black}${color_yellow}\nenter your prompt:                                     ${color_background_reset}${color_reset}" 
     read -p "" prompt
 
 
