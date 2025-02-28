@@ -211,7 +211,7 @@ while true; do
     echo -e "$color_white--------------------------------\e[0m"
     echo -e "current settings: \e[34m[ $displayContext]\e[0m \e[32m[ $displayNew]\e[0m \e[33m[ $displayDepth]\e[0m \e[35m[ $displayFile]\e[0m \e[36m[ $displaySpecialty]\e[0m \e[44m[$displayTreeMode]\e[0m"
     echo -e "$color_white--------------------------------\e[0m"
-    echo -e "${color_background_black}${color_yellow_dark}enter you prompt: ${color_background_reset}${color_reset}" 
+    echo -e "${color_background_black}${color_yellow}enter your prompt:              ${color_background_reset}${color_reset}" 
     read -p "" prompt
 
 
