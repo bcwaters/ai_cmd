@@ -65,7 +65,7 @@ draw_border() {
     echo -e "$(printf -- '-%.0s' {1..55})"
 }
 draw_border_green() {
-   echo -e "$color_background_green$(printf -- '-%.0s' {1..55})"
+   echo -e "$color_background_green$(printf -- '-%.0s' {1..55})$color_background_reset"
 }
 
 
