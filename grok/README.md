@@ -12,6 +12,10 @@ now to query grok run ```./grok.sh "your prompt" ```
 
 
 ## future features
+
+  Template html needs to be improved for tree mode.  THere should be a parent home link that can be clicked to return to the home page.
+     When a page is marked as parent headings should be linked to their children.
+
   After the first prompt generate a list of suggesting prompts that can be clicked to load into the prompt.
 
   recieve a current direcrty option to decide where docs are saved.
