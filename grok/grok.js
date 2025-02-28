@@ -544,7 +544,7 @@ async function main() {
     }
 
     let terminalState = browserMode?"":"terminalMode";
-    await fs.writeFile("./grok/context/review.md", markdownResponse+"\ncontext:"+dynamicResponseId);
+    //await fs.writeFile("./grok/context/html/markdown/"+dynamicResponseId+".md", markdownResponse+"\ncontext:"+dynamicResponseId);
     await fs.writeFile(".grokRuntime", `depthState=${depth}\nnewState=""\nsetContextState=${dynamicResponseId}\nterminalMode=${terminalState}`);
     
     if(isTreeMode){

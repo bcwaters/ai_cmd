@@ -244,8 +244,12 @@ while true; do
         echo -e "$color_red_light Exiting...\e[0m"
         break
     fi
+    if [ "$prompt" == "browserMode" ]; then
+        terminalMode=""
+        continue
+    fi
     if [ "$prompt" == "review" ]; then
-        vim ./grok/context/review.md
+        vim ./grok/context/html/markdown/${setContextState}.md
         continue
     fi
     if [ "$prompt" == "terminalMode" ]; then
