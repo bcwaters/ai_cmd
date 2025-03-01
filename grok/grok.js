@@ -1,80 +1,44 @@
-import OpenAI from "openai";
-import dotenv from "dotenv"
+//Node
 import fs from 'fs/promises'
-import { exec } from 'child_process'
 import os from 'os'
+import {exec} from 'child_process'         //use exec to run commands like open browser
 
-import { JSDOM } from 'jsdom';
-import createDOMPurify from 'dompurify';
-import { marked } from 'marked';
+//NPM packages
+import OpenAI from "openai";               //use openai spec
+import dotenv from "dotenv"                //use dotenv to load environment variables
+import {marked} from 'marked';             //use marked to convert markdown to html
+import { JSDOM } from 'jsdom';             //use jsdom to create a DOM object
+import createDOMPurify from 'dompurify';   //use dompurify to sanitize the html
+
+//Local packages
 import {PromptProfile} from './prompt_profiles/default';
 import {TreeModeProfile} from './prompt_profiles/TreeMode';
-
-class terminal {
-    static debugLogger = false;
-    constructor() {
-     
-    }
-    
-    static log(...args) {
-        console.log(...args);
-    }
-    static error(...args) {
-        console.error(...args);
-    }
-    static warn(...args) {
-        console.warn(...args);
-    }
-    static info(...args) {
-        console.info(...args);
-    }
-    static debug(...args) {
-        if (this.debugLogger) {
-            console.log(...args);
-        }
-    }
-    
-}
+import terminal from './utils/terminal.js';                   //logger wrapper
 
 
-const logDivider = "*---------------------------------------------------------------*";
-// Define ANSI color codes
-const colors = {
-    reset: "\x1b[0m",
-    red: "\x1b[31m",
-    green: "\x1b[32m",
-    yellow: "\x1b[33m",
-    blue: "\x1b[34m",
-    purple: "\x1b[35m",
-    cyan: "\x1b[36m",
-    // context: "\x1b34m",
-    // new: "\x1b[32m",  //ARGCOLORS
-    // depth: "\x1b33m",           
-    // file: "\x1b35m",
-    // specialty: "\x1b36m",
-    // treeMode: "\x1b44m"
-  };
-
+//Configuration before main -------------------------------
+dotenv.config();
 
 // Initialize DOMPurify with JSDOM
 const window = new JSDOM('').window;
 const DOMPurify = createDOMPurify(window);
 
-dotenv.config();
 
+//grok-2-vision-1212
+//TODO this does not have to be hardcoded to grok
 const openai = new OpenAI({
     apiKey: process.env.XAI_API_KEY,
     baseURL: "https://api.x.ai/v1",
 });
 
-//grok-2-vision-1212
+//End Configuration before main -------------------------------
 
 // Parse command line arguments and return prompt and flags
 function parseCommandLineArgs() {
    
     terminal.debugLogger = true;
     const args = process.argv.slice(2);
-    //console.log(...args);
+
     let userPrompt = "Default prompt if none provided";
     let depth = 500;
     let isNew = false;
@@ -93,6 +57,7 @@ function parseCommandLineArgs() {
         terminal.debugLogger = false;
         browserMode = false;
     }
+    //TODO update specialty to be named role here and in shell script
     if (args.includes("--specialty")) {
         const specialtyIndex = args.indexOf("--specialty") + 1;
         if (specialtyIndex < args.length) {
@@ -113,7 +78,7 @@ function parseCommandLineArgs() {
             filePath = args[filePathIndex];
         }
     }
-    //BUG ALERT this my cause issues since new has no value
+   
     if (args.includes("--new")) {
         isNew = true;
 
@@ -135,9 +100,11 @@ function parseCommandLineArgs() {
         userPrompt = args[indexOfPrompt + 1];
     }
 
+    //TODO this should be a RAG_PROFILE_STATE class with all the properties.
     return { userPrompt, isShort, isNew, setContext, depth, filePath, specialty, treeMode , browserMode};
 }
 
+//TODO move to utils
 function cleanString(string) {
     return string.replaceAll("```json", "")
     .replaceAll("```", "")
@@ -220,7 +187,7 @@ function createApiRequest(userPrompt, messagesString, isNew, isShort, contextDat
         messages = PromptProfile.getDefaultProfile(isNew, messagesString, contextData, userPrompt); // Load the array from the default file
     }
     
-    terminal.debug(colors.green, "Prompt Sent to Grok", colors.reset, JSON.stringify(messages, null, 4));
+    terminal.debug(terminal.colors.green, "Prompt Sent to Grok", terminal.colors.reset, JSON.stringify(messages, null, 4));
   
 
 
@@ -245,31 +212,34 @@ async function saveResponse(completion, userPrompt, responseId, contextHistoryLe
     let jsonContent = "";
     let markdownContent = "";
     const content = completion.choices[0].message.content.replace(/\\n/g, '\n');
-    terminal.debug(colors.yellow, "\n\nunprocessed response", colors.green, content, colors.reset);
+    terminal.debug(terminal.colors.yellow, "\n\nunprocessed response", terminal.colors.green, content, terminal.colors.reset);
    try{
      [markdownContent, jsonContent] = content.split("@EOF@"); 
    }catch(error){
-    terminal.log(colors.red, "error", colors.reset, error);
+    terminal.log(terminal.colors.red, "error", terminal.colors.reset, error);
      [markdownContent, jsonContent] = ["## Heading 1\n\n## Heading 2\n\n## Heading 3\n\n", "@EOF[keywords,list,always]"];
    }
   
-   
-
-    //console.log(colors.green, "markdownContent", colors.reset, markdownContent);
- 
     let priorContextId = await saveContextFiles(responseId, jsonContent, completion, markdownContent, depth);
-  
-
     await saveHtmlResponse(userPrompt, responseId, markdownContent, priorContextId, childDirectory, treeMode);
     
     let markdownResponse = await saveMarkdownResponse(userPrompt, responseId, markdownContent);
     await savePreviousId(responseId, userPrompt, contextHistoryLength);
   
-    
-
-
     //TODO need a better name for this.
     return {jsonContent, markdownResponse};
+}
+
+function htmlReplaceTemplateValues(html_string, sanitizedMarkdownContent, priorContextId, responseId){
+    //TODO ParentID technically is null here, there needs to be inheritance form a prompt class for a default value
+    html_string = html_string.replaceAll("@PARENT_ID@", TreeModeProfile.ParentId) //NICE THIS IS STATIC AND AVAIALBLE!
+    .replaceAll("REPLACEME", sanitizedMarkdownContent)
+    .replaceAll("@PREVIOUS_ID@", priorContextId.substring(0, 8)) //TODO is this substring redundant?
+    .replaceAll("@DIRECTORY@", "") // absolute path to the directory not compatible with firefox
+    .replaceAll("@CURRENT_ID@", responseId);
+
+    //TODO return can be done without variable assignment if no other processing is needed.
+    return html_string;
 }
 
 //TODO i should open up threads for CHILD WRITES
@@ -282,26 +252,16 @@ async function  saveHtmlResponse(userPrompt, responseId, markdownContent, priorC
     let sanitizedMarkdownContent = preprocessResponse(markdownContent);
 
 
-    indexHtml = indexHtml.replaceAll("@PARENT_ID@", TreeModeProfile.ParentId); //NICE THIS IS STATIC AND AVAIALBLE!
-    indexHtml = indexHtml.replaceAll("REPLACEME", sanitizedMarkdownContent);
-    indexHtml = indexHtml.replaceAll("@PREVIOUS_ID@", priorContextId.substring(0, 8));
-    indexHtml = indexHtml.replaceAll("@DIRECTORY@", ""); // absolute path to the directory not compatible with firefox
-    indexHtml = indexHtml.replaceAll("@CURRENT_ID@", responseId);
+    indexHtml = htmlReplaceTemplateValues(indexHtml, sanitizedMarkdownContent, priorContextId, responseId);
 
     if(childDirectory != ""){
         let childHtml = await fs.readFile('./grok/child_template.html', "utf8");
         
-
-        childHtml = childHtml.replaceAll("@PARENT_ID@", TreeModeProfile.ParentId); //NICE THIS IS STATIC AND AVAIALBLE!
-        childHtml = childHtml.replaceAll("REPLACEME", sanitizedMarkdownContent);
-        childHtml = childHtml.replaceAll("@PREVIOUS_ID@", priorContextId.substring(0, 8));
-        childHtml = childHtml.replaceAll("@DIRECTORY@", ""); // absolute path to the directory not compatible with firefox
-        childHtml = childHtml.replaceAll("@CURRENT_ID@", responseId);
+        childHtml = htmlReplaceTemplateValues(childHtml, sanitizedMarkdownContent, priorContextId, responseId);
     
-
-        console.log(colors.red,logDivider, colors.reset);
+        console.log(terminal.colors.red,terminal.logDivider, terminal.colors.reset);
         console.log("childDirectory being written to", childDirectory);
-        console.log(colors.red,logDivider, colors.reset );
+        console.log(terminal.colors.red,terminal.logDivider, terminal. colors.reset );
         await fs.writeFile(
             `./grok/context/html/${childDirectory}/${responseId}.html`,
             childHtml,
@@ -309,16 +269,17 @@ async function  saveHtmlResponse(userPrompt, responseId, markdownContent, priorC
         );
     }else{
         if(treeMode){
-            console.log(colors.red,logDivider, colors.reset);
+            console.log(terminal.colors.red,terminal.logDivider, terminal.colors.reset);
             console.log("this is a parent write:", responseId);
-            console.log(colors.red,logDivider, colors.reset );
+            console.log(terminal.colors.red,terminal.logDivider, terminal.colors.reset );
         }
-    }
-        await fs.writeFile(
-            `./grok/context/html/${responseId}.html`,
+    }//if child directory and not a parent do nothing
+        
+    await fs.writeFile(   
+        `./grok/context/html/${responseId}.html`,
             indexHtml,
             "utf8"
-        );
+    );
     
 
     await fs.writeFile(
@@ -337,9 +298,9 @@ async function  saveHtmlResponse(userPrompt, responseId, markdownContent, priorC
 }
 
 async function saveMarkdownResponse(userPrompt, responseId, markdownContent) {
-    terminal.debug(logDivider);
-    terminal.debug(colors.green, "markdownContent\n",colors.reset, markdownContent);
-    terminal.debug(logDivider);
+    terminal.debug(terminal.logDivider);
+    terminal.debug(terminal.colors.green, "markdownContent\n",terminal.colors.reset, markdownContent);
+    terminal.debug(terminal.logDivider);
     // Save markdown response
     await fs.writeFile(
         `./grok/context/html/${userPrompt.replaceAll(" ", "_").replaceAll(":", "_").replaceAll("/", "_").replaceAll(".", "").substring(0, 40)}-${responseId}.md`,
@@ -461,11 +422,11 @@ async function appendToContext(newContent, MAX_CONTEXT_LENGTH) {
     .replaceAll("[", "")
     .replaceAll("]", "");
 
-    terminal.debug(logDivider);
-    terminal.debug(colors.green, "Current Subject:",colors.reset, newContent);
-    terminal.debug(logDivider);
-    terminal.debug(colors.green, "Current Context[",MAX_CONTEXT_LENGTH,"]:",colors.reset, contextData);
-    terminal.debug(logDivider);
+    terminal.debug(terminal.logDivider);
+    terminal.debug(terminal.colors.green, "Current Subject:",terminal.colors.reset, newContent);
+    terminal.debug(terminal.logDivider);
+    terminal.debug(terminal.colors.green, "Current Context[",MAX_CONTEXT_LENGTH,"]:",terminal.colors.reset, contextData);
+    terminal.debug(terminal.logDivider);
     await fs.writeFile("./grok/context/context.data", contextData);
 
 
@@ -476,17 +437,17 @@ async function savePreviousId(responseId, userPrompt, contextHistoryLength){
     let parsedPreviousId = JSON.parse(previousId);
     parsedPreviousId.push({id: responseId, prompt: userPrompt});
     await fs.writeFile("./grok/context/context.history", JSON.stringify(parsedPreviousId));
-    terminal.log(logDivider);
+    terminal.log(terminal.logDivider);
     
-    terminal.log(colors.green, "\nPrevious Context", colors.reset);
+    terminal.log(terminal.colors.green, "\nPrevious Context", terminal.colors.reset);
 
     // Log only the last 3 context entries
     const EntriesToLog = parsedPreviousId.slice(contextHistoryLength);
     for(let i = 0; i < EntriesToLog.length && i < 5; i++){
-        terminal.log(colors.green, "contextId:", colors.reset, EntriesToLog[EntriesToLog.length - i - 1].id,  colors.yellow, "\n Prompt:\n",colors.reset, EntriesToLog[EntriesToLog.length - i - 1  ].prompt);
-        terminal.log(colors.reset, " - - - - - - - - - - - - - - - - - - - - -", colors.reset);
+        terminal.log(terminal.colors.green, "contextId:", terminal.colors.reset, EntriesToLog[EntriesToLog.length - i - 1].id,  terminal.colors.yellow, "\n Prompt:\n",terminal.colors.reset, EntriesToLog[EntriesToLog.length - i - 1  ].prompt);
+        terminal.log(terminal.colors.reset, " - - - - - - - - - - - - - - - - - - - - -", terminal.colors.reset);
     }
-    terminal.log(logDivider);
+    terminal.log(terminal.logDivider);
     return parsedPreviousId;
 }
 
@@ -501,12 +462,15 @@ async function moveContextFile() {
     return parsedContextId;
 }
 
+//TODO move to utils
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+
 // Main function
 async function main() {
+    //RAG_PROFILE_STATE class needs to be made before this bloats beyond repair
     const { userPrompt, isShort, isNew, setContext, depth ,filePath, specialty, treeMode, browserMode} = parseCommandLineArgs();
     let morePrompts = true;
     let isTreeMode = treeMode;
@@ -535,9 +499,9 @@ async function main() {
           
             dynamicPrompt = "Tell me more about item " + branchIndex + " of this list.  Go into more detail about and info you already included.: "  + branchList[branchIndex-1];
             await sleep(1000); // Replaced sleep with wait to avoid overwhelming the API.
-            terminal.log(colors.green, "User Prompt", colors.reset, dynamicPrompt);
-            terminal.log(colors.green, "Branch List", colors.reset, branchList);
-            terminal.log(colors.green, "Branch Index", colors.reset, branchIndex);
+            terminal.log(terminal.colors.green, "User Prompt", terminal.colors.reset, dynamicPrompt);
+            terminal.log(terminal.colors.green, "Branch List", terminal.colors.reset, branchList);
+            terminal.log(terminal.colors.green, "Branch Index", terminal.colors.reset, branchIndex);
             branchIndex--;
             
          }
@@ -565,22 +529,22 @@ async function main() {
         terminal.error("AI_CMD bot forgot the @EOF@ tag in the response... try again and it should work", error);
     }
     
-    terminal.log( "current contextId",   colors.blue, dynamicResponseId, colors.reset);
-    terminal.log(colors.purple, "\nfile used:", colors.reset, filePath?filePath:"none");
-    treeMode && !isTreeMode && terminal.log(colors.green, "Tree-"+ colors.reset, TreeModeProfile.ParentId, colors.green, "\nbranches"+colors.green+"["+branchList.length+"]-", branchList);
-    terminal.log(logDivider);
+    terminal.log( "current contextId",   terminal.colors.blue, dynamicResponseId, terminal.colors.reset);
+    terminal.log(terminal.colors.purple, "\nfile used:", terminal.colors.reset, filePath?filePath:"none");
+    treeMode && !isTreeMode && terminal.log(terminal.colors.green, "Tree-"+ terminal.colors.reset, TreeModeProfile.ParentId, terminal.colors.green, "\nbranches"+terminal.colors.green+"["+branchList.length+"]-", branchList);
+    terminal.log(terminal.logDivider);
 
     //TODO harded code price function should be dynamic for differnt models.
     const INPUT_TOKEN_PRICE = 200/1000000;
     const OUTPUT_TOKEN_PRICE = 1000/1000000;
     const totalPrice = (completion.usage.prompt_tokens * INPUT_TOKEN_PRICE) + (completion.usage.completion_tokens * OUTPUT_TOKEN_PRICE);
-    terminal.log(colors.green, "Tokens used", colors.yellow, "prompt:", colors.reset, completion.usage.prompt_tokens, colors.yellow, "completion:", colors.reset, completion.usage.completion_tokens, colors.reset);
-    terminal.log(colors.green, "Aprox price of prompt", colors.yellow, totalPrice, colors.reset, "cents ");
+    terminal.log(terminal.colors.green, "Tokens used", terminal.colors.yellow, "prompt:", terminal.colors.reset, completion.usage.prompt_tokens, terminal.colors.yellow, "completion:", terminal.colors.reset, completion.usage.completion_tokens, terminal.colors.reset);
+    terminal.log(terminal.colors.green, "Aprox price of prompt", terminal.colors.yellow, totalPrice, terminal.colors.reset, "cents ");
     //TODO ^^^in tree mode these values can be stored and added up
-    terminal.log(logDivider);
+    terminal.log(terminal.logDivider);
     //write settings to ../.grokRuntimeterminal
     if(terminal.debugLogger == false){
-        terminal.log(colors.green, "\nResponse", colors.reset, markdownResponse);
+        terminal.log(terminal.colors.green, "\nResponse", terminal.colors.reset, markdownResponse);
     }
 
     let terminalState = browserMode?"":"terminalMode";
@@ -597,18 +561,27 @@ async function main() {
         try{
             //TODO fix the saveHtmlResponse function to handle differnt typeps
             await fs.copyFile("./grok/context/currentChat/currentChat.html", "./grok/context/html/"+childDirectory+"/"+dynamicResponseId+".html");
+            /* Thinking time
+               * Obtain all of the READMEs for the tree and branches.
+               * For each child branch create an <div id="childContent1...5"> 
+               * Parent html will have one nav "link".  each list item will be a "link" to the div
+               * The links will execute a javascript function which toggles hidden attribute for all over divs.
+               * The backend server will  use marked to add the styled markdown to each conent div
+               * 
+               * 
+            */
         }catch(error){
             terminal.error("Error copying the currentChat.html file:", error);
         }
-        terminal.log(colors.yellow, "\nParent ID", colors.reset, TreeModeProfile.ParentId);
-        terminal.log(colors.blue, "Branches", colors.reset, branchList);
+        terminal.log(terminal.colors.yellow, "\nParent ID", terminal.colors.reset, TreeModeProfile.ParentId);
+        terminal.log(terminal.colors.blue, "Branches", terminal.colors.reset, branchList);
     }
    
     //TODO Optizmize this later. I might put at the top of the while loop to flex... this is more readable though.
     //This index change is to fanagle the initial branch prompt to work.
     if(isTreeMode || branchIndex > 0){
-        terminal.log(colors.blue, "parentId", colors.reset, TreeModeProfile.ParentId);
-        terminal.log(colors.yellow, "branchId", colors.reset, dynamicResponseId);
+        terminal.log(terminal.colors.blue, "parentId", terminal.colors.reset, TreeModeProfile.ParentId);
+        terminal.log(terminal.colors.yellow, "branchId", terminal.colors.reset, dynamicResponseId);
         morePrompts = true;
     }else{
         morePrompts = false;

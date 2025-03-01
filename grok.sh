@@ -7,6 +7,10 @@ SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
 cd "$SCRIPT_DIR"
 current_dir=$(pwd)
 
+# Rename the terminal window make this adjust to OS
+echo -ne "\033]0;AI_CMD\007"
+
+
 startup=true;
 
 color_green="\e[32m"

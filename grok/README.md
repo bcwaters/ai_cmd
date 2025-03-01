@@ -13,6 +13,9 @@ now to query grok run ```./grok.sh "your prompt" ```
 
 ## future features
 
+TODO debug markdown parsing output. it seem ```<script> tag break it and ``` ticks ```
+
+
   Template html needs to be improved for tree mode.  THere should be a parent home link that can be clicked to return to the home page.
      When a page is marked as parent headings should be linked to their children.
 
@@ -59,6 +62,7 @@ tree mode can be more intelligent.
 
     more... type more to get a full list of options
 
+  
   Encapulate system prompt in a file and load it.
      allow for different profiles
 
@@ -87,7 +91,22 @@ tree mode can be more intelligent.
       - slack: runs slack.sh to output resuts to a chat
       - facebook: runs facebook.sh to output results to a facebook post or message
 
-How do I change the terminal window title?
+Local LLM values
+    It would be nice to replace my context files with a call to a local LLM.  
+      The flow would be:     
+       * user prompts server.  
+       * Entire prompt including context I've built up is sent to the local LLM.  MANY MANY MANY Tokens  
+       * The LLM would then process the tokens and return a semantically accurate list of words.  
+       * the prompt is AUGMENTED with the semantic list and prompt question  
+       * the augmented prompt is sent to OPENAI  
+       * process response as usual (chance to finetune llm?)  
+       * repeat  
+Planned architecture:
+   NGINX - serve static html files from prompts
+   VECTOR STORE - serves to cache popular prompts and prime the result with compressed semantic context
+   nodejs(replace with bun) - javascript runtime for grok.js
+   OPENAI - Outside my control unless I host an LLM
+
 
 I like the spinner and countdown timer
 
