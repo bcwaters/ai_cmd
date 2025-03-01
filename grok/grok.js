@@ -147,7 +147,7 @@ async function getConversationContext(setContext, isNew) {
 }
 
 // Create the request object for the API
-function createApiRequest(userPrompt, priorConverstation, isNew, isShort, contextData, setContext, filePath, specialty, isTreeMode) {
+function createApiRequest(userPrompt, priorConverstation, isNew, isShort, contextData, setContext, filePath, specialty, processingRootNode) {
     let profile = "default";
     let messages = [];
     if (isShort) {
@@ -159,7 +159,7 @@ function createApiRequest(userPrompt, priorConverstation, isNew, isShort, contex
   
     PromptProfile.isLogging = false;
     
-    if(isTreeMode){
+    if(processingRootNode){
         messages = TreeModeProfile.getDefaultProfile(isNew, priorConverstation, contextData, userPrompt); // Load the array from the default file
     }else{
         messages = PromptProfile.getDefaultProfile(isNew, priorConverstation, contextData, userPrompt); // Load the array from the default file
@@ -210,30 +210,6 @@ async function parseCompletionForResponseAndMetaResponse(completion){
   contextHistoryLength is the length of the context history
   depth is the depth of the context
 */
-async function saveResponse(completion, userPrompt, responseId, contextHistoryLength, depth, browserMode, childDirectory, treeMode) {
-    //console.log("saving responses called");
-    //TODO UNTANGLE THIS LOGIC
-
-    let jsonContent = "";
-    let markdownContent = "";
-    const content = completion.choices[0].message.content.replace(/\\n/g, '\n');
-    terminal.debug(terminal.colors.yellow, "\n\nunprocessed response", terminal.colors.green, content, terminal.colors.reset);
-   try{
-     [markdownContent, jsonContent] = content.split("@EOF@"); 
-   }catch(error){
-    terminal.log(terminal.colors.red, "error", terminal.colors.reset, error);
-     [markdownContent, jsonContent] = ["## Heading 1\n\n## Heading 2\n\n## Heading 3\n\n", "@EOF[keywords,list,always]"];
-   }
-  
-    let priorContextId = await saveContextFiles(responseId, jsonContent, completion, markdownContent, depth);
-    await saveHtmlResponse(userPrompt, responseId, markdownContent, priorContextId, childDirectory, treeMode);
-    
-    let markdownResponse = await saveMarkdownResponse(userPrompt, responseId, markdownContent);
-    await savePreviousId(responseId, userPrompt, contextHistoryLength);
-  
-    //TODO need a better name for this.
-    return {jsonContent, markdownResponse};
-}
 
 function htmlReplaceTemplateValues(html_string, sanitizedMarkdownContent, priorContextId, responseId){
     //TODO ParentID technically is null here, there needs to be inheritance form a prompt class for a default value
@@ -271,13 +247,13 @@ async function  saveHtmlResponse(userPromptRequest, markdownContent, priorContex
         console.log("childDirectory being written to", userPromptRequest.childDirectory);
         console.log(terminal.colors.red,terminal.logDivider, terminal. colors.reset );
         await fs.writeFile(
-            `./grok/context/html/${userPromptRequest.childDirectory}/${userPromptRequest.dynamicResponseId}.html`,
+            `./grok/context/history/responses/${userPromptRequest.rootResponseId}/tree/${userPromptRequest.childDirectory}/${userPromptRequest.dynamicResponseId}.html`,
             childHtml,
             "utf8"
         );
     }else{
         //IF this is treemode but no child is written log that the parent summary page was written
-        if(treeMode){
+        if(userPromptRequest.treeMode){
             console.log(terminal.colors.red,terminal.logDivider, terminal.colors.reset);
             console.log("this is a parent write:", userPromptRequest.rootResponseId);
             console.log(terminal.colors.red,terminal.logDivider, terminal.colors.reset );
@@ -287,7 +263,7 @@ async function  saveHtmlResponse(userPromptRequest, markdownContent, priorContex
     // Obfucscated logic to create the directory structure before writing the file, do so before methd call.
     // Create the directory structure before writing the file
     //this only has to be called once
-    await fs.mkdir(`./grok/context/history/responses/${userPromptRequest.rootResponseId}`, { recursive: true });
+    await fs.mkdir(`./grok/context/history/responses/${userPromptRequest.rootResponseId}/html`, { recursive: true });
 
     //UPDATE writer class path here
     await fs.writeFile(   
@@ -308,6 +284,7 @@ async function saveMarkdownResponse(userPromptRequest, markdownContent) {
     terminal.debug(terminal.logDivider);
     terminal.debug(terminal.colors.green, "markdownContent\n",terminal.colors.reset, markdownContent);
     terminal.debug(terminal.logDivider);
+    await fs.mkdir(`./grok/context/history/responses/${userPromptRequest.rootResponseId}/markdown`, { recursive: true });
     // Save markdown response
     await fs.writeFile(
         `./grok/context/history/responses/${userPromptRequest.rootResponseId}/markdown/${userPromptRequest.dynamicResponseId}.md`,
@@ -349,47 +326,6 @@ function preprocessResponse(response) {
     return response;
 }
 
-
-
-async function saveContextFiles(fullResponseId, jsonContent, completion, markdownContent, depth) {
-    // Save context files
-    let priorContextId = await moveContextFile();
-
-  
-    await appendToContext(jsonContent, depth);
-
-    // try{
-    //     await fs.writeFile('./grok/context/currentChat/currentChat.json', JSON.stringify(completion));
-    // }catch(error){
-    //     terminal.error("Error writing the currentChat.json:", error);
-    // }
-    // await fs.writeFile(
-    //     `./grok/context/markdown/${fullResponseId}.md`,
-    //     markdownContent,
-    //     "utf8"
-    // );
-    // await fs.writeFile(
-    //     `./grok/context/currentChat/markdown/${fullResponseId}.md`,
-    //     markdownContent,
-    //     "utf8"
-    // );
-
-    // await fs.writeFile(
-    //     `./grok/context/currentChat/markdown/${fullResponseId}.md`,
-    //     markdownContent,
-    //     "utf8"
-    // );
-
-    // await fs.writeFile(
-    //     `./grok/context/html/markdown/${fullResponseId}.md`,
-    //     markdownContent,
-    //     "utf8"
-    // );
-    
-    
-    //I think these prompts can be used to profile the user and make a better system prompt
-    return priorContextId;
-}
 
 async function appendToContext(newContent, MAX_CONTEXT_LENGTH) {
     if (typeof newContent !== 'string') {
@@ -453,34 +389,13 @@ async function savePreviousId(responseId, userPrompt, contextHistoryLength){
     return parsedPreviousId;
 }
 
-//TODO THIS CAN BE OPTIMIXED to simply overwrite.
-async function moveContextFile() {
-    let oldContextFile = await fs.readFile('./grok/context/currentChat/currentChat.json', "utf8");
-    let parsedContext = JSON.parse(oldContextFile);
-    let parsedContextId = parsedContext.id.substring(0, 8);
-    await fs.copyFile(
-        './grok/context/currentChat/currentChat.json',
-        `./grok/context/history/${parsedContextId}.json`
-    );
-    return parsedContextId;
-}
-
-//TODO move to utils
-
 
 //There should be only 2 places for all mds json and html files.
 //1. context/currentChat/
 //2. context/history/
 
-//Step 1 get messages from api
-//Step 2 process markdown and html into and store in memory in a class
-//Step 3 save messages to context/currentChat/currentChat.json
-//Step 4 save messages to context/history/fullCompletion/responseId.json
-//Step 5 save markdown to context/currentChat/currentChat.md
-//Step 6 save html to context/currentChat/currentChat.html
-//Step 7 save markdown to context/history/markdown/responseId.md
-//Step 7 save html to context/history/html/responseId.html
-
+//TODO THERE COULD BE FAULTY LOGIC HERE. a child is saved to currentChat in treeMode for the last response
+//A recursive apporach should remedy this so parent is written last.
 async function saveCompletion(completion, responseId){
     //overwrites the old file
     await fs.writeFile(`./grok/context/currentChat/currentChat.json`, JSON.stringify(completion));
@@ -497,22 +412,15 @@ async function obtainPriorContextId() {
     return parsedContextId;
 }
 
-
-
-
-
-
-
-
 // Main function
 async function main() {
     //RAG_PROFILE_STATE class needs to be made before this bloats beyond repair
     const userPromptRequest = parseCommandLineArgs();
  
-    //This keeps the looop going for treeMode
+    //This keeps the loop going for treeMode
     let morePrompts = true;
     //This logic is seperate from the promptState because it relates to loop state
-    let isTreeMode = userPromptRequest.treeMode;
+    let processingRootNode = userPromptRequest.treeMode;
 
     while( morePrompts == true){
          //TODO in order to add depth I will need to simulate the command line arguments.
@@ -535,21 +443,19 @@ async function main() {
 
          terminal.debug(terminal.colors.green, "User Prompt Request", terminal.colors.reset, userPromptRequest.toString());
 
-    //This declaration should be moved or encapulated within userPromptRequest     
-    let contextHistoryLength = userPromptRequest.depth/500;
-   
+
     //TODO Load the previous propmt - there is probably a clever way to use previous id and load as much history as requested... add parent to context.history
     const priorConverstation = await getConversationContext(userPromptRequest.setContext, userPromptRequest.isNew); // Ensure context is fetched based on setContext
     const contextData = await fs.readFile("./grok/context/context.data", "utf8");
   
  
     //Context is loadup for the api request
-    let apiRequest = createApiRequest(userPromptRequest.dynamicPrompt, priorConverstation, userPromptRequest.isNew, userPromptRequest.isShort, contextData, userPromptRequest.setContext, userPromptRequest.filePath, userPromptRequest.specialty, isTreeMode);
+    let apiRequest = createApiRequest(userPromptRequest.dynamicPrompt, priorConverstation, userPromptRequest.isNew, userPromptRequest.isShort, contextData, userPromptRequest.setContext, userPromptRequest.filePath, userPromptRequest.specialty, processingRootNode);
     const completion = await openai.chat.completions.create(apiRequest);
 
-    //TODO rename isTreeMode and move this logic into userPromptRequest as a process completion method
+    //TODO rename processingRootNode and move this logic into userPromptRequest as a process completion method
     if(userPromptRequest.treeMode){
-        if(isTreeMode){//This is the first loop of treeMode
+        if(processingRootNode){//This is the first loop of treeMode
             userPromptRequest.rootResponseId = completion.id.substring(0, 8);
             userPromptRequest.dynamicResponseId = completion.id.substring(0, 8);
         }else{
@@ -576,31 +482,29 @@ async function main() {
     //STEP 3 now update the context for future prompts
     //let priorContextId = await saveContextFiles(userPromptRequest.dynamicResponseId, metaResponse, completion, markdownContent, userPromptRequest.depth);
     await appendToContext(metaResponse, userPromptRequest.depth);
+    
+    //TODO examine the best depth ratio for length. this should round down but be atleast 1
+    let contextHistoryLength = userPromptRequest.depth/500;
+    await savePreviousId(userPromptRequest.dynamicResponseId, userPromptRequest.dynamicPrompt, contextHistoryLength);
+    
   
     //priorContextId is missing until completion is written.
     //Step 4 save the completion to currentChat.json and history/fullCompletion/responseId.json
     let priorContextId = await obtainPriorContextId();
     await saveCompletion(completion, userPromptRequest.dynamicResponseId);
-
-  
-    //STEP 5 now use the readme to create the html and write to disk
     await saveHtmlResponse(userPromptRequest, markdownContent, priorContextId);
-
-    //STEP 6 save the markdown to disk
-    //consider whether or not to append response ID
     await saveMarkdownResponse(userPromptRequest, userPromptRequest.dynamicResponseId, markdownContent);
+        //consider whether or not to append response ID
+    //ALL makr and html should be saved to the disk now
 
-    let responseOutput = await saveResponse(completion, userPromptRequest.dynamicPrompt, userPromptRequest.dynamicResponseId, contextHistoryLength, userPromptRequest.depth, userPromptRequest.browserMode, userPromptRequest.childDirectory, isTreeMode);
-    try{
-        treeModeList = metaResponse;
-        markdownResponse = responseOutput.markdownResponse;
-    }catch(error){
-        terminal.error("AI_CMD bot forgot the @EOF@ tag in the response... try again and it should work", error);
-    }
-    
+
+    treeModeList = metaResponse;
+    markdownResponse = markdownContent; //unneceasary asignment
+ 
+   //TODO name a bool for this   userPromptRequest.treeMode && !processingRootNode   
     terminal.log( "current contextId",   terminal.colors.blue, userPromptRequest.dynamicResponseId, terminal.colors.reset);
     terminal.log(terminal.colors.purple, "\nfile used:", terminal.colors.reset, userPromptRequest.filePath?userPromptRequest.filePath:"none");
-    userPromptRequest.treeMode && !isTreeMode && terminal.log(terminal.colors.green, "Tree-"+ terminal.colors.reset, TreeModeProfile.ParentId, terminal.colors.green, "\nbranches"+terminal.colors.green+"["+userPromptRequest.branchList.length+"]-", userPromptRequest.branchList);
+    userPromptRequest.treeMode && !processingRootNode && terminal.log(terminal.colors.green, "Tree-"+ terminal.colors.reset, TreeModeProfile.ParentId, terminal.colors.green, "\nbranches"+terminal.colors.green+"["+userPromptRequest.branchList.length+"]-", userPromptRequest.branchList);
     terminal.log(terminal.logDivider);
 
     //TODO harded code price function should be dynamic for differnt models.
@@ -617,26 +521,25 @@ async function main() {
     }
 
     let terminalState = userPromptRequest.browserMode?"":"terminalMode";
-    //await fs.writeFile("./grok/context/html/markdown/"+dynamicResponseId+".md", markdownResponse+"\ncontext:"+dynamicResponseId);
     await fs.writeFile("./shell_helpers/.grokRuntime", `depthState=${userPromptRequest.depth}\nnewState=""\nsetContextState=${userPromptRequest.dynamicResponseId}\nterminalMode=${terminalState}`);
     
     //This is the first loop of treeMode
-    if(isTreeMode){
-        isTreeMode = false;
+    if(processingRootNode){
+        processingRootNode = false;
         userPromptRequest.branchList = TreeModeProfile.parseSubject(treeModeList);
         userPromptRequest.branchIndex = userPromptRequest.branchList.length;
         TreeModeProfile.setParentId(userPromptRequest.dynamicResponseId);
         TreeModeProfile.setParentReadme(markdownResponse);
-        userPromptRequest.childDirectory = TreeModeProfile.ParentId+"_tree";
-        await fs.mkdir("./grok/context/html/"+userPromptRequest.childDirectory, { recursive: true });
+        userPromptRequest.childDirectory = TreeModeProfile.ParentId+"_children";
+        await fs.mkdir("./grok/context/history/responses/"+userPromptRequest.rootResponseId+"/tree/"+userPromptRequest.childDirectory+"/html", { recursive: true });
         
-              terminal.log(terminal.colors.yellow, "\nParent ID", terminal.colors.reset, TreeModeProfile.ParentId);
+        terminal.log(terminal.colors.yellow, "\nParent ID", terminal.colors.reset, TreeModeProfile.ParentId);
         terminal.log(terminal.colors.blue, "Branches", terminal.colors.reset, userPromptRequest.branchList);
     }
    
     //TODO Optizmize this conditionallater. I might put at the top of the main while loop to flex... this is more readable though.
     //This index change is to fanagle the initial branch prompt to work.
-    if(isTreeMode || userPromptRequest.branchIndex > 0){
+    if(processingRootNode || userPromptRequest.branchIndex > 0){
         terminal.log(terminal.colors.blue, "parentId", terminal.colors.reset, TreeModeProfile.ParentId);
         terminal.log(terminal.colors.yellow, "branchId", terminal.colors.reset, userPromptRequest.dynamicResponseId);
         morePrompts = true;
@@ -645,10 +548,13 @@ async function main() {
         terminal.log(terminal.colors.yellow, terminal.getDividerWithMessage("READ-RESPONSE-ABOVE"));
         terminal.log(terminal.colors.green, terminal.logDivider, terminal.colors.reset);
         morePrompts = false;
+
+        //We are currently handling the bundling of tree mode children.
         if(userPromptRequest.treeMode){
         try{
                 //TODO fix the saveHtmlResponse function to handle differnt typeps
-                await fs.copyFile("./grok/context/currentChat/currentChat.html", "./grok/context/html/"+userPromptRequest.childDirectory+"/"+userPromptRequest.dynamicResponseId+".html");
+                //REMOVE THIS AND RETURN STATIC FULL PAGE
+                //await fs.copyFile("./grok/context/currentChat/currentChat.html", "./grok/context/history/responses/"+userPromptRequest.rootResponseId+"/"+userPromptRequest.childDirectory+"/"+userPromptRequest.dynamicResponseId+".html");
             
             let processedChildReadmes = [];
             //Is this a reference or a copy? 
@@ -698,7 +604,8 @@ async function main() {
             //I could name this more intelligently.
             //I want to explorer a recursive approach for deeper trees. How do i template a child that is a parent and a child
             //I am pretty sure a recursive approach seting the context to the child repsonse ID and the recursively prompts from there
-            await fs.writeFile("./grok/context/html/"+userPromptRequest.childDirectory+"/"+"MASTER_HTML_FILE"+".html", parentHtml);
+            await fs.writeFile("./grok/context/history/responses/"+userPromptRequest.rootResponseId+"/tree/"+"MASTER_HTML_FILE"+".html", parentHtml);
+            await fs.writeFile("./grok/context/currentChat/currentChat.html", parentHtml);
             //replace @REPLACEWITHCHILDRENDIVS@ with the childDivs string
             
 
@@ -724,8 +631,8 @@ async function main() {
         if(!userPromptRequest.treeMode){
             htmlDir = "currentChat/currentChat.html";
         }else{
-            //open the last child soon to be MONO_HTML_FILE
-            htmlDir = "html/"+userPromptRequest.childDirectory+"/"+userPromptRequest.dynamicResponseId+".html";
+            //open the last child soon to be MONO_HTML_FILE  this can be wapped for currentchathtml too
+            htmlDir = "history/responses/"+userPromptRequest.rootResponseId+"/tree/"+"MASTER_HTML_FILE"+".html";
         }
   
      
