@@ -89,13 +89,6 @@ echo -e  "${color_background_black}${color_yellow_dark}| |_| | |  | |_| || |\ \\
 echo -e  "${color_background_black}${color_yellow_dark} \____|_|   \___/ | | \ \\|____/ \___/  \___|     ${color_reset}"
 echo -e  "${color_background_black}${color_yellow_dark}----------------------------------------------   ${color_reset}"
 echo -e  "${color_yellow}This is GrokDOC. Request a readme on any subject.${color_reset}"
-
-
-echo "   "
-echo ""
-
-
-
 # Function to display a spinner
 spin() {
     local pid=$1

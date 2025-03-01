@@ -1,5 +1,10 @@
-# grok_cmd
-query grok API and generate a simple readme in the browser. context the prior conversations is sent along each message.
+# ai_cmd
+LLMs can be viewed as a latent space of knowledge.  Given the correct prompt almost any knowledge can be extracted for less than 10kb.  This is a RAG approach to traversing the latent space. 
+
+A static html page with nested html of child prompts can be used to explore the llm latent space.  This tree can go as far down as you would request it.  It automatically loads in the browser after each question. Until the approach is refined this can be view as an ephemeral index of the llm.  With a nice VECTOR store the indexing can be cached for prompts with a high match. 
+
+In the terminal it is can be used as reference docs. No browser needed. Just ask for the snippet of info and reciev it. 
+
 
 
 ## how to run

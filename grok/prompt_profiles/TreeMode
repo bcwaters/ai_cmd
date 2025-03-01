@@ -2,7 +2,12 @@
 export class TreeModeProfile {
     static isLogging = true;
     static specialty = " ";  //user can set this to "write code" or "write a readme" or "write a blog post" etc.
+    //THESE VARIABLES it feels like these should be "reset" at the end of a main() call... but i am pretty sure it works as is.
     static ParentId = "";
+    static ParentReadme = "";
+    
+    static subjectList = [];
+    static childReadme = [];
 
     static setSpecialty(specialty) {
         if (specialty == "software") {
@@ -86,15 +91,34 @@ export class TreeModeProfile {
         this.ParentId = parentId;
     }
 
+    static setParentReadme(markdownResponse){
+        this.ParentReadme = markdownResponse;
+    }
+
     //subject parser
     static parseSubject(subjectList){
         // subject.split(" ### ").map(word => word.trim()); // get the index of the ## headings and store the entire line as a string in an array
         // Somehow we can improve our branch prompts at this point.    
-        // get the index of the ## headings and store the entire line as a string in an array
-        
-          return JSON.stringify(subjectList).replace("[","").replace("]","").split(","); //make an array
+        // get the index of the ## headings and store the entire line as a string in an array  
+        this.subjectList = JSON.stringify(subjectList).replace("[","").replace("]","").split(","); //make an array
+        return this.subjectList;
 
     }
+
+    // ChildReadme is an object with two properites
+    // 1. subjectList value - a good prediction of what the LLM will output as the title for the page
+    // 2. the markdown content
+    static addChildReadme(childReadme){
+        // we traverse the children prompts in reverse.
+        console.log("childReadme", childReadme);
+        this.childReadme.unshift(childReadme);
+    }
+
+    
+
+
+
+     
 }
 
 // // Usage

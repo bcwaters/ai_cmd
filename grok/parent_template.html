@@ -7,12 +7,24 @@
 <body>
   <nav>
     <button id="saveButton" onclick="saveButton()">Save html</button>
-    <a id="markdown" href="./markdown/@CURRENT_ID@.md"> markdown</a>
+    <a id="home" href='javascript:location.reload(true)'>Home</a>
+    <!-- <a id="markdown" href="./markdown/@CURRENT_ID@.md"> markdown</a>
     <a id="previous" href="../html/@PREVIOUS_ID@.html?responseId=@CURRENT_ID@">Previous</a>
-    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a> -->
   </nav>
 
-  <div id="content">REPLACEME</div>
+  <div id="content">  
+    REPLACEME
+    <div id="childDivs">
+      @REPLACEWITHCHILDRENDIVS@
+    </div>
+
+
+
+  </div>
+
+
+
 
 
   <script>
@@ -44,7 +56,7 @@
       
     }
   </script>
-
+<!-- 
   <script>
     //This function checks if the current page is a child page and genreate a link to the parent page.
             function isChild(){
@@ -63,7 +75,7 @@
                return false;
             }
     
-  </script>
+  </script> -->
     <script>
         function saveButton() {
           const content = document.documentElement.outerHTML; // Get the entire HTML content
@@ -96,7 +108,7 @@
 
    </script>
 
-  <script>
+  <!-- <script>
     function loadMarkdownFile() {
       const markdownFilePath = "./markdown/@CURRENT_ID@.md"; // Path to the markdown file
       fetch(markdownFilePath)
@@ -114,7 +126,7 @@
         })
         .catch(error => console.error('Error loading markdown file:', error));
     }
-  </script>
+  </script> -->
 
 </body>
 </html>

@@ -412,6 +412,8 @@ async function appendToContext(newContent, MAX_CONTEXT_LENGTH) {
  
     //CONTEXT can be improved by having separate lists. one is composed of Headings. another is keywords.
     contextData = contextData.substring(0, MAX_CONTEXT_LENGTH);
+
+    //utils helper function 
     contextData = contextData
     .replaceAll(/\\n/g, '')
     .replaceAll(/\\/g, '')
@@ -497,7 +499,7 @@ async function main() {
            
             currentSubject = branchList[branchIndex-1]
           
-            dynamicPrompt = "Tell me more about item " + branchIndex + " of this list.  Go into more detail about and info you already included.: "  + branchList[branchIndex-1];
+            dynamicPrompt = "Tell me more about item " + branchIndex + " of this list.  Go into more detail about info you already included.: "  + branchList[branchIndex-1];
             await sleep(1000); // Replaced sleep with wait to avoid overwhelming the API.
             terminal.log(terminal.colors.green, "User Prompt", terminal.colors.reset, dynamicPrompt);
             terminal.log(terminal.colors.green, "Branch List", terminal.colors.reset, branchList);
@@ -556,11 +558,65 @@ async function main() {
         branchList = TreeModeProfile.parseSubject(treeModeList);
         branchIndex = branchList.length;
         TreeModeProfile.setParentId(dynamicResponseId);
+        TreeModeProfile.setParentReadme(markdownResponse);
         childDirectory = TreeModeProfile.ParentId+"_tree";
         await fs.mkdir("./grok/context/html/"+childDirectory, { recursive: true });
+        
+        
         try{
             //TODO fix the saveHtmlResponse function to handle differnt typeps
             await fs.copyFile("./grok/context/currentChat/currentChat.html", "./grok/context/html/"+childDirectory+"/"+dynamicResponseId+".html");
+            
+            let processedChildReadmes = [];
+            //Is this a reference or a copy? 
+            let allChildReadmes = TreeModeProfile.childReadme;
+            let subjectList = TreeModeProfile.subjectList;
+            terminal.debug(terminal.logDivider);
+            terminal.debug("------------Entering child loop------------");
+            for(let i = 0; i < allChildReadmes.length; i++){
+                let childReadme = allChildReadmes[i];
+                // let childReadmeId = childReadme.contextId;   WOULD THIS BE USEFUL TO HAVE? perhaps in a more robust system.
+                let childReadmeSubject = subjectList[i];
+                
+                let parsedReadme = marked.parse(childReadme.content);
+                //MAYBE switch to aplha numeric ids 
+                let childReadmeHtml = `<div id="childContent${i}">${parsedReadme}</div>`;
+                
+                terminal.debug(terminal.colors.green, "childReadmeHtml", terminal.colors.reset, childReadmeHtml);
+                //TODO ordering wrong?
+                processedChildReadmes.push(childReadmeHtml);
+                //YIKES THIS NEEDS DOM MANIPULATION. No wonder react is so popular.
+                //onclick set parent to hidden and child to visible. There needs to be a way to go back to parent.
+                //this will need a fuzzy search in parent headings to properly link the child to the parent.
+             
+                terminal.debug(terminal.colors.green, "allChildReadmes", terminal.colors.reset, allChildReadmes);
+           
+            }
+
+            terminal.debug("------------Exiting child loop------------");
+            terminal.debug(terminal.logDivider);
+            //combine all the child divs into a nice incomprehensiible html string
+            terminal.debug(terminal.colors.green, "processedChildReadmes", terminal.colors.reset, processedChildReadmes);
+            let childDivs = processedChildReadmes.join("");
+            terminal.debug(terminal.colors.green, "childDivsComined", terminal.colors.reset, childDivs);
+            
+            terminal.debug(terminal.colors.green, "childDivs", terminal.colors.reset, childDivs);
+            let parentHtml = await fs.readFile("./grok/parent_template.html", "utf8");
+
+            //DO all the replacements
+            parentHtml = parentHtml.replace("REPLACEME", TreeModeProfile.ParentReadme);
+            parentHtml = parentHtml.replace("@REPLACEWITHCHILDRENDIVS@", childDivs);
+            parentHtml = parentHtml.replace("@CURRENT_ID@", TreeModeProfile.ParentId);
+            //parentHtml = parentHtml.replace("@PREVIOUS_ID@", dynamicResponseId);
+
+            //I could name this more intelligently.
+            //I want to explorer a recursive approach for deeper trees. How do i template a child that is a parent and a child
+            //I am pretty sure a recursive approach seting the context to the child repsonse ID and the recursively prompts from there
+            await fs.writeFile("./grok/context/html/"+childDirectory+"/"+"MASTER_HTML_FILE"+".html", parentHtml);
+            //replace @REPLACEWITHCHILDRENDIVS@ with the childDivs string
+            
+
+
             /* Thinking time
                * Obtain all of the READMEs for the tree and branches.
                * For each child branch create an <div id="childContent1...5"> 
@@ -577,7 +633,7 @@ async function main() {
         terminal.log(terminal.colors.blue, "Branches", terminal.colors.reset, branchList);
     }
    
-    //TODO Optizmize this later. I might put at the top of the while loop to flex... this is more readable though.
+    //TODO Optizmize this conditionallater. I might put at the top of the main while loop to flex... this is more readable though.
     //This index change is to fanagle the initial branch prompt to work.
     if(isTreeMode || branchIndex > 0){
         terminal.log(terminal.colors.blue, "parentId", terminal.colors.reset, TreeModeProfile.ParentId);
@@ -591,7 +647,7 @@ async function main() {
         if(!treeMode){
             htmlDir = "currentChat/currentChat.html";
         }else{
-            //open the last child
+            //open the last child soon to be MONO_HTML_FILE
             htmlDir = "html/"+childDirectory+"/"+dynamicResponseId+".html";
         }
   
