@@ -13,13 +13,14 @@ This directory stores all the information needed for engineering prompts and man
 
 ## Directory Structure
 
-```context/
+```
+context/
 ├─── currentChat/
 |    |
 |    |─── currentChat.json
 |    |─── currentChat.md
 |    |─── currentChat.html
-|    └─── currentchatResponse/
+|    └─── currentChatResponse/
 |         |─── markdown/
 |         |    ├─── id1.md
 |         |    ├─── id2.md
@@ -47,7 +48,13 @@ This directory stores all the information needed for engineering prompts and man
 |    |        |    ├─── id1.html
 |    |        |    ├─── id2.html
 |    |        |    └─── id3.html
-|    |        └─── static_html_page.html 
+|    |        └─── tree 
+|    |             |─── static_html_page.html 
+|    |             └─── children/
+|    |                  |─── child1.html
+|    |                  |─── child2.html
+|    |                  └─── child3.html
+|    |
 ├─── context.data
 ├─── context.json
 └─── README.md

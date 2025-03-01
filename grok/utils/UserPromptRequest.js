@@ -10,6 +10,7 @@ class UserPromptRequest {
         this.specialty = specialty;
         this.treeMode = treeMode;
         this.browserMode = browserMode;
+        this.rootResponseId = "";
         this._dynamicPrompt = userPrompt;
         this._dynamicResponseId = "";
         this._childDirectory = "";
@@ -66,6 +67,8 @@ class UserPromptRequest {
     set branchIndex(value) {
         this._branchIndex = value;
     }
+
+
 
     toString(){
         return JSON.stringify(this);
