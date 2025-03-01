@@ -129,7 +129,8 @@ async function getConversationContext(setContext, isNew) {
             return messageContent || "Error returning context";
         } else {
       
-            const context = await fs.readFile('./grok/context/history/' + setContext + '.json', "utf8");
+
+            const context = await fs.readFile('./grok/context/history/fullCompletion/' + setContext + '.json', "utf8");
             const parsedContext = JSON.parse(context);
            
             const messages = parsedContext.choices[0]
@@ -228,7 +229,7 @@ async function  saveHtmlResponse(userPromptRequest, markdownContent, priorContex
     //let pwd = process.cwd();
     //console.log("pwd", pwd);
     // Save HTML response for parent of treaMode of default prompt
-    let indexHtml = await fs.readFile('./grok/template.html', "utf8");
+    let indexHtml = await fs.readFile('./grok/html_templates/template.html', "utf8");
     markdownContent =  markdownContent + "\n\nResponseID:" + userPromptRequest.dynamicResponseId ;
     let sanitizedMarkdownContent = preprocessResponse(markdownContent);
 
@@ -237,7 +238,7 @@ async function  saveHtmlResponse(userPromptRequest, markdownContent, priorContex
 
     //If it is treeMode then the children are created here.
     if(userPromptRequest.childDirectory != ""){
-        let childHtml = await fs.readFile('./grok/child_template.html', "utf8");
+        let childHtml = await fs.readFile('./grok/html_templates/child_template.html', "utf8");
         
         childHtml = htmlReplaceTemplateValues(childHtml, sanitizedMarkdownContent, priorContextId, userPromptRequest.dynamicResponseId);
         //TODO ponder the trade offs of using HTML here instead of the markdown.
@@ -593,7 +594,7 @@ async function main() {
             terminal.debug(terminal.colors.green, "childDivsComined", terminal.colors.reset, childDivs);
             
             terminal.debug(terminal.colors.green, "childDivs", terminal.colors.reset, childDivs);
-            let parentHtml = await fs.readFile("./grok/parent_template.html", "utf8");
+            let parentHtml = await fs.readFile("./grok/html_templates/parent_template.html", "utf8");
 
             //DO all the replacements
             parentHtml = parentHtml.replace("REPLACEME", marked.parse(TreeModeProfile.ParentReadme));

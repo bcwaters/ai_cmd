@@ -7,6 +7,8 @@
 
 ## future features
 
+
+- tree mode should have a more inteeligent follow up question. there sections keywords can be intergated into the prompt
 - TODO debug markdown parsing output. it seem ```<script> tag break it and ``` ticks ```  
 
 - AMMORTIZZE file reads for context history

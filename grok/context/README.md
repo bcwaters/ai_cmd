@@ -48,7 +48,7 @@ context/
 |    |        |    ├─── id1.html
 |    |        |    ├─── id2.html
 |    |        |    └─── id3.html
-|    |        └─── tree 
+|    |        └─── {parentID}_children 
 |    |             |─── static_html_page.html 
 |    |             └─── children/
 |    |                  |─── child1.html
