@@ -13,7 +13,10 @@ import createDOMPurify from 'dompurify';   //use dompurify to sanitize the html
 //Local packages
 import {PromptProfile} from './prompt_profiles/default';
 import {TreeModeProfile} from './prompt_profiles/TreeMode';
-import terminal from './utils/terminal.js';                   //logger wrapper
+import UserPromptRequest from './utils/UserPromptRequest.js';
+import terminal from './utils/terminal.js'; 
+import {cleanString} from './utils/utils.js';
+import { join } from 'path';
 
 
 //Configuration before main -------------------------------
@@ -101,37 +104,11 @@ function parseCommandLineArgs() {
     }
 
     //TODO this should be a RAG_PROFILE_STATE class with all the properties.
-    return { userPrompt, isShort, isNew, setContext, depth, filePath, specialty, treeMode , browserMode};
+    return new UserPromptRequest(userPrompt, isShort, isNew, setContext, depth, filePath, specialty, treeMode , browserMode);
 }
 
 //TODO move to utils
-function cleanString(string) {
-    return string.replaceAll("```json", "")
-    .replaceAll("```", "")
-    .replaceAll(" ", "")
-    .replaceAll("\n", "")
-    .replaceAll("\\", "")
-    .replaceAll("'", "")
-    .replaceAll("\"", "")
-    .replaceAll(":", "")
-    .replaceAll(",", "")
-    .replaceAll(".", "")
-    .replaceAll("-", "")
-    .replaceAll("_", "")
-    .replaceAll("*", "")
-    .replaceAll("`", "")
-    .replaceAll("~", "")
-    .replaceAll("^", "")
-    .replaceAll("=", "")
-    .replaceAll("(", "")
-    .replaceAll(")", "")
-    .replaceAll("[", "")
-    .replaceAll("]", "")
-    .replaceAll("{", "")
-    .replaceAll("}", "")
-    .replaceAll(";", "")
-    .replaceAll(":", "")
-}
+
 
 // Read and parse the context file
 async function getConversationContext(setContext, isNew) {
@@ -396,7 +373,7 @@ async function saveContextFiles(fullResponseId, jsonContent, completion, markdow
 
 async function appendToContext(newContent, MAX_CONTEXT_LENGTH) {
     if (typeof newContent !== 'string') {
-        terminal.error("Grok answered but forgot to include include the proper format! PROMPT AGAIN it should work", newContent);
+        terminal.error("AI_CMD answered but forgot to include include the proper format! PROMPT AGAIN it should work", newContent);
         return; // Exit the function if newContent is invalid
     }
     
@@ -476,43 +453,36 @@ function sleep(ms) {
 // Main function
 async function main() {
     //RAG_PROFILE_STATE class needs to be made before this bloats beyond repair
-    const { userPrompt, isShort, isNew, setContext, depth ,filePath, specialty, treeMode, browserMode} = parseCommandLineArgs();
+    const userPromptRequest = parseCommandLineArgs();
+ 
+    //This keeps the looop going for treeMode
     let morePrompts = true;
-    let isTreeMode = treeMode;
-    let dynamicPrompt = userPrompt;
-    let dynamicResponseId = "";
-    let childDirectory = "";
-    let currentSubject = ""
-    //These are used to crawl the list. start at the end and work your way back to 1;
-    let branchList = [];
-    let branchIndex = 0;
-    //there will be a tree mode which "branches" off into each heading of the readme doc and send a prompt to grok.
-    //it will need a parent id make navlink navigation easier. add to template html
-    //TODO: add a tree mode flag
-    //for now there will be a treemode profile that sends the prompt specify a list of headings.  
-    // it will send the prompt. afterwards it will add each heading to an array.  
-    // the while loop will terminate when it is done making the default prmops for the branches.
-    
+    //This logic is seperate from the promptState because it relates to loop state
+    let isTreeMode = userPromptRequest.treeMode;
+
     while( morePrompts == true){
          //TODO in order to add depth I will need to simulate the command line arguments.
          // Simulate command line arguments userPrompt, isShort, isNew, setContext, depth ,filePath, specialty, treeMode
          // for now context can remain the same.  
          // Later a branch profile can be called for the api call.
-         if( treeMode && branchIndex >= 1){
+         if( userPromptRequest.treeMode && userPromptRequest.branchIndex >= 1){
            
-            currentSubject = branchList[branchIndex-1]
+            userPromptRequest.currentSubject = userPromptRequest.branchList[userPromptRequest.branchIndex-1]
           
-            dynamicPrompt = "Tell me more about item " + branchIndex + " of this list.  Go into more detail about info you already included.: "  + branchList[branchIndex-1];
+            userPromptRequest.dynamicPrompt = "Tell me more about item " + userPromptRequest.branchIndex + " of this list.  Go into more detail about info you already included.: "  + userPromptRequest.branchList[userPromptRequest.branchIndex-1];
             await sleep(1000); // Replaced sleep with wait to avoid overwhelming the API.
-            terminal.log(terminal.colors.green, "User Prompt", terminal.colors.reset, dynamicPrompt);
-            terminal.log(terminal.colors.green, "Branch List", terminal.colors.reset, branchList);
-            terminal.log(terminal.colors.green, "Branch Index", terminal.colors.reset, branchIndex);
-            branchIndex--;
+            terminal.log(terminal.colors.green, "User Prompt", terminal.colors.reset, userPromptRequest.dynamicPrompt);
+            terminal.log(terminal.colors.green, "Branch List", terminal.colors.reset, userPromptRequest.branchList);
+            terminal.log(terminal.colors.green, "Branch Index", terminal.colors.reset, userPromptRequest.branchIndex);
+            //TODO perhaps this should use the getter and setters...
+            userPromptRequest.branchIndex--;
             
          }
 
-    let contextHistoryLength = depth/500;
-    const messagesString = await getConversationContext(setContext, isNew); // Ensure context is fetched based on setContext
+         terminal.debug(terminal.colors.green, "User Prompt Request", terminal.colors.reset, userPromptRequest.toString());
+
+    let contextHistoryLength = userPromptRequest.depth/500;
+    const messagesString = await getConversationContext(userPromptRequest.setContext, userPromptRequest.isNew); // Ensure context is fetched based on setContext
     
     //console.log(colors.green, "PARSED MESSAGE STATUS", messagesString, colors.reset);
     const contextData = await fs.readFile("./grok/context/context.data", "utf8");
@@ -520,13 +490,13 @@ async function main() {
  
     //setContext ? console.log(colors.green, "\ncontextID:",colors.reset, setContext,"\n") : console.log(colors.green, "\n", colors.reset); // Log the setContext for debugging
     //terminal.log("*---------------------*")
-    let apiRequest = createApiRequest(dynamicPrompt, messagesString, isNew, isShort, contextData, setContext, filePath, specialty, isTreeMode);
+    let apiRequest = createApiRequest(userPromptRequest.dynamicPrompt, messagesString, userPromptRequest.isNew, userPromptRequest.isShort, contextData, userPromptRequest.setContext, userPromptRequest.filePath, userPromptRequest.specialty, isTreeMode);
     const completion = await openai.chat.completions.create(apiRequest);
-    dynamicResponseId = completion.id.substring(0, 8);
+    userPromptRequest.dynamicResponseId = completion.id.substring(0, 8);
 
     let treeModeList = "";
     let markdownResponse = "";
-    let responseOutput = await saveResponse(completion, dynamicPrompt, dynamicResponseId, contextHistoryLength, depth, browserMode, childDirectory, isTreeMode);
+    let responseOutput = await saveResponse(completion, userPromptRequest.dynamicPrompt, userPromptRequest.dynamicResponseId, contextHistoryLength, userPromptRequest.depth, userPromptRequest.browserMode, userPromptRequest.childDirectory, isTreeMode);
     try{
         treeModeList = responseOutput.jsonContent.replace("@EOF@", "");
         markdownResponse = responseOutput.markdownResponse;
@@ -534,9 +504,9 @@ async function main() {
         terminal.error("AI_CMD bot forgot the @EOF@ tag in the response... try again and it should work", error);
     }
     
-    terminal.log( "current contextId",   terminal.colors.blue, dynamicResponseId, terminal.colors.reset);
-    terminal.log(terminal.colors.purple, "\nfile used:", terminal.colors.reset, filePath?filePath:"none");
-    treeMode && !isTreeMode && terminal.log(terminal.colors.green, "Tree-"+ terminal.colors.reset, TreeModeProfile.ParentId, terminal.colors.green, "\nbranches"+terminal.colors.green+"["+branchList.length+"]-", branchList);
+    terminal.log( "current contextId",   terminal.colors.blue, userPromptRequest.dynamicResponseId, terminal.colors.reset);
+    terminal.log(terminal.colors.purple, "\nfile used:", terminal.colors.reset, userPromptRequest.filePath?userPromptRequest.filePath:"none");
+    userPromptRequest.treeMode && !isTreeMode && terminal.log(terminal.colors.green, "Tree-"+ terminal.colors.reset, TreeModeProfile.ParentId, terminal.colors.green, "\nbranches"+terminal.colors.green+"["+userPromptRequest.branchList.length+"]-", userPromptRequest.branchList);
     terminal.log(terminal.logDivider);
 
     //TODO harded code price function should be dynamic for differnt models.
@@ -552,38 +522,39 @@ async function main() {
         terminal.log(terminal.colors.green, "\nResponse", terminal.colors.reset, markdownResponse);
     }
 
-    let terminalState = browserMode?"":"terminalMode";
+    let terminalState = userPromptRequest.browserMode?"":"terminalMode";
     //await fs.writeFile("./grok/context/html/markdown/"+dynamicResponseId+".md", markdownResponse+"\ncontext:"+dynamicResponseId);
-    await fs.writeFile("./shell_helpers/.grokRuntime", `depthState=${depth}\nnewState=""\nsetContextState=${dynamicResponseId}\nterminalMode=${terminalState}`);
+    await fs.writeFile("./shell_helpers/.grokRuntime", `depthState=${userPromptRequest.depth}\nnewState=""\nsetContextState=${userPromptRequest.dynamicResponseId}\nterminalMode=${terminalState}`);
     
+    //This is the first loop of treeMode
     if(isTreeMode){
         isTreeMode = false;
-        branchList = TreeModeProfile.parseSubject(treeModeList);
-        branchIndex = branchList.length;
-        TreeModeProfile.setParentId(dynamicResponseId);
+        userPromptRequest.branchList = TreeModeProfile.parseSubject(treeModeList);
+        userPromptRequest.branchIndex = userPromptRequest.branchList.length;
+        TreeModeProfile.setParentId(userPromptRequest.dynamicResponseId);
         TreeModeProfile.setParentReadme(markdownResponse);
-        childDirectory = TreeModeProfile.ParentId+"_tree";
-        await fs.mkdir("./grok/context/html/"+childDirectory, { recursive: true });
+        userPromptRequest.childDirectory = TreeModeProfile.ParentId+"_tree";
+        await fs.mkdir("./grok/context/html/"+userPromptRequest.childDirectory, { recursive: true });
         
               terminal.log(terminal.colors.yellow, "\nParent ID", terminal.colors.reset, TreeModeProfile.ParentId);
-        terminal.log(terminal.colors.blue, "Branches", terminal.colors.reset, branchList);
+        terminal.log(terminal.colors.blue, "Branches", terminal.colors.reset, userPromptRequest.branchList);
     }
    
     //TODO Optizmize this conditionallater. I might put at the top of the main while loop to flex... this is more readable though.
     //This index change is to fanagle the initial branch prompt to work.
-    if(isTreeMode || branchIndex > 0){
+    if(isTreeMode || userPromptRequest.branchIndex > 0){
         terminal.log(terminal.colors.blue, "parentId", terminal.colors.reset, TreeModeProfile.ParentId);
-        terminal.log(terminal.colors.yellow, "branchId", terminal.colors.reset, dynamicResponseId);
+        terminal.log(terminal.colors.yellow, "branchId", terminal.colors.reset, userPromptRequest.dynamicResponseId);
         morePrompts = true;
     }else{
         terminal.log(terminal.colors.green, terminal.logDivider, terminal.colors.reset);
         terminal.log(terminal.colors.yellow, terminal.getDividerWithMessage("READ-RESPONSE-ABOVE"));
         terminal.log(terminal.colors.green, terminal.logDivider, terminal.colors.reset);
         morePrompts = false;
-        if(treeMode){
+        if(userPromptRequest.treeMode){
         try{
                 //TODO fix the saveHtmlResponse function to handle differnt typeps
-                await fs.copyFile("./grok/context/currentChat/currentChat.html", "./grok/context/html/"+childDirectory+"/"+dynamicResponseId+".html");
+                await fs.copyFile("./grok/context/currentChat/currentChat.html", "./grok/context/html/"+userPromptRequest.childDirectory+"/"+userPromptRequest.dynamicResponseId+".html");
             
             let processedChildReadmes = [];
             //Is this a reference or a copy? 
@@ -633,7 +604,7 @@ async function main() {
             //I could name this more intelligently.
             //I want to explorer a recursive approach for deeper trees. How do i template a child that is a parent and a child
             //I am pretty sure a recursive approach seting the context to the child repsonse ID and the recursively prompts from there
-            await fs.writeFile("./grok/context/html/"+childDirectory+"/"+"MASTER_HTML_FILE"+".html", parentHtml);
+            await fs.writeFile("./grok/context/html/"+userPromptRequest.childDirectory+"/"+"MASTER_HTML_FILE"+".html", parentHtml);
             //replace @REPLACEWITHCHILDRENDIVS@ with the childDivs string
             
 
@@ -654,13 +625,13 @@ async function main() {
     
 
             // Open currentChat.html in the default browser
-    if(browserMode){
+    if(userPromptRequest.browserMode){
         let htmlDir =   "currentChat/currentChat.html";
-        if(!treeMode){
+        if(!userPromptRequest.treeMode){
             htmlDir = "currentChat/currentChat.html";
         }else{
             //open the last child soon to be MONO_HTML_FILE
-            htmlDir = "html/"+childDirectory+"/"+dynamicResponseId+".html";
+            htmlDir = "html/"+userPromptRequest.childDirectory+"/"+userPromptRequest.dynamicResponseId+".html";
         }
   
      
