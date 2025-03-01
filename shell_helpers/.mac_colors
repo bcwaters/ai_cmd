@@ -1,0 +1,104 @@
+# ANSI color codes for Mac terminal
+
+# Standard colors
+color_green="\033[32m"
+color_red="\033[31m"
+color_yellow="\033[33m"
+color_blue="\033[34m"
+color_magenta="\033[35m"
+color_cyan="\033[36m"
+color_white="\033[37m"
+color_reset="\033[0m"       # Reset to default terminal color
+color_orange="\033[38;5;208m"  # Using 256-color mode for orange
+color_black="\033[30m"
+
+# Light variants (using high-intensity ANSI codes)
+color_green_light="\033[92m"# Standard colors
+color_green="\033[32m"
+color_red="\033[31m"
+color_yellow="\033[33m"
+color_blue="\033[34m"
+color_magenta="\033[35m"
+color_cyan="\033[36m"
+color_white="\033[37m"
+color_reset="\033[0m"       # Reset to default terminal color
+color_orange="\033[38;5;208m"  # Using 256-color mode for orange
+color_black="\033[30m"
+
+# Light variants (using high-intensity ANSI codes)
+color_green_light="\033[92m"
+color_red_light="\033[91m"
+color_yellow_light="\033[93m"
+color_blue_light="\033[94m"
+color_magenta_light="\033[95m"
+color_cyan_light="\033[96m"
+color_white_light="\033[97m"
+
+# Dark variants (using darker shades from 256-color mode)
+color_green_dark="\033[38;5;22m"
+color_red_dark="\033[38;5;88m"
+color_yellow_dark="\033[38;5;58m"
+color_blue_dark="\033[38;5;17m"
+color_magenta_dark="\033[38;5;53m"
+color_cyan_dark="\033[38;5;23m"
+color_white_dark="\033[38;5;250m"
+
+# Background colors
+color_background_green="\033[42m"
+color_background_green_light="\033[102m"
+color_background_blue_light="\033[104m"
+color_background_yellow_light="\033[103m"
+color_background_red_light="\033[101m"
+color_background_magenta_light="\033[105m"
+color_background_cyan_light="\033[106m"
+color_background_white_light="\033[107m"
+color_background_black_light="\033[100m"
+color_background_dark_grey="\033[48;5;239m"
+
+color_background_red="\033[41m"
+color_background_yellow="\033[43m"
+color_background_blue="\033[44m"
+color_background_magenta="\033[45m"
+color_background_cyan="\033[46m"
+color_background_white="\033[47m"
+color_background_black="\033[49m"
+color_background_reset="\033[49m"  # Reset background to default
+color_background_grok="\033[40m"   # Black background
+
+color_red_light="\033[91m"
+color_yellow_light="\033[93m"
+color_blue_light="\033[94m"
+color_magenta_light="\033[95m"
+color_cyan_light="\033[96m"
+color_white_light="\033[97m"
+
+# Dark variants (using darker shades from 256-color mode)
+color_green_dark="\033[38;5;22m"
+color_red_dark="\033[38;5;88m"
+color_yellow_dark="\033[38;5;58m"
+color_blue_dark="\033[38;5;17m"
+color_magenta_dark="\033[38;5;53m"
+color_cyan_dark="\033[38;5;23m"
+color_white_dark="\033[38;5;250m"
+
+# Background colors
+color_background_green="\033[42m"
+color_background_green_light="\033[102m"
+color_background_blue_light="\033[104m"
+color_background_yellow_light="\033[103m"
+color_background_red_light="\033[101m"
+color_background_magenta_light="\033[105m"
+color_background_cyan_light="\033[106m"
+color_background_white_light="\033[107m"
+color_background_black_light="\033[100m"
+color_background_dark_grey="\033[48;5;239m"
+
+color_background_red="\033[41m"
+color_background_yellow="\033[43m"
+color_background_blue="\033[44m"
+color_background_magenta="\033[45m"
+color_background_cyan="\033[46m"
+color_background_white="\033[47m"
+color_background_black="\033[49m"
+color_background_reset="\033[49m"  # Reset background to default
+color_background_grok="\033[40m"   # Black background

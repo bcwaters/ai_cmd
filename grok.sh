@@ -7,62 +7,20 @@ SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
 cd "$SCRIPT_DIR"
 current_dir=$(pwd)
 
-# Rename the terminal window make this adjust to OS
-echo -ne "\033]0;AI_CMD\007"
 
 
 startup=true;
-
-color_green="\e[32m"
-color_red="\e[31m"
-color_yellow="\e[33m"
-color_blue="\e[34m"
-color_magenta="\e[35m"
-color_cyan="\e[36m"
-color_white="\e[37m"
-color_reset="\e[0m"
-color_orange="\e[38m"
-color_black="\e[30m"
-
-color_green_light="\e[92m"
-color_red_light="\e[91m"
-color_yellow_light="\e[93m"
-color_blue_light="\e[94m"
-color_magenta_light="\e[95m"
-color_cyan_light="\e[96m"
-color_white_light="\e[97m"
-
-color_green_dark="\e[32m"
-color_red_dark="\e[31m"
-color_yellow_dark="\e[33m"
-color_blue_dark="\e[34m"
-color_magenta_dark="\e[35m"
-color_cyan_dark="\e[36m"
-color_white_dark="\e[37m"
-
-color_background_green="\e[42m"
-color_background_green_light="\e[102m"
-color_background_blue_light="\e[104m"
-color_background_yellow_light="\e[103m"
-color_background_red_light="\e[101m"
-color_background_magenta_light="\e[105m"
-color_background_cyan_light="\e[106m"
-color_background_white_light="\e[107m"
-color_background_black_light="\e[100m"
-color_background_dark_grey="\e[100m"
+    echo -ne "\033]0;AI_CMD\007"
+if [ "$OS" = "Linux" ]; then
+    # macOS specific color variables
+    source ./linux_colors.sh
+elif [ "$OS" = "Darwin" ]; then
+    # Linux specific color variables
+    source ./macos_colors.sh
+fi
 
 
-
-color_background_red="\e[41m"
-color_background_yellow="\e[43m"
-color_background_blue="\e[44m"
-color_background_magenta="\e[45m"
-color_background_cyan="\e[46m"
-color_background_white="\e[47m"
-color_background_black="\e[49m"
-color_background_reset="\e[49m"
-color_background_grok="\e[40m"
-
+source ./shell_helpers/.colors_linux
 # Define the width of the box
 width=25
 
@@ -180,7 +138,7 @@ while true; do
         displayDepth="--depth 500"
         displayFile=" "
         treeMode=false
-        source .grokRuntime
+        source ./shell_helpers/.grokRuntime
         firstRun=false
         displayTreeMode=" "
         displayContext=$contextState
