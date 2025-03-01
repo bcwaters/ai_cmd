@@ -3,7 +3,7 @@ node_modules/*
 .grokRuntime
 terraform/*
 
-grok/context/currentChat/*
+grok/context/currentChat/
 
 
 user_saved_readmes/*
