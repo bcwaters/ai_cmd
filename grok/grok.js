@@ -1,5 +1,6 @@
 //Node
 import fs from 'fs/promises'
+import { join } from 'path';
 import os from 'os'
 import {exec} from 'child_process'         //use exec to run commands like open browser
 
@@ -15,8 +16,8 @@ import {PromptProfile} from './prompt_profiles/default';
 import {TreeModeProfile} from './prompt_profiles/TreeMode';
 import UserPromptRequest from './utils/UserPromptRequest.js';
 import terminal from './utils/terminal.js'; 
-import {cleanString} from './utils/utils.js';
-import { join } from 'path';
+import {cleanString, sleep } from './utils/utils.js';
+
 
 
 //Configuration before main -------------------------------
@@ -146,7 +147,7 @@ async function getConversationContext(setContext, isNew) {
 }
 
 // Create the request object for the API
-function createApiRequest(userPrompt, messagesString, isNew, isShort, contextData, setContext, filePath, specialty, isTreeMode) {
+function createApiRequest(userPrompt, priorConverstation, isNew, isShort, contextData, setContext, filePath, specialty, isTreeMode) {
     let profile = "default";
     let messages = [];
     if (isShort) {
@@ -159,9 +160,9 @@ function createApiRequest(userPrompt, messagesString, isNew, isShort, contextDat
     PromptProfile.isLogging = false;
     
     if(isTreeMode){
-        messages = TreeModeProfile.getDefaultProfile(isNew, messagesString, contextData, userPrompt); // Load the array from the default file
+        messages = TreeModeProfile.getDefaultProfile(isNew, priorConverstation, contextData, userPrompt); // Load the array from the default file
     }else{
-        messages = PromptProfile.getDefaultProfile(isNew, messagesString, contextData, userPrompt); // Load the array from the default file
+        messages = PromptProfile.getDefaultProfile(isNew, priorConverstation, contextData, userPrompt); // Load the array from the default file
     }
     
     terminal.debug(terminal.colors.green, "Prompt Sent to Grok", terminal.colors.reset, JSON.stringify(messages, null, 4));
@@ -445,9 +446,28 @@ async function moveContextFile() {
 }
 
 //TODO move to utils
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
+
+
+//There should be only 2 places for all mds json and html files.
+//1. context/currentChat/
+//2. context/history/
+
+//Step 1 get messages from api
+//Step 2 update context.data and context.history
+//Step 3 process markdown and html into and store in memory in a class
+//Step 4a save messages to context/currentChat/currentChat.json
+//Step 4b save messages to context/history/fullCompletion/responseId.json
+//Step 4c save markdown to context/currentChat/currentChat.md
+//Step 7 save html to context/currentChat/currentChat.html
+//Step 7 save markdown to context/history/markdown/responseId.md
+//Step 7 save html to context/history/html/responseId.html
+
+
+
+
+
+
+
 
 
 // Main function
@@ -481,16 +501,17 @@ async function main() {
 
          terminal.debug(terminal.colors.green, "User Prompt Request", terminal.colors.reset, userPromptRequest.toString());
 
+    //This declaration should be moved or encapulated within userPromptRequest     
     let contextHistoryLength = userPromptRequest.depth/500;
-    const messagesString = await getConversationContext(userPromptRequest.setContext, userPromptRequest.isNew); // Ensure context is fetched based on setContext
-    
-    //console.log(colors.green, "PARSED MESSAGE STATUS", messagesString, colors.reset);
+   
+    //TODO Load the previous propmt - there is probably a clever way to use previous id and load as much history as requested... add parent to context.history
+    const priorConverstation = await getConversationContext(userPromptRequest.setContext, userPromptRequest.isNew); // Ensure context is fetched based on setContext
     const contextData = await fs.readFile("./grok/context/context.data", "utf8");
   
  
     //setContext ? console.log(colors.green, "\ncontextID:",colors.reset, setContext,"\n") : console.log(colors.green, "\n", colors.reset); // Log the setContext for debugging
     //terminal.log("*---------------------*")
-    let apiRequest = createApiRequest(userPromptRequest.dynamicPrompt, messagesString, userPromptRequest.isNew, userPromptRequest.isShort, contextData, userPromptRequest.setContext, userPromptRequest.filePath, userPromptRequest.specialty, isTreeMode);
+    let apiRequest = createApiRequest(userPromptRequest.dynamicPrompt, priorConverstation, userPromptRequest.isNew, userPromptRequest.isShort, contextData, userPromptRequest.setContext, userPromptRequest.filePath, userPromptRequest.specialty, isTreeMode);
     const completion = await openai.chat.completions.create(apiRequest);
     userPromptRequest.dynamicResponseId = completion.id.substring(0, 8);
 

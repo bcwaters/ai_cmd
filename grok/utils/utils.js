@@ -26,3 +26,7 @@ export function cleanString(string) {
     .replaceAll(";", "")
     .replaceAll(":", "")
 }
+
+export function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
