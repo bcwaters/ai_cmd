@@ -1,5 +1,5 @@
 #!/bin/bash
-clr
+clear
 # Get the directory of the script, resolving any symbolic links
 SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
 
@@ -59,8 +59,9 @@ color_background_blue="\e[44m"
 color_background_magenta="\e[45m"
 color_background_cyan="\e[46m"
 color_background_white="\e[47m"
-color_background_black="\e[40m"
+color_background_black="\e[49m"
 color_background_reset="\e[49m"
+color_background_grok="\e[40m"
 
 # Define the width of the box
 width=25
@@ -81,13 +82,13 @@ draw_border_green() {
 
 
 # Greet the user
-echo -e  "${color_background_black}${color_yellow_dark}*------------------------------------------------------*${color_reset}"
-echo -e  "${color_background_black}${color_yellow_dark}|    ____             _   _  ____   ___    ___         |${color_reset}"
-echo -e  "${color_background_black}${color_yellow_dark}|   / ___|_ __  __   | | / /|  _ \ / _ \  / __|        |${color_reset}"
-echo -e  "${color_background_black}${color_yellow_dark}|  | |  _  '__|/ _ \ | |/ / | | | | | | || |           |${color_reset}"
-echo -e  "${color_background_black}${color_yellow_dark}|  | |_| | |  | |_| || |\ \\ | |_| | |_| || |__         |${color_reset}"
-echo -e  "${color_background_black}${color_yellow_dark}|   \____|_|   \___/ |_| \_\\|____/ \___/  \___|        |${color_reset}"
-echo -e  "${color_background_black}${color_yellow_dark}*------------------------------------------------------*${color_reset}"
+echo -e  "${color_background_grok}${color_yellow_dark}*------------------------------------------------------*${color_reset}"
+echo -e  "${color_background_grok}${color_yellow_dark}|    ____             _   _  ____   ___    ___         |${color_reset}"
+echo -e  "${color_background_grok}${color_yellow_dark}|   / ___|_ __  __   | | / /|  _ \ / _ \  / __|        |${color_reset}"
+echo -e  "${color_background_grok}${color_yellow_dark}|  | |  _  '__|/ _ \ | |/ / | | | | | | || |           |${color_reset}"
+echo -e  "${color_background_grok}${color_yellow_dark}|  | |_| | |  | |_| || |\ \\ | |_| | |_| || |__         |${color_reset}"
+echo -e  "${color_background_grok}${color_yellow_dark}|   \____|_|   \___/ |_| \_\\|____/ \___/  \___|        |${color_reset}"
+echo -e  "${color_background_grok}${color_yellow_dark}*------------------------------------------------------*${color_reset}"
 echo -e  "${color_yellow}   This is GrokDOC. Request a readme on any subject.${color_reset}"
 # Function to display a spinner
 spin() {
@@ -115,15 +116,15 @@ spin() {
             local temp3=${spinchars2:i%${#spinchars2}:1}
             
             if [ $((i%5)) -eq 0 ]; then
-                echo -ne "\r$color_white---$temp-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp---"
+                echo -ne "\r$color_white---$temp-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp---"
             elif [ $((i%5)) -eq 1 ]; then
-                echo -ne "\r$color_red_light---$temp-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp---"
+                echo -ne "\r$color_red_light---$temp-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp---"
             elif [ $((i%5)) -eq 2 ]; then
-                echo -ne "\r$color_yellow_light---$temp-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp---"
+                echo -ne "\r$color_yellow_light---$temp-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp---"
             elif [ $((i%5)) -eq 3 ]; then
-                echo -ne "\r$color_blue_light---$temp-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp---"
+                echo -ne "\r$color_blue_light---$temp-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp---"
             elif [ $((i%5)) -eq 4 ]; then
-                echo -ne "\r$color_green_light---$temp-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3--$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp---"
+                echo -ne "\r$color_green_light---$temp-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3--$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp---"
             fi
             sleep $delay
         done
@@ -190,7 +191,7 @@ while true; do
     
 
   
-            echo -en "${color_background_black}${color_yellow}---------------------------------------------------$background_color_reset\n" 
+            #echo -en "${color_background_black}${color_yellow}---------------------------------------------------$background_color_reset\n" 
 
             # Call the function instead of the inline code
             #display_spinner_with_input "-------------------------"
@@ -206,15 +207,15 @@ while true; do
     #branch feature added next    
     # Prompt the user for input
     echo -en "$color_yellow\n-----------------------AI_CMD--------------------------$color_background_reset"
-    echo -en "\n$color_background_blue    current settings: $color_bluelight[$displayContext] \e[32m[ $displayNew] \e[33m[ $displayDepth] \e[35m[ $displayFile] \e[36m[ $displaySpecialty] \e[44m[$displayTreeMode]$color_yellow       $color_background_reset"
+    echo -en "\n$color_background_reset    current settings: $color_bluelight[$displayContext] \e[32m[ $displayNew] \e[33m[ $displayDepth] \e[35m[ $displayFile] \e[36m[ $displaySpecialty] $color_blue[$displayTreeMode]$color_background_reset$color_yellow    $color_background_reset"
     draw_border
   
-    echo -en "$color_background_reset$color_blue \n type $color_blue setContext\e[0m to set the grok's memory to a previous conversation" 
+    echo -en "$color_background_reset$color_blue \n type $color_blue setContext\e[0m to set the ai_cmd's memory to a previous conversation" 
     echo -en "$color_green \n type $color_green new\e[0m to start a new conversation"
     echo -en "$color_yellow \n type $color_yellow depth\e[0m to set the context depth for better memory"
-    echo -en "$color_cyan \n type $color_cyan specialty\e[0m to set the specialty"
+    echo -en "$color_cyan \n type $color_cyan role\e[0m select which role the ai assumes"
     echo -en "$color_blue \n type $color_blue treeMode\e[0m to generate a set of organized documents from the prompt"
-    echo -en "$color_magenta \n type $color_magenta ${color_background_dark_grey}file\e[0m to load a file"
+    echo -en "$color_magenta \n type $color_magenta file\e[0m to load a file"
     echo -en "$color_green \n type $color_green ${color_background_dark_grey}paste\e[0m$color_background_reset to paste from clipboard"
     echo -en "$color_blue \n type $color_cyan ${color_background_dark_grey}save\e[0m$color_background_reset to save the current context to local folder"
     echo -en "$color_blue \n type $color_cyan ${color_background_dark_grey}open\e[0m$color_background_reset to open the saved the saved readmes in file explorer"
@@ -271,9 +272,9 @@ while true; do
         flags="$flags --treeMode"
         continue
     fi
-    if [ "$prompt" == "specialty" ]; then
+    if [ "$prompt" == "role" ]; then
         echo -e "$color_cyan_light roles available: software, teaching, writing\e[0m" #TODO: this can be abstracted to recieve a sentence and then pass it to the profile help me to: write code, write a readme, write a blog post etc.
-        read -p "Enter the specialty: " specialty
+        read -p "Enter the role: " specialty
         specialty=$specialty
         displaySpecialty=$specialty
         flags="$flags --specialty $specialty"

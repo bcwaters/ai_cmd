@@ -441,17 +441,18 @@ async function savePreviousId(responseId, userPrompt, contextHistoryLength){
     let parsedPreviousId = JSON.parse(previousId);
     parsedPreviousId.push({id: responseId, prompt: userPrompt});
     await fs.writeFile("./grok/context/context.history", JSON.stringify(parsedPreviousId));
+    terminal.log(terminal.colors.green, "\nSwitch context to id to resume conversation", terminal.colors.reset);
+
     terminal.log(terminal.logDivider);
     
-    terminal.log(terminal.colors.green, "\nPrevious Context", terminal.colors.reset);
 
     // Log only the last 3 context entries
     const EntriesToLog = parsedPreviousId.slice(contextHistoryLength);
     for(let i = 0; i < EntriesToLog.length && i < 5; i++){
         terminal.log(terminal.colors.green, "contextId:", terminal.colors.reset, EntriesToLog[EntriesToLog.length - i - 1].id,  terminal.colors.yellow, "\n Prompt:\n",terminal.colors.reset, EntriesToLog[EntriesToLog.length - i - 1  ].prompt);
-        terminal.log(terminal.colors.reset, " - - - - - - - - - - - - - - - - - - - - -", terminal.colors.reset);
+        terminal.log(terminal.colors.reset, "             - - - - - - - - - - - - - - - - - - - - -           ", terminal.colors.reset);
     }
-    terminal.log(terminal.logDivider);
+    terminal.log(terminal.colors.yellow, terminal.getDividerWithMessage("PRIOR-PROMPTS"));
     return parsedPreviousId;
 }
 
@@ -576,7 +577,7 @@ async function main() {
         morePrompts = true;
     }else{
         terminal.log(terminal.colors.green, terminal.logDivider, terminal.colors.reset);
-        terminal.log(terminal.colors.yellow, "PROMPTING FINISHED", terminal.colors.reset);
+        terminal.log(terminal.colors.yellow, terminal.getDividerWithMessage("READ-RESPONSE-ABOVE"));
         terminal.log(terminal.colors.green, terminal.logDivider, terminal.colors.reset);
         morePrompts = false;
         if(treeMode){

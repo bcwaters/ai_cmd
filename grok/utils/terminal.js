@@ -39,6 +39,21 @@ class terminal {
         // specialty: "\x1b36m",
         // treeMode: "\x1b44m"
       };
+
+      static getDividerWithMessage(message){
+
+        //100
+        let dividerLength = this.logDivider.length;
+        //10
+        let messageLength = message.length;
+        //90
+        let remainingLength = dividerLength - messageLength;
+        //45
+        let center = Math.floor(remainingLength / 2);
+        //TODO make this work for even and odd numbers of remainingLength
+        let divider = this.logDivider.slice(0, center) + message + this.logDivider.slice(center + messageLength);
+        return `${divider}${this.colors.reset}`;
+      }
     
 }
 
