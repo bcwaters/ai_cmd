@@ -3,13 +3,7 @@ node_modules/*
 .grokRuntime
 terraform/*
 
-grok/context/currentChat/
-!grok/context/currentChat/README.md
-!grok/context/history/responses/README.md
-!grok/context/history/fullCompletion/README.md
-!grok/context/history/responses/README.md
-
-
+grok/context/currentCha
 user_saved_readmes/*
 grok/context/history/*
 grok/context/fullCompletion/*
@@ -22,4 +16,4 @@ grok/context/history/*
 !grok/context/currentChat/README.md
 !grok/context/history/responses/README.md
 !grok/context/history/fullCompletion/README.md
-!grok/context/history/responses/README.md
+
