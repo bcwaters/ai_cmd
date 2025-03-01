@@ -449,8 +449,8 @@ async function savePreviousId(responseId, userPrompt, contextHistoryLength){
     // Log only the last 3 context entries
     const EntriesToLog = parsedPreviousId.slice(contextHistoryLength);
     for(let i = 0; i < EntriesToLog.length && i < 5; i++){
-        terminal.log(terminal.colors.green, "contextId:", terminal.colors.reset, EntriesToLog[EntriesToLog.length - i - 1].id,  terminal.colors.yellow, "\n Prompt:\n",terminal.colors.reset, EntriesToLog[EntriesToLog.length - i - 1  ].prompt);
-        terminal.log(terminal.colors.reset, "             - - - - - - - - - - - - - - - - - - - - -           ", terminal.colors.reset);
+        terminal.log(terminal.colors.green, "contextId:", terminal.colors.reset, EntriesToLog[i].id,  terminal.colors.yellow, "\n Prompt:\n",terminal.colors.reset, EntriesToLog[i].prompt);
+        terminal.log(terminal.colors.yellow, "             - - - - - - - - - - - - - - - - - - - - -           ", terminal.colors.reset);
     }
     terminal.log(terminal.colors.yellow, terminal.getDividerWithMessage("PRIOR-PROMPTS"));
     return parsedPreviousId;

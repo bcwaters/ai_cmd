@@ -26,7 +26,7 @@ width=25
 
 # Function to draw a horizontal border
 draw_border() {
-    echo -en "\n$color_background_black$(printf -- '-%.0s' {1..55})$color_background_resetro"
+    echo -en "\n$color_background_black$(printf -- '-%.0s' {1..55})$color_background_reset"
 }
 draw_border_green() {
    echo -en "\n$color_background_green$(printf -- '-%.0s' {1..55})$color_background_reset"
@@ -40,13 +40,13 @@ draw_border_green() {
 
 
 # Greet the user
-echo -e  "${color_background_grok}${color_yellow_dark}*------------------------------------------------------*${color_reset}"
+echo -e  "${color_background_grok}${color_yellow_dark}┌──────────────────────────────────────────────────────┐${color_reset}"
 echo -e  "${color_background_grok}${color_yellow_dark}|    ____             _   _  ____   ___    ___         |${color_reset}"
 echo -e  "${color_background_grok}${color_yellow_dark}|   / ___|_ __  __   | | / /|  _ \ / _ \  / __|        |${color_reset}"
 echo -e  "${color_background_grok}${color_yellow_dark}|  | |  _  '__|/ _ \ | |/ / | | | | | | || |           |${color_reset}"
 echo -e  "${color_background_grok}${color_yellow_dark}|  | |_| | |  | |_| || |\ \\ | |_| | |_| || |__         |${color_reset}"
 echo -e  "${color_background_grok}${color_yellow_dark}|   \____|_|   \___/ |_| \_\\|____/ \___/  \___|        |${color_reset}"
-echo -e  "${color_background_grok}${color_yellow_dark}*------------------------------------------------------*${color_reset}"
+echo -e  "${color_background_grok}${color_yellow_dark}└──────────────────────────────────────────────────────┘${color_reset}"
 echo -e  "${color_yellow}   This is GrokDOC. Request a readme on any subject.${color_reset}"
 # Function to display a spinner
 spin() {
