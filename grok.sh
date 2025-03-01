@@ -16,7 +16,7 @@ if [ "$OS" = "Linux" ]; then
     source ./linux_colors.sh
 elif [ "$OS" = "Darwin" ]; then
     # Linux specific color variables
-    source ./macos_colors.sh
+    source ./mac_colors.sh
 fi
 
 
