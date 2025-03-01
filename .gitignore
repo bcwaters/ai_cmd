@@ -4,6 +4,10 @@ node_modules/*
 terraform/*
 
 grok/context/currentChat/
+!grok/context/currentChat/README.md
+!grok/context/history/responses/README.md
+!grok/context/history/fullCompletion/README.md
+!grok/context/history/responses/README.md
 
 
 user_saved_readmes/*
