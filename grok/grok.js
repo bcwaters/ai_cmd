@@ -258,6 +258,8 @@ async function  saveHtmlResponse(userPrompt, responseId, markdownContent, priorC
         let childHtml = await fs.readFile('./grok/child_template.html', "utf8");
         
         childHtml = htmlReplaceTemplateValues(childHtml, sanitizedMarkdownContent, priorContextId, responseId);
+        //TODO ponder the trade offs of using HTML here instead of the markdown.
+        TreeModeProfile.addChildReadme(sanitizedMarkdownContent);
     
         console.log(terminal.colors.red,terminal.logDivider, terminal.colors.reset);
         console.log("childDirectory being written to", childDirectory);
@@ -321,7 +323,7 @@ function preprocessResponse(response) {
     //     .replace(/\r/g, '')     // Remove carriage returns
     //     .replace(/\s+/g, ' ');  // Replace multiple whitespace with a single space
 
-    // Sanitize the response using DOMPurify if available
+    // TODO is this breaking the README because of script tags? Sanitize the response using DOMPurify if available
     if (DOMPurify) {
         response = DOMPurify.sanitize(response);
     }
@@ -562,23 +564,39 @@ async function main() {
         childDirectory = TreeModeProfile.ParentId+"_tree";
         await fs.mkdir("./grok/context/html/"+childDirectory, { recursive: true });
         
-        
+              terminal.log(terminal.colors.yellow, "\nParent ID", terminal.colors.reset, TreeModeProfile.ParentId);
+        terminal.log(terminal.colors.blue, "Branches", terminal.colors.reset, branchList);
+    }
+   
+    //TODO Optizmize this conditionallater. I might put at the top of the main while loop to flex... this is more readable though.
+    //This index change is to fanagle the initial branch prompt to work.
+    if(isTreeMode || branchIndex > 0){
+        terminal.log(terminal.colors.blue, "parentId", terminal.colors.reset, TreeModeProfile.ParentId);
+        terminal.log(terminal.colors.yellow, "branchId", terminal.colors.reset, dynamicResponseId);
+        morePrompts = true;
+    }else{
+        terminal.log(terminal.colors.green, terminal.logDivider, terminal.colors.reset);
+        terminal.log(terminal.colors.yellow, "PROMPTING FINISHED", terminal.colors.reset);
+        terminal.log(terminal.colors.green, terminal.logDivider, terminal.colors.reset);
+        morePrompts = false;
+        if(treeMode){
         try{
-            //TODO fix the saveHtmlResponse function to handle differnt typeps
-            await fs.copyFile("./grok/context/currentChat/currentChat.html", "./grok/context/html/"+childDirectory+"/"+dynamicResponseId+".html");
+                //TODO fix the saveHtmlResponse function to handle differnt typeps
+                await fs.copyFile("./grok/context/currentChat/currentChat.html", "./grok/context/html/"+childDirectory+"/"+dynamicResponseId+".html");
             
             let processedChildReadmes = [];
             //Is this a reference or a copy? 
             let allChildReadmes = TreeModeProfile.childReadme;
             let subjectList = TreeModeProfile.subjectList;
             terminal.debug(terminal.logDivider);
+            terminal.debug(terminal.colors.green, "allChildReadmes", terminal.colors.reset, allChildReadmes);
             terminal.debug("------------Entering child loop------------");
             for(let i = 0; i < allChildReadmes.length; i++){
                 let childReadme = allChildReadmes[i];
                 // let childReadmeId = childReadme.contextId;   WOULD THIS BE USEFUL TO HAVE? perhaps in a more robust system.
                 let childReadmeSubject = subjectList[i];
                 
-                let parsedReadme = marked.parse(childReadme.content);
+                let parsedReadme = marked.parse(childReadme);
                 //MAYBE switch to aplha numeric ids 
                 let childReadmeHtml = `<div id="childContent${i}">${parsedReadme}</div>`;
                 
@@ -589,9 +607,11 @@ async function main() {
                 //onclick set parent to hidden and child to visible. There needs to be a way to go back to parent.
                 //this will need a fuzzy search in parent headings to properly link the child to the parent.
              
-                terminal.debug(terminal.colors.green, "allChildReadmes", terminal.colors.reset, allChildReadmes);
-           
+       
             }
+
+            terminal.debug(terminal.colors.green, "allChildReadmes", terminal.colors.reset, allChildReadmes);
+           
 
             terminal.debug("------------Exiting child loop------------");
             terminal.debug(terminal.logDivider);
@@ -604,7 +624,7 @@ async function main() {
             let parentHtml = await fs.readFile("./grok/parent_template.html", "utf8");
 
             //DO all the replacements
-            parentHtml = parentHtml.replace("REPLACEME", TreeModeProfile.ParentReadme);
+            parentHtml = parentHtml.replace("REPLACEME", marked.parse(TreeModeProfile.ParentReadme));
             parentHtml = parentHtml.replace("@REPLACEWITHCHILDRENDIVS@", childDivs);
             parentHtml = parentHtml.replace("@CURRENT_ID@", TreeModeProfile.ParentId);
             //parentHtml = parentHtml.replace("@PREVIOUS_ID@", dynamicResponseId);
@@ -626,21 +646,12 @@ async function main() {
                * 
                * 
             */
-        }catch(error){
-            terminal.error("Error copying the currentChat.html file:", error);
+            }catch(error){
+                terminal.error("Error copying the currentChat.html file:", error);
+            }
         }
-        terminal.log(terminal.colors.yellow, "\nParent ID", terminal.colors.reset, TreeModeProfile.ParentId);
-        terminal.log(terminal.colors.blue, "Branches", terminal.colors.reset, branchList);
-    }
-   
-    //TODO Optizmize this conditionallater. I might put at the top of the main while loop to flex... this is more readable though.
-    //This index change is to fanagle the initial branch prompt to work.
-    if(isTreeMode || branchIndex > 0){
-        terminal.log(terminal.colors.blue, "parentId", terminal.colors.reset, TreeModeProfile.ParentId);
-        terminal.log(terminal.colors.yellow, "branchId", terminal.colors.reset, dynamicResponseId);
-        morePrompts = true;
-    }else{
-        morePrompts = false;
+    
+
             // Open currentChat.html in the default browser
     if(browserMode){
         let htmlDir =   "currentChat/currentChat.html";

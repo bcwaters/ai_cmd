@@ -1,5 +1,5 @@
 #!/bin/bash
-
+clr
 # Get the directory of the script, resolving any symbolic links
 SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
 
@@ -67,10 +67,10 @@ width=25
 
 # Function to draw a horizontal border
 draw_border() {
-    echo -en "\n$(printf -- '-%.0s' {1..55})"
+    echo -en "\n$color_background_black$(printf -- '-%.0s' {1..55})$color_background_resetro"
 }
 draw_border_green() {
-   echo -en "\n$color_background_green$(printf -- '-%.0s' {1..55})$color_background_black"
+   echo -en "\n$color_background_green$(printf -- '-%.0s' {1..55})$color_background_reset"
 }
 
 
@@ -81,14 +81,14 @@ draw_border_green() {
 
 
 # Greet the user
-echo -e  "${color_background_black}${color_yellow_dark}----------------------------------------------   ${color_reset}"
-echo -e  "${color_background_black}${color_yellow_dark}  ____             _   _   ___    __    ___      ${color_reset}"
-echo -e  "${color_background_black}${color_yellow_dark} / ___|_ __  __   | | / /|  _ \ / _ \  / __|     ${color_reset}"
-echo -e  "${color_background_black}${color_yellow_dark}| |  _  '__|/ _ \ | |/ / | | | | | | || |        ${color_reset}"
-echo -e  "${color_background_black}${color_yellow_dark}| |_| | |  | |_| || |\ \\ | |_| | |_| || |__      ${color_reset}"
-echo -e  "${color_background_black}${color_yellow_dark} \____|_|   \___/ | | \ \\|____/ \___/  \___|     ${color_reset}"
-echo -e  "${color_background_black}${color_yellow_dark}----------------------------------------------   ${color_reset}"
-echo -e  "${color_yellow}This is GrokDOC. Request a readme on any subject.${color_reset}"
+echo -e  "${color_background_black}${color_yellow_dark}*------------------------------------------------------*${color_reset}"
+echo -e  "${color_background_black}${color_yellow_dark}|    ____             _   _  ____   ___    ___         |${color_reset}"
+echo -e  "${color_background_black}${color_yellow_dark}|   / ___|_ __  __   | | / /|  _ \ / _ \  / __|        |${color_reset}"
+echo -e  "${color_background_black}${color_yellow_dark}|  | |  _  '__|/ _ \ | |/ / | | | | | | || |           |${color_reset}"
+echo -e  "${color_background_black}${color_yellow_dark}|  | |_| | |  | |_| || |\ \\ | |_| | |_| || |__         |${color_reset}"
+echo -e  "${color_background_black}${color_yellow_dark}|   \____|_|   \___/ |_| \_\\|____/ \___/  \___|        |${color_reset}"
+echo -e  "${color_background_black}${color_yellow_dark}*------------------------------------------------------*${color_reset}"
+echo -e  "${color_yellow}   This is GrokDOC. Request a readme on any subject.${color_reset}"
 # Function to display a spinner
 spin() {
     local pid=$1
@@ -115,15 +115,15 @@ spin() {
             local temp3=${spinchars2:i%${#spinchars2}:1}
             
             if [ $((i%5)) -eq 0 ]; then
-                echo -ne "\r$color_white$temp-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp"
+                echo -ne "\r$color_white---$temp-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp---"
             elif [ $((i%5)) -eq 1 ]; then
-                echo -ne "\r$color_red_light$temp-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp"
+                echo -ne "\r$color_red_light---$temp-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp---"
             elif [ $((i%5)) -eq 2 ]; then
-                echo -ne "\r$color_yellow_light$temp-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp"
+                echo -ne "\r$color_yellow_light---$temp-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp---"
             elif [ $((i%5)) -eq 3 ]; then
-                echo -ne "\r$color_blue_light$temp-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp"
+                echo -ne "\r$color_blue_light---$temp-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp---"
             elif [ $((i%5)) -eq 4 ]; then
-                echo -ne "\r$color_green_light$temp-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3--$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp"
+                echo -ne "\r$color_green_light---$temp-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3--$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp2-$temp3-$temp3-$temp---"
             fi
             sleep $delay
         done
@@ -190,36 +190,36 @@ while true; do
     
 
   
-            echo -en "${color_background_black}${color_yellow}-------------Press enter to continue------------$background_color_black\n" 
+            echo -en "${color_background_black}${color_yellow}---------------------------------------------------$background_color_reset\n" 
 
             # Call the function instead of the inline code
-            display_spinner_with_input "-------------------------"
+            #display_spinner_with_input "-------------------------"
         
      
 
        # echo -e "Loaded State: \e[34m[ $contextState]\e[0m \e[32m[ $newState]\e[0m \e[33m[ $depthState]\e[0m \e[35m[ $fileState]\e[0m \e[36m[ $specialtyState]\e[0m"
     fi
-                    echo -e "$color_background_black"
-                    echo -e "$color_background_black"
+                   # echo -e "$color_background_black"
+                    #echo -e "$color_background_black"
 
     #GOTO here
     #branch feature added next    
     # Prompt the user for input
-    echo -en "$color_background_black$color_yellow\n------------------------GROK DOC-----------------------$color_background_black"
-    echo -en "\n$color_background_blue current settings: $color_bluelight[$displayContext] \e[32m[ $displayNew] \e[33m[ $displayDepth] \e[35m[ $displayFile] \e[36m[ $displaySpecialty] \e[44m[$displayTreeMode]$color_background_black$color_yellow       "
+    echo -en "$color_yellow\n-----------------------AI_CMD--------------------------$color_background_reset"
+    echo -en "\n$color_background_blue    current settings: $color_bluelight[$displayContext] \e[32m[ $displayNew] \e[33m[ $displayDepth] \e[35m[ $displayFile] \e[36m[ $displaySpecialty] \e[44m[$displayTreeMode]$color_yellow       $color_background_reset"
     draw_border
   
-    echo -en "$color_background_black$color_blue \n type $color_blue setContext\e[0m$color_background_black to set the grok's memory to a previous conversation" 
-    echo -en "$color_background_black$color_green \n type $color_green new\e[0m$color_background_black to start a new conversation"
-    echo -en "$color_background_black$color_yellow \n type $color_yellow depth\e[0m$color_background_black set the context depth for better memory"
-    echo -en "$color_background_black$color_cyan \n type $color_cyan specialty\e[0m$color_background_black to set the specialty"
-    echo -en "$color_background_black$color_blue \n type $color_blue treeMode\e[0m$color_background_black to generate a set of organized documents from the prompt"
-    echo -en "$color_background_black$color_magenta \n type $color_magenta ${color_background_dark_grey}file\e[0m$color_background_black to load a file"
-    echo -en "$color_background_black$color_green \n type $color_green ${color_background_dark_grey}paste\e[0m$color_background_black to paste from clipboard"
-    echo -en "$color_background_black$color_blue \n type $color_cyan ${color_background_dark_grey}save\e[0m$color_background_black to save the current context to local folder"
-    echo -en "$color_background_black$color_blue \n type $color_cyan ${color_background_dark_grey}open\e[0m$color_background_black to open the saved the saved readmes in file explorer"
-    echo -en "$color_background_black$color_yellow \n type $color_yellow ${color_background_dark_grey}review\e[0m$color_background_black to review edit the edit the response in vim"
-    echo -en "$color_background_black$color_red \n type $color_red exit\e[0m$color_background_black to quit or press ctrl+c"
+    echo -en "$color_background_reset$color_blue \n type $color_blue setContext\e[0m to set the grok's memory to a previous conversation" 
+    echo -en "$color_green \n type $color_green new\e[0m to start a new conversation"
+    echo -en "$color_yellow \n type $color_yellow depth\e[0m to set the context depth for better memory"
+    echo -en "$color_cyan \n type $color_cyan specialty\e[0m to set the specialty"
+    echo -en "$color_blue \n type $color_blue treeMode\e[0m to generate a set of organized documents from the prompt"
+    echo -en "$color_magenta \n type $color_magenta ${color_background_dark_grey}file\e[0m to load a file"
+    echo -en "$color_green \n type $color_green ${color_background_dark_grey}paste\e[0m$color_background_reset to paste from clipboard"
+    echo -en "$color_blue \n type $color_cyan ${color_background_dark_grey}save\e[0m$color_background_reset to save the current context to local folder"
+    echo -en "$color_blue \n type $color_cyan ${color_background_dark_grey}open\e[0m$color_background_reset to open the saved the saved readmes in file explorer"
+    echo -en "$color_yellow \n type $color_yellow ${color_background_dark_grey}review\e[0m$color_background_reset to review edit the edit the response in vim"
+    echo -en "$color_red \n type $color_red exit\e[0m$color_background_reset to quit or press ctrl+c"
     draw_border
 
     echo -e "${color_background_black}${color_yellow}\nenter your prompt:                                     ${color_background_reset}${color_reset}" 
