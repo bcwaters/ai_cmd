@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "testing ground for personal ai projects",
   "main": "index.js",
+  "type": "module",
   "bin": {
     "ai_cmd": "./grok.sh"
   },
