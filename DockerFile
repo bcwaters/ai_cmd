@@ -1,0 +1,24 @@
+# docker pull node:lts
+FROM node:lts
+
+# Install necessary tools
+RUN apt-get update && apt-get install -y git
+
+# Clone your repository
+#  Cursor autocompleted this... i wonder if it is a leaked private repo
+#  RUN git clone https://github.com/jake-b/ai_cmd_line_tool.git /ai_cmd_line_tool
+
+#todo migrate to ai_cmd
+RUN git clone https://github.com/bcwaters/ai_cmd.git /ai_cmd
+
+# Set the working directory
+WORKDIR /ai_cmd
+
+RUN npm install
+
+COPY .env .env
+# Copy the .env file into the container (if using during build)
+# COPY .env .env
+
+# Specify the command to run on container start
+CMD ["bash", "grok.sh"]

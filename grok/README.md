@@ -6,6 +6,7 @@
   meta response
 
 ## future features
+  - setup github docker registry for image after the build file no longer hardcodes .env. This means to running the docker image requires a command to replace image .env with user
  
  - design readable results for tree mode if in the terminal
 
