@@ -1,9 +1,16 @@
-const express = require('express');
-const fs = require('fs');
-const path = require('path');
+import express from 'express';
+import fs from 'fs';
+import path from 'path';
+import { execSync } from 'child_process';
+import { fileURLToPath } from 'url';
+
 const app = express();
 const port = 3002;
-const { execSync } = require('child_process');
+
+// Get __dirname equivalent in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 app.get('/', (req, res) => {
     // Parse query parameters
     const { prompt } = req.query;
@@ -14,16 +21,16 @@ app.get('/', (req, res) => {
 
     try {
         // Execute the JavaScript code
-        const result = execSync(`node ./grok/grok.js "hi grok this is a test prompt"`, { encoding: 'utf-8' });
+        const result = execSync(`node ./grok/grok.js "${prompt}"`, { encoding: 'utf-8' });
   
-
-
         // Write the result to a file
         const outputPath = path.join(__dirname, 'chatResult.html');
+        fs.copyFileSync(path.join("./grok/context/currentChat/currentChat.html"), outputPath);
         fs.writeFileSync(outputPath, result);
 
-        // Send the file back to the client
-        res.download(outputPath, 'chatResult.html', (err) => {
+        // Send the HTML content to be displayed in the browser
+        res.setHeader('Content-Type', 'text/html');
+        res.sendFile(outputPath, (err) => {
             if (err) {
                 res.status(500).send('Error sending file');
             }
