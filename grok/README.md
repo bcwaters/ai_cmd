@@ -2,10 +2,15 @@
 
 ## terms to ponder  
   prompt expansion  
-  latent knowledge space
+  latent knowledge space  
   meta response
 
 ## future features
+
+  - refine tree mode for more specific branch prompts and avoid overgeneralizing the subject, keep it on topic in relation to the parent.
+
+  - Latex should be parsed after markdown
+
   - setup github docker registry for image after the build file no longer hardcodes .env. This means to running the docker image requires a command to replace image .env with user
  
  - design readable results for tree mode if in the terminal
@@ -95,3 +100,14 @@ I also like the colored '-' for borders
 How is the terminal breaker line dynamic to window size
 
 How do they login with a shell cript to browser? is it polling an enpoint to check for confirmation?
+
+
+    
+##### NOTE: If you context info is tracked it can be fixed with 
+```
+ git update-index --skip .grokRuntime
+ git update-index --skip grok/context/context.data grok/context/context.history
+ git update-index --skip grok/context/context.data grok/context/currentChat/currentChat.html
+ git update-index --skip grok/context/context.data grok/context/currentChat/currentChat.json
+ git update-index --skip grok/context/context.data grok/context/currentChat/summary.json
+ ```

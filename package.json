@@ -6,17 +6,16 @@
   "bin": {
     "ai_cmd": "./grok.sh"
   },
-  
-    "scripts": {
-      "start": "./grok.sh",
-      "ai_cmd": ".grok.sh"
-    },
-  
+  "scripts": {
+    "start": "./grok.sh",
+    "ai_cmd": ".grok.sh"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "dompurify": "^3.2.4",
     "dotenv": "^16.4.7",
+    "express": "^4.21.2",
     "jsdom": "^26.0.0",
     "marked": "^15.0.7",
     "openai": "^4.83.0"

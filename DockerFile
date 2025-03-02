@@ -16,9 +16,13 @@ WORKDIR /ai_cmd
 
 RUN npm install
 
+
+
+COPY shell_helpers/.docker_grokRuntime shell_helpers/.grokRuntime
 COPY .env .env
-# Copy the .env file into the container (if using during build)
-# COPY .env .env
+
+# sudo docker build -t ai_cmd -f ./DockerFile .
+# sudo docker run -it --name diagnostic-container ai_cmd /bin/bash
 
 # Specify the command to run on container start
-CMD ["bash", "grok.sh"]
+# start grok.sh

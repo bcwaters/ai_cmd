@@ -17,19 +17,26 @@ update the `PLACEHOLDER.env` file to `.env` and edit the file to use your own ap
 now to query grok run ```./grok.sh ```
 
 
-TODO NOT IMPLEMENTED... set up automatic link to shell file
-global install with :
-  - ``` npm link ```
-  - ``` npm install -g ```
+## Running docker
+  If you are on a windows machine you can use a docker container to test this out.  
+  * Remember You still need to have a .env file with an xAI api key set.
+
+   ```docker build -t ai_cmd -f ./DockerFile . ```  
+```docker run -it --name diagnostic-container ai_cmd /bin/bash```
 
 
 
-NOTE: If you context info is tracked it can be fixed with 
-``` 
+
+
+  
+    
+##### NOTE: If you context info is tracked it can be fixed with 
+```
  git update-index --skip .grokRuntime
  git update-index --skip grok/context/context.data grok/context/context.history
  git update-index --skip grok/context/context.data grok/context/currentChat/currentChat.html
  git update-index --skip grok/context/context.data grok/context/currentChat/currentChat.json
  git update-index --skip grok/context/context.data grok/context/currentChat/summary.json
  ```
+
 
