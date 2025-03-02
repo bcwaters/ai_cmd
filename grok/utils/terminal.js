@@ -22,7 +22,15 @@ class terminal {
         }
     }
 
-    static logDivider = "\x1b[33m*--------------------------------------------------------------- *\x1b[0m";
+    static logDivider = "*---------------------------------------------------------------*";
+
+    static getColoredDivider(message, color){
+        let messageColor = this.colors.yellow;
+        if (color){
+            messageColor = color;
+        }
+        return `${messageColor}${this.logDivider}${this.colors.reset}`;
+    }
     // Define ANSI color codes
     static colors = {
         reset: "\x1b[0m",
@@ -70,7 +78,7 @@ class terminal {
         //45
         let center = Math.floor(remainingLength / 2);
         //TODO make this work for even and odd numbers of remainingLength
-        let divider = this.logDivider.slice(0, center) + message + this.logDivider.slice(center + messageLength)+ "\n";
+        let divider = this.logDivider.slice(0, center) + message + this.logDivider.slice(center + messageLength);
         return `${messageColor}${divider}${this.colors.reset}`;
       }
     

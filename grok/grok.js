@@ -108,13 +108,12 @@ function parseCommandLineArgs() {
     return new UserPromptRequest(userPrompt, isShort, isNew, setContext, depth, filePath, specialty, treeMode , browserMode);
 }
 
-//TODO move to utils
-
-
 // Read and parse the context file
 async function getConversationContext(setContext, isNew) {
+
+    //isNew? return "string for a new context": do other stuff
     try {
-        //console.log(colors.green, "setContext", setContext, colors.reset);
+
         //TODO FIX CONTEXT HSITRY for new flag
         if (setContext == "") {
             const context = await fs.readFile('./grok/context/currentChat/currentChat.json', "utf8");
@@ -203,15 +202,6 @@ async function parseCompletionForResponseAndMetaResponse(completion){
        return {metaResponse, markdownContent};
 }
 
-// Save response to files
-/*
-  completion is the response from the api
-  userPrompt is the prompt that was sent to the api
-  responseId is the id of the response
-  contextHistoryLength is the length of the context history
-  depth is the depth of the context
-*/
-
 function htmlReplaceTemplateValues(html_string, sanitizedMarkdownContent, priorContextId, responseId){
     //TODO ParentID technically is null here, there needs to be inheritance form a prompt class for a default value
     html_string = html_string.replaceAll("@PARENT_ID@", TreeModeProfile.ParentId) //NICE THIS IS STATIC AND AVAIALBLE!
@@ -226,8 +216,7 @@ function htmlReplaceTemplateValues(html_string, sanitizedMarkdownContent, priorC
 
 //TODO i should open up threads for CHILD WRITES
 async function  saveHtmlResponse(userPromptRequest, markdownContent, priorContextId) {
-    //let pwd = process.cwd();
-    //console.log("pwd", pwd);
+
     // Save HTML response for parent of treaMode of default prompt
     let indexHtml = await fs.readFile('./grok/html_templates/template.html', "utf8");
     markdownContent =  markdownContent + "\n\nResponseID:" + userPromptRequest.dynamicResponseId ;
@@ -263,7 +252,7 @@ async function  saveHtmlResponse(userPromptRequest, markdownContent, priorContex
        
     // Obfucscated logic to create the directory structure before writing the file, do so before methd call.
     // Create the directory structure before writing the file
-    //this only has to be called once
+    //this only has to be called once if called elsewhere
     await fs.mkdir(`./grok/context/history/responses/${userPromptRequest.rootResponseId}/html`, { recursive: true });
 
     //UPDATE writer class path here
@@ -301,24 +290,15 @@ async function saveMarkdownResponse(userPromptRequest, markdownContent) {
     
 }
 
-function preprocessResponse(response) {
-    // response = response
-    //     .replace(/\\/g, '\\\\') // Escape backslashes
-    //     .replace(/"/g, '\\"')   // Escape double quotes
-    //     .replace(/'/g, "\\'")   // Escape single quotes
-    //     .replace(/\n/g, '\\n')   // Escape newlines
-    //     .replace(/&/g, '&amp;') // Escape ampersands
-    //     .replace(/\r/g, '')     // Remove carriage returns
-    //     .replace(/\s+/g, ' ');  // Replace multiple whitespace with a single space
-
-    // TODO is this breaking the README because of script tags? Sanitize the response using DOMPurify if available
-    if (DOMPurify) {
-        response = DOMPurify.sanitize(response);
-    }
-    
+function preprocessResponse(response) {   
     // Use marked to parse the response if available
     if (marked) {
         response = marked.parse(response);
+    }
+    
+    // Sanitizes scripts from output. must be done after marked parses
+    if (DOMPurify) {
+        response = DOMPurify.sanitize(response);
     }
     
     while(response.charAt(0) != "<"){
@@ -334,7 +314,6 @@ async function appendToContext(newContent, MAX_CONTEXT_LENGTH) {
         return; // Exit the function if newContent is invalid
     }
     
-    
     let contextData = await fs.readFile("./grok/context/context.data", "utf8");
     newContent = newContent.replaceAll("[", "").replaceAll("]", "");
     let newContextDataKeywords = newContent.split(",");
@@ -349,7 +328,6 @@ async function appendToContext(newContent, MAX_CONTEXT_LENGTH) {
     //CONTEXT can be improved by having separate lists. one is composed of Headings. another is keywords.
     contextData = contextData.substring(0, MAX_CONTEXT_LENGTH);
 
-    //utils helper function 
     contextData = contextData
     .replaceAll(/\\n/g, '')
     .replaceAll(/\\/g, '')
@@ -363,75 +341,55 @@ async function appendToContext(newContent, MAX_CONTEXT_LENGTH) {
     terminal.debug(terminal.logDivider);
     terminal.debug(terminal.colors.green, "Current Subject:",terminal.colors.reset, newContent);
     terminal.debug(terminal.logDivider);
-    terminal.debug(terminal.colors.green, "Current Context[",MAX_CONTEXT_LENGTH,"]:",terminal.colors.reset, contextData);
+    terminal.debug(terminal.colors.green + "Current Context[" + MAX_CONTEXT_LENGTH, + "]:"+terminal.colors.reset, contextData);
     terminal.debug(terminal.logDivider);
     await fs.writeFile("./grok/context/context.data", contextData);
 
 
 }
 
+//This can be done with grokruntime for efficiency and be labeled log previos ids.  Might be the place to reduce list size from time to time.
 async function savePreviousId(responseId, userPrompt, contextHistoryLength){
-    let previousId = await fs.readFile("./grok/context/context.history", "utf8");
-    let parsedPreviousId = JSON.parse(previousId);
-    parsedPreviousId.push({id: responseId, prompt: userPrompt});
-    await fs.writeFile("./grok/context/context.history", JSON.stringify(parsedPreviousId));
-    terminal.log(terminal.colors.green, "\nSwitch context to id to resume conversation", terminal.colors.reset);
+    let previousIds = await fs.readFile("./grok/context/context.history", "utf8");
+    let parsedPreviousIds = JSON.parse(previousIds);
+    let mostRecentHistoryId = parsedPreviousIds[parsedPreviousIds.length - 1];
+    parsedPreviousIds.push({id: responseId, prompt: userPrompt});
+    await fs.writeFile("./grok/context/context.history", JSON.stringify(parsedPreviousIds));
 
+    terminal.log(terminal.colors.green, "\nSwitch context to id to resume conversation", terminal.colors.reset);
     terminal.log(terminal.logDivider);
     
-
-    // Log only the last 3 context entries
-    const EntriesToLog = parsedPreviousId.slice(contextHistoryLength);
+    const EntriesToLog = parsedPreviousIds.slice(contextHistoryLength);
     for(let i = 0; i < EntriesToLog.length && i < 5; i++){
-        terminal.log(terminal.colors.green, "contextId:", terminal.colors.reset, EntriesToLog[i].id,  terminal.colors.yellow, "\n Prompt:\n",terminal.colors.reset, EntriesToLog[i].prompt);
+        terminal.log(terminal.colors.green, "contextId:", terminal.colors.reset, EntriesToLog[EntriesToLog.length - i - 1].id,  terminal.colors.yellow, "\n Prompt:\n",terminal.colors.reset, EntriesToLog[EntriesToLog.length - i - 1].prompt);
         terminal.log(terminal.colors.yellow, "             - - - - - - - - - - - - - - - - - - - - -           ", terminal.colors.reset);
     }
     terminal.log(terminal.colors.yellow, terminal.getDividerWithMessage("PRIOR-PROMPTS"));
-    return parsedPreviousId;
+    return mostRecentHistoryId.id;
 }
 
-
-//There should be only 2 places for all mds json and html files.
-//1. context/currentChat/
-//2. context/history/
-
-//TODO THERE COULD BE FAULTY LOGIC HERE. a child is saved to currentChat in treeMode for the last response
-//A recursive apporach should remedy this so parent is written last.
+//A recursive approach should remedy this so parent is written last.
 async function saveCompletion(completion, responseId){
     //overwrites the old file
     await fs.writeFile(`./grok/context/currentChat/currentChat.json`, JSON.stringify(completion));
     await fs.writeFile(`./grok/context/history/fullCompletion/${responseId}.json`, JSON.stringify(completion));
-    return responseId;
+
 }
-
-//TODO THIS CAN BE OPTIMIXED examine the user prompt context and load the prior context id from a string
-async function obtainPriorContextId() {
-    let oldContextFile = await fs.readFile('./grok/context/currentChat/currentChat.json', "utf8");
-    let parsedContext = JSON.parse(oldContextFile);
-    let parsedContextId = parsedContext.id.substring(0, 8);
-
-    return parsedContextId;
-}
-
 // Main function
 async function main() {
     //RAG_PROFILE_STATE class needs to be made before this bloats beyond repair
     const userPromptRequest = parseCommandLineArgs();
- 
-    //This keeps the loop going for treeMode
+
     let morePrompts = true;
-    //This logic is seperate from the promptState because it relates to loop state
     let processingRootNode = userPromptRequest.treeMode;
 
     while( morePrompts == true){
-         //TODO in order to add depth I will need to simulate the command line arguments.
-         // Simulate command line arguments userPrompt, isShort, isNew, setContext, depth ,filePath, specialty, treeMode
-         // for now context can remain the same.  
-         // Later a branch profile can be called for the api call.
-         if( userPromptRequest.treeMode && userPromptRequest.branchIndex >= 1){
+ 
+        //If this is branching request and there are branches to process
+        if( userPromptRequest.treeMode && userPromptRequest.branchIndex >= 1){
            
+            //Start at last child
             userPromptRequest.currentSubject = userPromptRequest.branchList[userPromptRequest.branchIndex-1]
-          
             userPromptRequest.dynamicPrompt = "Tell me more about item " + userPromptRequest.branchIndex + " of this list.  Go into more detail about info you already included.: "  + userPromptRequest.branchList[userPromptRequest.branchIndex-1];
             await sleep(1000); // Replaced sleep with wait to avoid overwhelming the API.
             terminal.log(terminal.colors.green, "User Prompt", terminal.colors.reset, userPromptRequest.dynamicPrompt);
@@ -439,40 +397,33 @@ async function main() {
             terminal.log(terminal.colors.green, "Branch Index", terminal.colors.reset, userPromptRequest.branchIndex);
             //TODO perhaps this should use the getter and setters...
             userPromptRequest.branchIndex--;
-            
-         }
+        }
 
          terminal.debug(terminal.colors.green, "User Prompt Request", terminal.colors.reset, userPromptRequest.toString());
-
 
     //TODO Load the previous propmt - there is probably a clever way to use previous id and load as much history as requested... add parent to context.history
     const priorConverstation = await getConversationContext(userPromptRequest.setContext, userPromptRequest.isNew); // Ensure context is fetched based on setContext
     const contextData = await fs.readFile("./grok/context/context.data", "utf8");
   
- 
-    //Context is loadup for the api request
+    //Context is loaded for the api request
     let apiRequest = createApiRequest(userPromptRequest.dynamicPrompt, priorConverstation, userPromptRequest.isNew, userPromptRequest.isShort, contextData, userPromptRequest.setContext, userPromptRequest.filePath, userPromptRequest.specialty, processingRootNode);
     const completion = await openai.chat.completions.create(apiRequest);
 
-    //TODO rename processingRootNode and move this logic into userPromptRequest as a process completion method
+    //TODO rmove this logic into userPromptRequest as a process completion method
     if(userPromptRequest.treeMode){
-        if(processingRootNode){//This is the first loop of treeMode
+        if(processingRootNode){
             userPromptRequest.rootResponseId = completion.id.substring(0, 8);
             userPromptRequest.dynamicResponseId = completion.id.substring(0, 8);
         }else{
             userPromptRequest.dynamicResponseId = completion.id.substring(0, 8);
         }
-    }else{ // This is not treeMode
+    }else{ //singular prompt
         userPromptRequest.rootResponseId = completion.id.substring(0, 8);
         userPromptRequest.dynamicResponseId = completion.id.substring(0, 8);
     }
 
-    //STEP 2
-    //TODO this is where the markdown and html are processed and stored in memory
-    //parse readme now
 
-    let treeModeList = "";
-    let markdownResponse = "";
+
     let {metaResponse, markdownContent} = await parseCompletionForResponseAndMetaResponse(completion);
     terminal.debug(terminal.getDividerWithMessage("RESPONSE-AND-META-RESPONSE"));
     terminal.debug(terminal.colors.green, "metaResponse", terminal.colors.reset, metaResponse);
@@ -483,25 +434,18 @@ async function main() {
     //STEP 3 now update the context for future prompts
     //let priorContextId = await saveContextFiles(userPromptRequest.dynamicResponseId, metaResponse, completion, markdownContent, userPromptRequest.depth);
     await appendToContext(metaResponse, userPromptRequest.depth);
-    
+
     //TODO examine the best depth ratio for length. this should round down but be atleast 1
     let contextHistoryLength = userPromptRequest.depth/500;
-    await savePreviousId(userPromptRequest.dynamicResponseId, userPromptRequest.dynamicPrompt, contextHistoryLength);
+    let priorContextId = await savePreviousId(userPromptRequest.dynamicResponseId, userPromptRequest.dynamicPrompt, contextHistoryLength);
     
-  
-    //priorContextId is missing until completion is written.
-    //Step 4 save the completion to currentChat.json and history/fullCompletion/responseId.json
-    let priorContextId = await obtainPriorContextId();
+
     await saveCompletion(completion, userPromptRequest.dynamicResponseId);
     await saveHtmlResponse(userPromptRequest, markdownContent, priorContextId);
-    await saveMarkdownResponse(userPromptRequest, userPromptRequest.dynamicResponseId, markdownContent);
+    await saveMarkdownResponse(userPromptRequest, markdownContent);
         //consider whether or not to append response ID
     //ALL makr and html should be saved to the disk now
 
-
-    treeModeList = metaResponse;
-    markdownResponse = markdownContent; //unneceasary asignment
- 
    //TODO name a bool for this   userPromptRequest.treeMode && !processingRootNode   
     terminal.log( "current contextId",   terminal.colors.blue, userPromptRequest.dynamicResponseId, terminal.colors.reset);
     terminal.log(terminal.colors.purple, "\nfile used:", terminal.colors.reset, userPromptRequest.filePath?userPromptRequest.filePath:"none");
@@ -518,7 +462,7 @@ async function main() {
     terminal.log(terminal.logDivider);
     //write settings to ../.grokRuntimeterminal
     if(terminal.debugLogger == false){
-        terminal.log(terminal.colors.green, "\nResponse", terminal.colors.reset, markdownResponse);
+        terminal.log(terminal.colors.green, "\nResponse", terminal.colors.reset, markdownContent);
     }
 
     let terminalState = userPromptRequest.browserMode?"":"terminalMode";
@@ -527,10 +471,10 @@ async function main() {
     //This is the first loop of treeMode
     if(processingRootNode){
         processingRootNode = false;
-        userPromptRequest.branchList = TreeModeProfile.parseSubject(treeModeList);
+        userPromptRequest.branchList = TreeModeProfile.parseSubject(metaResponse);
         userPromptRequest.branchIndex = userPromptRequest.branchList.length;
         TreeModeProfile.setParentId(userPromptRequest.dynamicResponseId);
-        TreeModeProfile.setParentReadme(markdownResponse);
+        TreeModeProfile.setParentReadme(markdownContent);
         userPromptRequest.childDirectory = TreeModeProfile.ParentId+"_children";
         await fs.mkdir("./grok/context/history/responses/"+userPromptRequest.rootResponseId+"/tree/"+userPromptRequest.childDirectory+"/html", { recursive: true });
         
@@ -569,35 +513,31 @@ async function main() {
                 // let childReadmeId = childReadme.contextId;   WOULD THIS BE USEFUL TO HAVE? perhaps in a more robust system.
                 let childReadmeSubject = subjectList[i];
                 
-                let parsedReadme = marked.parse(childReadme);
-                //MAYBE switch to aplha numeric ids 
-                let childReadmeHtml = `<div id="childContent${i}">${parsedReadme}</div>`;
+                let parsedReadme = preprocessResponse(childReadme);
+                //Chance to add attribute is here for hidden or visible
+                let childReadmeHtml = `<div title="${childReadmeSubject}" id="childContent${i+1}" onclick="setVisibileChild('childContent${i+1}')" hidden=true>${parsedReadme}</div>`;
                 
                 terminal.debug(terminal.colors.green, "childReadmeHtml", terminal.colors.reset, childReadmeHtml);
-                //TODO ordering wrong?
+                //TODO examine ordering
                 processedChildReadmes.push(childReadmeHtml);
                 //YIKES THIS NEEDS DOM MANIPULATION. No wonder react is so popular.
-                //onclick set parent to hidden and child to visible. There needs to be a way to go back to parent.
+                //onclick set parent to hidden and child to visible.
                 //this will need a fuzzy search in parent headings to properly link the child to the parent.
-             
-       
             }
 
             terminal.debug(terminal.colors.green, "allChildReadmes", terminal.colors.reset, allChildReadmes);
-           
-
             terminal.debug("------------Exiting child loop------------");
             terminal.debug(terminal.logDivider);
             //combine all the child divs into a nice incomprehensiible html string
             terminal.debug(terminal.colors.green, "processedChildReadmes", terminal.colors.reset, processedChildReadmes);
             let childDivs = processedChildReadmes.join("");
-            terminal.debug(terminal.colors.green, "childDivsComined", terminal.colors.reset, childDivs);
+            terminal.debug(terminal.colors.green, "childDivsCombined", terminal.colors.reset, childDivs);
             
             terminal.debug(terminal.colors.green, "childDivs", terminal.colors.reset, childDivs);
             let parentHtml = await fs.readFile("./grok/html_templates/parent_template.html", "utf8");
 
             //DO all the replacements
-            parentHtml = parentHtml.replace("REPLACEME", marked.parse(TreeModeProfile.ParentReadme));
+            parentHtml = parentHtml.replace("REPLACEME", preprocessResponse(TreeModeProfile.ParentReadme));
             parentHtml = parentHtml.replace("@REPLACEWITHCHILDRENDIVS@", childDivs);
             parentHtml = parentHtml.replace("@CURRENT_ID@", TreeModeProfile.ParentId);
             //parentHtml = parentHtml.replace("@PREVIOUS_ID@", dynamicResponseId);
@@ -605,7 +545,7 @@ async function main() {
             //I could name this more intelligently.
             //I want to explorer a recursive approach for deeper trees. How do i template a child that is a parent and a child
             //I am pretty sure a recursive approach seting the context to the child repsonse ID and the recursively prompts from there
-            await fs.writeFile("./grok/context/history/responses/"+userPromptRequest.rootResponseId+"/tree/"+"MASTER_HTML_FILE"+".html", parentHtml);
+            await fs.writeFile("./grok/context/history/responses/"+userPromptRequest.rootResponseId+"/tree/index.html", parentHtml);
             await fs.writeFile("./grok/context/currentChat/currentChat.html", parentHtml);
             //replace @REPLACEWITHCHILDRENDIVS@ with the childDivs string
             
@@ -616,7 +556,7 @@ async function main() {
                * For each child branch create an <div id="childContent1...5"> 
                * Parent html will have one nav "link".  each list item will be a "link" to the div
                * The links will execute a javascript function which toggles hidden attribute for all over divs.
-               * The backend server will  use marked to add the styled markdown to each conent div
+               * The backend server will use marked to add the styled markdown to each conent div
                * 
                * 
             */
@@ -624,19 +564,17 @@ async function main() {
                 terminal.error("Error copying the currentChat.html file:", error);
             }
         }
-    
 
-            // Open currentChat.html in the default browser
+    // Open currentChat.html in the default browser
     if(userPromptRequest.browserMode){
         let htmlDir =   "currentChat/currentChat.html";
         if(!userPromptRequest.treeMode){
             htmlDir = "currentChat/currentChat.html";
         }else{
             //open the last child soon to be MONO_HTML_FILE  this can be wapped for currentchathtml too
-            htmlDir = "history/responses/"+userPromptRequest.rootResponseId+"/tree/"+"MASTER_HTML_FILE"+".html";
+            htmlDir = "history/responses/"+userPromptRequest.rootResponseId+"/tree/index.html";
         }
-  
-     
+   
     const openCommand = os.platform() === 'win32' ? 'start' : 'open';
     exec(`${openCommand} ./grok/context/${htmlDir}`, (err) => {
         if (err) {
@@ -651,27 +589,3 @@ async function main() {
 }
 
 main().catch(terminal.error);
-
-
-/*
- * Note: When implementing this script as a microservice in NestJS,
- * the static nature of the getDefaultProfile method may need to be refactored.
- *
- * Trade-offs:
- * 1. Static Method:
- *    - Pros: 
- *      - No need to instantiate the class, making it easy to call.
- *      - Slightly better performance due to reduced overhead.
- *    - Cons:
- *      - Less flexible for future changes that may require state management.
- *      - Harder to mock for unit testing.
- *
- * 2. Instance Method:
- *    - Pros:
- *      - More flexible for managing state and dependencies.
- *      - Easier to test with dependency injection.
- *    - Cons:
- *      - Requires instantiation, which may add overhead if called frequently.
- *
- * Consider the future architecture and requirements when deciding on the method's nature.
- */

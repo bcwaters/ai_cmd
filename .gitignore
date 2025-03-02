@@ -1,6 +1,7 @@
 .env
 node_modules/*
 .grokRuntime
+shell_helpers/.grokRuntime
 terraform/*
 
 grok/context/currentCha

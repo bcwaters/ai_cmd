@@ -7,9 +7,9 @@ This directory stores all the information needed for engineering prompts and man
 - **context** - Stores all information needed to engineer the prompt
 - **currentChat** - Stores the current chat for easy viewing
 - **history** - Stores the history of responses to review old prompts
-  * **fullCompletion** - Stores the full completion of the response
-  * **response** - A filesystem copy from current chat to history   
-  `cp currentChat/currentChatResponse history/responseId/${responseID}`
+  * **fullCompletion** - Stores the full completion of the response from the AI api
+  * **response** - A filesystem copy of markdown and html for a response organized by responseId   
+
 
 ## Directory Structure
 

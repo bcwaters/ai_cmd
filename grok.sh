@@ -206,7 +206,7 @@ while true; do
         continue
     fi
     if [ "$prompt" == "review" ]; then
-        vim ./grok/context/html/markdown/${setContextState}.md
+        vim ./grok/context/history/markdown/currentChat.md
         continue
     fi
     if [ "$prompt" == "terminalMode" ]; then
