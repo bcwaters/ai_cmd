@@ -12,10 +12,10 @@ current_dir=$(pwd)
 startup=true;
     echo -ne "\033]0;AI_CMD\007"
 if [ "$OS" = "Linux" ]; then
-    # macOS specific color variables
+    
     source ./linux_colors.sh
-elif [ "$OS" = "Darwin" ]; then
-    # Linux specific color variables
+elif [ true = true ]; then
+    # ASSUME APPLE
     source ./mac_colors.sh
 fi
 
