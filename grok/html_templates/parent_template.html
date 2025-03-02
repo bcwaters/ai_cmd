@@ -7,7 +7,11 @@
 <body>
   <nav>
     <button id="saveButton" onclick="saveButton()">Save html</button>
-    <a id="home" href='javascript:goHomePage()'>Home</a>
+    <a id="parentContentLink" href='javascript:goHomePage()'>Home</a>
+    <select id="childSubjects">
+      <option value="home">Home</option>
+      <!-- Children are added here onload with setChildSubjects -->
+    </select>
     <!-- Add a previous and next button for prior requests? -->
     <!-- Add a button to save the current page as a markdown file -->
   </nav>
@@ -40,13 +44,57 @@
     </script>
 
     <script>
-      function setVisibileChild(id){
-         let topNode = document.getElementById('content');
-         let parentNode = document.getElementById('parentContent');
-         let childVisibleNode = document.getElementById(id);
-         parentNode.hidden = true;
-         childVisibleNode.hidden = false;
+      function setChildSubjects(){
+        let dropDownOptions = [];
+        let childSubjects = document.getElementById('childDivs');
+        for (let child of childSubjects.children){
+           let subject = child.title;
+           let optionValue = child.id;
+
+           dropDownOptions.push({subject: subject, value: optionValue});
+        
+        }
+
+        for (let option of dropDownOptions){
+          let optionElement = document.createElement('option');
+          optionElement.value = option.value;
+          optionElement.text = option.subject;
+          document.getElementById('childSubjects').appendChild(optionElement);
+        }
+
+        document.getElementById('childSubjects').addEventListener('change', function() {
+          if(this.value == "home"){
+            goHomePage();
+          }else{
+            setVisibleChild(this.value);
+          }
+
+          }
+        );
       }
+    </script>
+
+
+    <script>
+      function setVisibleChild(id){
+        //quick flicker home to reset state, this allows hoping between child views
+     
+    
+           let topNode = document.getElementById('content');
+           let parentNode = document.getElementById('parentContent');
+           let childVisibleNode = document.getElementById(id);
+           let childDivs = document.getElementById('childDivs');
+           for (let child of childDivs.children){
+            if(child.id != id){
+              child.hidden = true;
+            }else{
+              child.hidden = false; //redudant
+            }
+           }
+           parentNode.hidden = true;
+           childVisibleNode.hidden = false;
+         }
+      
     </script>
 
     <script>
@@ -205,13 +253,13 @@
             parent.style.textDecoration = "underline";
             parent.style.color = "blue";
             parent.onclick = function(){
-              setVisibileChild(child.id);
+              setVisibleChild(child.id);
             }
        }
 
     </script>
 
-<script>window.onload = setChildLinks;</script>
+<script>window.onload = setChildSubjects;</script>
 
 </body>
 </html>

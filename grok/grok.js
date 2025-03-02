@@ -16,7 +16,7 @@ import {PromptProfile} from './prompt_profiles/default';
 import {TreeModeProfile} from './prompt_profiles/TreeMode';
 import UserPromptRequest from './utils/UserPromptRequest.js';
 import terminal from './utils/terminal.js'; 
-import {cleanString, sleep } from './utils/utils.js';
+import {cleanString, sleep, removeWhiteSpaceAndEnsureAlphabet } from './utils/utils.js';
 
 
 
@@ -472,6 +472,8 @@ async function main() {
     if(processingRootNode){
         processingRootNode = false;
         userPromptRequest.branchList = TreeModeProfile.parseSubject(metaResponse);
+
+        userPromptRequest.branchList = userPromptRequest.branchList.map(subject => removeWhiteSpaceAndEnsureAlphabet(subject));
         userPromptRequest.branchIndex = userPromptRequest.branchList.length;
         TreeModeProfile.setParentId(userPromptRequest.dynamicResponseId);
         TreeModeProfile.setParentReadme(markdownContent);
@@ -512,9 +514,12 @@ async function main() {
                 let childReadme = allChildReadmes[i];
                 // let childReadmeId = childReadme.contextId;   WOULD THIS BE USEFUL TO HAVE? perhaps in a more robust system.
                 let childReadmeSubject = subjectList[i];
-                
+                childReadmeSubject = removeWhiteSpaceAndEnsureAlphabet(childReadmeSubject);
+                terminal.debug(terminal.colors.green, "childReadme: ", terminal.colors.reset, childReadme);
+                terminal.debug(terminal.colors.green, "childReadmeSubject: ", terminal.colors.reset, childReadmeSubject);
+                terminal.debug(terminal.colors.green, "index: ", terminal.colors.reset, i);
                 let parsedReadme = preprocessResponse(childReadme);
-                //Chance to add attribute is here for hidden or visible
+                //Chance to add attribute is here for hidden or visible                                   //function unneeded but concept is interesting
                 let childReadmeHtml = `<div title="${childReadmeSubject}" id="childContent${i+1}" onclick="setVisibileChild('childContent${i+1}')" hidden=true>${parsedReadme}</div>`;
                 
                 terminal.debug(terminal.colors.green, "childReadmeHtml", terminal.colors.reset, childReadmeHtml);
