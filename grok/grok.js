@@ -27,13 +27,24 @@ dotenv.config();
 const window = new JSDOM('').window;
 const DOMPurify = createDOMPurify(window);
 
-
+//apiKey: process.env.XAI_API_KEY,
+//baseURL: "https://api.x.ai/v1",
 //grok-2-vision-1212
 //TODO this does not have to be hardcoded to grok
 const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+    baseURL: "https://api.openai.com/v1",
+});
+
+const xai = new OpenAI({
     apiKey: process.env.XAI_API_KEY,
     baseURL: "https://api.x.ai/v1",
 });
+
+
+let chosenModel = xai;
+
+const tagLength = 16; //8 for grok
 
 //End Configuration before main -------------------------------
 
@@ -54,6 +65,10 @@ function parseCommandLineArgs() {
     let terminalMode = false;
     let browserMode = true;
 
+
+    if(args.includes("--openai")){
+        chosenModel = openai;
+    }
     if (args.includes("--treeMode")) {
         treeMode = true;
     }
@@ -172,9 +187,9 @@ function createApiRequest(userPromptRequest, priorConverstation, isNew, isShort,
     terminal.debug(terminal.colors.green, "Prompt Sent to Grok", terminal.colors.reset, JSON.stringify(messages, null, 4));
   
 
-
+ //grok-2-latest
     return {
-        model: "grok-2-latest",
+        model: chosenModel == openai ? "gpt-4.5-preview" : "grok-2-latest",
         messages: messages, // Use the loaded variable here
     };
 }
@@ -210,7 +225,7 @@ function htmlReplaceTemplateValues(html_string, sanitizedMarkdownContent, priorC
     //TODO ParentID technically is null here, there needs to be inheritance form a prompt class for a default value
     html_string = html_string.replaceAll("@PARENT_ID@", TreeModeProfile.ParentId) //NICE THIS IS STATIC AND AVAIALBLE!
     .replaceAll("REPLACEME", sanitizedMarkdownContent)
-    .replaceAll("@PREVIOUS_ID@", priorContextId.substring(0, 8)) //TODO is this substring redundant?
+    .replaceAll("@PREVIOUS_ID@", priorContextId.substring(0, tagLength)) //TODO is this substring redundant?
     .replaceAll("@DIRECTORY@", "") // absolute path to the directory not compatible with firefox
     .replaceAll("@CURRENT_ID@", responseId);
 
@@ -411,19 +426,19 @@ async function main() {
   
     //Context is loaded for the api request
     let apiRequest = createApiRequest(userPromptRequest, priorConverstation, userPromptRequest.isNew, userPromptRequest.isShort, contextData, userPromptRequest.setContext, userPromptRequest.filePath, userPromptRequest.specialty, processingRootNode);
-    const completion = await openai.chat.completions.create(apiRequest);
+    const completion = await chosenModel.chat.completions.create(apiRequest);
 
     //TODO rmove this logic into userPromptRequest as a process completion method
     if(userPromptRequest.treeMode){
         if(processingRootNode){
-            userPromptRequest.rootResponseId = completion.id.substring(0, 8);
-            userPromptRequest.dynamicResponseId = completion.id.substring(0, 8);
+            userPromptRequest.rootResponseId = completion.id.substring(0, tagLength);
+            userPromptRequest.dynamicResponseId = completion.id.substring(0, tagLength);
         }else{
-            userPromptRequest.dynamicResponseId = completion.id.substring(0, 8);
+            userPromptRequest.dynamicResponseId = completion.id.substring(0, tagLength);
         }
     }else{ //singular prompt
-        userPromptRequest.rootResponseId = completion.id.substring(0, 8);
-        userPromptRequest.dynamicResponseId = completion.id.substring(0, 8);
+        userPromptRequest.rootResponseId = completion.id.substring(0, tagLength);
+        userPromptRequest.dynamicResponseId = completion.id.substring(0, tagLength);
     }
 
 
