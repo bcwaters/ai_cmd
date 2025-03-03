@@ -147,7 +147,7 @@ async function getConversationContext(setContext, isNew) {
 }
 
 // Create the request object for the API
-function createApiRequest(userPrompt, priorConverstation, isNew, isShort, contextData, setContext, filePath, specialty, processingRootNode) {
+function createApiRequest(userPromptRequest, priorConverstation, isNew, isShort, contextData, setContext, filePath, specialty, processingRootNode) {
     let profile = "default";
     let messages = [];
     if (isShort) {
@@ -159,10 +159,14 @@ function createApiRequest(userPrompt, priorConverstation, isNew, isShort, contex
   
     PromptProfile.isLogging = false;
     
-    if(processingRootNode){
-        messages = TreeModeProfile.getDefaultProfile(isNew, priorConverstation, contextData, userPrompt); // Load the array from the default file
+    if(userPromptRequest.treeMode){
+        if(processingRootNode){
+            messages = TreeModeProfile.getDefaultProfile(isNew, priorConverstation, contextData, userPromptRequest.dynamicPrompt); // Load the array from the default file
+        }else{
+            messages = TreeModeProfile.getBranchProfile(isNew, priorConverstation, contextData, userPromptRequest.dynamicPrompt); // Load the array from the default file
+        }
     }else{
-        messages = PromptProfile.getDefaultProfile(isNew, priorConverstation, contextData, userPrompt); // Load the array from the default file
+        messages = PromptProfile.getDefaultProfile(isNew, priorConverstation, contextData, userPromptRequest.dynamicPrompt); // Load the array from the default file
     }
     
     terminal.debug(terminal.colors.green, "Prompt Sent to Grok", terminal.colors.reset, JSON.stringify(messages, null, 4));
@@ -390,7 +394,7 @@ async function main() {
            
             //Start at last child
             userPromptRequest.currentSubject = userPromptRequest.branchList[userPromptRequest.branchIndex-1]
-            userPromptRequest.dynamicPrompt = "Tell me more about item " + userPromptRequest.branchIndex + " of this list.  Go into more detail about info you already included.: "  + userPromptRequest.branchList[userPromptRequest.branchIndex-1];
+            userPromptRequest.dynamicPrompt =  "Tell me more about item " + userPromptRequest.branchIndex + " of this list.  Go into more detail about info you already included.: "  + userPromptRequest.branchList[userPromptRequest.branchIndex-1];
             await sleep(1000); // Replaced sleep with wait to avoid overwhelming the API.
             terminal.log(terminal.colors.green, "User Prompt", terminal.colors.reset, userPromptRequest.dynamicPrompt);
             terminal.log(terminal.colors.green, "Branch List", terminal.colors.reset, userPromptRequest.branchList);
@@ -406,7 +410,7 @@ async function main() {
     const contextData = await fs.readFile("./grok/context/context.data", "utf8");
   
     //Context is loaded for the api request
-    let apiRequest = createApiRequest(userPromptRequest.dynamicPrompt, priorConverstation, userPromptRequest.isNew, userPromptRequest.isShort, contextData, userPromptRequest.setContext, userPromptRequest.filePath, userPromptRequest.specialty, processingRootNode);
+    let apiRequest = createApiRequest(userPromptRequest, priorConverstation, userPromptRequest.isNew, userPromptRequest.isShort, contextData, userPromptRequest.setContext, userPromptRequest.filePath, userPromptRequest.specialty, processingRootNode);
     const completion = await openai.chat.completions.create(apiRequest);
 
     //TODO rmove this logic into userPromptRequest as a process completion method
@@ -429,6 +433,10 @@ async function main() {
     terminal.debug(terminal.colors.green, "metaResponse", terminal.colors.reset, metaResponse);
     terminal.debug(terminal.colors.green, "markdownContent", terminal.colors.reset, markdownContent);
     terminal.debug(terminal.logDivider);
+
+    if(userPromptRequest.treeMode  && processingRootNode){
+        userPromptRequest.parentReadme = markdownContent;
+    }
 
 
     //STEP 3 now update the context for future prompts

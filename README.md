@@ -29,14 +29,5 @@ now to query grok run ```./grok.sh ```
 
 
   
-    
-##### NOTE: If you context info is tracked it can be fixed with 
-```
- git update-index --skip .grokRuntime
- git update-index --skip grok/context/context.data grok/context/context.history
- git update-index --skip grok/context/context.data grok/context/currentChat/currentChat.html
- git update-index --skip grok/context/context.data grok/context/currentChat/currentChat.json
- git update-index --skip grok/context/context.data grok/context/currentChat/summary.json
- ```
 
 
