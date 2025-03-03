@@ -24,7 +24,7 @@ class terminal {
 
     static logDivider = "*---------------------------------------------------------------*";
 
-    static getColoredDivider(message, color){
+    static getColoredDivider(color){
         let messageColor = this.colors.yellow;
         if (color){
             messageColor = color;

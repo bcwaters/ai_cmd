@@ -57,7 +57,7 @@ function parseCommandLineArgs() {
     let userPrompt = "Default prompt if none provided";
     let depth = 500;
     let isNew = false;
-    let setContext = "";
+    let context = "";
     let filePath = "";
     let isShort = false;
     let specialty = "";
@@ -101,15 +101,12 @@ function parseCommandLineArgs() {
     if (args.includes("--new")) {
         isNew = true;
 
-    }  if (args.includes("--setContext")) {
-        const contextIndex = args.indexOf("--setContext") + 1;
-     
-        if (contextIndex < args.length) {
-            setContext = args[contextIndex];
-            if (contextIndex + 1 < args.length) {
-                userPrompt = args.slice(contextIndex + 1).join(" ");
-            }
+    }  if (args.includes("--context")) {
+        const contextIndex = args.indexOf("--context") + 1;
+        if(contextIndex < args.length){
+            context = args[contextIndex];
         }
+    
     } else if (args.length > 0) {
         userPrompt = args.join(" ");
     }
@@ -119,18 +116,18 @@ function parseCommandLineArgs() {
         userPrompt = args[indexOfPrompt + 1];
     }
 
-    //TODO this should be a RAG_PROFILE_STATE class with all the properties.
-    return new UserPromptRequest(userPrompt, isShort, isNew, setContext, depth, filePath, specialty, treeMode , browserMode);
+
+    return new UserPromptRequest(userPrompt, isShort, isNew, context, depth, filePath, specialty, treeMode , browserMode);
 }
 
 // Read and parse the context file
-async function getConversationContext(setContext, isNew) {
+async function getConversationContext(context, isNew) {
 
     //isNew? return "string for a new context": do other stuff
     try {
-
+  
         //TODO FIX CONTEXT HSITRY for new flag
-        if (setContext == "") {
+        if (context == "") {
             const context = await fs.readFile('./grok/context/currentChat/currentChat.json', "utf8");
             const parsedContext = JSON.parse(context);
            
@@ -144,8 +141,8 @@ async function getConversationContext(setContext, isNew) {
         } else {
       
 
-            const context = await fs.readFile('./grok/context/history/fullCompletion/' + setContext + '.json', "utf8");
-            const parsedContext = JSON.parse(context);
+            const storedContext = await fs.readFile('./grok/context/history/fullCompletion/' + context + '.json', "utf8");
+            const parsedContext = JSON.parse(storedContext);
            
             const messages = parsedContext.choices[0]
             //console.log(colors.green, "parsedContextSET", messages.message.content, colors.reset);
@@ -153,7 +150,7 @@ async function getConversationContext(setContext, isNew) {
           
             messageContent = cleanString(messageContent);
 
-            return messageContent || "Error returning context for " + setContext;
+            return messageContent || "Error returning context for " + context;
         }
     } catch (error) {
         console.error("Error reading or processing the context file:", error);
@@ -162,7 +159,7 @@ async function getConversationContext(setContext, isNew) {
 }
 
 // Create the request object for the API
-function createApiRequest(userPromptRequest, priorConverstation, isNew, isShort, contextData, setContext, filePath, specialty, processingRootNode) {
+async function createApiRequest(userPromptRequest, priorConverstation, isNew, isShort, contextData, context, filePath, specialty, processingRootNode) {
     let profile = "default";
     let messages = [];
     if (isShort) {
@@ -181,13 +178,20 @@ function createApiRequest(userPromptRequest, priorConverstation, isNew, isShort,
             messages = TreeModeProfile.getBranchProfile(isNew, priorConverstation, contextData, userPromptRequest.dynamicPrompt); // Load the array from the default file
         }
     }else{
+        //load filepaths from userPromptRequest.filePath
+        let fileContent = await userPromptRequest.fileContent();
+        terminal.debug(terminal.colors.green, "fileContent", terminal.colors.reset, fileContent);
+
+        if(fileContent.length > 0){
+            PromptProfile.addFile(fileContent);
+        }
         messages = PromptProfile.getDefaultProfile(isNew, priorConverstation, contextData, userPromptRequest.dynamicPrompt); // Load the array from the default file
     }
     
     terminal.debug(terminal.colors.green, "Prompt Sent to Grok", terminal.colors.reset, JSON.stringify(messages, null, 4));
   
-
- //grok-2-latest
+    //grok-2-latest
+    console.log("------------------------------messages", chosenModel == openai ? "gpt-4.5-preview" : "grok-2-latest");
     return {
         model: chosenModel == openai ? "gpt-4.5-preview" : "grok-2-latest",
         messages: messages, // Use the loaded variable here
@@ -421,11 +425,16 @@ async function main() {
          terminal.debug(terminal.colors.green, "User Prompt Request", terminal.colors.reset, userPromptRequest.toString());
 
     //TODO Load the previous propmt - there is probably a clever way to use previous id and load as much history as requested... add parent to context.history
-    const priorConverstation = await getConversationContext(userPromptRequest.setContext, userPromptRequest.isNew); // Ensure context is fetched based on setContext
+    const priorConverstation = await getConversationContext(userPromptRequest.context, userPromptRequest.isNew); // Ensure context is fetched based on context
     const contextData = await fs.readFile("./grok/context/context.data", "utf8");
-  
+
+
+
     //Context is loaded for the api request
-    let apiRequest = createApiRequest(userPromptRequest, priorConverstation, userPromptRequest.isNew, userPromptRequest.isShort, contextData, userPromptRequest.setContext, userPromptRequest.filePath, userPromptRequest.specialty, processingRootNode);
+    let apiRequest = await createApiRequest(userPromptRequest, priorConverstation, userPromptRequest.isNew, userPromptRequest.isShort, contextData, userPromptRequest.context, userPromptRequest.filePath, userPromptRequest.specialty, processingRootNode);
+    console.log("-----------------------------apiRequest", apiRequest);
+
+
     const completion = await chosenModel.chat.completions.create(apiRequest);
 
     //TODO rmove this logic into userPromptRequest as a process completion method
@@ -489,7 +498,7 @@ async function main() {
     }
 
     let terminalState = userPromptRequest.browserMode?"":"terminalMode";
-    await fs.writeFile("./shell_helpers/.grokRuntime", `depthState=${userPromptRequest.depth}\nnewState=""\nsetContextState=${userPromptRequest.dynamicResponseId}\nterminalMode=${terminalState}`);
+    await fs.writeFile("./shell_helpers/.grokRuntime", `depthState=${userPromptRequest.depth}\nnewState=""\ncontextState=${userPromptRequest.dynamicResponseId}\nterminalMode=${terminalState}`);
     
     //This is the first loop of treeMode
     if(processingRootNode){

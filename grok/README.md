@@ -7,6 +7,13 @@
 
 ## future features
 
+  - create unit tests to cover all the different states of the cmd arguments
+
+  - refactor prompt profiles to inherit from a base class
+
+  - expand file mode to recieve a directory and process all files in the directory  
+      * allow file filtering for code only
+
   - refine tree mode for more specific branch prompts and avoid overgeneralizing the subject, keep it on topic in relation to the parent.
 
   - Latex should be parsed after markdown

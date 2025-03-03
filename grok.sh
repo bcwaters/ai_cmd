@@ -127,7 +127,7 @@ while true; do
 
         # Declare variables for commands
         pasteText=""
-        setContext="setContext"
+        context="context"
         new="new"
         depth="depth"
         file=""
@@ -164,11 +164,12 @@ while true; do
     #GOTO here
     #branch feature added next    
     # Prompt the user for input
-    echo -en "$color_yellow\n-----------------------AI_CMD--------------------------$color_background_reset"
-    echo -en "\n$color_background_reset    current settings: $color_bluelight[$displayContext] \e[32m[ $displayNew] \e[33m[ $displayDepth] \e[35m[ $displayFile] \e[36m[ $displaySpecialty] $color_blue[$displayTreeMode]$color_background_reset$color_yellow    $color_background_reset"
+    echo -e "\n$color_yellow\n-----------------------AI_CMD--------------------------$color_background_reset"
+    echo -e "$color_yellow Current Context ID:${color_blue} $displayContext \e[0m"
+    echo -en "\n${color_background_reset}Current Settings:\e[32m[ $displayNew] \e[33m[ $displayDepth] \e[35m[ $displayFile] \e[36m[ $displaySpecialty] $color_blue[$displayTreeMode]$color_background_reset$color_yellow    $color_background_reset"
     draw_border
   
-    echo -en "$color_background_reset$color_blue \n type $color_blue setContext\e[0m to set the ai_cmd's memory to a previous conversation" 
+    echo -en "$color_background_reset$color_blue \n type $color_blue context\e[0m to set the ai_cmd's memory to a previous conversation" 
     echo -en "$color_green \n type $color_green new\e[0m to start a new conversation"
     echo -en "$color_yellow \n type $color_yellow depth\e[0m to set the context depth for better memory"
     echo -en "$color_cyan \n type $color_cyan role\e[0m select which role the ai assumes"
@@ -194,7 +195,7 @@ while true; do
     fi
     if [ "$prompt" == "save" ]; then
         read -p "Enter the name of the readme: " readmeName
-        cp ./grok/context/html/markdown/${setContextState}.md ./user_saved_readmes/${readmeName}-${setContextState}.md
+        cp ./grok/context/html/markdown/${contextState}.md ./user_saved_readmes/${readmeName}-${contextState}.md
         continue
     fi
     if [ "$prompt" == "open" ]; then
@@ -248,13 +249,13 @@ while true; do
     fi
 
     # Check if the user wants to set the context
-    if [ "$prompt" == "setContext" ]; then
+    if [ "$prompt" == "context" ]; then
         echo -e "$color_green_light Setting context...\e[0m"
         read -p "Enter the context: " context
   
         #GOTO begining of loop
         context=$context
-        flags="$flags --setContext $context"
+        flags="$flags --context $context"
         displayContext="$context"
         continue
 

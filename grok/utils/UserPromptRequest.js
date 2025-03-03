@@ -1,10 +1,12 @@
+import fs from "fs/promises";
+
 //Represents the prompt recieved from the user, with dynamic variables for tree mode
 class UserPromptRequest {
-    constructor(userPrompt, isShort, isNew, setContext, depth, filePath, specialty, treeMode, browserMode) {
-        this.userPrompt = userPrompt;
+    constructor(userPrompt, isShort, isNew, context, depth, filePath, specialty, treeMode, browserMode) {
+        this.userPrompt = userPrompt?userPrompt:"";
         this.isShort = isShort;
         this.isNew = isNew;
-        this.setContext = setContext;
+        this.context = context?context:"";
         this.depth = depth;
         this.filePath = filePath;
         this.specialty = specialty;
@@ -66,6 +68,16 @@ class UserPromptRequest {
 
     set branchIndex(value) {
         this._branchIndex = value;
+    }
+
+
+    async fileContent() {
+            //load filepaths from userPromptRequest.filePath
+            if(this.filePath){
+                let fileContent = await fs.readFile(this.filePath, "utf8");
+                return fileContent;
+            }
+            return "";
     }
 
 

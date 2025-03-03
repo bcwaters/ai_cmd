@@ -1,6 +1,8 @@
 export class PromptProfile {
     static isLogging = false;
     static specialty = " ";  //user can set this to "write code" or "write a readme" or "write a blog post" etc.
+    static files = [];
+
 
     static setSpecialty(specialty) {
         if (specialty == "software") {
@@ -18,6 +20,34 @@ export class PromptProfile {
         if (this.isLogging) {
             console.log({ isNew, messagesString, contextData, userPrompt });
         }
+        let includedFiles = [];
+
+        if(this.files.length > 0){
+            console.log("-----------------------------this.files", this.files);
+            for( let file of this.files){
+                includedFiles.push(
+                    {
+                    type: "text",
+                    text: file
+                }
+                
+            );
+            }
+        }
+
+        let filePrompt = "";
+
+        console.log("-----------------------------includedFiles", includedFiles);
+        if(includedFiles.length > 0){
+            filePrompt = 
+            {
+                role: "system",
+                content: includedFiles
+            }
+        }
+
+
+
         this.profile = [
             {
                 role: "system",
@@ -32,11 +62,11 @@ export class PromptProfile {
                     },
                     {
                         type: "text",
-                        text: "There will be a separate response indicated by @EOF@ so response.split(@EOF@)[1] should return the other response`"
+                        text: "There will be a separate response indicated by @EOF@ so response.split(@EOF@)[1] should return the other response"
                     },
                     {
                         type: "text",
-                        text: "The seperate response will be 500 characters max and 400 character min. it will be a list of keywords which capture the key information provided. SEO style  READMEDOC@EOF@KEYWORDS}"
+                        text: "The seperate response will be 500 characters max and 400 character min. it will be a list of keywords which capture the key information provided. SEO style  READMEDOC@EOF@KEYWORDS"
                     },
                     {
                         type: "text",
@@ -44,6 +74,7 @@ export class PromptProfile {
                     }
                 ]
             },
+            
             {
                 role: "user",
                 content: [
@@ -72,7 +103,17 @@ export class PromptProfile {
                 ],
             },
         ];
+
+        console.log("-----------------------------this profile", filePrompt);
+        if(filePrompt!=""){
+            this.profile.push(filePrompt);
+        }
         return this.profile;
+    }
+
+    static addFile(fileContent){
+        console.log("-----------------------------addFile", fileContent);
+        this.files.push(fileContent);
     }
 }
 
