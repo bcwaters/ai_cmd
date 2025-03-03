@@ -153,7 +153,7 @@ async function getConversationContext(context, isNew) {
             return messageContent || "Error returning context for " + context;
         }
     } catch (error) {
-        console.error("Error reading or processing the context file:", error);
+        terminal.error("Error reading or processing the context file:", error);
         return "";
     }
 }
@@ -191,7 +191,7 @@ async function createApiRequest(userPromptRequest, priorConverstation, isNew, is
     terminal.debug(terminal.colors.green, "Prompt Sent to Grok", terminal.colors.reset, JSON.stringify(messages, null, 4));
   
     //grok-2-latest
-    console.log("------------------------------messages", chosenModel == openai ? "gpt-4.5-preview" : "grok-2-latest");
+    //terminal.debug(terminal.colors.green, "Prompt Sent to Grok", terminal.colors.reset, JSON.stringify(messages, null, 4));
     return {
         model: chosenModel == openai ? "gpt-4.5-preview" : "grok-2-latest",
         messages: messages, // Use the loaded variable here
@@ -256,9 +256,9 @@ async function  saveHtmlResponse(userPromptRequest, markdownContent, priorContex
         //TODO ponder the trade offs of using HTML here instead of the markdown.
         TreeModeProfile.addChildReadme(sanitizedMarkdownContent);
     
-        console.log(terminal.colors.red,terminal.logDivider, terminal.colors.reset);
-        console.log("childDirectory being written to", userPromptRequest.childDirectory);
-        console.log(terminal.colors.red,terminal.logDivider, terminal. colors.reset );
+        terminal.log(terminal.colors.red,terminal.logDivider, terminal.colors.reset);
+        terminal.log("childDirectory being written to", userPromptRequest.childDirectory);
+        terminal.log(terminal.colors.red,terminal.logDivider, terminal. colors.reset );
         await fs.writeFile(
             `./grok/context/history/responses/${userPromptRequest.rootResponseId}/tree/${userPromptRequest.childDirectory}/${userPromptRequest.dynamicResponseId}.html`,
             childHtml,
@@ -267,9 +267,9 @@ async function  saveHtmlResponse(userPromptRequest, markdownContent, priorContex
     }else{
         //IF this is treemode but no child is written log that the parent summary page was written
         if(userPromptRequest.treeMode){
-            console.log(terminal.colors.red,terminal.logDivider, terminal.colors.reset);
-            console.log("this is a parent write:", userPromptRequest.rootResponseId);
-            console.log(terminal.colors.red,terminal.logDivider, terminal.colors.reset );
+            terminal.log(terminal.colors.red,terminal.logDivider, terminal.colors.reset);
+            terminal.log("this is a parent write:", userPromptRequest.rootResponseId);
+            terminal.log(terminal.colors.red,terminal.logDivider, terminal.colors.reset );
         }
     }//if child directory and not a parent do nothing
        
@@ -382,9 +382,13 @@ async function savePreviousId(responseId, userPrompt, contextHistoryLength){
     terminal.log(terminal.colors.green, "\nSwitch context to id to resume conversation", terminal.colors.reset);
     terminal.log(terminal.logDivider);
     
-    const EntriesToLog = parsedPreviousIds.slice(contextHistoryLength);
+    let EntriesToLog = parsedPreviousIds.slice(contextHistoryLength);
+    EntriesToLog.reverse();
+    EntriesToLog = EntriesToLog.slice(0, 5);
+    EntriesToLog.reverse();
+ 
     for(let i = 0; i < EntriesToLog.length && i < 5; i++){
-        terminal.log(terminal.colors.green, "contextId:", terminal.colors.reset, EntriesToLog[EntriesToLog.length - i - 1].id,  terminal.colors.yellow, "\n Prompt:\n",terminal.colors.reset, EntriesToLog[EntriesToLog.length - i - 1].prompt);
+        terminal.log(terminal.colors.green, "contextId:", terminal.colors.reset, EntriesToLog[i].id,  terminal.colors.yellow, "\n Prompt:\n",terminal.colors.reset, EntriesToLog[i].prompt);
         terminal.log(terminal.colors.yellow, "             - - - - - - - - - - - - - - - - - - - - -           ", terminal.colors.reset);
     }
     terminal.log(terminal.colors.yellow, terminal.getDividerWithMessage("PRIOR-PROMPTS"));
@@ -432,7 +436,6 @@ async function main() {
 
     //Context is loaded for the api request
     let apiRequest = await createApiRequest(userPromptRequest, priorConverstation, userPromptRequest.isNew, userPromptRequest.isShort, contextData, userPromptRequest.context, userPromptRequest.filePath, userPromptRequest.specialty, processingRootNode);
-    console.log("-----------------------------apiRequest", apiRequest);
 
 
     const completion = await chosenModel.chat.completions.create(apiRequest);

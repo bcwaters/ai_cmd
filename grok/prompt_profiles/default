@@ -36,9 +36,7 @@ export class PromptProfile {
         }
 
         let filePrompt = "";
-
-        console.log("-----------------------------includedFiles", includedFiles);
-        if(includedFiles.length > 0){
+      if(includedFiles.length > 0){
             filePrompt = 
             {
                 role: "system",
@@ -103,17 +101,14 @@ export class PromptProfile {
                 ],
             },
         ];
-
-        console.log("-----------------------------this profile", filePrompt);
-        if(filePrompt!=""){
+       if(filePrompt!=""){
             this.profile.push(filePrompt);
         }
         return this.profile;
     }
 
     static addFile(fileContent){
-        console.log("-----------------------------addFile", fileContent);
-        this.files.push(fileContent);
+ this.files.push(fileContent);
     }
 }
 
