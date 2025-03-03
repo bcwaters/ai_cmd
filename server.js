@@ -48,7 +48,7 @@ app.get('/', (req, res) => {
             <textarea name="prompt" placeholder="Tell me about 3 applications of DAG for machine learning"></textarea>
             <button type="submit">Submit</button>
         </form>
-        <p> The response will take a minute or so.  I have it set to do a branch request which sends your request, branches out on each subject in the response, and then returns a consolidated html.<br></br>
+        <p> The response will take a minute or so, I'm using Grok 2.  I have it set to do a branch request which sends your request, branches out on each subject in the response, and then returns a consolidated html.<br></br>
         Try a prompt like: "What are the benefits of static html pages"<br></br>
         or "What are some data structures in JS"<br></br>
         or "tell me about applied linear algebra in machine learning"<br></br>
@@ -63,15 +63,16 @@ app.get('/', (req, res) => {
 
 app.get('/prompt', (req, res) => {
     // Parse query parameters
-    const { prompt } = req.query;
+    const { prompt, treeMode } = req.query;
 
     if (!prompt) {
         return res.status(400).send('No prompt parameter provided: add ?prompt=PromptString');
     }
 
     try {
+
         // Execute the JavaScript code
-        const result = execSync(`node ./grok/grok.js --treeMode --new "${prompt}"`, { encoding: 'utf-8' });
+        const result = execSync(`node ./grok/grok.js  --new --treeMode terminalMode PROMPT "${prompt}"`, { encoding: 'utf-8' });
   
         // Define the path to the HTML file
         const outputPath = path.join(__dirname, "./grok/context/currentChat/currentChat.html");

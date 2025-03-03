@@ -1,4 +1,3 @@
-
 const fluffWords = [ "this", "an", "the", "and", "but", "or", "for", "nor", "on", "at", "to", "from", "by", "with", "of"];
 //rename function.
 export function cleanString(string) {
@@ -47,13 +46,13 @@ export function sleep(ms) {
 export function removeWhiteSpaceAndEnsureAlphabet(string){
     let regexWhitespace = /^\s+/;
     let regexAlphabetStart = /^[a-zA-Z0-9]/;
-    let regexNotAlphabetAll = /[^a-zA-Z0-9]/;
-    string =  string.replace(regexWhitespace, '')
+    let regexNotAlphabetAll = /[^a-zA-Z0-9\s]/;
+    string = string.replace(regexWhitespace, '')
     string = string.replaceAll("\\n", " ");
     string = string.replaceAll("\"", "");
     string = string.replaceAll("'", "");
     string = string.trim();
-    string = string.replace(regexNotAlphabetAll, ""); //remove all non alphabet
+    string = string.replace(regexNotAlphabetAll, "");
 
     while(!regexAlphabetStart.test(string)){
         console.log("string being cleaned", string);
