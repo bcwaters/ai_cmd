@@ -12,8 +12,8 @@ import { JSDOM } from 'jsdom';             //use jsdom to create a DOM object
 import createDOMPurify from 'dompurify';   //use dompurify to sanitize the html
 
 //Local packages
-import {PromptProfile} from './prompt_profiles/default';
-import {TreeModeProfile} from './prompt_profiles/TreeMode';
+import {PromptProfile} from './prompt_profiles/default.js';
+import {TreeModeProfile} from './prompt_profiles/TreeMode.js';
 import UserPromptRequest from './utils/UserPromptRequest.js';
 import terminal from './utils/terminal.js'; 
 import {cleanString, sleep, removeWhiteSpaceAndEnsureAlphabet } from './utils/utils.js';
@@ -49,7 +49,7 @@ const tagLength = 16; //8 for grok
 //End Configuration before main -------------------------------
 
 // Parse command line arguments and return prompt and flags
-function parseCommandLineArgs() {
+export function parseCommandLineArgs() {
    
     terminal.debugLogger = true;
     const args = process.argv.slice(2);
@@ -121,7 +121,7 @@ function parseCommandLineArgs() {
 }
 
 // Read and parse the context file
-async function getConversationContext(context, isNew) {
+export async function getConversationContext(context, isNew) {
 
     //isNew? return "string for a new context": do other stuff
     try {
@@ -134,9 +134,9 @@ async function getConversationContext(context, isNew) {
             const messages = parsedContext.choices[0]
             //console.log(colors.green, "parsedContext", messages.message.content, colors.reset);
             let messageContent = messages.message.content;
-        
+ 
             messageContent = cleanString(messageContent);
-   
+
             return messageContent || "Error returning context";
         } else {
       
@@ -159,7 +159,7 @@ async function getConversationContext(context, isNew) {
 }
 
 // Create the request object for the API
-async function createApiRequest(userPromptRequest, priorConverstation, isNew, isShort, contextData, context, filePath, specialty, processingRootNode) {
+export async function createApiRequest(userPromptRequest, priorConverstation, isNew, isShort, contextData, context, filePath, specialty, processingRootNode) {
     let profile = "default";
     let messages = [];
     if (isShort) {
@@ -198,7 +198,7 @@ async function createApiRequest(userPromptRequest, priorConverstation, isNew, is
     };
 }
 
-async function parseCompletionForResponseAndMetaResponse(completion){
+export async function parseCompletionForResponseAndMetaResponse(completion){
 
     let metaResponse = "";
     let markdownContent = "";
@@ -225,7 +225,7 @@ async function parseCompletionForResponseAndMetaResponse(completion){
        return {metaResponse, markdownContent};
 }
 
-function htmlReplaceTemplateValues(html_string, sanitizedMarkdownContent, priorContextId, responseId){
+export function htmlReplaceTemplateValues(html_string, sanitizedMarkdownContent, priorContextId, responseId){
     //TODO ParentID technically is null here, there needs to be inheritance form a prompt class for a default value
     html_string = html_string.replaceAll("@PARENT_ID@", TreeModeProfile.ParentId) //NICE THIS IS STATIC AND AVAIALBLE!
     .replaceAll("REPLACEME", sanitizedMarkdownContent)
@@ -238,7 +238,7 @@ function htmlReplaceTemplateValues(html_string, sanitizedMarkdownContent, priorC
 }
 
 //TODO i should open up threads for CHILD WRITES
-async function  saveHtmlResponse(userPromptRequest, markdownContent, priorContextId) {
+export async function  saveHtmlResponse(userPromptRequest, markdownContent, priorContextId) {
 
     // Save HTML response for parent of treaMode of default prompt
     let indexHtml = await fs.readFile('./grok/html_templates/template.html', "utf8");
@@ -293,7 +293,7 @@ async function  saveHtmlResponse(userPromptRequest, markdownContent, priorContex
 
 }
 
-async function saveMarkdownResponse(userPromptRequest, markdownContent) {
+export async function saveMarkdownResponse(userPromptRequest, markdownContent) {
     terminal.debug(terminal.logDivider);
     terminal.debug(terminal.colors.green, "markdownContent\n",terminal.colors.reset, markdownContent);
     terminal.debug(terminal.logDivider);
@@ -313,7 +313,7 @@ async function saveMarkdownResponse(userPromptRequest, markdownContent) {
     
 }
 
-function preprocessResponse(response) {   
+export function preprocessResponse(response) {   
     // Use marked to parse the response if available
     if (marked) {
         response = marked.parse(response);
@@ -331,7 +331,7 @@ function preprocessResponse(response) {
 }
 
 
-async function appendToContext(newContent, MAX_CONTEXT_LENGTH) {
+export async function appendToContext(newContent, MAX_CONTEXT_LENGTH) {
     if (typeof newContent !== 'string') {
         terminal.error("AI_CMD answered but forgot to include include the proper format! PROMPT AGAIN it should work", newContent);
         return; // Exit the function if newContent is invalid
@@ -372,7 +372,7 @@ async function appendToContext(newContent, MAX_CONTEXT_LENGTH) {
 }
 
 //This can be done with grokruntime for efficiency and be labeled log previos ids.  Might be the place to reduce list size from time to time.
-async function savePreviousId(responseId, userPrompt, contextHistoryLength){
+export async function savePreviousId(responseId, userPrompt, contextHistoryLength){
     let previousIds = await fs.readFile("./grok/context/context.history", "utf8");
     let parsedPreviousIds = JSON.parse(previousIds);
     let mostRecentHistoryId = parsedPreviousIds[parsedPreviousIds.length - 1];
@@ -396,14 +396,14 @@ async function savePreviousId(responseId, userPrompt, contextHistoryLength){
 }
 
 //A recursive approach should remedy this so parent is written last.
-async function saveCompletion(completion, responseId){
+export async function saveCompletion(completion, responseId){
     //overwrites the old file
     await fs.writeFile(`./grok/context/currentChat/currentChat.json`, JSON.stringify(completion));
     await fs.writeFile(`./grok/context/history/fullCompletion/${responseId}.json`, JSON.stringify(completion));
 
 }
 // Main function
-async function main() {
+export async function main() {
     //RAG_PROFILE_STATE class needs to be made before this bloats beyond repair
     const userPromptRequest = parseCommandLineArgs();
 
@@ -508,7 +508,7 @@ async function main() {
         processingRootNode = false;
         userPromptRequest.branchList = TreeModeProfile.parseSubject(metaResponse);
 
-        userPromptRequest.branchList = userPromptRequest.branchList.map(subject => removeWhiteSpaceAndEnsureAlphabet(subject));
+        //userPromptRequest.branchList = userPromptRequest.branchList.map(subject => removeWhiteSpaceAndEnsureAlphabet(subject));
         userPromptRequest.branchIndex = userPromptRequest.branchList.length;
         TreeModeProfile.setParentId(userPromptRequest.dynamicResponseId);
         TreeModeProfile.setParentReadme(markdownContent);

@@ -9,7 +9,10 @@
   },
   "scripts": {
     "start": "./grok.sh",
-    "ai_cmd": ".grok.sh"
+    "ai_cmd": ".grok.sh",
+    "test": "jest",
+    "test:unit": "jest tests/unit",
+    "test:integration": "jest tests/integration"
   },
   "author": "",
   "license": "ISC",
@@ -20,5 +23,11 @@
     "jsdom": "^26.0.0",
     "marked": "^15.0.7",
     "openai": "^4.83.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.9",
+    "@babel/preset-env": "^7.26.9",
+    "babel-jest": "^29.7.0",
+    "jest": "^29.7.0"
   }
 }

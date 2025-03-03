@@ -1,4 +1,6 @@
 //Inheritance needs to be implemented.  This class will inherit from the same class as the default profile.
+import {removeWhiteSpaceAndEnsureAlphabet} from '../utils/utils.js';
+
 export class TreeModeProfile {
     static isLogging = true;
     static specialty = " ";  //user can set this to "write code" or "write a readme" or "write a blog post" etc.
@@ -176,7 +178,8 @@ export class TreeModeProfile {
         // subject.split(" ### ").map(word => word.trim()); // get the index of the ## headings and store the entire line as a string in an array
         // Somehow we can improve our branch prompts at this point.    
         // get the index of the ## headings and store the entire line as a string in an array  
-        this.subjectList = JSON.stringify(subjectList).replace("[","").replace("]","").split(","); //make an array
+        this.subjectList = subjectList.replace("[","").replace("]","").split(","); //make an array
+        this.subjectList = this.subjectList.map(subject => removeWhiteSpaceAndEnsureAlphabet(subject));
         return this.subjectList;
 
     }
