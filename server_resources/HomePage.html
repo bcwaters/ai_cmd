@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Prompt Interface</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
    body {
     font-family: 'Courier New', monospace;
@@ -22,6 +23,8 @@
 h1, h2 {
     color: #FF00FF;
     text-shadow: 0 0 5px rgba(255, 0, 255, 0.7), 0 0 15px rgba(255, 0, 255, 0.5), 0 0 30px rgba(255, 0, 255, 0.3);
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    word-wrap: break-word;
 }
 
 textarea {
@@ -33,6 +36,7 @@ textarea {
     border: 1px solid #00FF00;
     color: #00FF00;
     box-shadow: 0 0 10px #00FF00;
+    box-sizing: border-box;
 }
 
 button {
@@ -43,6 +47,9 @@ button {
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 0 10px #FF00FF;
+    width: 100%;
+    margin-top: 10px;
+    font-size: 1rem;
 }
 
 button:hover {
@@ -52,12 +59,16 @@ button:hover {
 
 p {
     color: #00FFFF;
+    font-size: clamp(0.9rem, 3vw, 1rem);
+    word-wrap: break-word;
 }
 
 form {
     border: 1px solid #00FF00;
     padding: 20px;
     box-shadow: 0 0 10px #00FF00;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 ::placeholder {
@@ -75,13 +86,39 @@ form {
 .checkbox-container input[type="checkbox"] {
     margin-right: 10px;
     cursor: pointer;
+    transform: scale(1.2);
 }
 
 .checkbox-container label {
     color: #00FFFF;
     cursor: pointer;
+    font-size: clamp(0.9rem, 3vw, 1rem);
 }
 
+/* Mobile responsive styles */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+    
+    form {
+        padding: 15px;
+    }
+    
+    textarea {
+        height: 120px;
+    }
+    
+    button {
+        padding: 12px 16px;
+        font-size: 1.1rem;
+    }
+    
+    .checkbox-container input[type="checkbox"] {
+        transform: scale(1.4);
+        margin-right: 15px;
+    }
+}
     </style>
     <script>
     // Add event listener for Enter key
