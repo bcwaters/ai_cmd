@@ -644,6 +644,7 @@ export async function main() {
     }
 
     }
+    return userPromptRequest.rootResponseId;
 }
 
 main().catch(terminal.error);
