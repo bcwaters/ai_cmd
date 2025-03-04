@@ -7,9 +7,12 @@ import {exec} from 'child_process'         //use exec to run commands like open 
 //NPM packages
 import OpenAI from "openai";               //use openai spec
 import dotenv from "dotenv"                //use dotenv to load environment variables
-import {marked} from 'marked';             //use marked to convert markdown to html
+import {Marked} from 'marked';             //use marked to convert markdown to html
 import { JSDOM } from 'jsdom';             //use jsdom to create a DOM object
 import createDOMPurify from 'dompurify';   //use dompurify to sanitize the html
+import { markedHighlight } from 'marked-highlight';
+import hljs from 'highlight.js';
+
 
 //Local packages
 import {PromptProfile} from './prompt_profiles/default.js';
@@ -26,6 +29,17 @@ dotenv.config();
 // Initialize DOMPurify with JSDOM
 const window = new JSDOM('').window;
 const DOMPurify = createDOMPurify(window);
+
+const marked = new Marked(
+    markedHighlight({
+      emptyLangClass: 'hljs',
+      langPrefix: 'hljs language-',
+      highlight(code, lang, info) {
+        const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+        return hljs.highlight(code, { language }).value;
+      }
+    })
+  );
 
 //apiKey: process.env.XAI_API_KEY,
 //baseURL: "https://api.x.ai/v1",
@@ -225,10 +239,11 @@ export async function parseCompletionForResponseAndMetaResponse(completion){
        return {metaResponse, markdownContent};
 }
 
-export function htmlReplaceTemplateValues(html_string, sanitizedMarkdownContent, priorContextId, responseId){
+export function htmlReplaceTemplateValues(cssForMarkdown, html_string, sanitizedMarkdownContent, priorContextId, responseId){
     //TODO ParentID technically is null here, there needs to be inheritance form a prompt class for a default value
     html_string = html_string.replaceAll("@PARENT_ID@", TreeModeProfile.ParentId) //NICE THIS IS STATIC AND AVAIALBLE!
     .replaceAll("REPLACEME", sanitizedMarkdownContent)
+    .replaceAll("@CSS_GOES_HERE@", cssForMarkdown)
     .replaceAll("@PREVIOUS_ID@", priorContextId.substring(0, tagLength)) //TODO is this substring redundant?
     .replaceAll("@DIRECTORY@", "") // absolute path to the directory not compatible with firefox
     .replaceAll("@CURRENT_ID@", responseId);
@@ -242,10 +257,13 @@ export async function  saveHtmlResponse(userPromptRequest, markdownContent, prio
 
     // Save HTML response for parent of treaMode of default prompt
     let indexHtml = await fs.readFile('./grok/html_templates/template.html', "utf8");
+
+    let cssForMarkdown = await fs.readFile('./grok/html_templates/highlightStyle.css', "utf8");
+
     markdownContent =  markdownContent + "\n\nResponseID:" + userPromptRequest.dynamicResponseId ;
     let sanitizedMarkdownContent = preprocessResponse(markdownContent);
 
-    indexHtml = htmlReplaceTemplateValues(indexHtml, sanitizedMarkdownContent, priorContextId, userPromptRequest.dynamicResponseId);
+    indexHtml = htmlReplaceTemplateValues(cssForMarkdown, indexHtml, sanitizedMarkdownContent, priorContextId, userPromptRequest.dynamicResponseId);
 
 
     //If it is treeMode then the children are created here.

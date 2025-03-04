@@ -20,8 +20,10 @@
     "dompurify": "^3.2.4",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "highlight.js": "^11.11.1",
     "jsdom": "^26.0.0",
     "marked": "^15.0.7",
+    "marked-highlight": "^2.2.1",
     "openai": "^4.83.0"
   },
   "devDependencies": {

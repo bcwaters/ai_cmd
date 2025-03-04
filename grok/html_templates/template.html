@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 <head>
+  <style>@CSS_GOES_HERE@</style>
   <meta charset="utf-8"/>
   <title>Grok Response</title>
 </head>
@@ -12,36 +13,12 @@
     <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
   </nav>
 
-  <div id="content">REPLACEME</div>
+  <div id="content" class="markdown-body">REPLACEME</div>
 
 
   <script>
     function selectSavedChat() {
       console.log("selectSavedChat");
-    }
-  </script>
-
-  <script>
-    function saveMarkdown() {
-      const content = document.documentElement.outerHTML; // Get the entire HTML content
-
-      let markdownLocation = "./";
-      let markdownFileName = "@CURRENT_ID@.md";
-      let markdownFile = markdownLocation + markdownFileName;
-      
-
-      const url = URL.createObjectURL(blob); // Create a URL for the Blob
-      const divInnerText = document.getElementById('content').innerText;
-      let filename = divInnerText.substring(0, 25);
-      const a = document.createElement('a'); // Create an anchor element
-          a.href = url; // Set the href to the Blob URL
-          
-          a.download =  filename + '.md'; // Set the download attribute with a filename
-          document.body.appendChild(a); // Append the anchor to the body
-          a.click(); // Programmatically click the anchor to trigger the download
-          document.body.removeChild(a); // Remove the anchor from the document
-          URL.revokeObjectURL(url); // Release the Blob URL
-      
     }
   </script>
 
