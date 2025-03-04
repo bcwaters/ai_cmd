@@ -13,7 +13,7 @@ color_orange="\033[38;5;208m"  # Using 256-color mode for orange
 color_black="\033[30m"
 
 # Light variants (using high-intensity ANSI codes)
-color_green_light="\033[92m"# Standard colors
+color_green_light="\033[92m" # Standard colors
 color_green="\033[32m"
 color_red="\033[31m"
 color_yellow="\033[33m"

@@ -7,8 +7,8 @@
 <body>
   <nav>
     <button id="saveButton" onclick="saveButton()">Save html</button>
-    <a id="markdown" href="./@CURRENT_ID@.md"> markdown</a>
-    <a id="previous" href="../@PREVIOUS_ID@/html/@PREVIOUS_ID@.html?responseId=@CURRENT_ID@">Previous</a>
+    <a id="markdown" href="../history/responses/@CURRENT_ID@/markdown/@CURRENT_ID@.md"> markdown</a>
+    <a id="previous" href="../history/responses/@PREVIOUS_ID@/html/@PREVIOUS_ID@.html?responseId=@CURRENT_ID@">Previous</a>
     <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
   </nav>
 
@@ -25,7 +25,7 @@
     function saveMarkdown() {
       const content = document.documentElement.outerHTML; // Get the entire HTML content
 
-      let markdownLocation = "./markdown/";
+      let markdownLocation = "./";
       let markdownFileName = "@CURRENT_ID@.md";
       let markdownFile = markdownLocation + markdownFileName;
       
@@ -121,11 +121,3 @@
 
 
    
-    <!-- <textarea id="userPrompt"></textarea>
-
-    <script>
-        function nextButton() {
-            const userPrompt = document.getElementById('userPrompt').value;
-            console.log(userPrompt);
-        }
-    </script> -->

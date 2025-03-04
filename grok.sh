@@ -8,19 +8,18 @@ cd "$SCRIPT_DIR"
 current_dir=$(pwd)
 
 
+OS=$(uname -s)
 
 startup=true;
     echo -ne "\033]0;AI_CMD\007"
 if [ "$OS" = "Linux" ]; then
     
-    source ./linux_colors.sh
+    source ./shell_helpers/.colors_linux
 elif [ true = true ]; then
     # ASSUME APPLE
-    source ./mac_colors.sh
+    source ./shell_helpers/.mac_colors
 fi
 
-
-source ./shell_helpers/.colors_linux
 # Define the width of the box
 width=25
 
@@ -47,7 +46,7 @@ echo -e  "${color_background_grok}${color_yellow_dark}|  | |  _  '__|/ _ \ | |/ 
 echo -e  "${color_background_grok}${color_yellow_dark}|  | |_| | |  | |_| || |\ \\ | |_| | |_| || |__         |${color_reset}"
 echo -e  "${color_background_grok}${color_yellow_dark}|   \____|_|   \___/ |_| \_\\|____/ \___/  \___|        |${color_reset}"
 echo -e  "${color_background_grok}${color_yellow_dark}└──────────────────────────────────────────────────────┘${color_reset}"
-echo -e  "${color_yellow}   This is GrokDOC. Request a readme on any subject.${color_reset}"
+echo -en  "${color_yellow}   This is GrokDOC. Request a readme on any subject.${color_reset}"
 # Function to display a spinner
 spin() {
     local pid=$1
@@ -88,6 +87,26 @@ spin() {
         done
         echo -ne "\r"  # Clear the spinner
     fi
+}
+
+display_menu() {
+
+    echo -en "$color_background_reset${color_reset} \n ${color_blue}context\e[0m to set the ai_cmd's memory to a previous conversation" 
+    echo -en "$color_reset \n ${color_green}new\e[0m to start a new conversation"
+    echo -en "$color_reset \n ${color_yellow}depth\e[0m to set the context depth for better memory"
+    echo -en "$color_reset \n ${color_cyan}role\e[0m select which role the ai assumes"
+    echo -en "$color_reset \n ${color_blue}treeMode\e[0m to generate a set of organized documents from the prompt"
+    echo -en "$color_reset \n ${color_magenta}file\e[0m to load a file"
+    echo -en "$color_reset \n ${color_green}paste\e[0m$color_background_reset to paste from clipboard"
+    echo -en "$color_reset \n ${color_blue}${color_background_dark_grey}save\e[0m$color_background_reset to save the current context to local folder"
+    echo -en "$color_reset \n ${color_blue}${color_background_dark_grey}open\e[0m$color_background_reset to open the saved the saved readmes in file explorer"
+    echo -en "$color_reset \n ${color_yellow}${color_background_dark_grey}review\e[0m$color_background_reset to review edit the edit the response in vim"
+    echo -en "$color_reset \n ${color_red}exit\e[0m$color_background_reset to quit or press ctrl+c"
+    draw_border
+
+
+
+
 }
 
 # Function to display a spinner with user input
@@ -140,52 +159,30 @@ while true; do
         treeMode=false
         source ./shell_helpers/.grokRuntime
         firstRun=false
-        displayTreeMode=" "
+        displayTreeMode=""
         displayContext=$contextState
         displayNew=$newState
         displayDepth=$depthState
         displayFile=$fileState
         displaySpecialty=$specialtyState
-    
-
-  
-            #echo -en "${color_background_black}${color_yellow}---------------------------------------------------$background_color_reset\n" 
-
-            # Call the function instead of the inline code
-            #display_spinner_with_input "-------------------------"
-        
-     
-
-       # echo -e "Loaded State: \e[34m[ $contextState]\e[0m \e[32m[ $newState]\e[0m \e[33m[ $depthState]\e[0m \e[35m[ $fileState]\e[0m \e[36m[ $specialtyState]\e[0m"
     fi
-                   # echo -e "$color_background_black"
-                    #echo -e "$color_background_black"
 
-    #GOTO here
-    #branch feature added next    
-    # Prompt the user for input
     echo -e "\n$color_yellow\n-----------------------AI_CMD--------------------------$color_background_reset"
     echo -e "$color_yellow Current Context ID:${color_blue} $displayContext \e[0m"
-    echo -en "\n${color_background_reset}Current Settings:\e[32m[ $displayNew] \e[33m[ $displayDepth] \e[35m[ $displayFile] \e[36m[ $displaySpecialty] $color_blue[$displayTreeMode]$color_background_reset$color_yellow    $color_background_reset"
+    echo -en "\n${color_background_reset} ${color_dark_grey}Current Settings:${color_reset} \e[32m[$displayNew] \e[33m[$displayDepth] \e[35m[$displayFile] \e[36m[$displaySpecialty] $color_blue[$displayTreeMode]$color_background_reset$color_yellow $color_background_reset"
+    draw_border
+    echo -en "\n${color_reset}  * Type ${color_green}menu$color_reset to see the options for the settings * $color_background_reset${color_yellow}$color_background_reset"
     draw_border
   
-    echo -en "$color_background_reset$color_blue \n type $color_blue context\e[0m to set the ai_cmd's memory to a previous conversation" 
-    echo -en "$color_green \n type $color_green new\e[0m to start a new conversation"
-    echo -en "$color_yellow \n type $color_yellow depth\e[0m to set the context depth for better memory"
-    echo -en "$color_cyan \n type $color_cyan role\e[0m select which role the ai assumes"
-    echo -en "$color_blue \n type $color_blue treeMode\e[0m to generate a set of organized documents from the prompt"
-    echo -en "$color_magenta \n type $color_magenta file\e[0m to load a file"
-    echo -en "$color_green \n type $color_green ${color_background_dark_grey}paste\e[0m$color_background_reset to paste from clipboard"
-    echo -en "$color_blue \n type $color_cyan ${color_background_dark_grey}save\e[0m$color_background_reset to save the current context to local folder"
-    echo -en "$color_blue \n type $color_cyan ${color_background_dark_grey}open\e[0m$color_background_reset to open the saved the saved readmes in file explorer"
-    echo -en "$color_yellow \n type $color_yellow ${color_background_dark_grey}review\e[0m$color_background_reset to review edit the edit the response in vim"
-    echo -en "$color_red \n type $color_red exit\e[0m$color_background_reset to quit or press ctrl+c"
-    draw_border
 
     echo -e "${color_background_black}${color_yellow}\nenter your prompt:                                     ${color_background_reset}${color_reset}" 
     read -p "" prompt
 
-
+    
+    if [ "$prompt" == "menu" ]; then
+        display_menu
+        continue
+    fi
     # Check if the user wants to exit
 
 
