@@ -107,6 +107,7 @@ form {
     
     textarea {
         height: 120px;
+        font-size: 16px;
     }
     
     button {
@@ -121,9 +122,13 @@ form {
 }
     </style>
     <script>
-    // Add event listener for Enter key
+    // Add event listener for Enter key and focus textarea on load
     document.addEventListener('DOMContentLoaded', function() {
         const textarea = document.querySelector('textarea[name="prompt"]');
+        
+        // Focus the textarea when the page loads
+        textarea.focus();
+        
         textarea.addEventListener('keydown', function(event) {
             // Check if Enter key is pressed without Shift (to allow line breaks with Shift+Enter)
             if (event.key === 'Enter' && !event.shiftKey) {
