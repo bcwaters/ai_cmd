@@ -23,7 +23,6 @@ export class PromptProfile {
         let includedFiles = [];
 
         if(this.files.length > 0){
-            console.log("-----------------------------this.files", this.files);
             for( let file of this.files){
                 includedFiles.push(
                     {

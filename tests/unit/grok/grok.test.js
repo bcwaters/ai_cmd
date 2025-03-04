@@ -7,7 +7,11 @@ import { JSDOM } from 'jsdom';
 import createDOMPurify from 'dompurify';
 import { cleanString } from '../../../grok/utils/utils.js';
 
-// Mock all external dependencies
+// Import the real terminal module
+import terminal from '../../../grok/utils/terminal.js';
+import UserPromptRequest from '../../../grok/utils/UserPromptRequest.js';
+
+// Mock external dependencies but NOT terminal
 jest.mock('fs/promises');
 jest.mock('path');
 jest.mock('os');
@@ -19,8 +23,9 @@ jest.mock('jsdom');
 jest.mock('dompurify');
 jest.mock('../../../grok/prompt_profiles/default.js');
 jest.mock('../../../grok/prompt_profiles/TreeMode.js');
-jest.mock('../../../grok/utils/UserPromptRequest.js');
-jest.mock('../../../grok/utils/terminal.js');
+// Do NOT mock terminal or UserPromptRequest
+// jest.mock('../../../grok/utils/terminal.js');
+// jest.mock('../../../grok/utils/UserPromptRequest.js');
 
 // Import the functions to test after mocking dependencies
 import {
@@ -42,13 +47,19 @@ describe('grok.js', () => {
   beforeEach(() => {
     // Reset all mocks before each test
     jest.clearAllMocks();
+    
+    // Enable terminal logging for tests
+    terminal.debugLogger = true;
   });
 
   test('parseCommandLineArgs should parse command line arguments correctly', () => {
     // Mock process.argv
-    process.argv = ['node', 'grok.js', '--depth', '1000', 'test prompt'];
+    process.argv = ['node', 'grok.js', '--depth', '1000', 'PROMPT', 'test prompt'];
     
     const result = parseCommandLineArgs();
+    
+    // Log the result using the real terminal
+    terminal.log('Test result:', result);
     
     expect(result.userPrompt).toBe('test prompt');
     expect(result.depth).toBe('1000');

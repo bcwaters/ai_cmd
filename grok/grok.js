@@ -396,12 +396,12 @@ export async function savePreviousId(responseId, userPrompt, contextHistoryLengt
 }
 
 //A recursive approach should remedy this so parent is written last.
-export async function saveCompletion(completion, responseId){
-    //overwrites the old file
-    await fs.writeFile(`./grok/context/currentChat/currentChat.json`, JSON.stringify(completion));
-    await fs.writeFile(`./grok/context/history/fullCompletion/${responseId}.json`, JSON.stringify(completion));
-
+export async function saveCompletion(completion, id, baseDir = './grok/context') {
+    const completionDir = join(baseDir, 'history/fullCompletion/');
+    await fs.mkdir(completionDir, { recursive: true });
+    await fs.writeFile(join(completionDir, `${id}.json`), JSON.stringify(completion));
 }
+
 // Main function
 export async function main() {
     //RAG_PROFILE_STATE class needs to be made before this bloats beyond repair

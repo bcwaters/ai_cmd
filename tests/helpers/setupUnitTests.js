@@ -10,4 +10,8 @@ jest.mock('openai');
 jest.mock('dotenv');
 jest.mock('marked');
 jest.mock('jsdom');
-jest.mock('dompurify'); 
+jest.mock('dompurify');
+
+// Do NOT mock these modules
+// jest.unmock('../grok/utils/terminal.js');
+// jest.unmock('../grok/utils/UserPromptRequest.js'); 
