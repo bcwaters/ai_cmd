@@ -14,8 +14,15 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 app.get('/', (req, res) => {
+    // Get the context query parameter (if provided)
+    const context = req.query.context;
+    if (context) {
+        console.log("context", context);
+    }
     // Serve the HTML file from server_resources directory
     res.sendFile(path.join(__dirname, 'server_resources', 'HomePage.html'));
+    
+
 });
 
 app.get('/prompt',  (req, res) => {
@@ -34,9 +41,15 @@ app.get('/prompt',  (req, res) => {
         } else {
             additonalArgs = "";
         }
+        let context = req.query.context;
+        if (context) {
+            additonalArgs = additonalArgs + " --context " + context;
+        }else{
+            additonalArgs = additonalArgs + " --new";
+        }
 
         // Execute the JavaScript code
-        const result = execSync(`node ./grok/grok.js  --new  ${additonalArgs} PROMPT "${prompt}"`, { encoding: 'utf-8' });
+        const result = execSync(`node ./grok/grok.js  ${additonalArgs} PROMPT "${prompt}"`, { encoding: 'utf-8' });
 
         let history =  fs.readFileSync("./grok/context/context.history", 'utf8', (err, data) => {
             
@@ -50,7 +63,10 @@ app.get('/prompt',  (req, res) => {
        console.log("responseId created and being returned:", responseId);
   
         // Define the path to the HTML file
-        const outputPath = path.join(__dirname, "./grok/context/history/responses/"+responseId+"/html/"+responseId+".html");
+        let outputPath = path.join(__dirname, "./grok/context/history/responses/"+responseId+"/html/"+responseId+".html");
+        if (treeMode == "true") {
+            outputPath = path.join(__dirname, "./grok/context/history/responses/"+responseId+"/tree/index.html");
+        }
     
       
         // Send the HTML content to be displayed in the browser

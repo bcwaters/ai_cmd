@@ -136,6 +136,16 @@ form {
                 document.querySelector('button[type="submit"]').click();
             }
         });
+
+        // Check for context parameter in URL and add it to the form
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('context')) {
+            const contextInput = document.createElement('input');
+            contextInput.type = 'hidden';
+            contextInput.name = 'context';
+            contextInput.value = urlParams.get('context');
+            document.querySelector('form').appendChild(contextInput);
+        }
     });
     </script>
 </head>

@@ -3,17 +3,37 @@
 <head>
   <meta charset="utf-8"/>
   <title>Home Page</title>
+  <style>
+    @CSS_GOES_HERE@
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: left;
+      padding: 10px;
+    }
+    
+    .nav-right {
+      display: flex;
+      gap: 50px;
+      align-items: center;
+    }
+  </style>
 </head>
 <body>
   <nav>
-    <button id="saveButton" onclick="saveButton()">Save html</button>
-    <a id="parentContentLink" href='javascript:goHomePage()'>Home</a>
-    <select id="childSubjects">
-      <option value="home">Home</option>
-      <!-- Children are added here onload with setChildSubjects -->
-    </select>
-    <!-- Add a previous and next button for prior requests? -->
-    <!-- Add a button to save the current page as a markdown file -->
+    <a id="parentContentLink" href='/?context=@CURRENT_ID@'>Prompt again</a>
+
+      <select id="childSubjects">
+        <option value="home">Home</option>
+        <!-- Children are added here onload with setChildSubjects -->
+      </select>
+      <!-- Add a previous and next button for prior requests? -->
+      <!-- Add a button to save the current page as a markdown file -->
+
+      
+      <button id="saveButton" onclick="saveButton()">Save html</button>
+
+
   </nav>
 
   <div id="content">  

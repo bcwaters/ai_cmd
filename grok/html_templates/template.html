@@ -1,17 +1,35 @@
 <!doctype html>
 <html>
 <head>
-  <style>@CSS_GOES_HERE@</style>
+  <style>
+    @CSS_GOES_HERE@
+    
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: left;
+      padding: 10px;
+    }
+    
+    .nav-right {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+  </style>
   <meta charset="utf-8"/>
   <title>Grok Response</title>
 </head>
 <body>
   <nav>
-    <button id="saveButton" onclick="saveButton()">Save html</button>
-    <a id="home" href="/">home</a>
+ 
+    <a id="home" href="/?context=@CURRENT_ID@">Prompt again</a>
+    <div class="nav-right">
     <a id="markdown" href="../history/responses/@CURRENT_ID@/markdown/@CURRENT_ID@.md"> markdown</a>
     <a id="previous" href="../history/responses/@PREVIOUS_ID@/html/@PREVIOUS_ID@.html?responseId=@CURRENT_ID@">Previous</a>
     <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    </div>
   </nav>
 
   <div id="content" class="markdown-body">REPLACEME</div>

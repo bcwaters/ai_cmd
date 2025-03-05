@@ -595,6 +595,9 @@ export async function main() {
             let parentHtml = await fs.readFile("./grok/html_templates/parent_template.html", "utf8");
 
             //DO all the replacements
+            //this could be a function. css is loaded extra times this way
+            let css = await fs.readFile("./grok/html_templates/highlightStyle.css", "utf8");
+            parentHtml = parentHtml.replace("@CSS_GOES_HERE@", css);
             parentHtml = parentHtml.replace("REPLACEME", preprocessResponse(TreeModeProfile.ParentReadme));
             parentHtml = parentHtml.replace("@REPLACEWITHCHILDRENDIVS@", childDivs);
             parentHtml = parentHtml.replace("@CURRENT_ID@", TreeModeProfile.ParentId);
