@@ -5,7 +5,8 @@
   latent knowledge space  
   meta response
 
-## future features
+## future features  
+  - design web server to create directories for profiles.  Have  more intelligent handling of branching requests
 
   - create unit tests to cover all the different states of the cmd arguments
 

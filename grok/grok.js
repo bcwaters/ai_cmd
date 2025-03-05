@@ -603,6 +603,7 @@ export async function main() {
             parentHtml = parentHtml.replace("@CURRENT_ID@", TreeModeProfile.ParentId);
             //parentHtml = parentHtml.replace("@PREVIOUS_ID@", dynamicResponseId);
 
+            savePreviousId(userPromptRequest.rootResponseId, userPromptRequest.userPrompt, contextHistoryLength);
             //I could name this more intelligently.
             //I want to explorer a recursive approach for deeper trees. How do i template a child that is a parent and a child
             //I am pretty sure a recursive approach seting the context to the child repsonse ID and the recursively prompts from there
