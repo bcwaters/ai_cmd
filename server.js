@@ -49,7 +49,7 @@ app.get('/prompt',  (req, res) => {
         }
 
         // Execute the JavaScript code
-        const result = execSync(`node ./grok/grok.js  ${additonalArgs} PROMPT "${prompt}"`, { encoding: 'utf-8' });
+        const result = execSync(`node ./grok/grok.js terminalMode ${additonalArgs} PROMPT "${prompt}"`, { encoding: 'utf-8' });
 
         let history =  fs.readFileSync("./grok/context/context.history", 'utf8', (err, data) => {
             
@@ -71,9 +71,9 @@ app.get('/prompt',  (req, res) => {
       
         // Send the HTML content to be displayed in the browser
         res.setHeader('Content-Type', 'text/html');
-        res.sendFile(outputPath, (err) => {
+        res.status(200).sendFile(outputPath, (err) => {
             if (err) {
-                res.status(500).send('Error sending file');
+                res.status(500).send('Error sending file: ' + err.message);
             }
             // Note: Don't delete the file here if you need it for future requests
             // fs.unlinkSync(outputPath);
