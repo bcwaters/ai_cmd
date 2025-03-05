@@ -2,25 +2,25 @@ jest.setTimeout(5000); // 5 second timeout
 
 console.log('Starting utils.test.js file');
 
-import { cleanString } from '../../../grok/utils/utils.js';
-console.log('Imported cleanString function');
+import { minimizeTokens } from '../../../grok/utils/utils.js';
+console.log('Imported minimizeTokens function');
 
-describe('cleanString', () => {
-  console.log('Starting cleanString test suite');
+describe('minimizeTokens', () => {
+  console.log('Starting minimizeTokens test suite');
   
   beforeAll(() => {
-    console.log('Running beforeAll for cleanString');
+    console.log('Running beforeAll for minimizeTokens');
   });
   
   afterAll(() => {
-    console.log('Running afterAll for cleanString');
+    console.log('Running afterAll for minimizeTokens');
   });
   
   test('should remove special characters and normalize whitespace', () => {
     console.log('Running test: should remove special characters and normalize whitespace');
     const input = '  This is a @test# string with $special% characters!  ';
     const expected = 'thisisateststringwithspecialcharacters';
-    expect(cleanString(input)).toBe(expected);
+    expect(minimizeTokens(input)).toBe(expected);
     console.log('Completed test: should remove special characters and normalize whitespace');
   });
 
@@ -28,7 +28,7 @@ describe('cleanString', () => {
     console.log('Running test: should handle empty strings');
     const input = '';
     const expected = '';
-    expect(cleanString(input)).toBe(expected);
+    expect(minimizeTokens(input)).toBe(expected);
     console.log('Completed test: should handle empty strings');
   });
 
@@ -36,7 +36,7 @@ describe('cleanString', () => {
     console.log('Running test: should handle strings with only special characters');
     const input = '@#$%^&*';
     const expected = '';
-    expect(cleanString(input)).toBe(expected);
+    expect(minimizeTokens(input)).toBe(expected);
     console.log('Completed test: should handle strings with only special characters');
   });
 
@@ -44,7 +44,7 @@ describe('cleanString', () => {
     console.log('Running test: should preserve alphanumeric characters and spaces');
     const input = 'Hello123 World456';
     const expected = 'hello123world456';
-    expect(cleanString(input)).toBe(expected);
+    expect(minimizeTokens(input)).toBe(expected);
     console.log('Completed test: should preserve alphanumeric characters and spaces');
   });
 });

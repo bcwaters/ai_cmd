@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 import { marked } from 'marked';
 import { JSDOM } from 'jsdom';
 import createDOMPurify from 'dompurify';
-import { cleanString } from '../../../grok/utils/utils.js';
+import { minimizeTokens } from '../../../grok/utils/utils.js';
 
 // Import the real terminal module
 import terminal from '../../../grok/utils/terminal.js';
@@ -71,12 +71,12 @@ describe('grok.js', () => {
       choices: [{ message: { content: "test context" } }]
     }));
     
-    // No need to mock cleanString since we're using the real implementation
+    // No need to mock minimizeTokens since we're using the real implementation
     
     const result = await getConversationContext('', false);
     
-    // Since we're using the real cleanString function, we need to match its actual behavior
-    expect(result).toBe(cleanString('test context'));
+    // Since we're using the real minimizeTokens function, we need to match its actual behavior
+    expect(result).toBe(minimizeTokens('test context'));
     expect(fs.readFile).toHaveBeenCalled();
   });
 

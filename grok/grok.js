@@ -19,7 +19,7 @@ import {PromptProfile} from './prompt_profiles/default.js';
 import {TreeModeProfile} from './prompt_profiles/TreeMode.js';
 import UserPromptRequest from './utils/UserPromptRequest.js';
 import terminal from './utils/terminal.js'; 
-import {cleanString, sleep, removeWhiteSpaceAndEnsureAlphabet } from './utils/utils.js';
+import {minimizeTokens, sleep, removeWhiteSpaceAndEnsureAlphabet } from './utils/utils.js';
 
 
 
@@ -149,7 +149,7 @@ export async function getConversationContext(context, isNew) {
             //console.log(colors.green, "parsedContext", messages.message.content, colors.reset);
             let messageContent = messages.message.content;
  
-            messageContent = cleanString(messageContent);
+            messageContent = minimizeTokens(messageContent);
 
             return messageContent || "Error returning context";
         } else {
@@ -162,7 +162,7 @@ export async function getConversationContext(context, isNew) {
             //console.log(colors.green, "parsedContextSET", messages.message.content, colors.reset);
             let messageContent = messages.message.content;
           
-            messageContent = cleanString(messageContent);
+            messageContent = minimizeTokens(messageContent);
 
             return messageContent || "Error returning context for " + context;
         }
@@ -457,6 +457,9 @@ export async function main() {
 
 
     const completion = await chosenModel.chat.completions.create(apiRequest);
+    
+    await fs.writeFile("./grok/context/currentChat/currentChat.json", JSON.stringify(completion));
+    
 
     //TODO rmove this logic into userPromptRequest as a process completion method
     if(userPromptRequest.treeMode){

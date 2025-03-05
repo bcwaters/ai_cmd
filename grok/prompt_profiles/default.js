@@ -42,11 +42,9 @@ export class PromptProfile {
                 content: includedFiles
             }
         }
-
-
-
         this.profile = [
             {
+                
                 role: "system",
                 content: [
                     {

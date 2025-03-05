@@ -1,6 +1,6 @@
 const fluffWords = [ "this", "an", "the", "and", "but", "or", "for", "nor", "on", "at", "to", "from", "by", "with", "of"];
 //rename function.
-export function cleanString(string) {
+export function minimizeTokens(string) {
     // Remove all non-alphanumeric characters (except spaces initially)
     let regexAlphabet = /[^a-zA-Z0-9\s]/g;
     string = string.replace(regexAlphabet, "");
