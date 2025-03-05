@@ -1,0 +1,27 @@
+source ./shell_helpers/.colors_linux
+echo -e "${color_yellow}╭─────────────────────────────────────────────────────────╮"
+echo -e "│$color_yellow        █████╗ ██╗         ██████╗███╗   ███╗██████╗     │"
+echo -e "│$color_yellow       ██╔══██╗██║        ██╔════╝████╗ ████║██╔══██╗    │"
+echo -e "│$color_yellow       ███████║██║        ██║     ██╔████╔██║██║  ██║    │"
+echo -e "│$color_yellow       ██╔══██║██║        ██║     ██║╚██╔╝██║██║  ██║    │"
+echo -e "│$color_yellow       ██║  ██║██║  ████  ╚██████╗██║ ╚═╝ ██║██████╔╝    │"
+echo -e "│$color_yellow       ╚═╝  ╚═╝╚═╝  ════   ╚═════╝╚═╝     ╚═╝╚═════╝     │"
+echo -e  "│    ${color_yellow} This is AI_CMD. Request a readme on any subject.    │${color_reset}"  
+echo -e "${color_yellow}╰─────────────────────────────────────────────────────────╯${color_reset}"
+
+
+
+
+# Greet the user
+# echo -e  "${color_background_grok}${color_yellow_dark}┌──────────────────────────────────────────────────────┐${color_reset}"
+# echo -e  "${color_background_grok}${color_yellow_dark}|    ____             _   _  ____   ___    ___         |${color_reset}"
+# echo -e  "${color_background_grok}${color_yellow_dark}|   / ___|_ __  __   | | / /|  _ \ / _ \  / __|        |${color_reset}"
+# echo -e  "${color_background_grok}${color_yellow_dark}|  | |  _  '__|/ _ \ | |/ / | | | | | | || |           |${color_reset}"
+# echo -e  "${color_background_grok}${color_yellow_dark}|  | |_| | |  | |_| || |\ \\ | |_| | |_| || |__         |${color_reset}"
+# echo -e  "${color_background_grok}${color_yellow_dark}|   \____|_|   \___/ |_| \_\\|____/ \___/  \___|        |${color_reset}"
+# echo -e  "${color_background_grok}${color_yellow_dark}└──────────────────────────────────────────────────────┘${color_reset}"
+# echo -en  "${color_yellow}   This is GrokDOC. Request a readme on any subject.${color_reset}"
+# Function to display a spinner
+
+
+

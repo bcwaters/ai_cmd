@@ -35,7 +35,7 @@ color_background_cyan_light="\e[106m"
 color_background_white_light="\e[107m"
 color_background_black_light="\e[100m"
 color_background_dark_grey="\e[100m"
-
+color_background_dark_green="\e[42m"
 
 
 color_background_red="\e[41m"

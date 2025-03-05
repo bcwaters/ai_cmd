@@ -550,6 +550,9 @@ export async function main() {
         terminal.log(terminal.colors.green, terminal.logDivider, terminal.colors.reset);
         terminal.log(terminal.colors.yellow, terminal.getDividerWithMessage("READ-RESPONSE-ABOVE"));
         terminal.log(terminal.colors.green, terminal.logDivider, terminal.colors.reset);
+        terminal.log("\n\n\n\n\n");
+        terminal.log(terminal.colors.green,terminal.logDivider, terminal.colors.reset);
+     
         morePrompts = false;
 
         //We are currently handling the bundling of tree mode children.
