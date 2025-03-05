@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { execSync } from 'child_process';
 import { fileURLToPath } from 'url';
-
+import { main } from './grok/grok.js';
 const app = express();
 const port = 3002;
 
@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
 
 });
 
-app.get('/prompt',  (req, res) => {
+app.get('/prompt', async (req, res) => {
     // Parse query parameters
     const { prompt, treeMode } = req.query;
 
@@ -34,23 +34,27 @@ app.get('/prompt',  (req, res) => {
     }
 
     try {
-        let additonalArgs = "";
+        let isNew = "";
+        let isContext = "";
+        let isTreeMode = "";
+        let additonalArgs = "terminalMode ";
         let treeMode = req.query.treeMode;
         if (treeMode == "true") {
-            additonalArgs = " --treeMode";
+            isTreeMode = "--treeMode";
         } else {
-            additonalArgs = "";
+       
         }
         let context = req.query.context;
         if (context) {
-            additonalArgs = additonalArgs + " --context " + context;
+            isContext = "--context " + context;
         }else{
-            additonalArgs = additonalArgs + " --new";
+            isNew = "--new";
         }
-
+        let additonalArgsArray = additonalArgs.split(" ");
         // Execute the JavaScript code
-        const result = execSync(`node ./grok/grok.js terminalMode ${additonalArgs} PROMPT "${prompt}"`, { encoding: 'utf-8' });
-
+        //const result = execSync(`node ./grok/grok.js terminalMode ${additonalArgs} PROMPT "${prompt}"`, { encoding: 'utf-8' });
+        const result =await main(isNew, isContext, isTreeMode,"PROMPT", prompt);
+        console.log("result", result);
         let history =  fs.readFileSync("./grok/context/context.history", 'utf8', (err, data) => {
             
             return data;

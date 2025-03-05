@@ -26,21 +26,21 @@ width=25
 
 # Function to draw a horizontal border ─
 draw_border() {
-    echo -en "\n$color_background_black$(printf  '─%.0s' {1..55})$color_background_reset"
+    echo -en "\n$color_background_black$(printf  '─%.0s' {1..59})$color_background_reset"
 }
 draw_border_inner(){
-    echo -en "\n$color_background_black├$(printf  '─%.0s' {1..53})┤$color_background_reset"
+    echo -en "\n$color_background_black├$(printf  '─%.0s' {1..57})┤$color_background_reset"
 }
 
 draw_border_green() {
-   echo -en "\n$color_background_green$(printf  '─%.0s' {1..55})$color_background_reset"
+   echo -en "\n$color_background_green$(printf  '─%.0s' {1..57})$color_background_reset"
 }
 
 draw_border_bottom() {
-    echo -en "\n$color_background_black╰$(printf '─%.0s' {1..53})╯$color_background_reset"
+    echo -en "\n$color_background_black╰$(printf '─%.0s' {1..57})╯$color_background_reset"
 }
 draw_border_top() {
-    echo -en "\n$color_background_black╭$(printf '─%.0s' {1..53})╮$color_background_reset"
+    echo -en "\n$color_background_black╭$(printf '─%.0s' {1..57})╮$color_background_reset"
 }
 
 
@@ -94,20 +94,20 @@ display_menu() {
     echo -en "$color_yellow"
     draw_border_top 
     echo -e "$color_yellow"
-    echo -e  "${color_yellow}│    ${color_yellow}     ┏┓ ┳   ┏┓ ┳┳┓ ┳┓    ┳┳┓ ┏┓ ┳┓ ┳ ┳           │${color_reset}"
-    echo -e  "${color_yellow}│    ${color_yellow}     ┣┫ ┃   ┃  ┃┃┃ ┃┃    ┃┃┃ ┣  ┃┃ ┃ ┃           │${color_reset}"
-    echo -en  "${color_yellow}│    ${color_yellow}     ┛┗ ┻   ┗┛ ┛ ┗ ┻┛    ┛ ┗ ┗┛ ┛┗ ┗-┛           │"
+    echo -e  "${color_yellow}│    ${color_yellow}     ┏┓ ┳   ┏┓ ┳┳┓ ┳┓    ┳┳┓ ┏┓ ┳┓ ┳ ┳               │${color_reset}"
+    echo -e  "${color_yellow}│    ${color_yellow}     ┣┫ ┃   ┃  ┃┃┃ ┃┃    ┃┃┃ ┣  ┃┃ ┃ ┃               │${color_reset}"
+    echo -en  "${color_yellow}│    ${color_yellow}     ┛┗ ┻   ┗┛ ┛ ┗ ┻┛    ┛ ┗ ┗┛ ┛┗ ┗-┛               │"
     draw_border_bottom
 
-    echo -en "\n$color_background_reset${color_reset} ${color_blue}context\e[0m to set the ai_cmd's memory to a previous conversation" 
+    echo -en "\n$color_background_reset${color_reset} ${color_blue}context\e[0m use a response id to continue a conversation" 
     echo -en "$color_reset \n ${color_green}new\e[0m to start a new conversation"
     echo -en "$color_reset \n ${color_yellow}depth\e[0m to set the context depth for better memory"
     echo -en "$color_reset \n ${color_cyan}role\e[0m select which role the ai assumes"
-    echo -en "$color_reset \n ${color_blue}treeMode\e[0m to generate a set of organized documents from the prompt"
+    echo -en "$color_reset \n ${color_blue}treeMode\e[0m branches out for a more researched response"
     echo -en "$color_reset \n ${color_magenta}file\e[0m to load a file"
     echo -en "$color_reset \n ${color_green}paste\e[0m$color_background_reset to paste from clipboard"
     echo -en "$color_reset \n ${color_blue}${color_background_grok}save\e[0m$color_background_reset to save the current context to local folder"
-    echo -en "$color_reset \n ${color_blue}${color_background_grok}open\e[0m$color_background_reset to open the saved the saved readmes in file explorer"
+    echo -en "$color_reset \n ${color_blue}${color_background_grok}open\e[0m$color_background_reset view readmes you have saved"
     echo -en "$color_reset \n ${color_yellow}${color_background_grok}review\e[0m$color_background_reset to review edit the edit the response in vim"
     echo -en "$color_reset \n ${color_red}exit\e[0m$color_background_reset to quit or press ctrl+c"
    
@@ -176,10 +176,10 @@ while true; do
     fi
     echo -e "$color_yellow"
     draw_border_top
-    echo -e "\n$color_yellow│ Current Context ID:${color_blue} $displayContext                $color_background_reset$color_yellow│\e[0m"
-    echo -en "${color_background_reset}${color_yellow}│ ${color_dark_grey}Current Settings:${color_reset} \e[32m[$displayNew] \e[33m[$displayDepth] \e[35m[$displayFile] \e[36m[$displaySpecialty] $color_blue[$displayTreeMode]$color_background_reset$color_yellow                 │$color_background_reset"
+    echo -e "\n$color_yellow│ Current Context ID:${color_blue} $displayContext                    $color_background_reset$color_yellow│\e[0m"
+    echo -en "${color_background_reset}${color_yellow}│ ${color_dark_grey}Current Settings:${color_reset} \e[32m[$displayNew] \e[33m[$displayDepth] \e[35m[$displayFile] \e[36m[$displaySpecialty] $color_blue[$displayTreeMode]$color_background_reset$color_yellow                     │$color_background_reset"
     draw_border_inner
-    echo -en "\n│${color_reset}  * Type ${color_green}menu$color_reset to see the options for the settings * $color_background_reset${color_yellow}$color_background_reset │"
+    echo -en "\n│${color_reset}  * Type ${color_green}menu$color_reset to see the options for the settings * $color_background_reset${color_yellow}$color_background_reset     │"
     draw_border_bottom
   
 

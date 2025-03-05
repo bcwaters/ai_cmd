@@ -63,10 +63,17 @@ const tagLength = 16; //8 for grok
 //End Configuration before main -------------------------------
 
 // Parse command line arguments and return prompt and flags
-export function parseCommandLineArgs() {
-   
+export function parseCommandLineArgs(serverArgs) {
+    let isServerRequest = false;
     terminal.debugLogger = true;
-    const args = process.argv.slice(2);
+    let args = process.argv.slice(2);
+    if(serverArgs.length > 0){
+        isServerRequest = true;
+        args = serverArgs.slice(2);
+
+    }
+    terminal.debug(terminal.colors.red, "Server request detected", terminal.colors.reset, args);
+      
 
     let userPrompt = "Default prompt if none provided";
     let depth = 500;
@@ -87,7 +94,7 @@ export function parseCommandLineArgs() {
         treeMode = true;
     }
     if (args.includes("terminalMode")) {
-        terminal.debugLogger = false;
+        terminal.debugLogger = isServerRequest;  //show logs if is server request
         browserMode = false;
     }
     //TODO update specialty to be named role here and in shell script
@@ -421,9 +428,10 @@ export async function saveCompletion(completion, id, baseDir = './grok/context')
 }
 
 // Main function
-export async function main() {
+export async function main( ...serverArgs) {
     //RAG_PROFILE_STATE class needs to be made before this bloats beyond repair
-    const userPromptRequest = parseCommandLineArgs();
+    
+    const userPromptRequest = parseCommandLineArgs(serverArgs);
 
     let morePrompts = true;
     let processingRootNode = userPromptRequest.treeMode;
