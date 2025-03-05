@@ -27,7 +27,7 @@ export class PromptProfile {
                 includedFiles.push(
                     {
                     type: "text",
-                    text: file
+                    text: file.fileName + "\n" + file.content
                 }
                 
             );
@@ -88,6 +88,16 @@ export class PromptProfile {
                     },
                 ],
             },
+   
+        ];
+
+        //add any files for context
+       if(filePrompt!=""){
+            this.profile.push(filePrompt);
+        }
+
+        //add the user prompt
+        this.profile.push(
             {
                 role: "user",
                 content: [
@@ -97,15 +107,17 @@ export class PromptProfile {
                     },
                 ],
             },
-        ];
-       if(filePrompt!=""){
-            this.profile.push(filePrompt);
-        }
+        );
+        
         return this.profile;
     }
 
     static addFile(fileContent){
- this.files.push(fileContent);
+        if(fileContent.length > 0){ 
+            for(let file of fileContent){
+                this.files.push(file);
+            }
+        }
     }
 }
 

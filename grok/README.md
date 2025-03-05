@@ -6,6 +6,8 @@
   meta response
 
 ## future features  
+  - implement history to store the jsons to a suitable database for more efficient retrieval
+
   - design web server to create directories for profiles.  Have  more intelligent handling of branching requests
 
   - create unit tests to cover all the different states of the cmd arguments

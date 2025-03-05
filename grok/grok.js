@@ -10,8 +10,8 @@ import dotenv from "dotenv"                //use dotenv to load environment vari
 import {Marked} from 'marked';             //use marked to convert markdown to html
 import { JSDOM } from 'jsdom';             //use jsdom to create a DOM object
 import createDOMPurify from 'dompurify';   //use dompurify to sanitize the html
-import { markedHighlight } from 'marked-highlight';
-import hljs from 'highlight.js';
+import { markedHighlight } from 'marked-highlight';  //used for code highlighting
+import hljs from 'highlight.js';           //used for code highlighting
 
 
 //Local packages
@@ -20,6 +20,7 @@ import {TreeModeProfile} from './prompt_profiles/TreeMode.js';
 import UserPromptRequest from './utils/UserPromptRequest.js';
 import terminal from './utils/terminal.js'; 
 import {minimizeTokens, sleep, removeWhiteSpaceAndEnsureAlphabet } from './utils/utils.js';
+import ProfileFileLoader from './utils/ProfileFileLoader.js';
 
 
 
@@ -200,7 +201,7 @@ export async function createApiRequest(userPromptRequest, priorConverstation, is
         }
     }else{
         //load filepaths from userPromptRequest.filePath
-        let fileContent = await userPromptRequest.fileContent();
+        let fileContent = await ProfileFileLoader.loadFileContent(userPromptRequest.filePath);
         terminal.debug(terminal.colors.green, "fileContent", terminal.colors.reset, fileContent);
 
         if(fileContent.length > 0){

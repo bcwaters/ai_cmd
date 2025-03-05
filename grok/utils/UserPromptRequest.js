@@ -72,12 +72,44 @@ class UserPromptRequest {
 
 
     async fileContent() {
-            //load filepaths from userPromptRequest.filePath
-            if(this.filePath){
-                let fileContent = await fs.readFile(this.filePath, "utf8");
-                return fileContent;
-            }
+        // load filepaths from userPromptRequest.filePath
+        // determine if the file is a directory or a file
+        let fileContent = "";
+        
+        if(this.filePath == ""){
             return "";
+        }
+        
+        try {
+            // Use stat with await instead of callback
+            const stats = await fs.stat(this.filePath);
+            
+            if(stats.isDirectory()){
+                // load the files in the directory
+                const files = await fs.readdir(this.filePath);
+                for(let file of files){
+                    // Use path.join to create proper file paths
+                    const fullPath = `${this.filePath}/${file}`;
+                    try {
+                        // Check if it's a file before reading
+                        const fileStats = await fs.stat(fullPath);
+                        if(fileStats.isFile()) {
+                            const content = await fs.readFile(fullPath, "utf8");
+                            fileContent += content + "\n";
+                        }
+                    } catch(err) {
+                        console.error(`Error reading file ${fullPath}:`, err);
+                    }
+                }
+            } else {
+                // load the file
+                fileContent = await fs.readFile(this.filePath, "utf8");
+            }
+            return fileContent;
+        } catch(err) {
+            console.error(`Error accessing path ${this.filePath}:`, err);
+            return "";
+        }
     }
 
 
