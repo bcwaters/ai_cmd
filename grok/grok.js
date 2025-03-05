@@ -15,8 +15,9 @@ import hljs from 'highlight.js';           //used for code highlighting
 
 
 //Local packages
-import {PromptProfile} from './prompt_profiles/default.js';
+import {PromptProfile} from './prompt_profiles/PromptProfile.js';
 import {TreeModeProfile} from './prompt_profiles/TreeMode.js';
+import {CodeReviewPromptProfile} from './prompt_profiles/CodeReview.js';
 import UserPromptRequest from './utils/UserPromptRequest.js';
 import terminal from './utils/terminal.js'; 
 import {minimizeTokens, sleep, removeWhiteSpaceAndEnsureAlphabet } from './utils/utils.js';
@@ -86,6 +87,7 @@ export function parseCommandLineArgs(serverArgs) {
     let treeMode = false;
     let terminalMode = false;
     let browserMode = true;
+    let codeReviewMode = false;
 
 
     if(args.includes("--openai")){
@@ -97,6 +99,9 @@ export function parseCommandLineArgs(serverArgs) {
     if (args.includes("terminalMode")) {
         terminal.debugLogger = isServerRequest;  //show logs if is server request
         browserMode = false;
+    }
+    if (args.includes("--codeReviewMode")) {
+        codeReviewMode = true;
     }
     //TODO update specialty to be named role here and in shell script
     if (args.includes("--specialty")) {
@@ -139,7 +144,7 @@ export function parseCommandLineArgs(serverArgs) {
     }
 
 
-    return new UserPromptRequest(userPrompt, isShort, isNew, context, depth, filePath, specialty, treeMode , browserMode);
+    return new UserPromptRequest(userPrompt, isShort, isNew, context, depth, filePath, specialty, treeMode , browserMode, codeReviewMode);
 }
 
 // Read and parse the context file
@@ -182,7 +187,8 @@ export async function getConversationContext(context, isNew) {
 
 // Create the request object for the API
 export async function createApiRequest(userPromptRequest, priorConverstation, isNew, isShort, contextData, context, filePath, specialty, processingRootNode) {
-    let profile = "default";
+    //TODO implement abstraction for profiles before this explodes in complexity
+    let profile = PromptProfile;
     let messages = [];
     if (isShort) {
         profile = "short";
@@ -200,14 +206,21 @@ export async function createApiRequest(userPromptRequest, priorConverstation, is
             messages = TreeModeProfile.getBranchProfile(isNew, priorConverstation, contextData, userPromptRequest.dynamicPrompt); // Load the array from the default file
         }
     }else{
+        if(userPromptRequest.codeReviewMode){
+            terminal.debug(terminal.colors.green, "codeReviewMode", terminal.colors.reset);
+            profile = CodeReviewPromptProfile;
+        }else{
+            profile = PromptProfile;
+            
+        }
         //load filepaths from userPromptRequest.filePath
         let fileContent = await ProfileFileLoader.loadFileContent(userPromptRequest.filePath);
         terminal.debug(terminal.colors.green, "fileContent", terminal.colors.reset, fileContent);
 
         if(fileContent.length > 0){
-            PromptProfile.addFile(fileContent);
+            profile.addFile(fileContent);
         }
-        messages = PromptProfile.getDefaultProfile(isNew, priorConverstation, contextData, userPromptRequest.dynamicPrompt); // Load the array from the default file
+        messages = profile.getDefaultProfile(isNew, priorConverstation, contextData, userPromptRequest.dynamicPrompt); // Load the array from the default file
     }
     
     terminal.debug(terminal.colors.green, "Prompt Sent to Grok", terminal.colors.reset, JSON.stringify(messages, null, 4));

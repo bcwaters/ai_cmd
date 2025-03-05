@@ -194,6 +194,12 @@ while true; do
     fi
     # Check if the user wants to exit
 
+    if [ "$prompt" == "codeReviewMode" ]; then
+        
+        flags="$flags --codeReviewMode"
+        continue
+    fi
+
 
     if [ "$prompt" == "exit" ]; then
         echo -e "$color_red_light Exiting...\e[0m"
