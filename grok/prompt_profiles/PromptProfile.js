@@ -3,7 +3,6 @@ export class PromptProfile {
     static specialty = " ";  //user can set this to "write code" or "write a readme" or "write a blog post" etc.
     static files = [];
 
-
     static setSpecialty(specialty) {
         if (specialty == "software") {
             this.specialty = "write software. It should be clean, modern, and follow best practices.  inline comments for what each line of code does.";
@@ -11,7 +10,7 @@ export class PromptProfile {
             this.specialty = " develop a lesson plan. I am a teacher and want to collaborate.";
         } else if (specialty == "writing") {
             this.specialty = " write elegantly. creativity is key.";
-        }else{
+        } else {
             this.specialty = "to do" + specialty;
         }
     }
@@ -20,31 +19,11 @@ export class PromptProfile {
         if (this.isLogging) {
             console.log({ isNew, messagesString, contextData, userPrompt });
         }
-        let includedFiles = [];
-
-        if(this.files.length > 0){
-            for( let file of this.files){
-                includedFiles.push(
-                    {
-                    type: "text",
-                    text: file.fileName + "\n" + file.content
-                }
-                
-            );
-            }
-        }
-
-        let filePrompt = "";
-      if(includedFiles.length > 0){
-            filePrompt = 
-            {
-                role: "system",
-                content: includedFiles
-            }
-        }
+        
+        let filePrompt = this._prepareFilePrompt();
+        
         this.profile = [
             {
-                
                 role: "system",
                 content: [
                     {
@@ -88,11 +67,10 @@ export class PromptProfile {
                     },
                 ],
             },
-   
         ];
 
         //add any files for context
-       if(filePrompt!=""){
+        if(filePrompt != ""){
             this.profile.push(filePrompt);
         }
 
@@ -110,6 +88,29 @@ export class PromptProfile {
         );
         
         return this.profile;
+    }
+
+    static _prepareFilePrompt() {
+        let includedFiles = [];
+        let filePrompt = "";
+
+        if(this.files.length > 0){
+            for(let file of this.files){
+                includedFiles.push({
+                    type: "text",
+                    text: file.fileName + "\n" + file.content
+                });
+            }
+        }
+
+        if(includedFiles.length > 0){
+            filePrompt = {
+                role: "system",
+                content: includedFiles
+            };
+        }
+
+        return filePrompt;
     }
 
     static addFile(fileContent){

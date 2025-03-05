@@ -1,8 +1,9 @@
-export class CodeReviewPromptProfile {
+import { PromptProfile } from './PromptProfile.js';
+
+export class CodeReviewPromptProfile extends PromptProfile {
     static isLogging = false;
     static specialty = " ";  //user can set this to "write code" or "write a readme" or "write a blog post" etc.
     static files = [];
-
 
     static setSpecialty(specialty) {
         if (specialty == "software") {
@@ -20,33 +21,14 @@ export class CodeReviewPromptProfile {
         if (this.isLogging) {
             console.log({ isNew, messagesString, contextData, userPrompt });
         }
-        let includedFiles = [];
-
-        if(this.files.length > 0){
-            for( let file of this.files){
-                includedFiles.push(
-                    {
-                    type: "text",
-                    text: file.fileName + "\n" + file.content
-                }
-                
-            );
-            }
-        }
-
-        let filePrompt = "";
-      if(includedFiles.length > 0){
-            filePrompt = 
-            {
-                role: "system",
-                content: includedFiles
-            }
-        }
+        
+        let filePrompt = this._prepareFilePrompt();
+        
         console.log("writing code review profile");
         this.specialty = "review code and debug any errors. Suggest improvements, fix any issues such as typos, syntax errors, outdated approaches. Each file with suggestions should have it's own heading.";
+        
         this.profile = [
             {
-                
                 role: "system",
                 content: [
                     {
@@ -90,11 +72,10 @@ export class CodeReviewPromptProfile {
                     },
                 ],
             },
-   
         ];
 
         //add any files for context
-       if(filePrompt!=""){
+        if(filePrompt != ""){
             this.profile.push(filePrompt);
         }
 
@@ -124,4 +105,4 @@ export class CodeReviewPromptProfile {
 }
 
 // // Usage
-// const profileArray = PromptProfile.getDefaultProfile(isNew, messagesString, contextData, userPrompt);
+// const profileArray = CodeReviewPromptProfile.getDefaultProfile(isNew, messagesString, contextData, userPrompt);

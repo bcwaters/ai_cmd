@@ -1,33 +1,19 @@
-//Inheritance needs to be implemented.  This class will inherit from the same class as the default profile.
-import {removeWhiteSpaceAndEnsureAlphabet} from '../utils/utils.js';
+import { PromptProfile } from './PromptProfile.js';
+import { removeWhiteSpaceAndEnsureAlphabet } from '../utils/utils.js';
 
-export class TreeModeProfile {
-    static isLogging = true;
-    static specialty = " ";  //user can set this to "write code" or "write a readme" or "write a blog post" etc.
-    //THESE VARIABLES it feels like these should be "reset" at the end of a main() call... but i am pretty sure it works as is.
+export class TreeModeProfile extends PromptProfile {
     static ParentId = "";
     static ParentReadme = "";
     
     static subjectList = [];
     static childReadme = [];
 
-    static setSpecialty(specialty) {
-        if (specialty == "software") {
-            this.specialty = "write software. It should be clean, modern, and follow best practices.  inline comments for what each line of code does.";
-        } else if (specialty == "teaching") {
-            this.specialty = " develop a lesson plan. I am a teacher and want to collaborate.";
-        } else if (specialty == "writing") {
-            this.specialty = " write elegantly. creativity is key.";
-        }else{
-            this.specialty = "to do" + specialty;
-        }
-    }
-
     static getDefaultProfile(isNew, messagesString, contextData, userPrompt) {
         if (this.isLogging) {
             console.log( "*-!-*---------TreeModeProfile--------*!-*");
             console.log({ isNew, messagesString, contextData, userPrompt });
         }
+        
         this.profile = [
             {
                 role: "system",
@@ -94,6 +80,7 @@ export class TreeModeProfile {
             console.log( "*-!-*---------BRANCH-PROMPT--------*!-*");
             console.log({ isNew, messagesString, contextData, userPrompt });
         }
+        
         this.profile = [
             {
                 role: "system",
@@ -161,9 +148,7 @@ export class TreeModeProfile {
             },
         ];
         return this.profile;
-
     }
-
 
     static setParentId(parentId){
         this.ParentId = parentId;
@@ -175,13 +160,9 @@ export class TreeModeProfile {
 
     //subject parser
     static parseSubject(subjectList){
-        // subject.split(" ### ").map(word => word.trim()); // get the index of the ## headings and store the entire line as a string in an array
-        // Somehow we can improve our branch prompts at this point.    
-        // get the index of the ## headings and store the entire line as a string in an array  
         this.subjectList = subjectList.replace("[","").replace("]","").split(","); //make an array
         this.subjectList = this.subjectList.map(subject => removeWhiteSpaceAndEnsureAlphabet(subject));
         return this.subjectList;
-
     }
 
     // ChildReadme is an object with two properites
@@ -192,13 +173,7 @@ export class TreeModeProfile {
         console.log("childReadme", childReadme);
         this.childReadme.unshift(childReadme);
     }
-
-    
-
-
-
-     
 }
 
 // // Usage
-// const profileArray = PromptProfile.getDefaultProfile(isNew, messagesString, contextData, userPrompt);
+// const profileArray = TreeModeProfile.getDefaultProfile(isNew, messagesString, contextData, userPrompt);

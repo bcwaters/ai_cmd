@@ -43,6 +43,9 @@ const marked = new Marked(
     })
   );
 
+
+
+
 //apiKey: process.env.XAI_API_KEY,
 //baseURL: "https://api.x.ai/v1",
 //grok-2-vision-1212
@@ -59,6 +62,7 @@ const xai = new OpenAI({
 
 
 let chosenModel = xai;
+let GlobalPromptProfile = PromptProfile;
 
 const tagLength = 16; //8 for grok
 
@@ -188,39 +192,44 @@ export async function getConversationContext(context, isNew) {
 // Create the request object for the API
 export async function createApiRequest(userPromptRequest, priorConverstation, isNew, isShort, contextData, context, filePath, specialty, processingRootNode) {
     //TODO implement abstraction for profiles before this explodes in complexity
-    let profile = PromptProfile;
+    
     let messages = [];
     if (isShort) {
-        profile = "short";
+  
     }
     if (specialty) {
-        PromptProfile.setSpecialty(specialty);
+        GlobalPromptProfile.setSpecialty(specialty);
     }
+
+    if(userPromptRequest.codeReviewMode){
+        GlobalPromptProfile = CodeReviewPromptProfile;
+    }else if(userPromptRequest.treeMode){
+        GlobalPromptProfile = TreeModeProfile;
+    }else{
+        GlobalPromptProfile = PromptProfile;
+    }
+
   
     PromptProfile.isLogging = false;
     
+    //This can be encapulated into getProfile method
     if(userPromptRequest.treeMode){
         if(processingRootNode){
-            messages = TreeModeProfile.getDefaultProfile(isNew, priorConverstation, contextData, userPromptRequest.dynamicPrompt); // Load the array from the default file
+            messages = GlobalPromptProfile.getDefaultProfile(isNew, priorConverstation, contextData, userPromptRequest.dynamicPrompt); // Load the array from the default file
         }else{
-            messages = TreeModeProfile.getBranchProfile(isNew, priorConverstation, contextData, userPromptRequest.dynamicPrompt); // Load the array from the default file
+            //TYPESCRIPT ERROR HERE but i'm not using ts haha
+            messages = GlobalPromptProfile.getBranchProfile(isNew, priorConverstation, contextData, userPromptRequest.dynamicPrompt); // Load the array from the default file
         }
     }else{
-        if(userPromptRequest.codeReviewMode){
-            terminal.debug(terminal.colors.green, "codeReviewMode", terminal.colors.reset);
-            profile = CodeReviewPromptProfile;
-        }else{
-            profile = PromptProfile;
-            
-        }
+   
         //load filepaths from userPromptRequest.filePath
         let fileContent = await ProfileFileLoader.loadFileContent(userPromptRequest.filePath);
         terminal.debug(terminal.colors.green, "fileContent", terminal.colors.reset, fileContent);
 
         if(fileContent.length > 0){
-            profile.addFile(fileContent);
+            GlobalPromptProfile.addFile(fileContent);
         }
-        messages = profile.getDefaultProfile(isNew, priorConverstation, contextData, userPromptRequest.dynamicPrompt); // Load the array from the default file
+        messages = GlobalPromptProfile.getDefaultProfile(isNew, priorConverstation, contextData, userPromptRequest.dynamicPrompt); // Load the array from the default file
     }
     
     terminal.debug(terminal.colors.green, "Prompt Sent to Grok", terminal.colors.reset, JSON.stringify(messages, null, 4));
@@ -262,7 +271,7 @@ export async function parseCompletionForResponseAndMetaResponse(completion){
 
 export function htmlReplaceTemplateValues(cssForMarkdown, html_string, sanitizedMarkdownContent, priorContextId, responseId){
     //TODO ParentID technically is null here, there needs to be inheritance form a prompt class for a default value
-    html_string = html_string.replaceAll("@PARENT_ID@", TreeModeProfile.ParentId) //NICE THIS IS STATIC AND AVAIALBLE!
+    html_string = html_string.replaceAll("@PARENT_ID@", GlobalPromptProfile.ParentId) //NICE THIS IS STATIC AND AVAIALBLE!
     .replaceAll("REPLACEME", sanitizedMarkdownContent)
     .replaceAll("@CSS_GOES_HERE@", cssForMarkdown)
     .replaceAll("@PREVIOUS_ID@", priorContextId.substring(0, tagLength)) //TODO is this substring redundant?
@@ -293,7 +302,7 @@ export async function  saveHtmlResponse(userPromptRequest, markdownContent, prio
         
         childHtml = htmlReplaceTemplateValues(childHtml, sanitizedMarkdownContent, priorContextId, userPromptRequest.dynamicResponseId);
         //TODO ponder the trade offs of using HTML here instead of the markdown.
-        TreeModeProfile.addChildReadme(sanitizedMarkdownContent);
+        GlobalPromptProfile.addChildReadme(sanitizedMarkdownContent);
     
         terminal.log(terminal.colors.red,terminal.logDivider, terminal.colors.reset);
         terminal.log("childDirectory being written to", userPromptRequest.childDirectory);
@@ -527,7 +536,7 @@ export async function main( ...serverArgs) {
    //TODO name a bool for this   userPromptRequest.treeMode && !processingRootNode   
     terminal.log( "current contextId",   terminal.colors.blue, userPromptRequest.dynamicResponseId, terminal.colors.reset);
     terminal.log(terminal.colors.purple, "\nfile used:", terminal.colors.reset, userPromptRequest.filePath?userPromptRequest.filePath:"none");
-    userPromptRequest.treeMode && !processingRootNode && terminal.log(terminal.colors.green, "Tree-"+ terminal.colors.reset, TreeModeProfile.ParentId, terminal.colors.green, "\nbranches"+terminal.colors.green+"["+userPromptRequest.branchList.length+"]-", userPromptRequest.branchList);
+    userPromptRequest.treeMode && !processingRootNode && terminal.log(terminal.colors.green, "Tree-"+ terminal.colors.reset, GlobalPromptProfile.ParentId, terminal.colors.green, "\nbranches"+terminal.colors.green+"["+userPromptRequest.branchList.length+"]-", userPromptRequest.branchList);
     terminal.log(terminal.logDivider);
 
     //TODO harded code price function should be dynamic for differnt models.
@@ -549,23 +558,23 @@ export async function main( ...serverArgs) {
     //This is the first loop of treeMode
     if(processingRootNode){
         processingRootNode = false;
-        userPromptRequest.branchList = TreeModeProfile.parseSubject(metaResponse);
+        userPromptRequest.branchList = GlobalPromptProfile.parseSubject(metaResponse);
 
         //userPromptRequest.branchList = userPromptRequest.branchList.map(subject => removeWhiteSpaceAndEnsureAlphabet(subject));
         userPromptRequest.branchIndex = userPromptRequest.branchList.length;
-        TreeModeProfile.setParentId(userPromptRequest.dynamicResponseId);
-        TreeModeProfile.setParentReadme(markdownContent);
-        userPromptRequest.childDirectory = TreeModeProfile.ParentId+"_children";
+        GlobalPromptProfile.setParentId(userPromptRequest.dynamicResponseId);
+        GlobalPromptProfile.setParentReadme(markdownContent);
+        userPromptRequest.childDirectory = GlobalPromptProfile.ParentId+"_children";
         await fs.mkdir("./grok/context/history/responses/"+userPromptRequest.rootResponseId+"/tree/"+userPromptRequest.childDirectory+"/html", { recursive: true });
         
-        terminal.log(terminal.colors.yellow, "\nParent ID", terminal.colors.reset, TreeModeProfile.ParentId);
+        terminal.log(terminal.colors.yellow, "\nParent ID", terminal.colors.reset, GlobalPromptProfile.ParentId);
         terminal.log(terminal.colors.blue, "Branches", terminal.colors.reset, userPromptRequest.branchList);
     }
    
     //TODO Optizmize this conditionallater. I might put at the top of the main while loop to flex... this is more readable though.
     //This index change is to fanagle the initial branch prompt to work.
     if(processingRootNode || userPromptRequest.branchIndex > 0){
-        terminal.log(terminal.colors.blue, "parentId", terminal.colors.reset, TreeModeProfile.ParentId);
+        terminal.log(terminal.colors.blue, "parentId", terminal.colors.reset, GlobalPromptProfile.ParentId);
         terminal.log(terminal.colors.yellow, "branchId", terminal.colors.reset, userPromptRequest.dynamicResponseId);
         morePrompts = true;
     }else{
@@ -586,8 +595,8 @@ export async function main( ...serverArgs) {
             
             let processedChildReadmes = [];
             //Is this a reference or a copy? 
-            let allChildReadmes = TreeModeProfile.childReadme;
-            let subjectList = TreeModeProfile.subjectList;
+            let allChildReadmes = GlobalPromptProfile.childReadme;
+            let subjectList = GlobalPromptProfile.subjectList;
             terminal.debug(terminal.logDivider);
             terminal.debug(terminal.colors.green, "allChildReadmes", terminal.colors.reset, allChildReadmes);
             terminal.debug("------------Entering child loop------------");
@@ -626,9 +635,9 @@ export async function main( ...serverArgs) {
             //this could be a function. css is loaded extra times this way
             let css = await fs.readFile("./grok/html_templates/highlightStyle.css", "utf8");
             parentHtml = parentHtml.replace("@CSS_GOES_HERE@", css);
-            parentHtml = parentHtml.replace("REPLACEME", preprocessResponse(TreeModeProfile.ParentReadme));
+            parentHtml = parentHtml.replace("REPLACEME", preprocessResponse(GlobalPromptProfile.ParentReadme));
             parentHtml = parentHtml.replace("@REPLACEWITHCHILDRENDIVS@", childDivs);
-            parentHtml = parentHtml.replace("@CURRENT_ID@", TreeModeProfile.ParentId);
+            parentHtml = parentHtml.replace("@CURRENT_ID@", GlobalPromptProfile.ParentId);
             //parentHtml = parentHtml.replace("@PREVIOUS_ID@", dynamicResponseId);
 
             savePreviousId(userPromptRequest.rootResponseId, userPromptRequest.userPrompt, contextHistoryLength);
