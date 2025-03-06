@@ -41,7 +41,7 @@ export class CodeReviewPromptProfile extends PromptProfile {
                     },
                     {
                         type: "text",
-                        text: "There will be a separate response indicated by @EOF@ so response.split(@EOF@)[1] should return the other response"
+                        text: "There will be a separate response indicated by @EOF@ so response.split(@EOF@)[1] should return the other response. All latex should be in Math format $...$"
                     },
                     {
                         type: "text",

@@ -44,7 +44,7 @@ export class PromptProfile {
                     },
                     {
                         type: "text",
-                        text: "Remember to include an @EOF@ in the response.  It should be after the readme section and before the keywords"
+                        text: "Remember to include an @EOF@ in the response.  It should be after the readme section and before the keywords. All latex should be in Math format $...$"
                     }
                 ]
             },

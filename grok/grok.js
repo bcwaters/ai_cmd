@@ -1,4 +1,3 @@
-//Node
 import fs from 'fs/promises'
 import { join } from 'path';
 import os from 'os'
@@ -14,13 +13,8 @@ import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import rehypeStringify from 'rehype-stringify';
 import remarkHighlight from 'remark-highlight.js';
-
-//old way for markdown
-import {Marked} from 'marked';             //use marked to convert markdown to html
-import { JSDOM } from 'jsdom';             //use jsdom to create a DOM object
-import createDOMPurify from 'dompurify';   //use dompurify to sanitize the html
-import { markedHighlight } from 'marked-highlight';  //used for code highlighting
-import hljs from 'highlight.js';           //used for code highlighting
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 
 //Local packages
 import {PromptProfile} from './prompt_profiles/PromptProfile.js';
@@ -33,21 +27,6 @@ import ProfileFileLoader from './utils/ProfileFileLoader.js';
 
 //Configuration before main -------------------------------
 dotenv.config();
-
-// Initialize DOMPurify with JSDOM
-const window = new JSDOM('').window;
-const DOMPurify = createDOMPurify(window);
-
-const marked = new Marked(
-    markedHighlight({
-      emptyLangClass: 'hljs',
-      langPrefix: 'hljs language-',
-      highlight(code, lang, info) {
-        const language = hljs.getLanguage(lang) ? lang : 'plaintext';
-        return hljs.highlight(code, { language }).value;
-      }
-    })
-  );
 
 //apiKey: process.env.XAI_API_KEY,
 //baseURL: "https://api.x.ai/v1",
@@ -364,23 +343,56 @@ export async function saveMarkdownResponse(userPromptRequest, markdownContent) {
 }
 
 export async function preprocessResponse(response) {   
-
     response = await unified()
     .use(remarkParse) // Parse markdown to MDAST
+    .use(remarkMath) // Parse math expressions
     .use(remarkHighlight) // Apply syntax highlighting to code blocks
-    .use(remarkRehype) // Convert MDAST to HAST
-    .use(rehypeStringify) // Stringify HAST to HTML
+    .use(remarkRehype, { allowDangerousHtml: true }) // Convert MDAST to HAST with HTML allowed
+    .use(() => (tree) => {
+        // Debug visitor to find unprocessed LaTeX
+        const visit = (node, callback) => {
+            callback(node);
+            if (node.children) {
+                node.children.forEach(child => visit(child, callback));
+            }
+        };
+        
+        visit(tree, (node) => {
+            // Look for text nodes that might contain LaTeX
+            if (node.type === 'text' && node.value) {
+                if (node.value.includes('$') || 
+                    node.value.includes('\\[') || 
+                    node.value.includes('\\]') ||
+                    node.value.includes('\\(') || 
+                    node.value.includes('\\)') ||
+                    node.value.includes('[') && node.value.includes(']')) {
+                    console.log('Potential unprocessed LaTeX:', node.value);
+                    console.log('Parent node type:', node.parent ? node.parent.tagName : 'No parent');
+                }
+            }
+            
+            // Look for math nodes that might not have been processed
+            if (node.tagName === 'span' && node.properties && node.properties.className) {
+                const classes = Array.isArray(node.properties.className) 
+                    ? node.properties.className 
+                    : [node.properties.className];
+                
+                if (classes.includes('math') || classes.includes('katex')) {
+                    console.log('Found math node:', node);
+                    if (node.children && node.children.length > 0) {
+                        console.log('Math node content:', node.children[0].value);
+                    }
+                }
+            }
+        });
+    })
+    .use(rehypeKatex, { 
+        throwOnError: false, // Don't throw on parse errors
+        output: 'htmlAndMathml' // Output both HTML and MathML
+    })
+    .use(rehypeStringify, { allowDangerousHtml: true }) // Stringify HAST to HTML with HTML allowed
     .process(response)
     .then(result => String(result));
-    // // Use marked to parse the response if available
-    // if (marked) {
-    //     response = marked.parse(response);
-    // }
-    
-    // Sanitizes scripts from output. must be done after marked parses
-    if (DOMPurify) {
-        response = DOMPurify.sanitize(response);
-    }
     
     while(response.charAt(0) != "<" && response.length > 0){
         response = response.substring(1);
