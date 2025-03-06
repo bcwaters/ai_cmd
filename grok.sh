@@ -26,21 +26,21 @@ width=25
 
 # Function to draw a horizontal border ─
 draw_border() {
-    echo -en "\n$color_background_black$(printf  '─%.0s' {1..59})$color_background_reset"
+    echo -en "\n$color_background_black$color_red* $color_yellow* $color_green* $color_blue* $color_magenta* $color_cyan* $color_white* $color_red*$color_reset PROCESSED $color_yellow* $color_green* $color_blue*$color_reset SETTING $color_magenta* $color_cyan* $color_yellow* $color_green* $color_blue* $color_magenta* $color_cyan* $color_white*$color_background_reset $color_background_reset"
 }
 draw_border_inner(){
-    echo -en "\n$color_background_black├$(printf  '─%.0s' {1..57})┤$color_background_reset"
+    echo -en "\n$color_background_black├$(printf  '─%.0s' {1..55})┤$color_background_reset"
 }
 
 draw_border_green() {
-   echo -en "\n$color_background_green$(printf  '─%.0s' {1..57})$color_background_reset"
+   echo -en "\n$color_background_green$(printf  '─%.0s' {1..55})$color_background_reset"
 }
 
 draw_border_bottom() {
-    echo -en "\n$color_background_black╰$(printf '─%.0s' {1..57})╯$color_background_reset"
+    echo -en "\n$color_background_black╰$(printf '─%.0s' {1..55})╯$color_background_reset"
 }
 draw_border_top() {
-    echo -en "\n$color_background_black╭$(printf '─%.0s' {1..57})╮$color_background_reset"
+    echo -en "\n$color_background_black╭$(printf '─%.0s' {1..55})╮$color_background_reset"
 }
 
 
@@ -94,9 +94,9 @@ display_menu() {
     echo -en "$color_yellow"
     draw_border_top 
     echo -e "$color_yellow"
-    echo -e  "${color_yellow}│    ${color_yellow}     ┏┓ ┳   ┏┓ ┳┳┓ ┳┓    ┳┳┓ ┏┓ ┳┓ ┳ ┳               │${color_reset}"
-    echo -e  "${color_yellow}│    ${color_yellow}     ┣┫ ┃   ┃  ┃┃┃ ┃┃    ┃┃┃ ┣  ┃┃ ┃ ┃               │${color_reset}"
-    echo -en  "${color_yellow}│    ${color_yellow}     ┛┗ ┻   ┗┛ ┛ ┗ ┻┛    ┛ ┗ ┗┛ ┛┗ ┗-┛               │"
+    echo -e  "${color_yellow}│    ${color_yellow}     ┏┓ ┳   ┏┓ ┳┳┓ ┳┓    ┳┳┓ ┏┓ ┳┓ ┳ ┳             │${color_reset}"
+    echo -e  "${color_yellow}│    ${color_yellow}     ┣┫ ┃   ┃  ┃┃┃ ┃┃    ┃┃┃ ┣  ┃┃ ┃ ┃             │${color_reset}"
+    echo -en  "${color_yellow}│    ${color_yellow}     ┛┗ ┻   ┗┛ ┛ ┗ ┻┛    ┛ ┗ ┗┛ ┛┗ ┗-┛             │"
     draw_border_bottom
 
     echo -en "\n$color_background_reset${color_reset} ${color_blue}context\e[0m use a response id to continue a conversation" 
@@ -174,12 +174,22 @@ while true; do
         displayFile=$fileState
         displaySpecialty=$specialtyState
     fi
+    currentSettingText="Current Settings: \e[32m[$displayNew] \e[33m[$displayDepth] \e[35m[$displayFile] \e[36m[$displaySpecialty] $color_blue[$displayTreeMode]$color_yellow"
+    # Pad with spaces to ensure proper width
+    padding=$(printf '%*s' $((40 - ${#currentSettingText})) '')
+    currentSettingText="${currentSettingText}"
+    
+    currentContextText="Current Context ID: \e[32m$displayContext$color_yellow"
+    # Pad with spaces to ensure proper width
+    padding=$(printf '%*s' $((82 - ${#currentContextText})) '')
+    currentContextText="${currentContextText}"
+    
     echo -e "$color_yellow"
     draw_border_top
-    echo -e "\n$color_yellow│ Current Context ID:${color_blue} $displayContext                    $color_background_reset$color_yellow│\e[0m"
-    echo -en "${color_background_reset}${color_yellow}│ ${color_dark_grey}Current Settings:${color_reset} \e[32m[$displayNew] \e[33m[$displayDepth] \e[35m[$displayFile] \e[36m[$displaySpecialty] $color_blue[$displayTreeMode]$color_background_reset$color_yellow                     │$color_background_reset"
+    echo -e "\n$color_yellow│ ${currentContextText}$color_background_reset$color_yellow\e[0m"
+    echo -en "${color_background_reset}${color_yellow}│ ${currentSettingText}$color_background_reset$color_yellow                          "
     draw_border_inner
-    echo -en "\n│${color_reset}  * Type ${color_green}menu$color_reset to see the options for the settings * $color_background_reset${color_yellow}$color_background_reset     │"
+    echo -en "\n│${color_reset}  * Type ${color_green}menu$color_reset to see the options for the settings * $color_background_reset${color_yellow}$color_background_reset   │" 
     draw_border_bottom
   
 
@@ -197,6 +207,7 @@ while true; do
     if [ "$prompt" == "codeReviewMode" ]; then
         
         flags="$flags --codeReviewMode"
+        draw_border
         continue
     fi
 
@@ -208,22 +219,29 @@ while true; do
     if [ "$prompt" == "save" ]; then
         read -p "Enter the name of the readme: " readmeName
         cp ./grok/context/html/markdown/${contextState}.md ./user_saved_readmes/${readmeName}-${contextState}.md
+        draw_border
+        echo -e "$color_green_light Readme saved as ${readmeName}-${contextState}.md\e[0m"
+        draw_border
         continue
     fi
     if [ "$prompt" == "open" ]; then
         open ./user_saved_readmes
+        draw_border
         continue
     fi
     if [ "$prompt" == "browserMode" ]; then
         terminalMode=""
+        draw_border
         continue
     fi
     if [ "$prompt" == "review" ]; then
         vim ./grok/context/history/markdown/currentChat.md
+        draw_border
         continue
     fi
     if [ "$prompt" == "terminalMode" ]; then
         terminalMode="terminalMode"
+        draw_border
         continue
     fi
     if [ "$prompt" == "paste" ]; then
@@ -241,6 +259,7 @@ while true; do
         displayTreeMode=tree
         echo -e "$color_background_blue_light Tree mode: Dynamic Prompt Generation\e[0m"
         flags="$flags --treeMode"
+        draw_border
         continue
     fi
     if [ "$prompt" == "role" ]; then
@@ -249,6 +268,7 @@ while true; do
         specialty=$specialty
         displaySpecialty=$specialty
         flags="$flags --specialty $specialty"
+        draw_border
         continue
     fi
     if [ "$prompt" == "file" ]; then
@@ -257,6 +277,7 @@ while true; do
         flags="$flags --file $filePath"
         file=$filePath
         displayFile=$filePath
+        draw_border
         continue
     fi
 
@@ -269,6 +290,7 @@ while true; do
         context=$context
         flags="$flags --context $context"
         displayContext="$context"
+        draw_border
         continue
 
     else
@@ -278,6 +300,7 @@ while true; do
         new=$prompt
         flags="$flags --new" 
         displayNew="$new"
+        draw_border
         continue
 
     else
@@ -290,6 +313,7 @@ while true; do
         depth=$depthValue
         flags="$flags --depth $depthValue"
         displayDepth="$depthValue"
+        draw_border
         continue
 
     else if [ "$terminalMode" == "terminalMode" ]; then     

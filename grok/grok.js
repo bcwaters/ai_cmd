@@ -7,12 +7,20 @@ import {exec} from 'child_process'         //use exec to run commands like open 
 //NPM packages
 import OpenAI from "openai";               //use openai spec
 import dotenv from "dotenv"                //use dotenv to load environment variables
+
+//new way for markdown
+import {unified} from 'unified';
+import remarkParse from 'remark-parse';
+import remarkRehype from 'remark-rehype';
+import rehypeStringify from 'rehype-stringify';
+import remarkHighlight from 'remark-highlight.js';
+
+//old way for markdown
 import {Marked} from 'marked';             //use marked to convert markdown to html
 import { JSDOM } from 'jsdom';             //use jsdom to create a DOM object
 import createDOMPurify from 'dompurify';   //use dompurify to sanitize the html
 import { markedHighlight } from 'marked-highlight';  //used for code highlighting
 import hljs from 'highlight.js';           //used for code highlighting
-
 
 //Local packages
 import {PromptProfile} from './prompt_profiles/PromptProfile.js';
@@ -22,8 +30,6 @@ import UserPromptRequest from './utils/UserPromptRequest.js';
 import terminal from './utils/terminal.js'; 
 import {minimizeTokens, sleep, removeWhiteSpaceAndEnsureAlphabet } from './utils/utils.js';
 import ProfileFileLoader from './utils/ProfileFileLoader.js';
-
-
 
 //Configuration before main -------------------------------
 dotenv.config();
@@ -43,9 +49,6 @@ const marked = new Marked(
     })
   );
 
-
-
-
 //apiKey: process.env.XAI_API_KEY,
 //baseURL: "https://api.x.ai/v1",
 //grok-2-vision-1212
@@ -59,7 +62,6 @@ const xai = new OpenAI({
     apiKey: process.env.XAI_API_KEY,
     baseURL: "https://api.x.ai/v1",
 });
-
 
 let chosenModel = xai;
 let GlobalPromptProfile = PromptProfile;
@@ -291,7 +293,7 @@ export async function  saveHtmlResponse(userPromptRequest, markdownContent, prio
     let cssForMarkdown = await fs.readFile('./grok/html_templates/highlightStyle.css', "utf8");
 
     markdownContent =  markdownContent + "\n\nResponseID:" + userPromptRequest.dynamicResponseId ;
-    let sanitizedMarkdownContent = preprocessResponse(markdownContent);
+    let sanitizedMarkdownContent = await preprocessResponse(markdownContent);
 
     indexHtml = htmlReplaceTemplateValues(cssForMarkdown, indexHtml, sanitizedMarkdownContent, priorContextId, userPromptRequest.dynamicResponseId);
 
@@ -361,20 +363,30 @@ export async function saveMarkdownResponse(userPromptRequest, markdownContent) {
     
 }
 
-export function preprocessResponse(response) {   
-    // Use marked to parse the response if available
-    if (marked) {
-        response = marked.parse(response);
-    }
+export async function preprocessResponse(response) {   
+
+    response = await unified()
+    .use(remarkParse) // Parse markdown to MDAST
+    .use(remarkHighlight) // Apply syntax highlighting to code blocks
+    .use(remarkRehype) // Convert MDAST to HAST
+    .use(rehypeStringify) // Stringify HAST to HTML
+    .process(response)
+    .then(result => String(result));
+    // // Use marked to parse the response if available
+    // if (marked) {
+    //     response = marked.parse(response);
+    // }
     
     // Sanitizes scripts from output. must be done after marked parses
     if (DOMPurify) {
         response = DOMPurify.sanitize(response);
     }
     
-    while(response.charAt(0) != "<"){
+    while(response.charAt(0) != "<" && response.length > 0){
         response = response.substring(1);
     }
+
+    console.log(response);
     return response;
 }
 
@@ -608,7 +620,7 @@ export async function main( ...serverArgs) {
                 terminal.debug(terminal.colors.green, "childReadme: ", terminal.colors.reset, childReadme);
                 terminal.debug(terminal.colors.green, "childReadmeSubject: ", terminal.colors.reset, childReadmeSubject);
                 terminal.debug(terminal.colors.green, "index: ", terminal.colors.reset, i);
-                let parsedReadme = preprocessResponse(childReadme);
+                let parsedReadme = childReadme;
                 //Chance to add attribute is here for hidden or visible                                   //function unneeded but concept is interesting
                 let childReadmeHtml = `<div title="${childReadmeSubject}" id="childContent${i+1}" onclick="setVisibileChild('childContent${i+1}')" hidden=true>${parsedReadme}</div>`;
                 
@@ -635,7 +647,8 @@ export async function main( ...serverArgs) {
             //this could be a function. css is loaded extra times this way
             let css = await fs.readFile("./grok/html_templates/highlightStyle.css", "utf8");
             parentHtml = parentHtml.replace("@CSS_GOES_HERE@", css);
-            parentHtml = parentHtml.replace("REPLACEME", preprocessResponse(GlobalPromptProfile.ParentReadme));
+            let processedParentReadme = await preprocessResponse(GlobalPromptProfile.ParentReadme);
+            parentHtml = parentHtml.replace("REPLACEME", processedParentReadme);
             parentHtml = parentHtml.replace("@REPLACEWITHCHILDRENDIVS@", childDivs);
             parentHtml = parentHtml.replace("@CURRENT_ID@", GlobalPromptProfile.ParentId);
             //parentHtml = parentHtml.replace("@PREVIOUS_ID@", dynamicResponseId);

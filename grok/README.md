@@ -6,6 +6,8 @@
   meta response
 
 ## future features  
+
+  - I need extensive error handling. LLMs sometime don't return the format i want and it's easier to retry than force the llm in a box
   - implement history to store the jsons to a suitable database for more efficient retrieval
 
   - design web server to create directories for profiles.  Have  more intelligent handling of branching requests

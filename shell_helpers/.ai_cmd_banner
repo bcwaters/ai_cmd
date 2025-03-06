@@ -1,13 +1,13 @@
 source ./shell_helpers/.colors_linux
-echo -e "${color_yellow}╭─────────────────────────────────────────────────────────╮"
-echo -e "│$color_yellow        █████╗ ██╗         ██████╗███╗   ███╗██████╗     │"
-echo -e "│$color_yellow       ██╔══██╗██║        ██╔════╝████╗ ████║██╔══██╗    │"
-echo -e "│$color_yellow       ███████║██║        ██║     ██╔████╔██║██║  ██║    │"
-echo -e "│$color_yellow       ██╔══██║██║        ██║     ██║╚██╔╝██║██║  ██║    │"
-echo -e "│$color_yellow       ██║  ██║██║  ████  ╚██████╗██║ ╚═╝ ██║██████╔╝    │"
-echo -e "│$color_yellow       ╚═╝  ╚═╝╚═╝  ════   ╚═════╝╚═╝     ╚═╝╚═════╝     │"
-echo -e  "│    ${color_yellow} This is AI_CMD. Request a readme on any subject.    │${color_reset}"  
-echo -e "${color_yellow}╰─────────────────────────────────────────────────────────╯${color_reset}"
+echo -e "${color_yellow}╭───────────────────────────────────────────────────────╮"
+echo -e "│$color_yellow      █████╗ ██╗         ██████╗███╗   ███╗██████╗     │"
+echo -e "│$color_yellow     ██╔══██╗██║        ██╔════╝████╗ ████║██╔══██╗    │"
+echo -e "│$color_yellow     ███████║██║        ██║     ██╔████╔██║██║  ██║    │"
+echo -e "│$color_yellow     ██╔══██║██║        ██║     ██║╚██╔╝██║██║  ██║    │"
+echo -e "│$color_yellow     ██║  ██║██║  ████  ╚██████╗██║ ╚═╝ ██║██████╔╝    │"
+echo -e "│$color_yellow     ╚═╝  ╚═╝╚═╝  ════   ╚═════╝╚═╝     ╚═╝╚═════╝     │"
+echo -e  "│  ${color_yellow} This is AI_CMD. Request a readme on any subject.    │${color_reset}"  
+echo -e "${color_yellow}╰───────────────────────────────────────────────────────╯${color_reset}"
 
 
 
