@@ -7,6 +7,10 @@
 
 ## future features  
 
+  - create landing page
+
+  - create processing for search bar form
+
   - I need extensive error handling. LLMs sometime don't return the format i want and it's easier to retry than force the llm in a box
   - implement history to store the jsons to a suitable database for more efficient retrieval
 
