@@ -1,0 +1,704 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Home Page</title>
+  <style>
+    
+html {
+  font-size: 100%;
+  overflow-y: scroll;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+body {
+  color: #444;
+  font-family: Georgia, Palatino, 'Palatino Linotype', Times, 'Times New Roman', serif;
+  font-size: 12px;
+  line-height: 1.5em;
+  padding: 1em;
+  margin: auto;
+  max-width: 50em;
+  background: #fefefe;
+}
+
+a {
+  color: #0645ad;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #0b0080;
+}
+
+a:hover {
+  color: #06e;
+}
+
+a:active {
+  color: #faa700;
+}
+
+a:focus {
+  outline: thin dotted;
+}
+
+a:hover,
+a:active {
+  outline: 0;
+}
+
+::-moz-selection {
+  background: rgba(255, 255, 0, 0.3);
+  color: #000;
+}
+
+::selection {
+  background: rgba(255, 255, 0, 0.3);
+  color: #000;
+}
+
+a::-moz-selection {
+  background: rgba(255, 255, 0, 0.3);
+  color: #0645ad;
+}
+
+a::selection {
+  background: rgba(255, 255, 0, 0.3);
+  color: #0645ad;
+}
+
+p {
+  margin: 1em 0;
+}
+
+img {
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
+  color: #111;
+  line-height: 1em;
+}
+
+h4,
+h5,
+h6 {
+  font-weight: bold;
+}
+
+h1 {
+  font-size: 2.5em;
+}
+
+h2 {
+  font-size: 2em;
+}
+
+h3 {
+  font-size: 1.5em;
+}
+
+h4 {
+  font-size: 1.2em;
+}
+
+h5 {
+  font-size: 1em;
+}
+
+h6 {
+  font-size: 0.9em;
+}
+
+blockquote {
+  color: #666666;
+  margin: 0;
+  padding-left: 3em;
+  border-left: 0.5em #eee solid;
+}
+
+hr {
+  display: block;
+  border: 0;
+  border-top: 1px solid #aaa;
+  border-bottom: 1px solid #eee;
+  margin: 1em 0;
+  padding: 0;
+}
+
+/* pre,
+code, */
+kbd,
+samp {
+  color: #000;
+  font-family: monospace, monospace;
+  _font-family: 'courier new', monospace;
+  font-size: 0.98em;
+}
+
+pre {
+  white-space: pre;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+b,
+strong {
+  font-weight: bold;
+}
+
+dfn {
+  font-style: italic;
+}
+
+ins {
+  background: #ff9;
+  color: #000;
+  text-decoration: none;
+}
+
+mark {
+  background: #ff0;
+  color: #000;
+  font-style: italic;
+  font-weight: bold;
+}
+
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sup {
+  top: -0.5em;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+ul,
+ol {
+  margin: 1em 0;
+  padding: 0 0 0 2em;
+}
+
+li p:last-child {
+  margin: 0;
+}
+
+dd {
+  margin: 0 0 0 2em;
+}
+
+img {
+  border: 0;
+  -ms-interpolation-mode: bicubic;
+  vertical-align: middle;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+td {
+  vertical-align: top;
+}
+
+@media only screen and (min-width: 480px) {
+  body {
+    font-size: 14px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  body {
+    font-size: 16px;
+  }
+}
+
+@media print {
+  * {
+    background: transparent !important;
+    color: black !important;
+    filter: none !important;
+    -ms-filter: none !important;
+  }
+
+  body {
+    font-size: 12pt;
+    max-width: 100%;
+  }
+
+  a,
+  a:visited {
+    text-decoration: underline;
+  }
+
+  hr {
+    height: 1px;
+    border: 0;
+    border-bottom: 1px solid black;
+  }
+
+  a[href]:after {
+    content: " (" attr(href) ")";
+  }
+
+  abbr[title]:after {
+    content: " (" attr(title) ")";
+  }
+
+  .ir a:after,
+  a[href^="javascript:"]:after,
+  a[href^="#"]:after {
+    content: "";
+  }
+
+  pre,
+  blockquote {
+    border: 1px solid #999;
+    padding-right: 1em;
+    page-break-inside: avoid;
+  }
+
+  tr,
+  img {
+    page-break-inside: avoid;
+  }
+
+  img {
+    max-width: 100% !important;
+  }
+
+  @page :left {
+    margin: 15mm 20mm 15mm 10mm;
+  }
+
+  @page :right {
+    margin: 15mm 10mm 15mm 20mm;
+  }
+
+  p,
+  h2,
+  h3 {
+    orphans: 3;
+    widows: 3;
+  }
+
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
+}
+
+
+pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px; font-size: 12px;}/*!
+  Theme: StackOverflow Light
+  Description: Light theme as used on stackoverflow.com
+  Author: stackoverflow.com
+  Maintainer: @Hirse
+  Website: https://github.com/StackExchange/Stacks
+  License: MIT
+  Updated: 2021-05-15
+
+  Updated for @stackoverflow/stacks v0.64.0
+  Code Blocks: /blob/v0.64.0/lib/css/components/_stacks-code-blocks.less
+  Colors: /blob/v0.64.0/lib/css/exports/_stacks-constants-colors.less
+*/.hljs{color:#2f3337;background:#f6f6f6}.hljs-subst{color:#2f3337}.hljs-comment{color:#656e77}.hljs-attr,.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-section,.hljs-selector-tag{color:#015692}.hljs-attribute{color:#803378}.hljs-name,.hljs-number,.hljs-quote,.hljs-selector-id,.hljs-template-tag,.hljs-type{color:#b75501}.hljs-selector-class{color:#015692}.hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-string,.hljs-symbol,.hljs-template-variable,.hljs-variable{color:#54790d}.hljs-meta,.hljs-selector-pseudo{color:#015692}.hljs-built_in,.hljs-literal,.hljs-title{color:#b75501}.hljs-bullet,.hljs-code{color:#535a60}.hljs-meta .hljs-string{color:#54790d}.hljs-deletion{color:#c02d2e}.hljs-addition{color:#2f6f44}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}
+
+
+    
+    .nav-button {
+      background-color: transparent;
+      border: 2px solid #008CBA;
+      color: #008CBA;
+      font-size: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+
+    .dropdown-container {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+    }
+
+
+    .nav-button:hover {
+      background-color: #008CBA;
+      color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #f8f9fa;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+    }
+
+    /* Navbar links */
+    nav a {
+      color: #333;
+      text-decoration: none;
+      font-family: 'Arial', sans-serif;
+      text-transform: uppercase;
+      font-weight: 300;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #007bff;
+      text-decoration: underline;
+      background-color: rgba(0, 123, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .nav-right {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    
+    /* Search box */
+    .search-container {
+      display: flex;
+      align-items: center;
+    }
+
+    .search-container form {
+      display: flex;
+      width: 100%;
+    }
+
+    .search-container input[type="text"] {
+      padding: 5px;
+      border: 1px solid #ddd;
+      border-radius: 4px 0 0 4px;
+      font-size: 14px;
+      transition: border-color 0.3s ease;
+      width: 300px;
+      flex: 1;
+    }
+
+    /* SVG prompt button styling */
+    .search-container button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5px 10px;
+      background-color: #007bff;
+      border: none;
+      color: white;
+      border-radius: 0 4px 4px 0;
+      cursor: pointer;
+      height: 28px;
+    }
+
+    .search-container button svg {
+      width: 16px;
+      height: 16px;
+      fill: white;
+    }
+
+    .search-container button:hover {
+      background-color: #0056b3;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .search-container input[type="text"]:focus {
+      border-color: #007bff;
+      outline: none;
+      box-shadow: 0 0 0 1px #007bff;
+      position: relative;
+      z-index: 1;
+    }
+
+    .search-container input[type="text"]:focus + button {
+      border-left: none;
+      box-shadow: 1px 0 0 1px #007bff, 0 0 0 1px #007bff;
+      position: relative;
+      z-index: 1;
+    }
+    
+    /* Dropdown styling */
+    select {
+      padding: 5px 10px;
+      border: 2px solid #008CBA;
+      border-radius: 4px;
+      background-color: white;
+      color: #333;
+      font-family: 'Arial', sans-serif;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    select:hover {
+      border-color: #007bff;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+    }
+    
+    select:focus {
+      outline: none;
+      border-color: #007bff;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+    
+    option {
+      padding: 5px;
+      background-color: white;
+      color: #333;
+    }
+    
+    option:hover {
+      background-color: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a id="parentContentLink" href='/?context=16bef5c2-b2c0-42'>Home</a>
+
+    <div class="search-container">
+      <form action="/" method="get">
+        <input type="text" name="prompt" placeholder="prompt more on the subject">
+        <input type="hidden" name="context" value="@CURRENT_ID@">
+        <button type="submit" onclick="this.disabled=true; this.style.backgroundColor='#666666'; this.style.boxShadow='0 0 10px #666666'; this.form.submit();">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M12.5 5.5c-.276 0-.5.224-.5.5s.224.5.5.5c1.083 0 1.964.881 1.964 1.964 0 .276.224.5.5.5s.5-.224.5-.5c0-1.634-1.33-2.964-2.964-2.964zM12.5 1c-4.136 0-7.5 3.364-7.5 7.5 0 1.486.44 2.922 1.274 4.165l.08.135c1.825 2.606 2.146 3.43 2.146 4.2v3c0 .552.448 1 1 1h2c0 .26.11.52.29.71.19.18.45.29.71.29.26 0 .52-.11.71-.29.18-.19.29-.45.29-.71h2c.552 0 1-.448 1-1v-3c0-.782.319-1.61 2.132-4.199.895-1.275 1.368-2.762 1.368-4.301 0-4.136-3.364-7.5-7.5-7.5zm2 18h-4v-1h4v1zm2.495-7.347c-1.466 2.093-2.143 3.289-2.385 4.347h-1.11v-2c0-.552-.448-1-1-1s-1 .448-1 1v2h-1.113c-.24-1.03-.898-2.2-2.306-4.22l-.077-.129c-.657-.934-1.004-2.024-1.004-3.151 0-3.033 2.467-5.5 5.5-5.5s5.5 2.467 5.5 5.5c0 1.126-.347 2.216-1.005 3.153z"/>
+          </svg>
+        </button>
+      </form>
+    </div>
+
+    <div class="nav-right">
+
+      <button class="nav-button" id="saveButton" onclick="saveButton()">Save</button>
+    </div>
+  </nav>
+  <div class="dropdown-container">
+    <select id="childSubjects">
+      <option value="home">Home</option>
+      <!-- Children are added here onload with setChildSubjects -->
+  </select>
+  </div>
+  <div id="content">  
+    <div id="parentContent">
+        <ul>
+<li>Green</li>
+<li>Red</li>
+</ul>
+    </div>
+    <div id="childDivs">
+      <div title="Green" id="childContent1" onclick="setVisibileChild('childContent1')" hidden=true><h2>Green</h2>
+<h3>Description and Physical Characteristics</h3>
+<p>Green is a color that lies between blue and yellow on the visible spectrum of light, typically with wavelengths ranging from approximately 495 to 570 nanometers. It is one of the three primary colors in the additive color system used in screens and photography, alongside red and blue. In the subtractive color system used in painting and printing, green is created by mixing yellow and blue.</p>
+<p>The color green is predominantly associated with nature, as it is the color of chlorophyll, which is vital for photosynthesis in plants. This pigment absorbs red and blue light while reflecting green light, giving plants their characteristic color.</p>
+<h3>Psychological and Cultural Significance</h3>
+<p><strong>Psychology:</strong> Green is often linked with feelings of tranquility, health, and growth. It is known to have a calming effect and can improve reading ability and creativity. In marketing, green is used to promote environmental friendliness and health products, as it evokes a sense of nature and well-being.</p>
+<p><strong>Cultural Symbolism:</strong> In many cultures, green has a variety of meanings. In Western cultures, green can symbolize luck (as in the four-leaf clover) and wealth. In some Eastern cultures, such as in China, green is associated with health, prosperity, and harmony. However, in some Middle Eastern countries, green has religious significance, being considered sacred in Islam and often used to represent the Prophet Muhammad.</p>
+<h3>In Nature</h3>
+<p><strong>Biological Significance:</strong> Green is ubiquitous in nature, particularly in the plant kingdom. The presence of chlorophyll in plants not only gives them their green color but also enables them to convert sunlight into energy through photosynthesis. This process is fundamental to life on Earth, as it forms the base of the food chain.</p>
+<p>In the animal kingdom, green is less common but still significant. Many animals, such as certain species of frogs and insects, use green coloration for camouflage, blending seamlessly with their leafy surroundings to avoid predators.</p>
+<p><strong>Plant Life:</strong> Green plants are essential for the ecosystem. They produce oxygen, absorb carbon dioxide, and provide habitats for various species. Notable green plants include the emerald green of mosses, the vibrant green of ferns, and the various shades of green found in the leaves of trees and shrubs.</p>
+<h3>Applications</h3>
+<p><strong>Art and Fashion:</strong> Green has been used in art throughout history, from the green pigments used in ancient Egyptian art to the lush landscapes painted by Impressionists like Monet. In fashion, green is often associated with nature and sustainability, making it a popular choice for eco-friendly clothing lines. It can also symbolize wealth and luxury, as seen in the use of emerald green in high-end fashion.</p>
+<p><strong>Technology:</strong> In technology, green LEDs are used in displays and indicators due to their energy efficiency and visibility. Green lasers are employed in various applications, including laser pointers and laser shows. Green screens are used in film and video production to allow for the easy insertion of background images or special effects.</p>
+<h3>Health and Safety</h3>
+<p><strong>Safety and Signage:</strong> Green is universally recognized as a color indicating safety and permission. It is used in traffic lights to signal "go," in emergency exits to denote safe evacuation routes, and in safety equipment to indicate that it is operational.</p>
+<p><strong>Health:</strong> Green light therapy, although less common than red light therapy, is used to treat certain skin conditions and to promote relaxation. Some studies suggest that exposure to green light can help regulate circadian rhythms and improve sleep quality.</p>
+<p>In summary, green is a color with deep psychological, cultural, and practical significance, influencing various aspects of human life from nature and art to technology and health.</p>
+<p>ResponseID:7f3d8a24-def9-48</p></div><div title="Red" id="childContent2" onclick="setVisibileChild('childContent2')" hidden=true><h2>Red</h2>
+<p>Red is a primary color in the visible spectrum of light, with a wavelength typically ranging from approximately 620 to 740 nanometers. It is one of the three primary colors in the additive color system used in screens and photography, alongside green and blue. In the subtractive color system used in painting and printing, red is one of the three primary colors along with yellow and blue.</p>
+<h3>Psychological and Cultural Significance</h3>
+<ul>
+<li>
+<p><strong>Psychology</strong>: Red is often associated with strong emotions such as love, passion, and anger. It is known to increase heart rate and create feelings of excitement or urgency. In marketing, red is used to attract attention and stimulate appetite, which is why it's commonly seen in food branding.</p>
+</li>
+<li>
+<p><strong>Cultural Symbolism</strong>: The color red has diverse meanings across cultures. In many Eastern cultures, such as China, red symbolizes good fortune and joy, often used in celebrations like weddings and the Lunar New Year. In Western cultures, red can symbolize both love (as in Valentine's Day) and danger or warning (as in stop signs and emergency services).</p>
+</li>
+</ul>
+<h3>In Nature</h3>
+<ul>
+<li>
+<p><strong>Biological Significance</strong>: Red is a prominent color in nature, often used by animals for mating displays or as a warning signal to predators (aposematism). For example, the bright red of a cardinal's feathers or the red of a poison dart frog serve as vivid examples.</p>
+</li>
+<li>
+<p><strong>Plant Life</strong>: Red is also found in many fruits and flowers, which can attract pollinators or seed dispersers. Examples include strawberries, tomatoes, and roses. The red coloration in plants often comes from pigments like anthocyanins, which can protect against UV light and oxidative stress.</p>
+</li>
+</ul>
+<h3>Applications</h3>
+<ul>
+<li>
+<p><strong>Art and Fashion</strong>: Red has been a significant color in art history, from the red ochre used in prehistoric cave paintings to the vibrant reds used by artists like Titian and Van Gogh. In fashion, red is a bold choice that can make a strong statement, often associated with power and sophistication.</p>
+</li>
+<li>
+<p><strong>Technology</strong>: In technology, red LEDs are commonly used in displays and indicators due to their visibility and efficiency. Red lasers are used in various applications, including barcode scanning and laser pointers.</p>
+</li>
+</ul>
+<h3>Health and Safety</h3>
+<ul>
+<li>
+<p><strong>Safety and Signage</strong>: Red is universally recognized as a color for warning and danger. It is used in traffic lights, stop signs, and emergency exits to ensure quick recognition and response in critical situations.</p>
+</li>
+<li>
+<p><strong>Health</strong>: Red light therapy is a treatment that uses low-level wavelengths of red light to treat skin conditions, reduce inflammation, and promote healing. It's also used in some forms of photodynamic therapy to treat certain types of cancer.</p>
+</li>
+</ul>
+<p>In summary, red is a color with deep psychological, cultural, and practical significance, influencing various aspects of human life from art and fashion to safety and health.</p>
+<p>ResponseID:ed3b3cf0-94ed-4a</p></div>
+    </div>
+  </div>
+
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+
+    <script>
+      function setChildSubjects(){
+        let dropDownOptions = [];
+        let childSubjects = document.getElementById('childDivs');
+        for (let child of childSubjects.children){
+           let subject = child.title;
+           let optionValue = child.id;
+
+           dropDownOptions.push({subject: subject, value: optionValue});
+        
+        }
+
+        for (let option of dropDownOptions){
+          let optionElement = document.createElement('option');
+          optionElement.value = option.value;
+          optionElement.text = option.subject;
+          document.getElementById('childSubjects').appendChild(optionElement);
+        }
+
+        document.getElementById('childSubjects').addEventListener('change', function() {
+          if(this.value == "home"){
+            goHomePage();
+          }else{
+            setVisibleChild(this.value);
+          }
+
+          }
+        );
+      }
+    </script>
+
+
+    <script>
+      function setVisibleChild(id){
+        //quick flicker home to reset state, this allows hoping between child views
+     
+    
+           let topNode = document.getElementById('content');
+           let parentNode = document.getElementById('parentContent');
+           let childVisibleNode = document.getElementById(id);
+           let childDivs = document.getElementById('childDivs');
+           for (let child of childDivs.children){
+            if(child.id != id){
+              child.hidden = true;
+            }else{
+              child.hidden = false; //redudant
+            }
+           }
+           parentNode.hidden = true;
+           childVisibleNode.hidden = false;
+         }
+      
+    </script>
+
+    <script>
+      function goHomePage(){
+         let topNode = document.getElementById('content');
+         let parentNode = document.getElementById('parentContent');
+         let children = document.getElementById('childDivs');
+         for (let child of children.children){
+            child.hidden = true;
+         }
+         parentNode.hidden = false;
+      }
+    </script>
+        
+
+    <script>
+       function makeChildLinks(parent, child){
+            parent.style.cursor = "pointer";
+            parent.style.textDecoration = "underline";
+            parent.style.color = "blue";
+            parent.onclick = function(){
+              setVisibleChild(child.id);
+            }
+       }
+
+    </script>
+
+<script>window.onload = setChildSubjects;</script>
+
+<script>
+  // Add this function to handle home link click
+  document.addEventListener('DOMContentLoaded', function() {
+    // Get the home link
+    const homeLink = document.getElementById('parentContentLink');
+    
+    // Add click event listener
+    homeLink.addEventListener('click', function(event) {
+      this.style.backgroundColor = '#666666';
+      this.style.color = '#ffffff';
+      this.style.boxShadow = '0 0 10px #666666';
+      this.innerText = 'Processing...';
+      this.style.pointerEvents = 'none';
+    });
+  });
+</script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

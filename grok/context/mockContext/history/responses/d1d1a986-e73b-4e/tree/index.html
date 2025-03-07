@@ -1,0 +1,389 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Home Page</title>
+  <style>
+    pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
+  Theme: StackOverflow Light
+  Description: Light theme as used on stackoverflow.com
+  Author: stackoverflow.com
+  Maintainer: @Hirse
+  Website: https://github.com/StackExchange/Stacks
+  License: MIT
+  Updated: 2021-05-15
+
+  Updated for @stackoverflow/stacks v0.64.0
+  Code Blocks: /blob/v0.64.0/lib/css/components/_stacks-code-blocks.less
+  Colors: /blob/v0.64.0/lib/css/exports/_stacks-constants-colors.less
+*/.hljs{color:#2f3337;background:#f6f6f6}.hljs-subst{color:#2f3337}.hljs-comment{color:#656e77}.hljs-attr,.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-section,.hljs-selector-tag{color:#015692}.hljs-attribute{color:#803378}.hljs-name,.hljs-number,.hljs-quote,.hljs-selector-id,.hljs-template-tag,.hljs-type{color:#b75501}.hljs-selector-class{color:#015692}.hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-string,.hljs-symbol,.hljs-template-variable,.hljs-variable{color:#54790d}.hljs-meta,.hljs-selector-pseudo{color:#015692}.hljs-built_in,.hljs-literal,.hljs-title{color:#b75501}.hljs-bullet,.hljs-code{color:#535a60}.hljs-meta .hljs-string{color:#54790d}.hljs-deletion{color:#c02d2e}.hljs-addition{color:#2f6f44}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: left;
+      padding: 10px;
+    }
+    
+    .nav-right {
+      display: flex;
+      gap: 50px;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a id="parentContentLink" href='/?context=d1d1a986-e73b-4e'>Prompt again</a>
+
+      <select id="childSubjects">
+        <option value="home">Home</option>
+        <!-- Children are added here onload with setChildSubjects -->
+      </select>
+      <!-- Add a previous and next button for prior requests? -->
+      <!-- Add a button to save the current page as a markdown file -->
+
+      
+      <button id="saveButton" onclick="saveButton()">Save html</button>
+
+
+  </nav>
+
+  <div id="content">  
+    <div id="parentContent">
+        <p>Here are two geometry theorems:</p>
+<h2>1. The Pythagorean Theorem</h2>
+<p><strong>Statement:</strong> In a right-angled triangle, the square of the length of the hypotenuse (the side opposite the right angle) is equal to the sum of the squares of the lengths of the other two sides.</p>
+<p><strong>Mathematical Expression:</strong> For a right triangle with sides of length (a) and (b) and hypotenuse of length (c), the theorem states:
+[ c^2 = a^2 + b^2 ]</p>
+<p><strong>Coolness Factor:</strong> This theorem is foundational in geometry and has numerous applications, from calculating distances in Cartesian coordinates to its use in various fields like architecture and engineering. Its proof can be visualized through many different methods, making it a favorite in mathematics education.</p>
+<h2>2. The Inscribed Angle Theorem</h2>
+<p><strong>Statement:</strong> The measure of an inscribed angle is half the measure of the arc it intercepts.</p>
+<p><strong>Mathematical Expression:</strong> If an inscribed angle (\angle ABC) intercepts arc (\stackrel{\frown}{AC}) on a circle, then:
+[ \angle ABC = \frac{1}{2} \text{arc} \stackrel{\frown}{AC} ]</p>
+<p><strong>Coolness Factor:</strong> This theorem elegantly connects the properties of circles and angles, allowing for the calculation of angles and arcs with ease. It's particularly cool because it simplifies complex geometric problems and has applications in fields like astronomy for calculating celestial angles.</p>
+
+    </div>
+    <div id="childDivs">
+      <div title="The Pythagorean Theorem" id="childContent1" onclick="setVisibileChild('childContent1')" hidden=true><h2>The Pythagorean Theorem</h2>
+<h3>Statement</h3>
+<p>In a right-angled triangle, the Pythagorean Theorem states that the square of the length of the hypotenuse (the side opposite the right angle) is equal to the sum of the squares of the lengths of the other two sides. This fundamental principle can be expressed as: for any right triangle with sides (a) and (b), and hypotenuse (c), the relationship holds true as (c^2 = a^2 + b^2).</p>
+<h3>Mathematical Expression</h3>
+<p>The theorem's mathematical expression is straightforward yet powerful:
+[ c^2 = a^2 + b^2 ]
+Here, (a) and (b) represent the lengths of the legs of the right triangle, and (c) is the length of the hypotenuse. This equation allows us to solve for any unknown side of a right triangle given the lengths of the other two sides.</p>
+<h3>Coolness Factor</h3>
+<p>The Pythagorean Theorem is often celebrated for its foundational role in geometry and its wide range of applications. Here are some aspects that contribute to its "coolness factor":</p>
+<ul>
+<li><p><strong>Universal Applicability:</strong> The theorem applies to all right triangles, making it a universal tool in geometry. It is used in various fields, including architecture, engineering, and physics, to solve problems involving distances and angles.</p>
+</li>
+<li><p><strong>Multiple Proofs:</strong> The theorem's proof can be approached in numerous ways, each offering unique insights into the nature of right triangles. Some popular proofs include:</p>
+<ul>
+<li><strong>Euclid's Proof:</strong> Using similar triangles to show that the areas of the squares on the legs of the triangle sum to the area of the square on the hypotenuse.</li>
+<li><strong>Algebraic Proof:</strong> Rearranging four copies of the same right triangle to form two different squares, demonstrating that the areas of the squares on the legs sum to the area of the square on the hypotenuse.</li>
+<li><strong>Geometric Proofs:</strong> Using visual methods like the "Bride's Chair" or the "Windmill" proof to illustrate the relationship.</li>
+</ul>
+</li>
+<li><p><strong>Educational Value:</strong> The theorem is a staple in mathematics education due to its simplicity and the intuitive understanding it fosters. It is often introduced early in geometry courses and serves as a gateway to more advanced mathematical concepts.</p>
+</li>
+<li><p><strong>Real-World Applications:</strong> The theorem's practical applications are extensive:</p>
+<ul>
+<li><strong>Navigation and Surveying:</strong> Used to calculate distances and angles in navigation and surveying.</li>
+<li><strong>Construction:</strong> Essential in ensuring the accuracy of right angles in building and construction projects.</li>
+<li><strong>Physics and Engineering:</strong> Applied in calculating trajectories, forces, and other physical quantities involving right triangles.</li>
+</ul>
+</li>
+<li><p><strong>Extensions and Generalizations:</strong> The Pythagorean Theorem has been extended to higher dimensions and other mathematical structures:</p>
+<ul>
+<li><strong>Three-Dimensional Space:</strong> The theorem generalizes to the Pythagorean Theorem in three dimensions, where (a^2 + b^2 + c^2 = d^2) for a right rectangular prism.</li>
+<li><strong>Non-Euclidean Geometry:</strong> The theorem's principles are adapted in non-Euclidean geometries, where the concept of a right angle and the relationship between sides can differ.</li>
+</ul>
+</li>
+</ul>
+<p>By delving into these aspects, we gain a deeper appreciation for the Pythagorean Theorem's elegance, utility, and the profound impact it has had on mathematics and beyond.</p>
+<p>ResponseID:85f7f63b-1b12-43</p>
+</div><div title="The Inscribed Angle Theorem" id="childContent2" onclick="setVisibileChild('childContent2')" hidden=true><h2>The Inscribed Angle Theorem</h2>
+<h3>Statement:</h3>
+<p>The Inscribed Angle Theorem states that the measure of an angle inscribed in a circle is half the measure of the arc that the angle intercepts. This relationship holds true regardless of the position of the angle on the circle's circumference, as long as its vertex lies on the circle and its sides intersect the circle at two other points.</p>
+<h3>Mathematical Expression:</h3>
+<p>If we denote an inscribed angle as (\angle ABC) and the arc it intercepts as (\stackrel{\frown}{AC}), the theorem can be mathematically expressed as:
+[ \angle ABC = \frac{1}{2} \text{arc} \stackrel{\frown}{AC} ]
+This formula shows the direct proportionality between the inscribed angle and the intercepted arc, emphasizing the theorem's utility in angle and arc calculations.</p>
+<h3>Proof:</h3>
+<p>The proof of the Inscribed Angle Theorem can be approached in various ways, but a common method involves considering different cases based on the position of the inscribed angle relative to the circle's center:</p>
+<ol>
+<li><p><strong>Angle at the Center:</strong> If the angle is a central angle, (\angle AOC), where (O) is the center of the circle, then:
+[ \angle AOC = \text{arc} \stackrel{\frown}{AC} ]
+When an inscribed angle (\angle ABC) intercepts the same arc (\stackrel{\frown}{AC}), it is half of the central angle because:
+[ \angle ABC = \frac{1}{2} \angle AOC = \frac{1}{2} \text{arc} \stackrel{\frown}{AC} ]</p>
+</li>
+<li><p><strong>Angle on the Circle:</strong> For any other position of the inscribed angle on the circle, the same principle applies. By drawing the radius to the points where the angle's sides intersect the circle, we can form two isosceles triangles and use their properties to show that the inscribed angle is always half the central angle subtended by the same arc.</p>
+</li>
+</ol>
+<h3>Coolness Factor:</h3>
+<p>The elegance of the Inscribed Angle Theorem lies in its simplicity and the powerful insights it provides into the geometry of circles. It connects the measurement of angles directly to the arcs they intercept, allowing for straightforward calculations of angles and arcs within a circle.</p>
+<ul>
+<li><p><strong>Simplification of Complex Problems:</strong> The theorem simplifies the calculation of angles in circles, making it easier to solve problems that might otherwise be complex. For example, in a circle, if you know the measure of an arc, you can immediately find the measure of any inscribed angle intercepting that arc.</p>
+</li>
+<li><p><strong>Applications in Astronomy:</strong> In astronomy, the theorem is used to calculate the angles between celestial bodies as observed from Earth. Since the Earth can be considered the center of a circle for these observations, the angles formed by the lines of sight to different celestial bodies are inscribed angles, and their measures can be calculated using the theorem.</p>
+</li>
+<li><p><strong>Education and Visualization:</strong> The theorem is a staple in mathematics education due to its visual appeal and the intuitive understanding it fosters. It is often taught with diagrams that show how changing the position of the inscribed angle while keeping the intercepted arc constant does not change the angle's measure, which is a powerful demonstration of the theorem's validity.</p>
+</li>
+<li><p><strong>Generalization and Extensions:</strong> The Inscribed Angle Theorem can be extended to other conic sections, such as ellipses and hyperbolas, and it has counterparts in spherical geometry, making it a fundamental concept with broad applicability in geometry and related fields.</p>
+</li>
+</ul>
+<p>By understanding and applying the Inscribed Angle Theorem, one can gain deeper insights into the nature of circles and angles, making it a cornerstone of geometric analysis and a tool for solving a wide range of problems in mathematics and beyond.</p>
+<p>ResponseID:9dcb11fe-6a92-42</p>
+</div>
+    </div>
+  </div>
+
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+
+    <script>
+      function setChildSubjects(){
+        let dropDownOptions = [];
+        let childSubjects = document.getElementById('childDivs');
+        for (let child of childSubjects.children){
+           let subject = child.title;
+           let optionValue = child.id;
+
+           dropDownOptions.push({subject: subject, value: optionValue});
+        
+        }
+
+        for (let option of dropDownOptions){
+          let optionElement = document.createElement('option');
+          optionElement.value = option.value;
+          optionElement.text = option.subject;
+          document.getElementById('childSubjects').appendChild(optionElement);
+        }
+
+        document.getElementById('childSubjects').addEventListener('change', function() {
+          if(this.value == "home"){
+            goHomePage();
+          }else{
+            setVisibleChild(this.value);
+          }
+
+          }
+        );
+      }
+    </script>
+
+
+    <script>
+      function setVisibleChild(id){
+        //quick flicker home to reset state, this allows hoping between child views
+     
+    
+           let topNode = document.getElementById('content');
+           let parentNode = document.getElementById('parentContent');
+           let childVisibleNode = document.getElementById(id);
+           let childDivs = document.getElementById('childDivs');
+           for (let child of childDivs.children){
+            if(child.id != id){
+              child.hidden = true;
+            }else{
+              child.hidden = false; //redudant
+            }
+           }
+           parentNode.hidden = true;
+           childVisibleNode.hidden = false;
+         }
+      
+    </script>
+
+    <script>
+      function goHomePage(){
+         let topNode = document.getElementById('content');
+         let parentNode = document.getElementById('parentContent');
+         let children = document.getElementById('childDivs');
+         for (let child of children.children){
+            child.hidden = true;
+         }
+         parentNode.hidden = false;
+      }
+    </script>
+
+    <script>
+      function setChildLinks(){
+        let children = document.getElementById('childDivs'); 
+        let childSubjects = [];
+        let discoveredMatches = [];
+
+        
+        for (let child of children.children){
+          let subject = child.title;
+          childSubjects.push({subject: subject, child: child});
+          }
+             
+          let parentNodeH2Subjects = []
+          let parentNodeH3Subjects = []
+          let parentNodeH4Subjects = []
+          let parentNode = document.getElementById('parentContent');
+          let H2s = parentNode.getElementsByTagName("H2");
+          let H3s = parentNode.getElementsByTagName("H3");
+          let H4s = parentNode.getElementsByTagName("H4");
+          let isH2Match = false;
+          let isH3Match = false;
+          let isH4Match = false;
+
+          H2s.length > 0? parentNodeH2Subjects = H2s.map(item => ({subject: item.innerText, item: item})):isH2Match = false;
+          H3s.length > 0?parentNodeH3Subjects = H3s.map(item => ({subject: item.innerText, item: item})):isH3Match = false;
+          H4s.length > 0?parentNodeH4Subjects = H4s.map(item => ({subject: item.innerText, item: item})):isH4Match = false;
+
+          
+           isH3Match = H3s.length == childSubjects.length;
+           isH2Match = H2s.length == childSubjects.length;
+           isH4Match = H4s.length == childSubjects.length;
+          let allDiscovered = false;
+
+          if (isH3Match){
+            //We have a match.  We need to find the H2s
+            allDiscovered = true;
+          }
+          if (isH2Match){
+            //We have a match.  We need to find the H3s
+            allDiscovered = true;
+          }
+          if (isH4Match){
+            //We have a match.  We need to find the H2s
+            allDiscovered = true;
+          }
+
+          if(allDiscovered && (isH3Match + isH2Match + isH4Match) > 1){
+            //wierd.  ok we work from scratch.
+            allDiscovered = false;
+          }
+
+          if(!allDiscovered){
+
+            let fluffWords = ["a", "an", "the", "and", "but", "or", "for", "nor", "on", "at", "to", "from", "by", "with", "of"];
+            let fluffWordsRegex = new RegExp(fluffWords.join("|"), "g");
+          
+          //OK time to stumble through unpredictable llm output
+          //First check if the child subjects are in the parent node h2 subjects
+          let isH2 = false;
+          let isH3 = false;
+          let isH4 = false;
+      
+          //This can be optimized later.  Probably doesnt matter since it is client side with modern computing.
+          for (let i = 0; i < parentNodeH2Subjects.length; i++){
+            let subject = parentNodeH2Subjects[i].subject;
+            for (let j = 0; j < childSubjects.length; j++){
+              let childSubject = childSubjects[j].subject;
+              if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                isH2 = true;
+                discoveredMatches.push({parentLink: parentNodeH2Subjects[i].item, childLink: childSubjects[j].child});
+              }
+            }
+
+          }
+         
+          if(!isH2){
+            for (let i = 0; i < parentNodeH3Subjects.length; i++){
+              let subject = parentNodeH3Subjects[i].subject;
+              for (let j = 0; j < childSubjects.length; j++){
+                let childSubject = childSubjects[j].subject;  
+                if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                  isH3 = true;
+                  discoveredMatches.push({parentLink: parentNodeH3Subjects[i].item, childLink: childSubjects[j].child});
+                }
+              }
+            }
+          }
+
+          if(!isH3){
+            for (let i = 0; i < parentNodeH4Subjects.length; i++){
+              let subject = parentNodeH4Subjects[i].subject;
+              for (let j = 0; j < childSubjects.length; j++){
+                let childSubject = childSubjects[j].subject;
+                if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                  isH4 = true;
+                  discoveredMatches.push({parentLink: parentNodeH4Subjects[i].item, childLink: childSubjects[j].child});
+                }
+              }
+            }
+          }
+
+          if(!isH4){
+              //I suppose there are edge cases but this surely covers 99.9% of the cases.
+          }
+
+          }else{
+            if(isH3Match){
+              for (let i = 0; i < parentNodeH3Subjects.length; i++){
+                let child = childSubjects[i].child;
+                makeChildLinks(parentNodeH3Subjects[i].item, child);
+              }
+              return; //bye bye
+            }
+            if(isH2Match){
+              for (let i = 0; i < parentNodeH2Subjects.length; i++){
+                let child = childSubjects[i].child;
+                makeChildLinks(parentNodeH2Subjects[i].item, child);
+                return; //bye bye
+              }
+              if(isH4Match){
+                for (let i = 0; i < parentNodeH4Subjects.length; i++){
+                  let child = childSubjects[i].child;
+                  makeChildLinks(parentNodeH4Subjects[i].item, child);
+                }
+              }
+
+            }
+
+          }
+
+          for (let match of discoveredMatches){
+            makeChildLinks(match.parentLink, match.childLink);
+            if(match.length < childSubjects.length){ alert("LLMM added additional info that is hidden");}
+          }
+
+        }
+    </script>
+
+    <script>
+       function makeChildLinks(parent, child){
+            parent.style.cursor = "pointer";
+            parent.style.textDecoration = "underline";
+            parent.style.color = "blue";
+            parent.onclick = function(){
+              setVisibleChild(child.id);
+            }
+       }
+
+    </script>
+
+<script>window.onload = setChildSubjects;</script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

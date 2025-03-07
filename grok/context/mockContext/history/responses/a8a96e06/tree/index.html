@@ -1,0 +1,526 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Home Page</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    <a id="parentContent" href='javascript:goHomePage()'>Home</a>
+    <select id="childSubjects">
+      <option value="home">Home</option>
+      <!-- Children are added here onload with setChildSubjects -->
+    </select>
+    <!-- Add a previous and next button for prior requests? -->
+    <!-- Add a button to save the current page as a markdown file -->
+  </nav>
+
+  <div id="content">  
+    <div id="parentContent">
+        <h1>Approaches for Training Models with Another Framework and Hosting with TensorFlowJS</h1>
+<p>Training models with another framework and then hosting them in the browser using TensorFlowJS involves several key steps. Below are some approaches to achieve this:</p>
+<h2>1. <strong>Model Training with Another Framework</strong></h2>
+<p>When training your model, you can use frameworks like PyTorch, Keras, or any other preferred deep learning library. The key is to ensure that the model can be converted to a format compatible with TensorFlowJS.</p>
+<ul>
+<li><p><strong>PyTorch to TensorFlowJS</strong>:</p>
+<ul>
+<li>Use <code>torch.onnx</code> to export your PyTorch model to ONNX format.</li>
+<li>Convert the ONNX model to TensorFlow using <code>onnx-tf</code>.</li>
+<li>Use TensorFlow's <code>tf.saved_model</code> to save the model, then convert it to TensorFlowJS using <code>tensorflowjs_converter</code>.</li>
+</ul>
+</li>
+<li><p><strong>Keras to TensorFlowJS</strong>:</p>
+<ul>
+<li>If you're using Keras (which is part of TensorFlow), you can directly save the model using <code>model.save('model.h5')</code> or <code>model.save('model.keras')</code>.</li>
+<li>Convert the saved model to TensorFlowJS using <code>tensorflowjs_converter</code>.</li>
+</ul>
+</li>
+</ul>
+<h2>2. <strong>Model Conversion</strong></h2>
+<p>Once the model is trained, it needs to be converted to a format that TensorFlowJS can load. Here are the conversion steps for different frameworks:</p>
+<ul>
+<li><p><strong>PyTorch</strong>:</p>
+<pre><code class="language-bash"># Export to ONNX
+python -c "import torch; model = ...; torch.onnx.export(model, dummy_input, 'model.onnx')"
+
+# Convert ONNX to TensorFlow
+onnx-tf convert -i model.onnx -o model_tf
+
+# Save TensorFlow model
+python -c "import tensorflow as tf; model = tf.saved_model.load('model_tf'); tf.saved_model.save(model, 'saved_model')"
+
+# Convert to TensorFlowJS
+tensorflowjs_converter --input_format=tf_saved_model --output_node_names='output_node' --saved_model_tags=serve saved_model model_tfjs
+</code></pre>
+</li>
+<li><p><strong>Keras</strong>:</p>
+<pre><code class="language-bash"># Save Keras model
+python -c "from tensorflow import keras; model = ...; model.save('model.h5')"
+
+# Convert to TensorFlowJS
+tensorflowjs_converter --input_format=keras 'model.h5' model_tfjs
+</code></pre>
+</li>
+</ul>
+<h2>3. <strong>Hosting the Model in Browser with TensorFlowJS</strong></h2>
+<p>After converting the model to TensorFlowJS format, you can host it in the browser. Here's how:</p>
+<ul>
+<li><p><strong>Load the Model</strong>:
+Use the <code>tf.loadLayersModel</code> function to load the model in the browser.</p>
+<pre><code class="language-javascript">async function loadModel() {
+  const model = await tf.loadLayersModel('model_tfjs/model.json');
+  return model;
+}
+</code></pre>
+</li>
+<li><p><strong>Make Predictions</strong>:
+Once the model is loaded, you can use it to make predictions.</p>
+<pre><code class="language-javascript">async function predict(inputData) {
+  const model = await loadModel();
+  const tensor = tf.tensor2d([inputData]);
+  const prediction = model.predict(tensor);
+  const result = prediction.dataSync();
+  return result;
+}
+</code></pre>
+</li>
+</ul>
+<h2>4. <strong>Deployment Considerations</strong></h2>
+<ul>
+<li><strong>Model Size</strong>: Ensure the model size is manageable for web deployment. Techniques like quantization can help reduce model size.</li>
+<li><strong>Performance</strong>: Optimize the model for web performance. TensorFlowJS provides tools like <code>tfjs-node</code> for server-side optimization.</li>
+<li><strong>Security</strong>: Consider the security implications of hosting models in the browser. Ensure sensitive data is handled appropriately.</li>
+</ul>
+<p>By following these approaches, you can effectively train models using another framework and then host them in the browser using TensorFlowJS, providing a seamless experience for web-based machine learning applications.</p>
+
+    </div>
+    <div id="childDivs">
+      <div title="ModelTraining with Another Framework" id="childContent1" onclick="setVisibileChild('childContent1')" hidden=true><h1>Model Training with Another Framework</h1>
+<p>When it comes to deploying machine learning models in web applications using TensorFlow.js, the initial step before conversion is the training of the model using another framework. This phase is crucial as it lays the foundation for the model's performance and accuracy in its eventual deployment environment. Here's a more detailed look into this step:</p>
+<h2>Choosing the Framework</h2>
+<p>The first decision in the model training process is selecting the deep learning framework that best fits your project's needs. Popular choices include:</p>
+<ul>
+<li><strong>TensorFlow</strong>: Widely used for its flexibility and support for a variety of tasks. It's the natural choice if you plan to convert to TensorFlow.js later due to its compatibility.</li>
+<li><strong>PyTorch</strong>: Known for its ease of use and dynamic computation graphs, making it a favorite among researchers and developers who need to experiment quickly.</li>
+<li><strong>Keras</strong>: Often used on top of TensorFlow, Keras provides a high-level API that simplifies the development of deep learning models.</li>
+</ul>
+<p>Each framework has its strengths and may be more suitable depending on the specific requirements of your project, such as ease of implementation, availability of pre-trained models, or support for specific types of neural networks.</p>
+<h2>Training the Model</h2>
+<p>Once the framework is chosen, the training process involves several key steps:</p>
+<ol>
+<li><p><strong>Data Preparation</strong>: Collecting, cleaning, and preprocessing your dataset to ensure it's in a suitable format for training. This might include normalization, augmentation, or feature engineering.</p>
+</li>
+<li><p><strong>Model Architecture Design</strong>: Defining the structure of your neural network, including the number of layers, types of layers (e.g., convolutional, recurrent), and the connections between them. This design is heavily influenced by the problem you're trying to solve and the data you're working with.</p>
+</li>
+<li><p><strong>Model Training</strong>: Using your prepared dataset to train the model. This involves feeding data through the network, adjusting weights based on the error (loss) of predictions, and iterating until the model performs adequately. Techniques such as gradient descent, backpropagation, and various optimization algorithms are used to minimize the loss function.</p>
+</li>
+<li><p><strong>Validation and Tuning</strong>: Assessing the model's performance on a validation set to prevent overfitting and to tune hyperparameters. Techniques like cross-validation, early stopping, and regularization might be applied to improve the model's generalization ability.</p>
+</li>
+<li><p><strong>Evaluation</strong>: Testing the model on a separate test set to get an unbiased estimate of its performance. Metrics like accuracy, precision, recall, or F1 score are used depending on the task (classification, regression, etc.).</p>
+</li>
+</ol>
+<h2>Preparing for Conversion</h2>
+<p>After training, it's important to ensure that the model is ready for conversion to TensorFlow.js. This includes:</p>
+<ul>
+<li><p><strong>Ensuring Compatibility</strong>: Checking that the features and layers used in the model are supported by TensorFlow.js. Some advanced features in other frameworks might not have direct equivalents, requiring adjustments to the model architecture.</p>
+</li>
+<li><p><strong>Model Optimization</strong>: Before conversion, you might want to optimize the model for performance and size. Techniques like pruning (removing unnecessary connections) and quantization (reducing the precision of the weights) can be applied to make the model more suitable for deployment, especially in resource-constrained environments like web browsers.</p>
+</li>
+</ul>
+<p>By thoroughly training your model with another framework and preparing it for conversion, you set the stage for a successful deployment in a web application using TensorFlow.js. This process ensures that your model not only performs well but is also optimized for the constraints of the deployment environment.</p>
+<p>ResponseID:8e39bfeb</p>
+</div><div title="ModelConversion" id="childContent2" onclick="setVisibileChild('childContent2')" hidden=true><h1>Model Conversion</h1>
+<p>When it comes to deploying machine learning models in a web application using TensorFlow.js, a crucial step in the process is <strong>model conversion</strong>. This step involves converting a model trained in another framework, such as TensorFlow, PyTorch, or Keras, into a format that TensorFlow.js can use. Here's a detailed look into the process and considerations:</p>
+<h2>Process of Model Conversion</h2>
+<ol>
+<li><p><strong>Training the Model</strong>: Initially, you train your model using a framework of your choice. This could be TensorFlow, PyTorch, or any other deep learning framework that suits your needs for training.</p>
+</li>
+<li><p><strong>Conversion to TensorFlow.js Format</strong>: After training, you need to convert the model into a format that TensorFlow.js can execute. TensorFlow.js supports several model formats, but the most common ones for conversion are SavedModel and Keras H5 formats.</p>
+<ul>
+<li><p><strong>SavedModel</strong>: This is TensorFlow's native format for saving and loading models. You can convert a SavedModel to TensorFlow.js using the <code>tensorflowjs_converter</code> command-line tool.</p>
+<pre><code class="language-bash">tensorflowjs_converter --input_format=tf_saved_model --output_node_names='output_node' /path/to/saved_model /path/to/tfjs_target_dir
+</code></pre>
+</li>
+<li><p><strong>Keras H5</strong>: If your model is a Keras model saved in H5 format, you can convert it directly to TensorFlow.js format using the same <code>tensorflowjs_converter</code> tool.</p>
+<pre><code class="language-bash">tensorflowjs_converter --input_format=keras /path/to/model.h5 /path/to/tfjs_target_dir
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p><strong>Verification</strong>: After conversion, it's essential to verify that the model works correctly in the TensorFlow.js environment. This involves loading the converted model in a JavaScript environment and running inference to ensure the outputs match the expected results from the original model.</p>
+</li>
+</ol>
+<h2>Considerations During Model Conversion</h2>
+<ul>
+<li><p><strong>Precision and Performance</strong>: During conversion, you might need to consider the precision of the model. For example, you may want to quantize the model to reduce its size and potentially improve performance, as discussed in the previous section.</p>
+</li>
+<li><p><strong>Compatibility</strong>: Ensure that the features used in your original model are supported by TensorFlow.js. Some advanced features in other frameworks might not have direct equivalents in TensorFlow.js, requiring adjustments to the model architecture or implementation.</p>
+</li>
+<li><p><strong>Size and Load Times</strong>: As mentioned before, the size of the converted model impacts load times in the browser. Techniques like quantization and pruning should be considered to manage model size effectively.</p>
+</li>
+<li><p><strong>Testing and Debugging</strong>: After conversion, thorough testing is necessary to ensure the model behaves as expected. Debugging tools within TensorFlow.js can help identify any discrepancies between the original and converted model.</p>
+</li>
+</ul>
+<h2>Example of Model Conversion in Practice</h2>
+<p>Here's an example of how you might convert a Keras model to TensorFlow.js format and then use it in a web application:</p>
+<pre><code class="language-javascript">// Convert the Keras model to TensorFlow.js format
+// (This step is done via the command line as shown above)
+
+<p>// Load the converted model in JavaScript
+async function loadModel() {
+  const model = await tf.loadLayersModel('path/to/model.json');
+  return model;
+}</p>
+</code><p><code class="language-javascript">// Use the model for inference
+async function predict(inputData) {
+  const model = await loadModel();
+  const tensor = tf.tensor(inputData);
+  const predictions = model.predict(tensor);
+  return predictions;
+}
+</code></p></pre><p></p>
+<p>In this example, we first convert the model using the <code>tensorflowjs_converter</code> tool, then load and use it in a web application to make predictions.</p>
+<p>By understanding and carefully managing the model conversion process, you can ensure that your machine learning models are effectively deployed and utilized within web applications using TensorFlow.js.</p>
+<p>ResponseID:b2193215</p>
+</div><div title="Hostingthe Model in Browser with TensorFlowJS" id="childContent3" onclick="setVisibileChild('childContent3')" hidden=true><h1>Hosting the Model in Browser with TensorFlow.js</h1>
+<p>When it comes to deploying machine learning models in web applications, hosting the model directly in the browser using TensorFlow.js offers several unique advantages and considerations. Here's an in-depth look at this approach:</p>
+<h2>Advantages of Browser-based Deployment</h2>
+<h3>1. <strong>Seamless User Experience</strong></h3>
+<p>By running the model in the browser, you can provide real-time predictions without the need for server round-trips. This results in a more responsive and interactive user experience.</p>
+<h3>2. <strong>Offline Capability</strong></h3>
+<p>Models hosted in the browser can function even when the user is offline, as long as the model and necessary data are cached. This is particularly useful for applications that need to operate in areas with poor internet connectivity.</p>
+<h3>3. <strong>Reduced Server Load</strong></h3>
+<p>By offloading some computational tasks to the client-side, you can significantly reduce the load on your servers. This can lead to cost savings and better scalability for your application.</p>
+<h2>Key Considerations for Browser-based Deployment</h2>
+<h3>1. <strong>Model Size Management</strong></h3>
+<p>The size of your model is crucial as it directly impacts loading times and user experience. Larger models can lead to longer load times, potentially causing users to abandon your application before it even starts. Here are strategies to manage model size:</p>
+<ul>
+<li><p><strong>Quantization</strong>: This technique reduces the precision of numbers used in the model, which can significantly decrease the model's size with minimal impact on performance. TensorFlow.js supports quantization, allowing you to deploy smaller models that still perform well.</p>
+<pre><code class="language-javascript">// Example using quantization in TensorFlow.js
+const quantizedModel = await tf.loadLayersModel('model.json', {quantize: true});
+</code></pre>
+</li>
+<li><p><strong>Pruning</strong>: Removing unnecessary connections in the neural network can also reduce the model's size. Although TensorFlow.js does not directly support pruning, you can prune your model before converting it to TensorFlow.js.</p>
+<pre><code class="language-javascript">// Example using pruning (before conversion)
+// This example is pseudo-code as TensorFlow.js doesn't support pruning directly
+// You would prune the model in another framework like TensorFlow before conversion
+const prunedModel = pruneModel(originalModel);
+</code></pre>
+</li>
+</ul>
+<h3>2. <strong>Performance Optimization</strong></h3>
+<p>Optimizing your model's performance in the web environment is crucial for providing a seamless user experience. Slow inference times can detract from the application's usability. Here are strategies for performance optimization:</p>
+<ul>
+<li><p><strong>Server-side Optimization</strong>: TensorFlow.js can be used to optimize models on the server side before deployment. Techniques like graph optimization can improve the model's efficiency.</p>
+<pre><code class="language-javascript">// Example of server-side optimization with TensorFlow.js
+const optimizedModel = await optimizeModel(originalModel);
+</code></pre>
+</li>
+<li><p><strong>Client-side Optimization</strong>: On the client side, you can use TensorFlow.js's built-in optimizations, such as using WebGL for GPU acceleration.</p>
+<pre><code class="language-javascript">// Example using WebGL for GPU acceleration
+tf.setBackend('webgl');
+</code></pre>
+</li>
+</ul>
+<h3>3. <strong>Security Implications</strong></h3>
+<p>Hosting models in the browser introduces security concerns, as sensitive data might be processed on the client side. Here are strategies for handling these concerns:</p>
+<ul>
+<li><strong>Data Handling</strong>: Ensure that any sensitive data processed by the model is handled appropriately. Use encryption for data transmission and storage.</li>
+<li><strong>Model Integrity</strong>: Protect your model from tampering by using digital signatures to verify the model's integrity before loading it in the browser.<pre><code class="language-javascript">// Example verifying model integrity
+const model = await tf.loadLayersModel('model.json', {integrity: 'sha384-...'});
+</code></pre>
+</li>
+</ul>
+<p>By focusing on these deployment considerations—managing model size, optimizing performance, and ensuring security—you can enhance the effectiveness of your web-based machine learning application. These strategies help in providing a robust, efficient, and secure user experience.</p>
+<p>ResponseID:2c6a5ec3</p>
+</div><div title="DeploymentConsiderations" id="childContent4" onclick="setVisibileChild('childContent4')" hidden=true><h1>Deployment Considerations</h1>
+<p>When deploying machine learning models, especially for web-based applications using TensorFlow.js, there are several critical aspects to consider for effective deployment. Here's a more detailed look into the deployment considerations mentioned earlier:</p>
+<h2>Model Size Management</h2>
+<p><strong>Importance</strong>: The size of your model directly impacts the loading time and user experience on the web. Larger models can lead to longer load times, potentially causing users to abandon the application before it even starts.</p>
+<p><strong>Strategies</strong>:</p>
+<ul>
+<li><strong>Quantization</strong>: This technique reduces the precision of the numbers used in the model, which can significantly decrease the model's size with minimal impact on performance. TensorFlow.js supports quantization, allowing you to deploy smaller models that still perform well.</li>
+<li><strong>Pruning</strong>: Removing unnecessary connections in neural networks can also reduce model size. Although TensorFlow.js does not directly support pruning, you can prune your model before conversion.</li>
+</ul>
+<p><strong>Example</strong>:</p>
+<pre><code class="language-javascript">// Example of using quantization in TensorFlow.js
+const quantizedModel = await tf.loadLayersModel('model.json', { quantization: true });
+</code></pre>
+<h2>Performance Optimization</h2>
+<p><strong>Importance</strong>: Optimizing your model's performance on the web is crucial for providing a seamless user experience. Slow inference times can detract from the application's usability.</p>
+<p><strong>Strategies</strong>:</p>
+<ul>
+<li><strong>Server-Side Optimization</strong>: TensorFlow.js can be used on the server side to optimize models before deployment. Techniques like graph optimization can improve the model's efficiency.</li>
+<li><strong>Client-Side Optimization</strong>: On the client side, you can use TensorFlow.js's built-in optimizations, such as using WebGL for GPU acceleration.</li>
+</ul>
+<p><strong>Example</strong>:</p>
+<pre><code class="language-javascript">// Example of using WebGL for GPU acceleration
+tf.setBackend('webgl');
+</code></pre>
+<h2>Security Implications</h2>
+<p><strong>Importance</strong>: Hosting models in the browser introduces security concerns, as sensitive data might be processed client-side.</p>
+<p><strong>Strategies</strong>:</p>
+<ul>
+<li><strong>Data Handling</strong>: Ensure that any sensitive data processed by the model is handled appropriately. Use encryption for data transmission and storage.</li>
+<li><strong>Model Integrity</strong>: Protect your model from tampering. Use digital signatures to verify the model's integrity before loading it in the browser.</li>
+</ul>
+<p><strong>Example</strong>:</p>
+<pre><code class="language-javascript">// Example of verifying model integrity
+const model = await tf.loadLayersModel('model.json', { integrity: 'sha384-...' });
+</code></pre>
+<p>By focusing on these deployment considerations—managing model size, optimizing performance, and ensuring security—you can enhance the effectiveness of your web-based machine learning applications. These strategies help in providing a robust, efficient, and secure user experience.</p>
+<p>ResponseID:c5e4d751</p>
+</div>
+    </div>
+  </div>
+
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+
+    <script>
+      function setChildSubjects(){
+        let dropDownOptions = [];
+        let childSubjects = document.getElementById('childDivs');
+        for (let child of childSubjects.children){
+           let subject = child.title;
+           let optionValue = child.id;
+
+           dropDownOptions.push({subject: subject, value: optionValue});
+        
+        }
+
+        for (let option of dropDownOptions){
+          let optionElement = document.createElement('option');
+          optionElement.value = option.value;
+          optionElement.text = option.subject;
+          document.getElementById('childSubjects').appendChild(optionElement);
+        }
+
+        document.getElementById('childSubjects').addEventListener('change', function() {
+          if(this.value == "home"){
+            goHomePage();
+          }else{
+            setVisibleChild(this.value);
+          }
+
+          }
+        );
+      }
+    </script>
+
+
+    <script>
+      function setVisibleChild(id){
+        //quick flicker home to reset state, this allows hoping between child views
+     
+    
+           let topNode = document.getElementById('content');
+           let parentNode = document.getElementById('parentContent');
+           let childVisibleNode = document.getElementById(id);
+           let childDivs = document.getElementById('childDivs');
+           for (let child of childDivs.children){
+            if(child.id != id){
+              child.hidden = true;
+            }else{
+              child.hidden = false; //redudant
+            }
+           }
+           parentNode.hidden = true;
+           childVisibleNode.hidden = false;
+         }
+      
+    </script>
+
+    <script>
+      function goHomePage(){
+         let topNode = document.getElementById('content');
+         let parentNode = document.getElementById('parentContent');
+         let children = document.getElementById('childDivs');
+         for (let child of children.children){
+            child.hidden = true;
+         }
+         parentNode.hidden = false;
+      }
+    </script>
+
+    <script>
+      function setChildLinks(){
+        let children = document.getElementById('childDivs'); 
+        let childSubjects = [];
+        let discoveredMatches = [];
+
+        
+        for (let child of children.children){
+          let subject = child.title;
+          childSubjects.push({subject: subject, child: child});
+          }
+             
+          let parentNodeH2Subjects = []
+          let parentNodeH3Subjects = []
+          let parentNodeH4Subjects = []
+          let parentNode = document.getElementById('parentContent');
+          let H2s = parentNode.getElementsByTagName("H2");
+          let H3s = parentNode.getElementsByTagName("H3");
+          let H4s = parentNode.getElementsByTagName("H4");
+          let isH2Match = false;
+          let isH3Match = false;
+          let isH4Match = false;
+
+          H2s.length > 0? parentNodeH2Subjects = H2s.map(item => ({subject: item.innerText, item: item})):isH2Match = false;
+          H3s.length > 0?parentNodeH3Subjects = H3s.map(item => ({subject: item.innerText, item: item})):isH3Match = false;
+          H4s.length > 0?parentNodeH4Subjects = H4s.map(item => ({subject: item.innerText, item: item})):isH4Match = false;
+
+          
+           isH3Match = H3s.length == childSubjects.length;
+           isH2Match = H2s.length == childSubjects.length;
+           isH4Match = H4s.length == childSubjects.length;
+          let allDiscovered = false;
+
+          if (isH3Match){
+            //We have a match.  We need to find the H2s
+            allDiscovered = true;
+          }
+          if (isH2Match){
+            //We have a match.  We need to find the H3s
+            allDiscovered = true;
+          }
+          if (isH4Match){
+            //We have a match.  We need to find the H2s
+            allDiscovered = true;
+          }
+
+          if(allDiscovered && (isH3Match + isH2Match + isH4Match) > 1){
+            //wierd.  ok we work from scratch.
+            allDiscovered = false;
+          }
+
+          if(!allDiscovered){
+
+            let fluffWords = ["a", "an", "the", "and", "but", "or", "for", "nor", "on", "at", "to", "from", "by", "with", "of"];
+            let fluffWordsRegex = new RegExp(fluffWords.join("|"), "g");
+          
+          //OK time to stumble through unpredictable llm output
+          //First check if the child subjects are in the parent node h2 subjects
+          let isH2 = false;
+          let isH3 = false;
+          let isH4 = false;
+      
+          //This can be optimized later.  Probably doesnt matter since it is client side with modern computing.
+          for (let i = 0; i < parentNodeH2Subjects.length; i++){
+            let subject = parentNodeH2Subjects[i].subject;
+            for (let j = 0; j < childSubjects.length; j++){
+              let childSubject = childSubjects[j].subject;
+              if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                isH2 = true;
+                discoveredMatches.push({parentLink: parentNodeH2Subjects[i].item, childLink: childSubjects[j].child});
+              }
+            }
+
+          }
+         
+          if(!isH2){
+            for (let i = 0; i < parentNodeH3Subjects.length; i++){
+              let subject = parentNodeH3Subjects[i].subject;
+              for (let j = 0; j < childSubjects.length; j++){
+                let childSubject = childSubjects[j].subject;  
+                if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                  isH3 = true;
+                  discoveredMatches.push({parentLink: parentNodeH3Subjects[i].item, childLink: childSubjects[j].child});
+                }
+              }
+            }
+          }
+
+          if(!isH3){
+            for (let i = 0; i < parentNodeH4Subjects.length; i++){
+              let subject = parentNodeH4Subjects[i].subject;
+              for (let j = 0; j < childSubjects.length; j++){
+                let childSubject = childSubjects[j].subject;
+                if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                  isH4 = true;
+                  discoveredMatches.push({parentLink: parentNodeH4Subjects[i].item, childLink: childSubjects[j].child});
+                }
+              }
+            }
+          }
+
+          if(!isH4){
+              //I suppose there are edge cases but this surely covers 99.9% of the cases.
+          }
+
+          }else{
+            if(isH3Match){
+              for (let i = 0; i < parentNodeH3Subjects.length; i++){
+                let child = childSubjects[i].child;
+                makeChildLinks(parentNodeH3Subjects[i].item, child);
+              }
+              return; //bye bye
+            }
+            if(isH2Match){
+              for (let i = 0; i < parentNodeH2Subjects.length; i++){
+                let child = childSubjects[i].child;
+                makeChildLinks(parentNodeH2Subjects[i].item, child);
+                return; //bye bye
+              }
+              if(isH4Match){
+                for (let i = 0; i < parentNodeH4Subjects.length; i++){
+                  let child = childSubjects[i].child;
+                  makeChildLinks(parentNodeH4Subjects[i].item, child);
+                }
+              }
+
+            }
+
+          }
+
+          for (let match of discoveredMatches){
+            makeChildLinks(match.parentLink, match.childLink);
+            if(match.length < childSubjects.length){ alert("LLMM added additional info that is hidden");}
+          }
+
+        }
+    </script>
+
+    <script>
+       function makeChildLinks(parent, child){
+            parent.style.cursor = "pointer";
+            parent.style.textDecoration = "underline";
+            parent.style.color = "blue";
+            parent.onclick = function(){
+              setVisibleChild(child.id);
+            }
+       }
+
+    </script>
+
+<script>window.onload = setChildSubjects;</script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

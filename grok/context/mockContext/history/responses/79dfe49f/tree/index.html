@@ -1,0 +1,542 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Home Page</title>
+</head>
+<body>g
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    <a id="parentContentLink" href='javascript:goHomePage()'>Home</a>
+    <select id="childSubjects">
+      <option value="home">Home</option>
+      <!-- Children are added here onload with setChildSubjects -->
+    </select>
+    <!-- Add a previous and next button for prior requests? -->
+    <!-- Add a button to save the current page as a markdown file -->
+  </nav>
+
+  <div id="content">  
+    <div id="parentContent">
+        <h1>Overview of Machine Learning Algorithms and Techniques</h1>
+<h2>XGBoost</h2>
+<p>XGBoost is an optimized gradient boosting library designed for speed and performance. It is widely used in machine learning competitions and real-world applications due to its effectiveness in handling structured data. XGBoost implements machine learning algorithms under the Gradient Boosting framework, utilizing decision trees as base learners.</p>
+<h2>Decision Trees</h2>
+<p>Decision trees are a type of machine learning algorithm used for classification and regression tasks. They work by recursively splitting the input space into regions based on feature values, making decisions at each node to maximize information gain. They are interpretable but can suffer from overfitting without proper pruning.</p>
+<h2>Random Forests</h2>
+<p>Random Forests are an ensemble learning method that operates by constructing multiple decision trees during training and outputting the class that is the mode of the classes (classification) or mean prediction (regression) of the individual trees. This method reduces overfitting by averaging multiple deep decision trees, trained on different parts of the same training set.</p>
+<h2>Support Vector Machines (SVMs)</h2>
+<p>SVMs are supervised learning models with associated learning algorithms that analyze data used for classification and regression analysis. They are particularly effective in high dimensional spaces and are memory efficient because they use a subset of training points in the decision function (called support vectors).</p>
+<h2>Neural Networks</h2>
+<p>Neural Networks are a series of algorithms that mimic the operations of a human brain to recognize relationships between vast amounts of data. They are used in a variety of applications, including image recognition, speech recognition, and natural language processing. Neural networks can model complex patterns and relationships.</p>
+<h2>Regression Algorithms</h2>
+<h3>Linear Regression</h3>
+<p>Linear regression is used to predict the value of a dependent variable based on the value of one or more independent variables. It assumes a linear relationship between inputs and outputs and is widely used for predictive modeling.</p>
+<h3>Logistic Regression</h3>
+<p>Logistic regression is used for binary classification problems, where the output is a probability that the given input point belongs to a certain class. It uses a logistic function to model a binary dependent variable.</p>
+<h2>Statistical Analysis Techniques</h2>
+<p>Statistical analysis involves collecting, exploring, and presenting large amounts of data to discover underlying patterns and trends. Techniques include descriptive statistics, inferential statistics, hypothesis testing, and regression analysis, which help in making informed decisions based on data.</p>
+
+    </div>
+    <div id="childDivs">
+      <div title="XGBoost" id="childContent1" onclick="setVisibileChild('childContent1')" hidden=true><h1>XGBoost</h1>
+<p>XGBoost, or eXtreme Gradient Boosting, is an advanced implementation of gradient boosting that is particularly efficient and effective for machine learning tasks, including classification and regression. Here's a more detailed exploration of XGBoost, focusing on the information already included in the broader context of machine learning and ensemble methods:</p>
+<h2>Core Concepts and Functionality</h2>
+<p>XGBoost is based on the principle of boosting, where multiple weak learners (typically decision trees) are combined to form a strong learner. The key to XGBoost's performance lies in its approach to optimizing these learners:</p>
+<h3>Gradient Boosting Mechanism</h3>
+<ul>
+<li><strong>Sequential Learning</strong>: XGBoost builds trees sequentially, with each tree correcting the errors of the previous ones. This is achieved by fitting new models to the residuals of the previous models.</li>
+<li><strong>Gradient Descent</strong>: XGBoost uses gradient descent to minimize a loss function. The gradients of the loss function guide the construction of new trees, ensuring that each new tree reduces the overall error.</li>
+</ul>
+<h3>Advanced Features</h3>
+<ul>
+<li><strong>Regularization</strong>: XGBoost includes L1 and L2 regularization terms in its objective function to prevent overfitting. This helps in controlling the complexity of the model.</li>
+<li><strong>Tree Pruning</strong>: Unlike other boosting algorithms that stop splitting a node when it meets a stopping criterion, XGBoost starts from the deepest level and prunes backward, which can lead to more accurate trees.</li>
+<li><strong>Handling Missing Values</strong>: XGBoost has an in-built routine to handle missing values, which can be crucial for real-world datasets where missing data is common.</li>
+</ul>
+<h2>Performance and Efficiency</h2>
+<p>XGBoost is designed for speed and performance:</p>
+<ul>
+<li><strong>Parallelization</strong>: XGBoost can leverage parallel computing to speed up the training process, particularly useful when dealing with large datasets.</li>
+<li><strong>Cache-Aware Access</strong>: XGBoost uses an algorithm to access data in a way that minimizes cache misses, further enhancing its speed.</li>
+<li><strong>Out-of-Core Computing</strong>: It can handle datasets that don't fit into memory by using disk-based out-of-core computing.</li>
+</ul>
+<h2>Practical Applications</h2>
+<p>XGBoost is widely used in various fields due to its high performance and flexibility:</p>
+<ul>
+<li><strong>Kaggle Competitions</strong>: XGBoost has been a popular choice among data scientists participating in Kaggle competitions, often leading to top results.</li>
+<li><strong>Industry Applications</strong>: It is used in industries ranging from finance for credit scoring to healthcare for predicting patient outcomes.</li>
+</ul>
+<h2>Hyperparameter Tuning</h2>
+<p>Effective use of XGBoost requires tuning its hyperparameters:</p>
+<ul>
+<li><strong>Learning Rate</strong>: Controls the step size shrinkage used to prevent overfitting.</li>
+<li><strong>Max Depth</strong>: Determines the maximum depth of the trees, affecting the complexity of the model.</li>
+<li><strong>Number of Estimators</strong>: The number of boosting rounds or trees to be built.</li>
+<li><strong>Subsample</strong>: The fraction of observations to be randomly sampled for each tree.</li>
+</ul>
+<p>In summary, XGBoost is a powerful tool in the machine learning toolkit, known for its speed, performance, and flexibility. Its ability to handle various types of data and its advanced features make it a go-to algorithm for many predictive modeling tasks.</p>
+<p>ResponseID:c115ebf7</p>
+</div><div title="DecisionTrees" id="childContent2" onclick="setVisibileChild('childContent2')" hidden=true><h1>Decision Trees</h1>
+<p>Decision Trees are a fundamental component of Random Forests, serving as the building blocks for this ensemble learning method. Here's a more detailed exploration of Decision Trees, focusing on the information already included in the broader context of Random Forests:</p>
+<h2>Structure and Functionality</h2>
+<p>A Decision Tree is a flowchart-like structure where each internal node represents a test on an attribute (e.g., a feature in the dataset), each branch represents the outcome of the test, and each leaf node represents a class label (in classification) or a decision (in regression). The tree is constructed by recursively splitting the dataset into subsets based on the values of the features.</p>
+<h3>Splitting Criteria</h3>
+<ul>
+<li><strong>Gini Impurity</strong>: Used in classification tasks, it measures the probability of incorrectly labeling a randomly chosen element if it were randomly labeled according to the distribution of labels in the subset.</li>
+<li><strong>Entropy</strong>: Another measure for classification, it quantifies the randomness in the information being processed. Lower entropy indicates higher predictability.</li>
+<li><strong>Variance Reduction</strong>: Used in regression, it aims to minimize the variance of the target variable within the subsets created by the split.</li>
+</ul>
+<h2>Role in Random Forests</h2>
+<p>In Random Forests, multiple Decision Trees are trained on different subsets of the data (achieved through bootstrap sampling), and their predictions are combined to improve the accuracy and robustness of the model. Here’s how Decision Trees contribute to the Random Forest framework:</p>
+<h3>Diversity and Reduction of Overfitting</h3>
+<ul>
+<li><strong>Random Feature Selection</strong>: At each split in a Decision Tree within a Random Forest, only a random subset of features is considered. This randomness introduces diversity among the trees, reducing the correlation between them and thereby reducing the risk of overfitting.</li>
+<li><strong>Bootstrap Aggregating (Bagging)</strong>: Each tree is trained on a different bootstrap sample of the data, further promoting diversity and reducing overfitting by ensuring that the trees do not see the entire dataset.</li>
+</ul>
+<h3>Out-of-Bag (OOB) Error Estimation</h3>
+<ul>
+<li><strong>OOB Samples</strong>: As mentioned, about one-third of the data is left out of the bootstrap sample used to train each tree. These OOB samples are crucial because they allow each tree to be tested on data it has not seen during training.</li>
+<li><strong>Error Calculation</strong>: The predictions of each tree on its OOB samples are used to calculate the OOB error, providing an unbiased estimate of the model’s performance.</li>
+</ul>
+<h2>Practical Implications</h2>
+<ul>
+<li><strong>Interpretability</strong>: Individual Decision Trees are highly interpretable, showing the decision path from root to leaf. However, the ensemble nature of Random Forests makes the overall model less interpretable but more accurate.</li>
+<li><strong>Efficiency</strong>: Decision Trees are relatively fast to train and can handle both numerical and categorical data. In Random Forests, the computational cost is higher due to the number of trees, but this is offset by the parallelizable nature of tree construction.</li>
+<li><strong>Hyperparameter Tuning</strong>: Key hyperparameters for Decision Trees in Random Forests include the number of trees, the number of features considered for splitting at each node, and the maximum depth of the trees. Tuning these parameters can significantly affect the model's performance, as monitored through OOB error.</li>
+</ul>
+<p>In summary, Decision Trees are the core units of Random Forests, contributing to the model's ability to reduce overfitting, provide unbiased performance estimates through OOB error, and achieve high accuracy through ensemble learning. Their role is crucial in making Random Forests a powerful tool in machine learning.</p>
+<p>ResponseID:553b98e8</p>
+</div><div title="RandomForests" id="childContent3" onclick="setVisibileChild('childContent3')" hidden=true><h1>Random Forests</h1>
+<p>Random Forests are an ensemble learning method that operates by constructing multiple decision trees during training and outputting the class that is the mode of the classes (classification) or mean prediction (regression) of the individual trees. Here's a deeper dive into the details already mentioned:</p>
+<h2>3. Out-of-Bag Error Estimation</h2>
+<p>Out-of-Bag (OOB) error estimation is a powerful feature of Random Forests that allows for an unbiased estimate of the model's performance without the need for a separate validation set. Here's how it works and why it's beneficial:</p>
+<h3>How OOB Works:</h3>
+<ul>
+<li><strong>Bootstrap Sampling</strong>: When building each tree in a Random Forest, the algorithm uses bootstrap sampling to select a subset of the training data. Typically, about two-thirds of the data is used to train each tree, leaving the remaining one-third out of the bag.</li>
+<li><strong>OOB Samples</strong>: These OOB samples are not used in the construction of the tree and can be used to test the tree's performance.</li>
+<li><strong>Aggregation</strong>: Each tree's prediction is tested against the OOB samples it did not see during training. The OOB error is then calculated by averaging the errors across all trees.</li>
+</ul>
+<h3>Benefits of OOB Error Estimation:</h3>
+<ul>
+<li><strong>Unbiased Estimation</strong>: Since OOB samples are not used in training the trees they are tested against, the OOB error provides an unbiased estimate of the model's performance on unseen data.</li>
+<li><strong>No Need for Separate Validation Set</strong>: This method allows for performance estimation without setting aside a portion of the data for validation, which can be particularly useful when data is scarce.</li>
+<li><strong>Model Tuning</strong>: OOB error can be used to tune the model's hyperparameters, such as the number of trees in the forest or the number of features to consider at each split, by monitoring how changes affect the OOB error.</li>
+</ul>
+<h3>Practical Implications:</h3>
+<ul>
+<li><strong>Confidence in Model Performance</strong>: OOB error gives practitioners a reliable way to gauge how well their Random Forest model will perform on new, unseen data.</li>
+<li><strong>Efficiency</strong>: It saves time and resources that would otherwise be spent on cross-validation or holding out a validation set.</li>
+</ul>
+<p>By leveraging OOB error estimation, Random Forests provide a robust method for both training and evaluating a model's performance, making them a valuable tool in the machine learning toolkit.</p>
+<p>ResponseID:84d9a036</p>
+</div><div title="SupportVector Machines" id="childContent4" onclick="setVisibileChild('childContent4')" hidden=true><h1>Support Vector Machines (SVMs)</h1>
+<p>Support Vector Machines (SVMs) are a type of supervised learning algorithm used primarily for classification and regression tasks. They are particularly effective in high-dimensional spaces and are known for their ability to handle both linear and non-linear data through the use of kernel functions.</p>
+<h2>Key Concepts of SVMs</h2>
+<h3>1. <strong>Hyperplane</strong></h3>
+<ul>
+<li>The core idea of SVMs is to find the optimal hyperplane that separates the data points of different classes with the maximum margin. In a two-dimensional space, a hyperplane is a line; in three dimensions, it's a plane; and in higher dimensions, it's a hyperplane.</li>
+</ul>
+<h3>2. <strong>Support Vectors</strong></h3>
+<ul>
+<li>These are the data points that are closest to the hyperplane and influence its position and orientation. The distance between the hyperplane and the nearest data point from either side is referred to as the margin. The goal is to maximize this margin to improve the generalization of the model.</li>
+</ul>
+<h3>3. <strong>Margin</strong></h3>
+<ul>
+<li>The margin is the distance between the hyperplane and the support vectors. A larger margin generally leads to better generalization performance on unseen data.</li>
+</ul>
+<h3>4. <strong>Kernel Trick</strong></h3>
+<ul>
+<li>SVMs can handle non-linear data by using kernel functions, which implicitly map the input data into a higher-dimensional space where a linear separation is possible. Common kernels include:<ul>
+<li><strong>Linear Kernel</strong>: Used for linearly separable data.</li>
+<li><strong>Polynomial Kernel</strong>: Effective for polynomial relationships in the data.</li>
+<li><strong>Radial Basis Function (RBF) Kernel</strong>: Often used for non-linear classification tasks.</li>
+</ul>
+</li>
+</ul>
+<h2>Training SVMs</h2>
+<p>Training an SVM involves solving an optimization problem to find the hyperplane that maximizes the margin. This is typically done using quadratic programming. The optimization problem can be formulated as:</p>
+<p>[ \text{minimize} \quad \frac{1}{2} |\mathbf{w}|^2 + C \sum_{i=1}^{n} \xi_i ]</p>
+<p>where:</p>
+<ul>
+<li>(\mathbf{w}) is the normal vector to the hyperplane,</li>
+<li>(C) is a regularization parameter that trades off the margin size against the misclassification of training examples,</li>
+<li>(\xi_i) are slack variables that allow for some misclassification to achieve a wider margin.</li>
+</ul>
+<h2>Applications of SVMs</h2>
+<p>SVMs are widely used in various domains:</p>
+<ul>
+<li><strong>Text Classification</strong>: Effective in categorizing documents or emails into different classes.</li>
+<li><strong>Image Recognition</strong>: Used in facial recognition and object detection.</li>
+<li><strong>Bioinformatics</strong>: Applied in protein classification and gene expression analysis.</li>
+<li><strong>Financial Forecasting</strong>: Used to predict stock prices and market trends.</li>
+</ul>
+<h2>Challenges and Considerations</h2>
+<h3>1. <strong>Choice of Kernel</strong></h3>
+<ul>
+<li>Selecting the appropriate kernel and tuning its parameters can be challenging and significantly impacts the performance of the SVM.</li>
+</ul>
+<h3>2. <strong>Scalability</strong></h3>
+<ul>
+<li>SVMs can be computationally intensive, especially for large datasets. Techniques like Sequential Minimal Optimization (SMO) help improve training speed.</li>
+</ul>
+<h3>3. <strong>Interpretability</strong></h3>
+<ul>
+<li>While SVMs can provide good classification performance, the models can be difficult to interpret, particularly when using non-linear kernels.</li>
+</ul>
+<p>SVMs continue to be a powerful tool in machine learning, with ongoing research focused on improving their efficiency and applicability to new domains.</p>
+<p>ResponseID:c37cc3af</p>
+</div><div title="NeuralNetworks" id="childContent5" onclick="setVisibileChild('childContent5')" hidden=true><h1>Neural Networks</h1>
+<p>Neural networks are a subset of machine learning algorithms inspired by the structure and function of the human brain. They are particularly effective in handling complex, non-linear relationships within data, making them suitable for a wide range of applications from image recognition to natural language processing.</p>
+<h2>Structure of Neural Networks</h2>
+<p>Neural networks consist of layers of interconnected nodes or "neurons." The typical structure includes:</p>
+<ul>
+<li><strong>Input Layer</strong>: Receives the initial data.</li>
+<li><strong>Hidden Layers</strong>: Process the data through weighted connections. Networks with more than one hidden layer are called deep neural networks.</li>
+<li><strong>Output Layer</strong>: Produces the final result or prediction.</li>
+</ul>
+<p>Each neuron in a layer is connected to neurons in the next layer, and these connections have associated weights that are adjusted during training to minimize error.</p>
+<h2>Types of Neural Networks</h2>
+<h3>1. <strong>Feedforward Neural Networks (FNN)</strong></h3>
+<p>The simplest type of artificial neural network where information moves only forward through the different layers. They are used for tasks like classification and regression.</p>
+<h3>2. <strong>Recurrent Neural Networks (RNN)</strong></h3>
+<p>These networks have loops that allow information to persist over time, making them suitable for sequential data like time series or text.</p>
+<h3>3. <strong>Convolutional Neural Networks (CNN)</strong></h3>
+<p>Primarily used in image processing and computer vision, CNNs are designed to take advantage of the 2D structure of input data.</p>
+<h3>4. <strong>Long Short-Term Memory Networks (LSTM)</strong></h3>
+<p>A special kind of RNN, capable of learning long-term dependencies, making them effective for tasks involving sequences of data.</p>
+<h2>Training Neural Networks</h2>
+<p>Training involves adjusting the weights of the connections based on the error of the network's predictions. This is typically done using:</p>
+<ul>
+<li><strong>Backpropagation</strong>: An algorithm used to calculate the gradient of the loss function with respect to the weights of the network.</li>
+<li><strong>Optimization Algorithms</strong>: Such as Stochastic Gradient Descent (SGD), Adam, or RMSprop, which update the weights to minimize the loss function.</li>
+</ul>
+<h2>Applications of Neural Networks</h2>
+<p>Neural networks are widely used across various domains:</p>
+<ul>
+<li><strong>Image Recognition</strong>: CNNs are used in applications like facial recognition, object detection, and autonomous driving.</li>
+<li><strong>Natural Language Processing (NLP)</strong>: RNNs and LSTMs are used in language translation, sentiment analysis, and text generation.</li>
+<li><strong>Financial Forecasting</strong>: Used to predict stock prices and market trends.</li>
+<li><strong>Healthcare</strong>: For diagnosing diseases from medical images or predicting patient outcomes.</li>
+</ul>
+<h2>Challenges and Considerations</h2>
+<ul>
+<li><strong>Overfitting</strong>: Neural networks can memorize training data, leading to poor generalization on new data. Techniques like regularization and dropout help mitigate this.</li>
+<li><strong>Computational Resources</strong>: Training deep neural networks requires significant computational power, often necessitating the use of GPUs or TPUs.</li>
+<li><strong>Interpretability</strong>: Neural networks can be seen as "black boxes," making it difficult to understand how they make decisions. This is a significant concern in fields requiring transparency.</li>
+</ul>
+<p>Neural networks continue to be a vibrant area of research and development, with ongoing advancements in network architecture, training algorithms, and applications.</p>
+<p>ResponseID:bcd03fb3</p>
+</div><div title="RegressionAlgorithms" id="childContent6" onclick="setVisibileChild('childContent6')" hidden=true><h1>Regression Algorithms</h1>
+<p>Regression algorithms are a subset of statistical analysis techniques used to model and analyze the relationships between a dependent variable and one or more independent variables. They are crucial in predictive modeling within data science and machine learning, enabling analysts to forecast future trends, understand the strength of relationships, and make informed decisions based on data.</p>
+<h2>Types of Regression Algorithms</h2>
+<h3>1. Linear Regression</h3>
+<p>Linear regression is the most fundamental regression technique. It assumes a linear relationship between the independent variable(s) and the dependent variable. The goal is to find the line of best fit that minimizes the difference between the observed values and the values predicted by the model. It can be categorized into:</p>
+<ul>
+<li><strong>Simple Linear Regression</strong>: Involves one independent variable and one dependent variable.</li>
+<li><strong>Multiple Linear Regression</strong>: Involves more than one independent variable.</li>
+</ul>
+<h3>2. Logistic Regression</h3>
+<p>Logistic regression is used for binary classification problems where the output is a probability that the given input point belongs to a certain class. It uses a logistic function to model a binary dependent variable. This technique is essential in fields like healthcare for predicting disease presence or absence, and in marketing for predicting customer behavior.</p>
+<h3>3. Polynomial Regression</h3>
+<p>Polynomial regression extends linear regression by fitting a polynomial equation to the data. It is used when the relationship between the independent and dependent variables is not linear but can be modeled by a polynomial of a certain degree.</p>
+<h3>4. Ridge Regression</h3>
+<p>Ridge regression is a type of linear regression that includes a regularization term to prevent overfitting. It adds a penalty equal to the square of the magnitude of coefficients, which helps to shrink the coefficients and reduce model complexity.</p>
+<h3>5. Lasso Regression</h3>
+<p>Similar to ridge regression, lasso regression also includes a regularization term but uses the absolute value of the magnitude of coefficients. This can lead to some coefficients being shrunk to zero, effectively performing feature selection.</p>
+<h3>6. Elastic Net Regression</h3>
+<p>Elastic Net combines the properties of both ridge and lasso regression. It uses both L1 and L2 regularization, which can be useful when there are multiple features that are correlated with one another.</p>
+<h2>Applications of Regression Algorithms</h2>
+<p>Regression algorithms are widely applied across various domains:</p>
+<ul>
+<li><strong>Finance</strong>: For predicting stock prices, risk assessment, and portfolio management.</li>
+<li><strong>Healthcare</strong>: To predict disease outcomes, patient readmissions, and treatment effectiveness.</li>
+<li><strong>Marketing</strong>: To forecast sales, customer behavior, and market trends.</li>
+<li><strong>Environmental Science</strong>: To model climate changes, pollution levels, and natural phenomena.</li>
+</ul>
+<h2>Implementation and Tools</h2>
+<p>Regression algorithms can be implemented using various programming languages and tools:</p>
+<ul>
+<li><strong>Python</strong>: Libraries like <code>scikit-learn</code>, <code>statsmodels</code>, and <code>TensorFlow</code> provide robust implementations.</li>
+<li><strong>R</strong>: Offers packages such as <code>lm</code> for linear models, <code>glm</code> for generalized linear models, and <code>caret</code> for machine learning tasks.</li>
+<li><strong>C++</strong>: Can be used for high-performance computing, often wrapped in Python or R for easier use.</li>
+<li><strong>Java, Scala, Julia</strong>: These languages also have libraries and frameworks for regression analysis, though they are less commonly used compared to Python and R.</li>
+</ul>
+<h2>Performance Considerations</h2>
+<p>When using regression algorithms, performance considerations include:</p>
+<ul>
+<li><strong>Model Accuracy</strong>: Measured using metrics like R-squared, Mean Squared Error (MSE), and Mean Absolute Error (MAE).</li>
+<li><strong>Overfitting and Underfitting</strong>: Regularization techniques like those used in ridge, lasso, and elastic net regression help mitigate these issues.</li>
+<li><strong>Computational Efficiency</strong>: The choice of algorithm and implementation language can significantly impact the speed and scalability of the model.</li>
+</ul>
+<p>Regression algorithms are a cornerstone of statistical analysis, providing powerful tools for understanding and predicting data trends across numerous fields.</p>
+<p>ResponseID:2479f666</p>
+</div><div title="StatisticalAnalysis Techniques" id="childContent7" onclick="setVisibileChild('childContent7')" hidden=true><h1>Statistical Analysis Techniques</h1>
+<p>Statistical analysis is a critical component of data science and machine learning, involving the collection, exploration, and presentation of large amounts of data to uncover underlying patterns and trends. Here’s a more detailed exploration of the techniques mentioned:</p>
+<h2>Descriptive Statistics</h2>
+<p>Descriptive statistics summarize and describe the main features of a dataset. This includes measures of central tendency such as mean, median, and mode, and measures of dispersion like range, variance, and standard deviation. These statistics help in understanding the basic characteristics of the data, providing a foundation for further analysis.</p>
+<h2>Inferential Statistics</h2>
+<p>Inferential statistics use data from a sample to make inferences about a population. Techniques in this category include hypothesis testing, confidence intervals, and regression analysis. Hypothesis testing, for example, involves formulating a null hypothesis and an alternative hypothesis, then using statistical tests to determine whether there is sufficient evidence to reject the null hypothesis.</p>
+<h2>Hypothesis Testing</h2>
+<p>Hypothesis testing is a method of statistical inference used to decide whether there is enough evidence to infer that a certain condition is true for the entire population. Common tests include t-tests, chi-square tests, and ANOVA (Analysis of Variance). Each test is designed to address specific types of hypotheses and data structures.</p>
+<h2>Regression Analysis</h2>
+<p>Regression analysis is used to understand the relationship between dependent and independent variables. It includes techniques like linear regression, logistic regression, and multiple regression. Linear regression models the linear relationship between variables, while logistic regression is used for binary classification problems. Multiple regression extends these concepts to handle more than one independent variable.</p>
+<h3>Linear Regression</h3>
+<p>Linear regression is a fundamental technique where the goal is to predict the value of a dependent variable based on the value of one or more independent variables. It assumes a linear relationship between inputs and outputs and is widely used for predictive modeling.</p>
+<h3>Logistic Regression</h3>
+<p>Logistic regression is used for binary classification problems, where the output is a probability that the given input point belongs to a certain class. It uses a logistic function to model a binary dependent variable.</p>
+<p>These statistical analysis techniques are essential for making informed decisions based on data. They help in understanding the data, testing hypotheses, and predicting future trends, which are crucial in fields such as business, healthcare, and social sciences.</p>
+<p>ResponseID:554e59d2</p>
+</div>
+    </div>
+  </div>
+
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+
+    <script>
+      function setChildSubjects(){
+        let dropDownOptions = [];
+        let childSubjects = document.getElementById('childDivs');
+        for (let child of childSubjects.children){
+           let subject = child.title;
+           let optionValue = child.id;
+
+           dropDownOptions.push({subject: subject, value: optionValue});
+        
+        }
+
+        for (let option of dropDownOptions){
+          let optionElement = document.createElement('option');
+          optionElement.value = option.value;
+          optionElement.text = option.subject;
+          document.getElementById('childSubjects').appendChild(optionElement);
+        }
+
+        document.getElementById('childSubjects').addEventListener('change', function() {
+          if(this.value == "home"){
+            goHomePage();
+          }else{
+            setVisibleChild(this.value);
+          }
+
+          }
+        );
+      }
+    </script>
+
+
+    <script>
+      function setVisibleChild(id){
+        //quick flicker home to reset state, this allows hoping between child views
+     
+    
+           let topNode = document.getElementById('content');
+           let parentNode = document.getElementById('parentContent');
+           let childVisibleNode = document.getElementById(id);
+           let childDivs = document.getElementById('childDivs');
+           for (let child of childDivs.children){
+            if(child.id != id){
+              child.hidden = true;
+            }else{
+              child.hidden = false; //redudant
+            }
+           }
+           parentNode.hidden = true;
+           childVisibleNode.hidden = false;
+         }
+      
+    </script>
+
+    <script>
+      function goHomePage(){
+         let topNode = document.getElementById('content');
+         let parentNode = document.getElementById('parentContent');
+         let children = document.getElementById('childDivs');
+         for (let child of children.children){
+            child.hidden = true;
+         }
+         parentNode.hidden = false;
+      }
+    </script>
+
+    <script>
+      function setChildLinks(){
+        let children = document.getElementById('childDivs'); 
+        let childSubjects = [];
+        let discoveredMatches = [];
+
+        
+        for (let child of children.children){
+          let subject = child.title;
+          childSubjects.push({subject: subject, child: child});
+          }
+             
+          let parentNodeH2Subjects = []
+          let parentNodeH3Subjects = []
+          let parentNodeH4Subjects = []
+          let parentNode = document.getElementById('parentContent');
+          let H2s = parentNode.getElementsByTagName("H2");
+          let H3s = parentNode.getElementsByTagName("H3");
+          let H4s = parentNode.getElementsByTagName("H4");
+          let isH2Match = false;
+          let isH3Match = false;
+          let isH4Match = false;
+
+          H2s.length > 0? parentNodeH2Subjects = H2s.map(item => ({subject: item.innerText, item: item})):isH2Match = false;
+          H3s.length > 0?parentNodeH3Subjects = H3s.map(item => ({subject: item.innerText, item: item})):isH3Match = false;
+          H4s.length > 0?parentNodeH4Subjects = H4s.map(item => ({subject: item.innerText, item: item})):isH4Match = false;
+
+          
+           isH3Match = H3s.length == childSubjects.length;
+           isH2Match = H2s.length == childSubjects.length;
+           isH4Match = H4s.length == childSubjects.length;
+          let allDiscovered = false;
+
+          if (isH3Match){
+            //We have a match.  We need to find the H2s
+            allDiscovered = true;
+          }
+          if (isH2Match){
+            //We have a match.  We need to find the H3s
+            allDiscovered = true;
+          }
+          if (isH4Match){
+            //We have a match.  We need to find the H2s
+            allDiscovered = true;
+          }
+
+          if(allDiscovered && (isH3Match + isH2Match + isH4Match) > 1){
+            //wierd.  ok we work from scratch.
+            allDiscovered = false;
+          }
+
+          if(!allDiscovered){
+
+            let fluffWords = ["a", "an", "the", "and", "but", "or", "for", "nor", "on", "at", "to", "from", "by", "with", "of"];
+            let fluffWordsRegex = new RegExp(fluffWords.join("|"), "g");
+          
+          //OK time to stumble through unpredictable llm output
+          //First check if the child subjects are in the parent node h2 subjects
+          let isH2 = false;
+          let isH3 = false;
+          let isH4 = false;
+      
+          //This can be optimized later.  Probably doesnt matter since it is client side with modern computing.
+          for (let i = 0; i < parentNodeH2Subjects.length; i++){
+            let subject = parentNodeH2Subjects[i].subject;
+            for (let j = 0; j < childSubjects.length; j++){
+              let childSubject = childSubjects[j].subject;
+              if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                isH2 = true;
+                discoveredMatches.push({parentLink: parentNodeH2Subjects[i].item, childLink: childSubjects[j].child});
+              }
+            }
+
+          }
+         
+          if(!isH2){
+            for (let i = 0; i < parentNodeH3Subjects.length; i++){
+              let subject = parentNodeH3Subjects[i].subject;
+              for (let j = 0; j < childSubjects.length; j++){
+                let childSubject = childSubjects[j].subject;  
+                if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                  isH3 = true;
+                  discoveredMatches.push({parentLink: parentNodeH3Subjects[i].item, childLink: childSubjects[j].child});
+                }
+              }
+            }
+          }
+
+          if(!isH3){
+            for (let i = 0; i < parentNodeH4Subjects.length; i++){
+              let subject = parentNodeH4Subjects[i].subject;
+              for (let j = 0; j < childSubjects.length; j++){
+                let childSubject = childSubjects[j].subject;
+                if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                  isH4 = true;
+                  discoveredMatches.push({parentLink: parentNodeH4Subjects[i].item, childLink: childSubjects[j].child});
+                }
+              }
+            }
+          }
+
+          if(!isH4){
+              //I suppose there are edge cases but this surely covers 99.9% of the cases.
+          }
+
+          }else{
+            if(isH3Match){
+              for (let i = 0; i < parentNodeH3Subjects.length; i++){
+                let child = childSubjects[i].child;
+                makeChildLinks(parentNodeH3Subjects[i].item, child);
+              }
+              return; //bye bye
+            }
+            if(isH2Match){
+              for (let i = 0; i < parentNodeH2Subjects.length; i++){
+                let child = childSubjects[i].child;
+                makeChildLinks(parentNodeH2Subjects[i].item, child);
+                return; //bye bye
+              }
+              if(isH4Match){
+                for (let i = 0; i < parentNodeH4Subjects.length; i++){
+                  let child = childSubjects[i].child;
+                  makeChildLinks(parentNodeH4Subjects[i].item, child);
+                }
+              }
+
+            }
+
+          }
+
+          for (let match of discoveredMatches){
+            makeChildLinks(match.parentLink, match.childLink);
+            if(match.length < childSubjects.length){ alert("LLMM added additional info that is hidden");}
+          }
+
+        }
+    </script>
+
+    <script>
+       function makeChildLinks(parent, child){
+            parent.style.cursor = "pointer";
+            parent.style.textDecoration = "underline";
+            parent.style.color = "blue";
+            parent.onclick = function(){
+              setVisibleChild(child.id);
+            }
+       }
+
+    </script>
+
+<script>window.onload = setChildSubjects;</script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

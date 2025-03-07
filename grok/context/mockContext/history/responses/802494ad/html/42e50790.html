@@ -1,0 +1,147 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    <a id="markdown" href="./markdown/42e50790.md"> markdown</a>
+    <a id="previous" href="../html/802494ad.html?responseId=42e50790">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+  </nav>
+
+  <div id="content"><h3>Herbs - Rosemary</h3>
+<p><strong>Rosemary</strong> is an excellent choice for herb gardens in Arkansas due to its adaptability to the local climate. Here&#39;s a more detailed look at why rosemary is a great herb to grow in Arkansas:</p>
+<ul>
+<li><p><strong>Climate Suitability</strong>: Rosemary thrives in the warm and sunny conditions that Arkansas often provides. It prefers full sun, which means it should be planted in a location where it can receive at least 6-8 hours of direct sunlight daily.</p>
+</li>
+<li><p><strong>Soil Requirements</strong>: This herb does best in well-drained soil. In Arkansas, ensuring good drainage can be crucial, especially in areas where the soil might be heavy or clay-like. Adding sand or compost can help improve soil drainage for rosemary.</p>
+</li>
+<li><p><strong>Versatility in Use</strong>: Rosemary is a versatile herb used in a wide range of culinary dishes. It pairs well with meats, potatoes, and breads, adding a distinctive flavor that enhances many recipes. Its leaves can be used fresh or dried, making it a convenient herb to have in your garden.</p>
+</li>
+<li><p><strong>Growth Habits</strong>: Rosemary is a hardy perennial in Arkansas, meaning it can survive and return year after year. It can grow into a shrub-like plant, reaching up to 4 feet in height and width, which makes it not only a functional but also an attractive addition to your garden.</p>
+</li>
+<li><p><strong>Maintenance</strong>: Once established, rosemary requires minimal care. It&#39;s drought-tolerant, which is beneficial during Arkansas&#39;s hot summers. Regular pruning can help maintain its shape and encourage new growth.</p>
+</li>
+</ul>
+<p>By understanding these aspects of rosemary, you can better appreciate why it&#39;s an ideal herb for Arkansas gardens, enhancing both your culinary endeavors and your garden&#39;s aesthetic appeal.</p>
+<p>ResponseID:42e50790</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+
+  <script>
+    function saveMarkdown() {
+      const content = document.documentElement.outerHTML; // Get the entire HTML content
+
+      let markdownLocation = "./markdown/";
+      let markdownFileName = "42e50790.md";
+      let markdownFile = markdownLocation + markdownFileName;
+      
+
+      const url = URL.createObjectURL(blob); // Create a URL for the Blob
+      const divInnerText = document.getElementById('content').innerText;
+      let filename = divInnerText.substring(0, 25);
+      const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+          a.download =  filename + '.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+      
+    }
+  </script>
+
+  <script>
+    //This function checks if the current page is a child page and genreate a link to the parent page.
+            function isChild(){
+               params = window.location.search.split('=')[1];
+               if (params == undefined) {
+                return false;
+               }
+               params = params.split("&");
+               for (let i = 0; i < params.length; i++) {
+                if (params[i].includes("child")) {
+                  console.log("found child  ");
+                  console.log(params[i].split("child=")[1]);
+                  return params[i].split("child=")[1];
+                }
+               }
+               return false;
+            }
+    
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log("responseId:",window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../html/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+  <script>
+    function loadMarkdownFile() {
+      const markdownFilePath = "./markdown/42e50790.md"; // Path to the markdown file
+      fetch(markdownFilePath)
+        .then(response => response.text())
+        .then(data => {
+          const blob = new Blob([data], { type: 'text/markdown' }); // Create a Blob from the markdown content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download = '42e50790.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        })
+        .catch(error => console.error('Error loading markdown file:', error));
+    }
+  </script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

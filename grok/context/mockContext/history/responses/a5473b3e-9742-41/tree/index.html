@@ -1,0 +1,702 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Home Page</title>
+  <style>
+    
+html {
+  font-size: 100%;
+  overflow-y: scroll;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+body {
+  color: #444;
+  font-family: Georgia, Palatino, 'Palatino Linotype', Times, 'Times New Roman', serif;
+  font-size: 12px;
+  line-height: 1.5em;
+  padding: 1em;
+  margin: auto;
+  max-width: 50em;
+  background: #fefefe;
+}
+
+a {
+  color: #0645ad;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #0b0080;
+}
+
+a:hover {
+  color: #06e;
+}
+
+a:active {
+  color: #faa700;
+}
+
+a:focus {
+  outline: thin dotted;
+}
+
+a:hover,
+a:active {
+  outline: 0;
+}
+
+::-moz-selection {
+  background: rgba(255, 255, 0, 0.3);
+  color: #000;
+}
+
+::selection {
+  background: rgba(255, 255, 0, 0.3);
+  color: #000;
+}
+
+a::-moz-selection {
+  background: rgba(255, 255, 0, 0.3);
+  color: #0645ad;
+}
+
+a::selection {
+  background: rgba(255, 255, 0, 0.3);
+  color: #0645ad;
+}
+
+p {
+  margin: 1em 0;
+}
+
+img {
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
+  color: #111;
+  line-height: 1em;
+}
+
+h4,
+h5,
+h6 {
+  font-weight: bold;
+}
+
+h1 {
+  font-size: 2.5em;
+}
+
+h2 {
+  font-size: 2em;
+}
+
+h3 {
+  font-size: 1.5em;
+}
+
+h4 {
+  font-size: 1.2em;
+}
+
+h5 {
+  font-size: 1em;
+}
+
+h6 {
+  font-size: 0.9em;
+}
+
+blockquote {
+  color: #666666;
+  margin: 0;
+  padding-left: 3em;
+  border-left: 0.5em #eee solid;
+}
+
+hr {
+  display: block;
+  border: 0;
+  border-top: 1px solid #aaa;
+  border-bottom: 1px solid #eee;
+  margin: 1em 0;
+  padding: 0;
+}
+
+/* pre,
+code, */
+kbd,
+samp {
+  color: #000;
+  font-family: monospace, monospace;
+  _font-family: 'courier new', monospace;
+  font-size: 0.98em;
+}
+
+pre {
+  white-space: pre;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+b,
+strong {
+  font-weight: bold;
+}
+
+dfn {
+  font-style: italic;
+}
+
+ins {
+  background: #ff9;
+  color: #000;
+  text-decoration: none;
+}
+
+mark {
+  background: #ff0;
+  color: #000;
+  font-style: italic;
+  font-weight: bold;
+}
+
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sup {
+  top: -0.5em;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+ul,
+ol {
+  margin: 1em 0;
+  padding: 0 0 0 2em;
+}
+
+li p:last-child {
+  margin: 0;
+}
+
+dd {
+  margin: 0 0 0 2em;
+}
+
+img {
+  border: 0;
+  -ms-interpolation-mode: bicubic;
+  vertical-align: middle;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+td {
+  vertical-align: top;
+}
+
+@media only screen and (min-width: 480px) {
+  body {
+    font-size: 14px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  body {
+    font-size: 16px;
+  }
+}
+
+@media print {
+  * {
+    background: transparent !important;
+    color: black !important;
+    filter: none !important;
+    -ms-filter: none !important;
+  }
+
+  body {
+    font-size: 12pt;
+    max-width: 100%;
+  }
+
+  a,
+  a:visited {
+    text-decoration: underline;
+  }
+
+  hr {
+    height: 1px;
+    border: 0;
+    border-bottom: 1px solid black;
+  }
+
+  a[href]:after {
+    content: " (" attr(href) ")";
+  }
+
+  abbr[title]:after {
+    content: " (" attr(title) ")";
+  }
+
+  .ir a:after,
+  a[href^="javascript:"]:after,
+  a[href^="#"]:after {
+    content: "";
+  }
+
+  pre,
+  blockquote {
+    border: 1px solid #999;
+    padding-right: 1em;
+    page-break-inside: avoid;
+  }
+
+  tr,
+  img {
+    page-break-inside: avoid;
+  }
+
+  img {
+    max-width: 100% !important;
+  }
+
+  @page :left {
+    margin: 15mm 20mm 15mm 10mm;
+  }
+
+  @page :right {
+    margin: 15mm 10mm 15mm 20mm;
+  }
+
+  p,
+  h2,
+  h3 {
+    orphans: 3;
+    widows: 3;
+  }
+
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
+}
+
+
+pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px; font-size: 12px;}/*!
+  Theme: StackOverflow Light
+  Description: Light theme as used on stackoverflow.com
+  Author: stackoverflow.com
+  Maintainer: @Hirse
+  Website: https://github.com/StackExchange/Stacks
+  License: MIT
+  Updated: 2021-05-15
+
+  Updated for @stackoverflow/stacks v0.64.0
+  Code Blocks: /blob/v0.64.0/lib/css/components/_stacks-code-blocks.less
+  Colors: /blob/v0.64.0/lib/css/exports/_stacks-constants-colors.less
+*/.hljs{color:#2f3337;background:#f6f6f6}.hljs-subst{color:#2f3337}.hljs-comment{color:#656e77}.hljs-attr,.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-section,.hljs-selector-tag{color:#015692}.hljs-attribute{color:#803378}.hljs-name,.hljs-number,.hljs-quote,.hljs-selector-id,.hljs-template-tag,.hljs-type{color:#b75501}.hljs-selector-class{color:#015692}.hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-string,.hljs-symbol,.hljs-template-variable,.hljs-variable{color:#54790d}.hljs-meta,.hljs-selector-pseudo{color:#015692}.hljs-built_in,.hljs-literal,.hljs-title{color:#b75501}.hljs-bullet,.hljs-code{color:#535a60}.hljs-meta .hljs-string{color:#54790d}.hljs-deletion{color:#c02d2e}.hljs-addition{color:#2f6f44}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}
+
+
+    
+    .nav-button {
+      background-color: transparent;
+      border: 2px solid #008CBA;
+      color: #008CBA;
+      font-size: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .nav-button:hover {
+      background-color: #008CBA;
+      color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #f8f9fa;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+    }
+
+    /* Navbar links */
+    nav a {
+      color: #333;
+      text-decoration: none;
+      font-family: 'Arial', sans-serif;
+      text-transform: uppercase;
+      font-weight: 300;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #007bff;
+      text-decoration: underline;
+      background-color: rgba(0, 123, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .nav-right {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    
+    /* Search box */
+    .search-container {
+      display: flex;
+      align-items: center;
+    }
+
+    .search-container form {
+      display: flex;
+      width: 100%;
+    }
+
+    .search-container input[type="text"] {
+      padding: 5px;
+      border: 1px solid #ddd;
+      border-radius: 4px 0 0 4px;
+      font-size: 14px;
+      transition: border-color 0.3s ease;
+      width: 300px;
+      flex: 1;
+    }
+
+    /* SVG prompt button styling */
+    .search-container button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5px 10px;
+      background-color: #007bff;
+      border: none;
+      color: white;
+      border-radius: 0 4px 4px 0;
+      cursor: pointer;
+      height: 28px;
+    }
+
+    .search-container button svg {
+      width: 16px;
+      height: 16px;
+      fill: white;
+    }
+
+    .search-container button:hover {
+      background-color: #0056b3;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .search-container input[type="text"]:focus {
+      border-color: #007bff;
+      outline: none;
+      box-shadow: 0 0 0 1px #007bff;
+      position: relative;
+      z-index: 1;
+    }
+
+    .search-container input[type="text"]:focus + button {
+      border-left: none;
+      box-shadow: 1px 0 0 1px #007bff, 0 0 0 1px #007bff;
+      position: relative;
+      z-index: 1;
+    }
+    
+    /* Dropdown styling */
+    select {
+      padding: 5px 10px;
+      border: 2px solid #008CBA;
+      border-radius: 4px;
+      background-color: white;
+      color: #333;
+      font-family: 'Arial', sans-serif;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    select:hover {
+      border-color: #007bff;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+    }
+    
+    select:focus {
+      outline: none;
+      border-color: #007bff;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+    
+    option {
+      padding: 5px;
+      background-color: white;
+      color: #333;
+    }
+    
+    option:hover {
+      background-color: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a id="parentContentLink" href='/?context=a5473b3e-9742-41'>Home</a>
+
+    <div class="search-container">
+      <form action="/" method="get">
+        <input type="text" name="prompt" placeholder="prompt more on the subject">
+        <input type="hidden" name="context" value="@CURRENT_ID@">
+        <button type="submit" onclick="this.disabled=true; this.style.backgroundColor='#666666'; this.style.boxShadow='0 0 10px #666666'; this.form.submit();">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M12.5 5.5c-.276 0-.5.224-.5.5s.224.5.5.5c1.083 0 1.964.881 1.964 1.964 0 .276.224.5.5.5s.5-.224.5-.5c0-1.634-1.33-2.964-2.964-2.964zM12.5 1c-4.136 0-7.5 3.364-7.5 7.5 0 1.486.44 2.922 1.274 4.165l.08.135c1.825 2.606 2.146 3.43 2.146 4.2v3c0 .552.448 1 1 1h2c0 .26.11.52.29.71.19.18.45.29.71.29.26 0 .52-.11.71-.29.18-.19.29-.45.29-.71h2c.552 0 1-.448 1-1v-3c0-.782.319-1.61 2.132-4.199.895-1.275 1.368-2.762 1.368-4.301 0-4.136-3.364-7.5-7.5-7.5zm2 18h-4v-1h4v1zm2.495-7.347c-1.466 2.093-2.143 3.289-2.385 4.347h-1.11v-2c0-.552-.448-1-1-1s-1 .448-1 1v2h-1.113c-.24-1.03-.898-2.2-2.306-4.22l-.077-.129c-.657-.934-1.004-2.024-1.004-3.151 0-3.033 2.467-5.5 5.5-5.5s5.5 2.467 5.5 5.5c0 1.126-.347 2.216-1.005 3.153z"/>
+          </svg>
+        </button>
+      </form>
+    </div>
+
+    <div class="nav-right">
+
+      <button class="nav-button" id="saveButton" onclick="saveButton()">Save</button>
+    </div>
+  </nav>
+  <div class="dropdown-container">
+    <select id="childSubjects">
+      <option value="home">Home</option>
+      <!-- Children are added here onload with setChildSubjects -->
+  </select>
+  </div>
+  <div id="content">  
+    <div id="parentContent">
+        <p>Here are two cool things I think you'll enjoy:</p>
+<h2>1. <strong>Aurora Borealis (Northern Lights)</strong></h2>
+<p>The Aurora Borealis, or Northern Lights, is a natural light display in the Earth's sky, predominantly seen in high-latitude regions (around the Arctic and Antarctic). Auroras are the result of disturbances in the magnetosphere caused by solar wind. These disturbances are visible as beautiful, colorful lights dancing across the night sky. The colors vary based on the type of gas particles colliding with the atmosphere, with green being the most common color, followed by pink, red, yellow, and blue.</p>
+<p>To maximize your chances of seeing the Northern Lights, head to locations like Tromsø in Norway, Fairbanks in Alaska, or Yellowknife in Canada during the winter months when nights are longer and darker. Keep in mind that solar activity plays a significant role in the intensity and frequency of auroras, so checking the aurora forecast before planning your trip can help you catch this mesmerizing phenomenon.</p>
+<h2>2. <strong>Bioluminescent Beaches</strong></h2>
+<p>Bioluminescent beaches are a natural wonder where the water glows with an eerie blue light due to the presence of bioluminescent organisms, primarily dinoflagellates. When these tiny marine creatures are disturbed by movement in the water, they emit a short burst of blue light, creating a stunning effect that looks like the ocean is sparkling.</p>
+<p>One of the most famous bioluminescent beaches is Mosquito Bay in Vieques, Puerto Rico, which has been dubbed the "brightest" bioluminescent bay in the world. Other notable locations include the Gippsland Lakes in Australia and the Luminous Lagoon in Jamaica. To experience this magical phenomenon, take a nighttime kayak or boat tour, and be sure to avoid using any chemicals or lotions that could harm the delicate ecosystem.</p>
+<p>These two natural wonders showcase the incredible beauty and diversity of our planet. By embracing different perspectives and seeking out unique experiences, we can gain a deeper appreciation for the world around us and the importance of preserving its natural wonders for future generations.</p>
+    </div>
+    <div id="childDivs">
+      <div title="Aurora Borealis Northern Lights" id="childContent1" onclick="setVisibileChild('childContent1')" hidden=true><h2>Aurora Borealis (Northern Lights)</h2>
+<h3>Phenomenon Explanation</h3>
+<p>The Aurora Borealis, commonly known as the Northern Lights, is a captivating natural light display that occurs in Earth's polar regions. This phenomenon is caused by the interaction between the Earth's magnetosphere and solar wind, which consists of charged particles emitted by the Sun. When these charged particles collide with the gases in Earth's atmosphere, they excite the gas molecules, leading to the emission of light. This process is similar to how a neon light works, but on a much grander scale.</p>
+<h3>Colors of the Aurora</h3>
+<p>The colors of the Aurora Borealis are determined by the type of gas particles that are excited and the altitude at which the collisions occur. The most common color is green, which results from the excitation of oxygen molecules at altitudes around 60 to 150 miles (100 to 240 kilometers). At higher altitudes, above 150 miles (240 kilometers), oxygen can produce a rare red aurora. Nitrogen, on the other hand, produces blue or purplish-red auroras depending on the altitude of the collision. The combination of these colors can create a mesmerizing display of lights across the night sky.</p>
+<h3>Best Viewing Locations</h3>
+<p>To experience the Aurora Borealis, you need to be in the right place at the right time. The best locations for viewing the Northern Lights are in the high-latitude regions around the Arctic Circle. Some of the top destinations include:</p>
+<ul>
+<li><strong>Tromsø, Norway</strong>: Known as the "Gateway to the Arctic," Tromsø offers frequent aurora sightings due to its northern location and clear skies.</li>
+<li><strong>Fairbanks, Alaska, USA</strong>: Fairbanks is located in the heart of Alaska's aurora zone, making it a prime spot for viewing the Northern Lights.</li>
+<li><strong>Yellowknife, Canada</strong>: Situated on the shores of Great Slave Lake, Yellowknife is another excellent location for aurora enthusiasts.</li>
+</ul>
+<h3>Optimal Viewing Conditions</h3>
+<p>The best time to see the Aurora Borealis is during the winter months, from late September to early April, when nights are longer and darker. The ideal conditions for viewing include:</p>
+<ul>
+<li><strong>Clear Skies</strong>: Cloud cover can obstruct the view of the aurora, so checking the weather forecast is crucial.</li>
+<li><strong>Darkness</strong>: The darker the sky, the more vivid the aurora will appear. New moon phases are particularly good for viewing.</li>
+<li><strong>Solar Activity</strong>: The intensity and frequency of the Northern Lights are influenced by solar activity. Websites like the Space Weather Prediction Center provide aurora forecasts that can help you plan your trip.</li>
+</ul>
+<h3>Scientific and Cultural Significance</h3>
+<p>The Aurora Borealis is not only a visual spectacle but also holds significant scientific and cultural value. Scientists study the aurora to better understand the Earth's magnetosphere and its interactions with the solar wind. Culturally, the Northern Lights have been a source of inspiration and folklore for many indigenous peoples in the Arctic regions. For example, the Sámi people of Norway, Sweden, and Finland have myths and legends that explain the aurora as the lights of the souls of the departed.</p>
+<h3>Conservation and Tourism</h3>
+<p>As tourism around the Aurora Borealis grows, it's essential to consider the environmental impact. Responsible tourism practices can help preserve the natural beauty of these regions. Many tour operators in aurora hotspots emphasize eco-friendly practices, such as minimizing light pollution and reducing carbon footprints, to ensure that future generations can continue to enjoy this natural wonder.</p>
+<p>By understanding the science behind the Aurora Borealis and respecting the environments where it occurs, we can deepen our appreciation for this incredible phenomenon and contribute to its preservation.</p>
+<p>ResponseID:360361a1-dc7b-45</p></div><div title="Bioluminescent Beaches" id="childContent2" onclick="setVisibileChild('childContent2')" hidden=true><h2>Bioluminescent Beaches</h2>
+<h3>What Causes Bioluminescence?</h3>
+<p>Bioluminescence in beaches is primarily due to the presence of <strong>dinoflagellates</strong>, microscopic marine organisms that emit light when disturbed. This phenomenon occurs when these organisms are agitated by movement in the water, such as waves, swimming, or the paddle of a kayak. The light they emit is a short burst of blue or green, creating a mesmerizing glow that can make the ocean appear as if it's filled with sparkling stars.</p>
+<h3>The Science Behind the Glow</h3>
+<p>The bioluminescent reaction in dinoflagellates involves a chemical process where a molecule called <strong>luciferin</strong> reacts with oxygen in the presence of the enzyme <strong>luciferase</strong>. This reaction produces light without generating heat, a process known as cold light. The intensity and color of the light can vary based on the species of dinoflagellate and the conditions of the water.</p>
+<h3>Notable Locations</h3>
+<h4>Mosquito Bay, Vieques, Puerto Rico</h4>
+<ul>
+<li><strong>Location</strong>: Vieques, an island off the coast of Puerto Rico.</li>
+<li><strong>Significance</strong>: Often called the "brightest" bioluminescent bay in the world, Mosquito Bay is renowned for its intense glow. It's protected as a <strong>bioluminescent reserve</strong>, emphasizing the importance of preserving this natural wonder.</li>
+<li><strong>Experience</strong>: Visitors typically take guided kayak tours to experience the bay's luminescence. It's crucial to follow guidelines to avoid disrupting the ecosystem.</li>
+</ul>
+<h4>Gippsland Lakes, Australia</h4>
+<ul>
+<li><strong>Location</strong>: Southeastern Australia.</li>
+<li><strong>Significance</strong>: The Gippsland Lakes are known for their large expanse of bioluminescent waters, offering a unique experience for tourists and locals alike.</li>
+<li><strong>Experience</strong>: Nighttime boat tours are popular, allowing visitors to see the glowing waters in a serene environment.</li>
+</ul>
+<h4>Luminous Lagoon, Jamaica</h4>
+<ul>
+<li><strong>Location</strong>: Falmouth, Jamaica.</li>
+<li><strong>Significance</strong>: The Luminous Lagoon is one of the largest and most brilliant bioluminescent lagoons in the world, fed by the Martha Brae River.</li>
+<li><strong>Experience</strong>: Boat tours are available, often including swimming opportunities where the water lights up around the swimmers.</li>
+</ul>
+<h3>Best Practices for Visiting</h3>
+<ul>
+<li><strong>Avoid Harmful Substances</strong>: Do not use any chemicals, lotions, or insect repellents that could harm the delicate ecosystem. The bioluminescent organisms are sensitive to pollution.</li>
+<li><strong>Respect the Environment</strong>: Follow all guidelines provided by tour operators to minimize your impact on the environment. This includes not touching or disturbing the water unnecessarily.</li>
+<li><strong>Timing</strong>: The best time to visit is at night, ideally during a new moon when the sky is darkest, enhancing the visibility of the bioluminescence.</li>
+</ul>
+<h3>Conservation Efforts</h3>
+<p>Efforts to conserve bioluminescent beaches focus on reducing pollution and human impact. Many locations have established protected areas and regulations to ensure the sustainability of these natural phenomena. Educational programs also play a crucial role in raising awareness about the importance of preserving these ecosystems.</p>
+<h3>Cultural and Ecological Significance</h3>
+<p>Bioluminescent beaches are not only a spectacle of nature but also hold cultural significance in many areas. They are often tied to local folklore and are a source of pride and tourism revenue. Ecologically, they play a vital role in marine ecosystems, contributing to the balance of the aquatic environment.</p>
+<p>By understanding and appreciating bioluminescent beaches, we can better advocate for their conservation, ensuring that future generations can also marvel at this incredible natural phenomenon.</p>
+<p>ResponseID:2c23712f-db83-42</p></div>
+    </div>
+  </div>
+
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+
+    <script>
+      function setChildSubjects(){
+        let dropDownOptions = [];
+        let childSubjects = document.getElementById('childDivs');
+        for (let child of childSubjects.children){
+           let subject = child.title;
+           let optionValue = child.id;
+
+           dropDownOptions.push({subject: subject, value: optionValue});
+        
+        }
+
+        for (let option of dropDownOptions){
+          let optionElement = document.createElement('option');
+          optionElement.value = option.value;
+          optionElement.text = option.subject;
+          document.getElementById('childSubjects').appendChild(optionElement);
+        }
+
+        document.getElementById('childSubjects').addEventListener('change', function() {
+          if(this.value == "home"){
+            goHomePage();
+          }else{
+            setVisibleChild(this.value);
+          }
+
+          }
+        );
+      }
+    </script>
+
+
+    <script>
+      function setVisibleChild(id){
+        //quick flicker home to reset state, this allows hoping between child views
+     
+    
+           let topNode = document.getElementById('content');
+           let parentNode = document.getElementById('parentContent');
+           let childVisibleNode = document.getElementById(id);
+           let childDivs = document.getElementById('childDivs');
+           for (let child of childDivs.children){
+            if(child.id != id){
+              child.hidden = true;
+            }else{
+              child.hidden = false; //redudant
+            }
+           }
+           parentNode.hidden = true;
+           childVisibleNode.hidden = false;
+         }
+      
+    </script>
+
+    <script>
+      function goHomePage(){
+         let topNode = document.getElementById('content');
+         let parentNode = document.getElementById('parentContent');
+         let children = document.getElementById('childDivs');
+         for (let child of children.children){
+            child.hidden = true;
+         }
+         parentNode.hidden = false;
+      }
+    </script>
+        
+
+    <script>
+       function makeChildLinks(parent, child){
+            parent.style.cursor = "pointer";
+            parent.style.textDecoration = "underline";
+            parent.style.color = "blue";
+            parent.onclick = function(){
+              setVisibleChild(child.id);
+            }
+       }
+
+    </script>
+
+<script>window.onload = setChildSubjects;</script>
+
+<script>
+  // Add this function to handle home link click
+  document.addEventListener('DOMContentLoaded', function() {
+    // Get the home link
+    const homeLink = document.getElementById('parentContentLink');
+    
+    // Add click event listener
+    homeLink.addEventListener('click', function(event) {
+      this.style.backgroundColor = '#666666';
+      this.style.color = '#ffffff';
+      this.style.boxShadow = '0 0 10px #666666';
+      this.innerText = 'Processing...';
+      this.style.pointerEvents = 'none';
+    });
+  });
+</script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

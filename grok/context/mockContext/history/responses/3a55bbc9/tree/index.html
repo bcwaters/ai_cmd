@@ -1,0 +1,530 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Home Page</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    <a id="parentContentLink" href='javascript:goHomePage()'>Home</a>
+    <select id="childSubjects">
+      <option value="home">Home</option>
+      <!-- Children are added here onload with setChildSubjects -->
+    </select>
+    <!-- Add a previous and next button for prior requests? -->
+    <!-- Add a button to save the current page as a markdown file -->
+  </nav>
+
+  <div id="content">  
+    <div id="parentContent">
+        <h1>Brent's Hero's Journey: Elite Coder and Forest Dweller</h1>
+<h2>1. The Ordinary World</h2>
+<p>Brent, an elite coder, lives in a secluded cabin deep within Oscar Scherer State Park. His days are split between crafting intricate code and embracing the solitude of the forest. This dual life offers him peace and a unique perspective on technology and nature.</p>
+<h2>2. The Call to Adventure</h2>
+<p>An urgent message arrives from a tech startup, seeking Brent's coding expertise to solve a groundbreaking problem that could revolutionize digital connectivity in remote areas. This opportunity challenges Brent to blend his two worlds.</p>
+<h2>3. Refusal of the Call</h2>
+<p>Initially, Brent resists the call, fearing that engaging with the tech world might disrupt his harmonious life in the forest. He values his solitude and the balance he has achieved between coding and nature.</p>
+<h2>4. Meeting the Mentor</h2>
+<p>An old friend, a former tech mogul turned environmentalist, visits Brent. He encourages Brent to see the potential of using his skills to benefit both technology and the environment, convincing him to reconsider the offer.</p>
+<h2>5. Crossing the Threshold</h2>
+<p>Brent decides to accept the challenge and steps out of his forest haven, embarking on a journey to the startup's headquarters. This marks his transition from the familiar to the unknown, blending his dual lives.</p>
+<h2>6. Tests, Allies, and Enemies</h2>
+<p>At the startup, Brent faces coding challenges that push his skills to the limit. He forms alliances with like-minded tech enthusiasts and encounters resistance from those who prioritize profit over environmental impact.</p>
+<h2>7. Approach to the Inmost Cave</h2>
+<p>Brent prepares for the critical phase of the project, where he must integrate his code with a new satellite system. He spends time in nature, reflecting on how to maintain his values amidst the corporate world.</p>
+<h2>8. The Ordeal</h2>
+<p>The system faces a critical failure during a live demonstration. Brent must quickly adapt his code to save the project, testing his ability to balance technological innovation with environmental responsibility.</p>
+<h2>9. Reward</h2>
+<p>Successfully resolving the crisis, Brent's solution not only saves the project but also ensures minimal environmental impact. He is celebrated as a visionary coder who brings a unique perspective to the tech world.</p>
+<h2>10. The Road Back</h2>
+<p>With the project completed, Brent feels a pull back to his forest home. He navigates the complexities of leaving the corporate world, eager to return to his peaceful life but enriched by his experiences.</p>
+<h2>11. Resurrection</h2>
+<p>Before leaving, Brent is offered a permanent position, challenging him to decide between his newfound influence in tech and his hermit lifestyle. He chooses to return to the forest, feeling reborn with a clearer understanding of his dual passions.</p>
+<h2>12. Return with the Elixir</h2>
+<p>Back in his cabin, Brent shares his insights and technology with the local community, enhancing their connectivity while preserving the natural environment. He continues to live his dual life, now more harmoniously than ever.</p>
+
+    </div>
+    <div id="childDivs">
+      <div title="The Ordinary World" id="childContent1" onclick="setVisibileChild('childContent1')" hidden=true><h1>Brent's Ordinary World: A Dual Life in Harmony</h1>
+<h2>Brent's Secluded Cabin</h2>
+<p>Brent's life in the ordinary world is set in a secluded cabin nestled deep within Oscar Scherer State Park. The cabin itself is a modest structure, built with natural materials to blend seamlessly with the surrounding environment. It features large windows that allow the forest to become a part of the living space, reflecting Brent's desire to connect with nature. Inside, the cabin is equipped with the essentials: a small kitchen, a cozy living area, and a workspace dedicated to coding. The decor is minimalist, emphasizing functionality and tranquility over luxury.</p>
+<h2>Daily Routine</h2>
+<p>Brent's daily routine is a delicate balance between his professional life as an elite coder and his personal passion for nature. Mornings often start with a hike through the forest, allowing him to immerse himself in the natural world and gather inspiration. After returning to his cabin, he spends several hours coding. Brent works on various projects, from developing software for environmental monitoring to creating tools for remote collaboration, always with the aim of enhancing technology without harming the environment.</p>
+<h2>Coding in the Forest</h2>
+<p>Brent's coding environment is unique. His workspace is surrounded by the sounds of the forest—birds chirping, leaves rustling, and the occasional distant call of wildlife. This setting not only provides him with a serene backdrop but also influences his approach to coding. He often takes breaks to walk outside, using the natural surroundings to clear his mind and solve complex coding problems. This integration of nature into his workday enhances his creativity and productivity.</p>
+<h2>Connection to Nature</h2>
+<p>Brent's connection to nature goes beyond mere appreciation; it is a fundamental part of his identity. He spends time observing wildlife, studying local flora, and participating in conservation efforts within the park. This deep connection informs his coding projects, driving him to develop solutions that can benefit both technology and the environment. He often reflects on how technology can be a tool for preserving and understanding nature rather than exploiting it.</p>
+<h2>The Balance Achieved</h2>
+<p>In his ordinary world, Brent has achieved a harmonious balance between his professional and personal life. He values the solitude and tranquility of the forest, which allows him to focus deeply on his coding projects. At the same time, his work provides him with a sense of purpose and fulfillment, knowing that he is using his skills to make a positive impact. This balance is something Brent cherishes deeply, making him initially hesitant to disrupt it with new opportunities from the outside world.</p>
+<h2>Technological Integration</h2>
+<p>Despite his remote location, Brent maintains a connection to the digital world. He uses solar panels to power his cabin and a satellite internet connection to stay online. This setup allows him to work remotely and stay connected with the tech community without compromising his environmental values. His technological integration is a testament to his belief that technology and nature can coexist harmoniously.</p>
+<h2>Reflection and Contemplation</h2>
+<p>Brent often spends time in reflection and contemplation, sitting on his cabin's porch or wandering through the forest. These moments allow him to ponder the broader implications of his work and life. He considers how his coding can contribute to a more sustainable future and how he can maintain his balance between the two worlds he inhabits. This reflective practice is crucial to his sense of peace and purpose in his ordinary world.</p>
+<p>In summary, Brent's ordinary world is characterized by a carefully crafted balance between his life as an elite coder and his deep connection to nature. His secluded cabin in Oscar Scherer State Park serves as a sanctuary where he can pursue his passions without compromise, setting the stage for the challenges and adventures that lie ahead.</p>
+<p>ResponseID:a9b5d071</p>
+</div><div title="The Call to Adventure" id="childContent2" onclick="setVisibileChild('childContent2')" hidden=true><h1>The Call to Adventure: Brent's Invitation to Transform</h1>
+<h2>The Arrival of the Message</h2>
+<p>Brent's serene existence in Oscar Scherer State Park is interrupted by an urgent message from a tech startup. This message is not just a professional call but a beckoning to a new adventure that could bridge his two worlds: technology and nature. The startup, known for its innovative approaches to digital connectivity, has identified Brent as a key figure in their next project.</p>
+<h2>The Nature of the Offer</h2>
+<p>The offer is compelling: the startup seeks Brent's coding expertise to develop a solution that could revolutionize digital connectivity in remote areas. This project aligns with Brent's skills as an elite coder and his passion for nature, as it aims to enhance connectivity without compromising the environment. The startup's vision is to create a technology that allows people in remote locations to connect with the world while preserving the natural beauty and tranquility of those areas.</p>
+<h2>The Challenge to Brent's Dual Life</h2>
+<p>The call to adventure challenges Brent to consider how he might integrate his love for coding with his deep connection to the forest. It presents an opportunity to step out of his comfort zone and use his skills for a greater purpose. The project's focus on remote connectivity resonates with Brent's own lifestyle, living in a secluded cabin, and he sees the potential to make a significant impact.</p>
+<h2>Emotional Response and Reflection</h2>
+<p>Upon receiving the message, Brent experiences a mix of excitement and apprehension. The excitement stems from the possibility of using his coding skills to make a meaningful difference, while the apprehension arises from the fear of disrupting the balance he has carefully cultivated between his professional and personal life. He reflects on the potential implications of accepting the offer, weighing the benefits against the risks to his current way of life.</p>
+<h2>The Symbolic Significance</h2>
+<p>The call to adventure is not just a professional opportunity; it symbolizes a pivotal moment in Brent's life. It represents a threshold between his current existence and a potential new path that could lead to growth and transformation. This moment sets the stage for Brent's internal struggle and eventual decision-making process, highlighting the tension between staying in his comfort zone and embracing a new challenge.</p>
+<h2>The Catalyst for Change</h2>
+<p>The arrival of the message acts as a catalyst, prompting Brent to re-evaluate his life choices and consider how he might harmonize his dual passions in a new setting. It challenges him to think about the broader impact he could have, not just on the tech world but also on the environment he cherishes. This call to adventure is the first step in Brent's hero's journey, setting the narrative in motion and leading to subsequent stages of his transformation.</p>
+<p>ResponseID:06942918</p>
+</div><div title="Refusal of the Call" id="childContent3" onclick="setVisibileChild('childContent3')" hidden=true><h2>Refusal of the Call: Brent's Initial Resistance</h2>
+<p>Brent's initial refusal to engage with the tech startup's offer is deeply rooted in his current lifestyle and the balance he has cultivated between his coding work and his natural surroundings. This resistance is a significant barrier as he contemplates the potential disruption that the fast-paced and often impersonal tech world could bring to his life.</p>
+<h3>Fear of Losing Balance</h3>
+<ul>
+<li><strong>Connection to Nature</strong>: Brent's secluded cabin in Oscar Scherer State Park is more than just a home; it's a sanctuary where he finds peace and inspiration. The forest offers him solitude and a direct connection to nature, which he fears losing if he dives back into the tech industry.</li>
+<li><strong>Harmonious Life</strong>: His days are structured around coding in the morning and spending time in nature in the afternoon. This routine has allowed him to maintain a harmonious balance between his professional skills and personal well-being.</li>
+</ul>
+<h3>Concerns About the Tech World</h3>
+<ul>
+<li><strong>Disruption</strong>: The tech world is known for its fast pace and high-pressure environment, which Brent worries could disrupt the tranquility he has built in his forest home.</li>
+<li><strong>Impersonal Nature</strong>: He fears that the impersonal nature of corporate tech culture might erode the personal fulfillment he derives from his current lifestyle.</li>
+</ul>
+<h3>Internal Conflict</h3>
+<ul>
+<li><strong>Dual Passions</strong>: Brent's life reflects his dual passions for technology and nature. The startup's offer challenges him to consider how he might integrate these passions in a new setting, but his initial reaction is to protect the balance he has already achieved.</li>
+<li><strong>Fear of Change</strong>: The fear of change is a powerful force in Brent's refusal. He is comfortable with his current life and wary of the unknown challenges that accepting the offer might bring.</li>
+</ul>
+<h3>Symbolic of Broader Themes</h3>
+<ul>
+<li><strong>Refusal as a Barrier</strong>: Brent's refusal is not just about the immediate offer; it symbolizes a broader internal struggle between staying in one's comfort zone and embracing new opportunities.</li>
+<li><strong>Threshold to Adventure</strong>: This moment of refusal is a critical threshold in Brent's hero's journey, highlighting the tension between the known and the unknown, and setting the stage for the mentor's pivotal role in guiding him forward.</li>
+</ul>
+<p>In summary, Brent's refusal of the call is a complex response driven by his deep connection to the forest, his fear of losing the balance he has cultivated, and his apprehension about the potential disruption from the tech world. This refusal serves as a crucial moment in his journey, setting the stage for his eventual reconsideration and growth. </p>
+<p>ResponseID:88cff900</p>
+</div><div title="Meeting the Mentor" id="childContent4" onclick="setVisibileChild('childContent4')" hidden=true><h2>4. Meeting the Mentor</h2>
+<p>Brent's initial resistance to the call from the tech startup is rooted in his deep connection to the forest and his fear of losing the balance he has cultivated between his coding work and his natural surroundings. This fear is a significant barrier, as he contemplates the potential disruption that the fast-paced and often impersonal tech world could bring to his life.</p>
+<h3>The Arrival of the Mentor</h3>
+<p>An old friend, who had once been a prominent figure in the tech industry but now dedicates his life to environmental causes, visits Brent at his secluded cabin. This friend, whom Brent greatly respects, serves as his mentor in this pivotal moment. The mentor's arrival is not just a casual visit; it is timed perfectly with Brent's internal struggle and the recent call to adventure.</p>
+<h3>The Mentor's Influence</h3>
+<p>The mentor shares his own journey of transitioning from the tech world to environmental activism. He explains how he used his technological expertise to make significant contributions to environmental causes, illustrating that it is possible to blend technology and nature effectively. This narrative resonates deeply with Brent, as it mirrors his own dual passions.</p>
+<h3>Encouragement and Insight</h3>
+<p>The mentor encourages Brent to see the startup's offer not as a threat to his current lifestyle but as an opportunity to expand his impact. He emphasizes that Brent's unique perspective, honed by his life in the forest, could bring a fresh approach to the tech world. The mentor's insights help Brent reframe the challenge, viewing it as a chance to bridge the gap between technology and nature.</p>
+<h3>The Turning Point</h3>
+<p>Through their conversations, the mentor instills in Brent a sense of purpose and confidence. He challenges Brent to consider how his skills could be used to enhance digital connectivity in remote areas while preserving the environment. This discussion becomes a turning point for Brent, shifting his perspective from one of fear and resistance to one of potential and possibility.</p>
+<h3>The Decision to Reconsider</h3>
+<p>Ultimately, the mentor's visit and their deep, meaningful discussions lead Brent to reconsider the startup's offer. The mentor's encouragement and the shared vision of using technology for environmental good become the catalyst for Brent's decision to step out of his comfort zone and embark on this new journey.</p>
+<p>In summary, the mentor's role is crucial in Brent's hero's journey. By providing guidance, sharing personal experiences, and offering a new perspective, the mentor helps Brent overcome his initial refusal of the call and sets him on the path to crossing the threshold into the unknown.</p>
+<p>ResponseID:768c748c</p>
+</div><div title="Crossing the Threshold" id="childContent5" onclick="setVisibileChild('childContent5')" hidden=true><h1>Crossing the Threshold</h1>
+<h2>Detailed Journey</h2>
+<p>Brent's decision to leave his secluded cabin in Oscar Scherer State Park marks a pivotal moment in his journey. This transition is not just a physical move but a significant shift in his life's narrative, as he steps from the familiarity of the forest into the unknown realm of corporate technology.</p>
+<h3>The Decision</h3>
+<ul>
+<li><strong>Internal Struggle</strong>: Brent grapples with the fear of losing the harmony he has cultivated between his coding work and his life in nature. The thought of immersing himself in the tech world, with its fast-paced and often impersonal environment, is daunting.</li>
+<li><strong>Motivation</strong>: The potential to make a meaningful impact on digital connectivity in remote areas, aligning with his environmental values, ultimately sways him. The vision of bridging the gap between technology and nature becomes a compelling reason to step out of his comfort zone.</li>
+</ul>
+<h3>The Departure</h3>
+<ul>
+<li><strong>Preparation</strong>: Before leaving, Brent spends time in the forest, soaking in its tranquility. He packs only the essentials, including his laptop and a few personal items, symbolizing his intent to maintain a connection to his roots.</li>
+<li><strong>Emotional State</strong>: As he locks his cabin door, Brent feels a mix of excitement and apprehension. The forest, with its familiar sounds and scents, feels like a part of him that he is leaving behind, yet he knows this journey is necessary.</li>
+</ul>
+<h3>Arrival at the Startup</h3>
+<ul>
+<li><strong>New Environment</strong>: Upon arriving at the startup's headquarters, Brent is immediately struck by the contrast to his forest home. The bustling office environment, filled with the hum of activity and the clatter of keyboards, feels alien to him.</li>
+<li><strong>Initial Impressions</strong>: He is greeted by a mix of curious and welcoming faces. The startup's mission and the enthusiasm of its team resonate with Brent, reinforcing his decision to join them.</li>
+</ul>
+<h3>Symbolic Crossing</h3>
+<ul>
+<li><strong>Threshold Moment</strong>: The moment Brent steps into the startup's office is his symbolic crossing of the threshold. It represents his willingness to venture into the unknown, to blend his dual passions of coding and environmental stewardship.</li>
+<li><strong>Commitment to the Journey</strong>: By accepting this challenge, Brent commits to navigating the complexities of the tech world while striving to maintain his connection to nature. This commitment is the first step in his transformation from a solitary coder to a collaborative innovator.</li>
+</ul>
+<h3>Reflection on the Transition</h3>
+<ul>
+<li><strong>Looking Back</strong>: As Brent settles into his new environment, he often reflects on the tranquility of the forest, using it as a mental anchor to stay grounded amidst the chaos of the startup.</li>
+<li><strong>Looking Forward</strong>: He also looks ahead, excited about the potential to influence change and bring his unique perspective to the project. This forward-thinking attitude fuels his determination to succeed.</li>
+</ul>
+<p>In summary, Brent's crossing of the threshold is a multifaceted transition that encapsulates his internal struggle, his preparation and departure from the forest, his arrival and initial impressions at the startup, and his symbolic commitment to blending his dual lives. This step sets the stage for the challenges and growth he will experience in the subsequent phases of his journey.</p>
+<p>ResponseID:8cc74799</p>
+</div><div title="Tests Allies and Enemies" id="childContent6" onclick="setVisibileChild('childContent6')" hidden=true><h2>Tests, Allies, and Enemies</h2>
+<h3>Coding Challenges</h3>
+<p>Upon arriving at the startup's headquarters, Brent is immediately thrust into a series of coding challenges that test his skills to the utmost. These challenges are not just about technical prowess but also about adapting his code to meet the specific needs of the project, which aims to enhance digital connectivity in remote areas. Brent's expertise in coding algorithms and system architecture is put to the test as he works on optimizing the system for efficiency and reliability.</p>
+<h3>Technical Complexity</h3>
+<p>The complexity of the project is daunting. Brent must navigate through layers of existing code, integrate new modules, and ensure that the system can handle the demands of satellite communication. This requires him to delve deep into technical documentation, engage in rigorous testing, and often work late into the night to solve intricate problems. Each challenge he faces is a step towards mastering the system and ensuring its success.</p>
+<h3>Forming Alliances</h3>
+<p>Amidst these technical trials, Brent finds allies within the startup. He connects with other coders who share his passion for technology and his commitment to environmental stewardship. These allies become invaluable, offering support, sharing insights, and collaborating on the project. Together, they form a tight-knit team dedicated to the project's success.</p>
+<h3>Key Allies</h3>
+<ul>
+<li><strong>Sara</strong>: A fellow coder who specializes in environmental tech. She becomes Brent's closest ally, helping him navigate the ethical implications of their work.</li>
+<li><strong>Mark</strong>: A systems architect who provides critical insights into the satellite system's design. His expertise helps Brent understand the broader implications of his code.</li>
+<li><strong>Lena</strong>: A project manager who ensures that Brent's needs are met and that he has the resources to tackle the challenges ahead. Her organizational skills keep the project on track.</li>
+</ul>
+<h3>Encountered Resistance</h3>
+<p>However, not everyone at the startup shares Brent's vision. He encounters resistance from those who prioritize profit and rapid deployment over environmental considerations. These individuals, whom Brent sees as enemies to his cause, challenge his approach and push for shortcuts that could compromise the project's integrity.</p>
+<h3>Specific Enemies</h3>
+<ul>
+<li><strong>Tom</strong>: A senior executive focused on meeting deadlines and minimizing costs. He often clashes with Brent over the project's timeline and environmental impact.</li>
+<li><strong>Rachel</strong>: A marketing director who pushes for features that could increase user engagement but at the potential cost of increased energy consumption.</li>
+</ul>
+<h3>Navigating Corporate Dynamics</h3>
+<p>Brent must navigate these corporate dynamics carefully. He engages in discussions, presents data-driven arguments, and sometimes compromises to move the project forward. His ability to maintain his principles while working within the corporate structure is tested daily.</p>
+<h3>Learning and Growth</h3>
+<p>Through these tests, allies, and enemies, Brent grows both as a coder and as an individual. He learns to balance his technical skills with his environmental values, gaining a deeper understanding of how to influence change within a corporate environment. Each challenge he overcomes and each alliance he forms strengthens his resolve and sharpens his skills, preparing him for the critical phase of the project ahead.</p>
+<h3>Reflection and Strategy</h3>
+<p>Brent takes time to reflect on his experiences and strategize his next steps. He uses feedback from his allies to refine his approach and anticipates the moves of his enemies. This period of testing and forming relationships is crucial for Brent, as it lays the groundwork for the upcoming integration of his code with the satellite system.</p>
+<p>ResponseID:5881523f</p>
+</div><div title="Approach the Inmost Cave" id="childContent7" onclick="setVisibileChild('childContent7')" hidden=true><h2>7. Approach to the Inmost Cave</h2>
+<p>As Brent prepares for the critical phase of the project, where he must integrate his code with a new satellite system, he finds himself at a pivotal moment in his journey. This stage is known as the "Approach to the Inmost Cave," a metaphorical representation of the deepest challenge Brent must face, both technically and philosophically.</p>
+<h3>Reflection in Nature</h3>
+<p>Before diving into the intense coding session, Brent retreats to the tranquility of nature. He spends time in the serene environment of Oscar Scherer State Park, where he has built his cabin. This time in the forest is crucial for Brent, as it allows him to reconnect with his values and gather the mental clarity needed for the upcoming challenge. The sounds of the rustling leaves and the gentle flow of water help him reflect on how he can maintain his commitment to environmental stewardship while navigating the corporate world.</p>
+<h3>Strategic Planning</h3>
+<p>Back at the startup's headquarters, Brent meticulously plans his approach to integrating his code with the satellite system. He reviews the architecture of the system, identifying potential points of failure and areas where his code can be optimized. His deep understanding of both the technical and environmental aspects of the project guides his planning. Brent knows that the success of the integration will not only depend on his coding skills but also on his ability to ensure that the system's deployment does not harm the environment.</p>
+<h3>Mental Preparation</h3>
+<p>Brent also engages in mental preparation for the ordeal ahead. He visualizes the live demonstration, anticipating potential issues and mentally rehearsing his responses. This preparation is vital as it helps him remain calm and focused during the high-pressure situation of the live demo. Brent's ability to stay composed under pressure is a testament to his years of living a balanced life between coding and nature.</p>
+<h3>Balancing Dual Passions</h3>
+<p>Throughout this phase, Brent grapples with the challenge of balancing his two passions. On one hand, he is driven by the excitement of solving complex coding problems and pushing the boundaries of technology. On the other hand, he is deeply committed to ensuring that his technological advancements do not come at the expense of the natural world he loves. This internal conflict is central to Brent's journey and shapes his approach to the inmost cave.</p>
+<h3>Collaboration and Communication</h3>
+<p>To prepare for the integration, Brent collaborates closely with his team at the startup. He communicates his vision for a technology that respects the environment, ensuring that everyone understands the dual goals of the project. This collaborative effort not only helps refine the technical aspects of the integration but also reinforces the importance of environmental considerations within the team.</p>
+<h3>Finalizing the Code</h3>
+<p>In the days leading up to the live demonstration, Brent finalizes his code. He runs simulations and tests to ensure that the integration will be successful. Every line of code is written with precision, reflecting Brent's dedication to both the project's success and its environmental impact. He meticulously documents his work, preparing for any last-minute adjustments that might be necessary during the live demo.</p>
+<h3>Embracing the Challenge</h3>
+<p>As Brent approaches the inmost cave, he embraces the challenge ahead with a sense of purpose. He knows that the success of the project will not only validate his technical skills but also demonstrate that technology and environmental stewardship can coexist harmoniously. With a clear mind and a well-prepared plan, Brent is ready to face the ordeal of the live demonstration, where his dual passions will be put to the ultimate test.</p>
+<p>ResponseID:5019afc5</p>
+</div><div title="The Ordeal" id="childContent8" onclick="setVisibileChild('childContent8')" hidden=true><h1>The Ordeal: A Detailed Exploration</h1>
+<h2>Critical System Failure</h2>
+<p>During the live demonstration of the satellite system, a critical failure occurs. This unexpected event throws the entire project into jeopardy, with the system crashing and failing to perform as expected. The pressure is immense, as the demonstration is being watched by key stakeholders and potential investors.</p>
+<h2>Brent's Quick Response</h2>
+<p>Brent, with his elite coding skills, immediately springs into action. He recognizes the nature of the failure—a complex issue involving the integration of his code with the satellite's hardware. His quick thinking and adaptability are put to the test as he begins to troubleshoot and rewrite parts of the code on the fly.</p>
+<h2>Technical Challenges</h2>
+<p>The technical challenges are significant. Brent must navigate through layers of code, identify the root cause of the failure, and implement a solution that not only resolves the issue but also optimizes the system's performance. His deep understanding of the system's architecture and his ability to think critically under pressure are crucial during this ordeal.</p>
+<h2>Balancing Innovation and Responsibility</h2>
+<p>A key aspect of Brent's challenge is to balance technological innovation with environmental responsibility. His solution must not only fix the immediate problem but also ensure that the satellite system's deployment does not harm the environment. This reflects Brent's personal philosophy and his commitment to integrating his love for nature with his coding prowess.</p>
+<h2>Successful Resolution</h2>
+<p>Through his efforts, Brent successfully resolves the crisis. His rewritten code stabilizes the satellite system, and the demonstration continues successfully. Moreover, the optimizations he implements exceed initial expectations, showcasing his technical expertise and his ability to perform under pressure.</p>
+<h2>Environmental Considerations</h2>
+<p>Brent's solution also takes into account environmental impact. By carefully designing the code to minimize energy consumption and ensure that the satellite's operations do not interfere with wildlife or natural habitats, Brent ensures that the project aligns with his values. This aspect of his solution is a personal victory, demonstrating that technology and environmental stewardship can coexist harmoniously.</p>
+<h2>Recognition of Effort</h2>
+<p>The successful resolution of the crisis leads to immediate recognition from his colleagues and superiors. They praise Brent's innovative approach and his ability to balance technological innovation with environmental responsibility. This recognition is not just professional but also personal, as it validates Brent's belief in the potential for technology to enhance lives without compromising the natural world.</p>
+<h2>Personal Fulfillment</h2>
+<p>On a personal level, Brent feels a profound sense of fulfillment. The ordeal reaffirms his life's philosophy and his ability to blend his dual passions for coding and nature in a meaningful way. This sense of fulfillment is a crucial reward, reinforcing the purpose of his journey and his growth as an individual.</p>
+<h2>Impact on Future Opportunities</h2>
+<p>The successful handling of the ordeal opens doors to future opportunities within the tech industry. Brent is approached with offers for further collaboration and leadership roles, reflecting the high regard in which he is held. These opportunities, while tempting, are part of the reward, providing Brent with the chance to continue influencing the tech world positively.</p>
+<h2>Integration of Experiences</h2>
+<p>Finally, the ordeal contributes to the integration of Brent's experiences into his identity. He now carries with him a deeper understanding of how technology can be used responsibly. This newfound wisdom is a reward in itself, as it will guide his future endeavors and his return to his ordinary world in Oscar Scherer State Park.</p>
+<p>In summary, the ordeal represents a pivotal moment in Brent's journey, where he demonstrates his technical prowess, commitment to environmental stewardship, and ability to perform under pressure. The successful resolution of the crisis leads to recognition, personal fulfillment, and future opportunities, all of which contribute to Brent's growth and the integration of his experiences into his life's narrative.</p>
+<p>ResponseID:8b37bb26</p>
+</div><div title="Reward" id="childContent9" onclick="setVisibileChild('childContent9')" hidden=true><h2>9. Reward</h2>
+<p>After successfully navigating the critical failure during the live demonstration, Brent's reward manifests in multiple layers, reflecting his journey's culmination and the impact of his efforts.</p>
+<h3>Technical Success</h3>
+<p>Brent's quick thinking and adaptability during the ordeal resulted in a successful resolution of the system failure. His code not only stabilized the satellite system but also optimized its performance beyond initial expectations. This technical success was a testament to Brent's coding prowess and his ability to perform under pressure.</p>
+<h3>Environmental Impact</h3>
+<p>A significant aspect of Brent's reward was the minimal environmental impact of his solution. By integrating his deep respect for nature into the project, Brent ensured that the satellite system's deployment would not harm the environment. This alignment with his values was a personal victory, as it demonstrated that technology and environmental stewardship could coexist harmoniously.</p>
+<h3>Recognition and Celebration</h3>
+<p>The successful resolution of the crisis led to widespread recognition within the tech startup. Brent was celebrated as a visionary coder who brought a unique perspective to the project. His colleagues and superiors praised his innovative approach and his ability to balance technological innovation with environmental responsibility. This recognition was not just professional but also personal, as it validated Brent's belief in the potential for technology to enhance lives without compromising the natural world.</p>
+<h3>Personal Fulfillment</h3>
+<p>On a personal level, Brent felt a profound sense of fulfillment. The reward was not just in the project's success but in the reaffirmation of his life's philosophy. He had managed to blend his dual passions for coding and nature in a way that was impactful and meaningful. This fulfillment was a crucial reward, reinforcing his journey's purpose and his growth as an individual.</p>
+<h3>Future Opportunities</h3>
+<p>The success of the project opened doors to future opportunities within the tech industry. Brent was approached with offers for further collaboration and leadership roles, reflecting the high regard in which he was held. These opportunities, while tempting, were part of the reward, as they provided Brent with the chance to continue influencing the tech world positively.</p>
+<h3>Integration of Experiences</h3>
+<p>The reward also included the integration of his experiences into his identity. Brent now carried with him a deeper understanding of how technology could be used responsibly. This newfound wisdom was a reward in itself, as it would guide his future endeavors and his return to his ordinary world in Oscar Scherer State Park.</p>
+<p>In summary, Brent's reward was multifaceted, encompassing technical success, environmental impact, recognition, personal fulfillment, future opportunities, and the integration of his experiences. These elements together formed a comprehensive reward that celebrated his journey and set the stage for his return to his dual life with a greater sense of harmony and purpose.</p>
+<p>ResponseID:cc9cddec</p>
+</div><div title="The Road Back" id="childContent10" onclick="setVisibileChild('childContent10')" hidden=true><h2>The Road Back</h2>
+<p>After successfully navigating the critical failure and saving the satellite system project, Brent finds himself at a pivotal moment on his hero's journey. This stage, known as "The Road Back," symbolizes his transition from the world of adventure back to his ordinary world, enriched by the experiences and lessons learned.</p>
+<h3>The Pull to the Forest</h3>
+<p>Upon completing the project, Brent experiences a strong pull back to his secluded cabin in Oscar Scherer State Park. The tranquility and solitude of the forest beckon him, reminding him of the life he has built and the balance he cherishes between coding and nature. This pull is not just a physical desire to return home but also an emotional and spiritual yearning for the peace he finds amidst the trees.</p>
+<h3>Navigating Corporate Complexities</h3>
+<p>Before he can return to his forest home, Brent must navigate the complexities of leaving the corporate world. The tech startup, recognizing his invaluable contributions, attempts to retain him with various incentives and promises of further impact. Brent finds himself caught in discussions about future projects, potential leadership roles, and the ongoing influence he could wield in the tech industry. These discussions challenge him to weigh his options carefully, as the corporate world offers tangible benefits and opportunities for growth.</p>
+<h3>Eagerness to Return</h3>
+<p>Despite the allure of staying in the tech world, Brent's eagerness to return to his forest home grows stronger. He reflects on the journey he has undertaken, from the initial reluctance to leave his cabin to the transformative experiences at the startup. The road back is not just a physical journey but a mental and emotional one, as Brent processes the growth he has experienced and the clarity he has gained about his dual passions.</p>
+<h3>Enriched by Experiences</h3>
+<p>As Brent prepares to leave, he feels enriched by his experiences in the tech world. The challenges he faced, the alliances he formed, and the successes he achieved have all contributed to his personal and professional development. He carries with him a deeper understanding of how technology can be used responsibly to enhance lives without compromising the environment. This newfound wisdom will guide him as he returns to his ordinary world.</p>
+<h3>The Journey Home</h3>
+<p>The actual journey back to Oscar Scherer State Park is filled with anticipation and reflection. Brent travels through bustling cities and then gradually into more rural landscapes, each mile bringing him closer to the peace he seeks. As he approaches his cabin, he feels a sense of relief and fulfillment, knowing that he has completed a significant chapter in his life and is now ready to integrate the lessons learned into his daily existence.</p>
+<p>In summary, "The Road Back" for Brent is a multifaceted stage of his hero's journey. It involves navigating the complexities of leaving the corporate world, feeling the pull of his forest home, and being enriched by the experiences and insights gained during his adventure. This stage sets the foundation for his eventual return and the continuation of his dual life, now with a greater sense of harmony and purpose.</p>
+<p>ResponseID:2a4d694d</p>
+</div><div title="Resurrection" id="childContent11" onclick="setVisibileChild('childContent11')" hidden=true><h1>Resurrection: Brent's Return to the Forest</h1>
+<h2>Decision at the Crossroads</h2>
+<p>Upon successfully resolving the critical failure of the satellite system project, Brent finds himself at a pivotal moment. The tech startup, recognizing his invaluable contributions, extends an offer for a permanent position. This proposal presents a significant crossroads for Brent, as it forces him to weigh his newfound influence and potential impact in the tech world against his deep-rooted desire to return to his secluded life in Oscar Scherer State Park.</p>
+<h2>The Offer</h2>
+<p>The permanent position offered by the startup is not just any job; it is a role that would allow Brent to continue shaping innovative solutions for digital connectivity in remote areas. The position comes with the promise of resources, support, and a platform to further his vision of harmonizing technology with nature. It is tempting, as it aligns perfectly with his skills and his recent achievements.</p>
+<h2>The Temptation</h2>
+<p>The allure of staying in the tech world is strong. Brent is tempted by the opportunity to work on groundbreaking projects, to be at the forefront of technological advancements, and to influence the industry's direction towards sustainability. The recognition and the potential for further personal and professional growth are significant factors in his decision-making process.</p>
+<h2>The Call of the Forest</h2>
+<p>However, the call of the forest is equally compelling. Brent's heart yearns for the tranquility and solitude of his cabin, where he can continue to split his days between coding and embracing nature. The forest represents his sanctuary, a place where he has achieved a unique balance between his dual passions. The thought of leaving this behind weighs heavily on him.</p>
+<h2>Reflection and Clarity</h2>
+<p>Brent takes time to reflect on his journey. He remembers the initial resistance to the call to adventure, the challenges he faced, and the growth he experienced. He realizes that the true reward of his journey is not the accolades or the job offer but the deeper understanding he has gained about himself and his dual passions.</p>
+<h2>The Decision</h2>
+<p>In the end, Brent chooses to return to the forest. This decision is not made lightly; it is a deliberate choice to prioritize his values and the life he has built in Oscar Scherer State Park. He feels reborn, not because he has rejected the tech world, but because he has integrated the lessons learned from his journey into his life.</p>
+<h2>Feeling Reborn</h2>
+<p>Brent's return to the forest marks a resurrection of sorts. He is not the same person who left; he is now enriched with a clearer understanding of how to live harmoniously with his dual passions. The experience in the tech world has reaffirmed his belief in the power of technology to improve lives without compromising the environment. This newfound clarity allows him to live more fully in alignment with his values, embracing the lessons learned from his hero's journey.</p>
+<h2>Conclusion</h2>
+<p>The resurrection stage of Brent's hero's journey is a testament to his personal growth and the integration of his experiences. By choosing to return to the forest, Brent embodies the essence of the hero's journey, returning with a transformed perspective and a renewed commitment to his life's mission.</p>
+<p>ResponseID:985182e5</p>
+</div><div title="Return with the Elixir" id="childContent12" onclick="setVisibileChild('childContent12')" hidden=true><h2>12. Return with the Elixir</h2>
+<p>Upon returning to his secluded cabin in Oscar Scherer State Park, Brent finds himself enriched by his transformative journey. The "Elixir" he brings back is not a physical object but a profound understanding and set of experiences that he can now share with his community. </p>
+<h3>Sharing Insights and Technology</h3>
+<p>Brent's time at the tech startup has equipped him with innovative solutions for digital connectivity. Back in the forest, he applies these skills to enhance the lives of those around him. He sets up a small network that allows the local community to access the internet more reliably, even in such a remote area. This network is designed with the environment in mind, using low-impact technology that aligns with his values of sustainability.</p>
+<h3>Enhancing Connectivity</h3>
+<p>The connectivity Brent provides is not just about access to the internet; it's about fostering a sense of community and enabling better communication among the residents. By sharing his technological expertise, Brent helps local businesses, schools, and families stay connected with the outside world while preserving the tranquility of their environment.</p>
+<h3>Preserving the Natural Environment</h3>
+<p>Brent's solution ensures minimal environmental impact. He uses solar-powered devices and biodegradable materials for the infrastructure, ensuring that the beauty and integrity of Oscar Scherer State Park remain intact. His approach reflects a harmonious blend of technology and nature, showcasing his commitment to both.</p>
+<h3>Living Harmoniously</h3>
+<p>With the experiences and insights gained from his journey, Brent feels more connected to both his coding and his forest life. He continues to split his days between coding and embracing nature, but now with a deeper appreciation for how these two worlds can coexist. The balance he achieves is more profound than before, as he has learned to integrate his technological skills with his love for the environment.</p>
+<h3>Community Impact</h3>
+<p>The local community benefits greatly from Brent's return. They gain access to resources and opportunities that were previously out of reach, all while maintaining the peaceful, natural setting they cherish. Brent's presence and contributions become a beacon of hope and innovation, showing that progress and preservation can go hand in hand.</p>
+<h3>Personal Growth</h3>
+<p>For Brent, returning to his cabin marks a significant point of personal growth. He feels reborn, with a clearer understanding of his dual passions. The journey has reaffirmed his belief in the power of technology to improve lives without compromising the environment. This newfound clarity allows him to live more harmoniously than ever, fully embracing the lessons learned from his hero's journey.</p>
+<p>ResponseID:53fb5488</p>
+</div>
+    </div>
+  </div>
+
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+
+    <script>
+      function setChildSubjects(){
+        let dropDownOptions = [];
+        let childSubjects = document.getElementById('childDivs');
+        for (let child of childSubjects.children){
+           let subject = child.title;
+           let optionValue = child.id;
+
+           dropDownOptions.push({subject: subject, value: optionValue});
+        
+        }
+
+        for (let option of dropDownOptions){
+          let optionElement = document.createElement('option');
+          optionElement.value = option.value;
+          optionElement.text = option.subject;
+          document.getElementById('childSubjects').appendChild(optionElement);
+        }
+
+        document.getElementById('childSubjects').addEventListener('change', function() {
+          if(this.value == "home"){
+            goHomePage();
+          }else{
+            setVisibleChild(this.value);
+          }
+
+          }
+        );
+      }
+    </script>
+
+
+    <script>
+      function setVisibleChild(id){
+        //quick flicker home to reset state, this allows hoping between child views
+     
+    
+           let topNode = document.getElementById('content');
+           let parentNode = document.getElementById('parentContent');
+           let childVisibleNode = document.getElementById(id);
+           let childDivs = document.getElementById('childDivs');
+           for (let child of childDivs.children){
+            if(child.id != id){
+              child.hidden = true;
+            }else{
+              child.hidden = false; //redudant
+            }
+           }
+           parentNode.hidden = true;
+           childVisibleNode.hidden = false;
+         }
+      
+    </script>
+
+    <script>
+      function goHomePage(){
+         let topNode = document.getElementById('content');
+         let parentNode = document.getElementById('parentContent');
+         let children = document.getElementById('childDivs');
+         for (let child of children.children){
+            child.hidden = true;
+         }
+         parentNode.hidden = false;
+      }
+    </script>
+
+    <script>
+      function setChildLinks(){
+        let children = document.getElementById('childDivs'); 
+        let childSubjects = [];
+        let discoveredMatches = [];
+
+        
+        for (let child of children.children){
+          let subject = child.title;
+          childSubjects.push({subject: subject, child: child});
+          }
+             
+          let parentNodeH2Subjects = []
+          let parentNodeH3Subjects = []
+          let parentNodeH4Subjects = []
+          let parentNode = document.getElementById('parentContent');
+          let H2s = parentNode.getElementsByTagName("H2");
+          let H3s = parentNode.getElementsByTagName("H3");
+          let H4s = parentNode.getElementsByTagName("H4");
+          let isH2Match = false;
+          let isH3Match = false;
+          let isH4Match = false;
+
+          H2s.length > 0? parentNodeH2Subjects = H2s.map(item => ({subject: item.innerText, item: item})):isH2Match = false;
+          H3s.length > 0?parentNodeH3Subjects = H3s.map(item => ({subject: item.innerText, item: item})):isH3Match = false;
+          H4s.length > 0?parentNodeH4Subjects = H4s.map(item => ({subject: item.innerText, item: item})):isH4Match = false;
+
+          
+           isH3Match = H3s.length == childSubjects.length;
+           isH2Match = H2s.length == childSubjects.length;
+           isH4Match = H4s.length == childSubjects.length;
+          let allDiscovered = false;
+
+          if (isH3Match){
+            //We have a match.  We need to find the H2s
+            allDiscovered = true;
+          }
+          if (isH2Match){
+            //We have a match.  We need to find the H3s
+            allDiscovered = true;
+          }
+          if (isH4Match){
+            //We have a match.  We need to find the H2s
+            allDiscovered = true;
+          }
+
+          if(allDiscovered && (isH3Match + isH2Match + isH4Match) > 1){
+            //wierd.  ok we work from scratch.
+            allDiscovered = false;
+          }
+
+          if(!allDiscovered){
+
+            let fluffWords = ["a", "an", "the", "and", "but", "or", "for", "nor", "on", "at", "to", "from", "by", "with", "of"];
+            let fluffWordsRegex = new RegExp(fluffWords.join("|"), "g");
+          
+          //OK time to stumble through unpredictable llm output
+          //First check if the child subjects are in the parent node h2 subjects
+          let isH2 = false;
+          let isH3 = false;
+          let isH4 = false;
+      
+          //This can be optimized later.  Probably doesnt matter since it is client side with modern computing.
+          for (let i = 0; i < parentNodeH2Subjects.length; i++){
+            let subject = parentNodeH2Subjects[i].subject;
+            for (let j = 0; j < childSubjects.length; j++){
+              let childSubject = childSubjects[j].subject;
+              if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                isH2 = true;
+                discoveredMatches.push({parentLink: parentNodeH2Subjects[i].item, childLink: childSubjects[j].child});
+              }
+            }
+
+          }
+         
+          if(!isH2){
+            for (let i = 0; i < parentNodeH3Subjects.length; i++){
+              let subject = parentNodeH3Subjects[i].subject;
+              for (let j = 0; j < childSubjects.length; j++){
+                let childSubject = childSubjects[j].subject;  
+                if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                  isH3 = true;
+                  discoveredMatches.push({parentLink: parentNodeH3Subjects[i].item, childLink: childSubjects[j].child});
+                }
+              }
+            }
+          }
+
+          if(!isH3){
+            for (let i = 0; i < parentNodeH4Subjects.length; i++){
+              let subject = parentNodeH4Subjects[i].subject;
+              for (let j = 0; j < childSubjects.length; j++){
+                let childSubject = childSubjects[j].subject;
+                if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                  isH4 = true;
+                  discoveredMatches.push({parentLink: parentNodeH4Subjects[i].item, childLink: childSubjects[j].child});
+                }
+              }
+            }
+          }
+
+          if(!isH4){
+              //I suppose there are edge cases but this surely covers 99.9% of the cases.
+          }
+
+          }else{
+            if(isH3Match){
+              for (let i = 0; i < parentNodeH3Subjects.length; i++){
+                let child = childSubjects[i].child;
+                makeChildLinks(parentNodeH3Subjects[i].item, child);
+              }
+              return; //bye bye
+            }
+            if(isH2Match){
+              for (let i = 0; i < parentNodeH2Subjects.length; i++){
+                let child = childSubjects[i].child;
+                makeChildLinks(parentNodeH2Subjects[i].item, child);
+                return; //bye bye
+              }
+              if(isH4Match){
+                for (let i = 0; i < parentNodeH4Subjects.length; i++){
+                  let child = childSubjects[i].child;
+                  makeChildLinks(parentNodeH4Subjects[i].item, child);
+                }
+              }
+
+            }
+
+          }
+
+          for (let match of discoveredMatches){
+            makeChildLinks(match.parentLink, match.childLink);
+            if(match.length < childSubjects.length){ alert("LLMM added additional info that is hidden");}
+          }
+
+        }
+    </script>
+
+    <script>
+       function makeChildLinks(parent, child){
+            parent.style.cursor = "pointer";
+            parent.style.textDecoration = "underline";
+            parent.style.color = "blue";
+            parent.onclick = function(){
+              setVisibleChild(child.id);
+            }
+       }
+
+    </script>
+
+<script>window.onload = setChildSubjects;</script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

@@ -1,0 +1,171 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    <a id="markdown" href="./markdown/01efc86f.md"> markdown</a>
+    <a id="previous" href="../5275ebe2/html/5275ebe2.html?responseId=01efc86f">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+  </nav>
+
+  <div id="content"><h1>Sarasota VanLife</h1>
+<p>Sarasota, located on Florida's Gulf Coast, is a popular destination for van lifers due to its beautiful beaches, vibrant arts scene, and pleasant climate. Here's a comprehensive look at what van life in Sarasota entails:</p>
+<h2>Key Attractions</h2>
+<ul>
+<li><strong>Siesta Key Beach</strong>: Known for its powdery white sand and clear waters, this beach is a must-visit for van lifers looking to relax and enjoy the sun.</li>
+<li><strong>Myakka River State Park</strong>: Offers ample space for camping, hiking, and wildlife watching. It's a great spot for those who want to immerse themselves in nature.</li>
+<li><strong>Sarasota Art Museum</strong>: A cultural hub that showcases contemporary art, perfect for those interested in enriching their van life experience with art and culture.</li>
+</ul>
+<h2>Camping and Parking</h2>
+<ul>
+<li><strong>Campgrounds</strong>: <ul>
+<li><strong>Oscar Scherer State Park</strong>: Offers RV and tent camping with access to hiking trails and kayaking.</li>
+<li><strong>Sarasota Fairgrounds</strong>: A more budget-friendly option with basic amenities for van lifers.</li>
+</ul>
+</li>
+<li><strong>Overnight Parking</strong>:<ul>
+<li><strong>Walmart</strong>: Some locations in Sarasota allow overnight parking, but always check with store management.</li>
+<li><strong>Cracker Barrel</strong>: Known for being van life-friendly, offering a place to park and a hearty breakfast.</li>
+</ul>
+</li>
+</ul>
+<h2>Community and Events</h2>
+<ul>
+<li><strong>Meetups</strong>: The van life community in Sarasota is active, with regular meetups and events organized through social media platforms like Instagram and Facebook.</li>
+<li><strong>Festivals</strong>: The Sarasota Chalk Festival and the Sarasota Film Festival are popular events that van lifers often attend.</li>
+</ul>
+<h2>Tips for Van Life in Sarasota</h2>
+<ul>
+<li><strong>Weather</strong>: Sarasota has a subtropical climate, so be prepared for hot and humid summers. Ensure your van has good ventilation or air conditioning.</li>
+<li><strong>Hurricane Season</strong>: From June to November, be aware of potential hurricanes and have a plan in place.</li>
+<li><strong>Local Regulations</strong>: Always check local ordinances regarding overnight parking and camping to avoid fines or towing.</li>
+</ul>
+<h2>Resources</h2>
+<ul>
+<li><strong>Apps</strong>: Use apps like FreeCampsites.net and Campendium to find suitable spots for van life.</li>
+<li><strong>Blogs and Vlogs</strong>: Many van lifers share their experiences in Sarasota through blogs and YouTube vlogs, providing valuable insights and tips.</li>
+</ul>
+<h2>Conclusion</h2>
+<p>Sarasota offers a blend of natural beauty, cultural attractions, and a welcoming van life community, making it an ideal destination for those living on the road. Whether you're here for the beaches, the arts, or the community, Sarasota has something to offer every van lifer.</p>
+<p>ResponseID:01efc86f</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+
+  <script>
+    function saveMarkdown() {
+      const content = document.documentElement.outerHTML; // Get the entire HTML content
+
+      let markdownLocation = "./markdown/";
+      let markdownFileName = "01efc86f.md";
+      let markdownFile = markdownLocation + markdownFileName;
+      
+
+      const url = URL.createObjectURL(blob); // Create a URL for the Blob
+      const divInnerText = document.getElementById('content').innerText;
+      let filename = divInnerText.substring(0, 25);
+      const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+          a.download =  filename + '.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+      
+    }
+  </script>
+
+  <script>
+    //This function checks if the current page is a child page and genreate a link to the parent page.
+            function isChild(){
+               params = window.location.search.split('=')[1];
+               if (params == undefined) {
+                return false;
+               }
+               params = params.split("&");
+               for (let i = 0; i < params.length; i++) {
+                if (params[i].includes("child")) {
+                  console.log("found child  ");
+                  console.log(params[i].split("child=")[1]);
+                  return params[i].split("child=")[1];
+                }
+               }
+               return false;
+            }
+    
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log("responseId:",window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../html/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+  <script>
+    function loadMarkdownFile() {
+      const markdownFilePath = "./markdown/01efc86f.md"; // Path to the markdown file
+      fetch(markdownFilePath)
+        .then(response => response.text())
+        .then(data => {
+          const blob = new Blob([data], { type: 'text/markdown' }); // Create a Blob from the markdown content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download = '01efc86f.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        })
+        .catch(error => console.error('Error loading markdown file:', error));
+    }
+  </script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

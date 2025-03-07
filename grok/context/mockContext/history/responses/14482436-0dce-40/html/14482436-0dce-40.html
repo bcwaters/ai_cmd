@@ -1,0 +1,180 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    <a id="markdown" href="./14482436-0dce-40.md"> markdown</a>
+    <a id="previous" href="../8abbe59d-8e2c-44/html/8abbe59d-8e2c-44.html?responseId=14482436-0dce-40">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+  </nav>
+
+  <div id="content"><p>The provided code appears to be a Bash script designed to create an interactive command-line interface (CLI) for a tool called "AI_CMD" or "GrokDOC". Here's a breakdown of what the script does:</p>
+<h1>AI_CMD / GrokDOC Bash Script Overview</h1>
+<p>The script is structured to provide an interactive environment where users can input prompts and receive outputs from an AI system. Here are the key components and functionalities:</p>
+<h2>Initialization</h2>
+<ul>
+<li>The script starts by changing to its own directory and setting up color variables based on the operating system (Linux or macOS).</li>
+</ul>
+<h2>User Interface</h2>
+<ul>
+<li>A visually appealing ASCII art logo is displayed using color-coded text.</li>
+<li>The script enters a loop where it continuously prompts the user for input until the user types "exit".</li>
+</ul>
+<h2>User Commands</h2>
+<p>The script supports several commands that can be entered by the user:</p>
+<h3>Context Management</h3>
+<ul>
+<li><strong>context</strong>: Allows setting the AI's memory to a previous conversation.</li>
+<li><strong>new</strong>: Starts a new conversation.</li>
+</ul>
+<h3>Configuration</h3>
+<ul>
+<li><strong>depth</strong>: Sets the context depth for better memory retention (1 to 10000 words).</li>
+<li><strong>role</strong>: Selects the role the AI should assume (e.g., software, teaching, writing).</li>
+</ul>
+<h3>File Operations</h3>
+<ul>
+<li><strong>file</strong>: Loads a file into the AI's context.</li>
+<li><strong>paste</strong>: Pastes content from the clipboard into the prompt.</li>
+<li><strong>save</strong>: Saves the current context as a Markdown file.</li>
+<li><strong>open</strong>: Opens the directory containing saved readmes.</li>
+<li><strong>review</strong>: Opens the current chat history in vim for editing.</li>
+</ul>
+<h3>Special Modes</h3>
+<ul>
+<li><strong>treeMode</strong>: Generates a set of organized documents from the prompt.</li>
+<li><strong>browserMode</strong> and <strong>terminalMode</strong>: Switches between different output modes.</li>
+</ul>
+<h2>Execution</h2>
+<ul>
+<li>When a prompt is entered (and it's not one of the special commands), the script runs a Node.js script (<code>grok.js</code>) with the provided prompt and any additional flags set by the user's previous commands.</li>
+<li>A spinner is displayed while waiting for the Node.js script to complete.</li>
+</ul>
+<h2>Visual Elements</h2>
+<ul>
+<li>The script uses colored text and borders to enhance the user experience.</li>
+<li>It displays the current context ID and settings before each prompt.</li>
+</ul>
+<p>This script seems to be part of a larger system that integrates with a Node.js backend (<code>grok.js</code>) to process user prompts and generate responses, potentially using AI technology. The script focuses on providing a user-friendly interface for interacting with this backend system.</p>
+<p>ResponseID:14482436-0dce-40</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+
+  <script>
+    function saveMarkdown() {
+      const content = document.documentElement.outerHTML; // Get the entire HTML content
+
+      let markdownLocation = "./markdown/";
+      let markdownFileName = "14482436-0dce-40.md";
+      let markdownFile = markdownLocation + markdownFileName;
+      
+
+      const url = URL.createObjectURL(blob); // Create a URL for the Blob
+      const divInnerText = document.getElementById('content').innerText;
+      let filename = divInnerText.substring(0, 25);
+      const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+          a.download =  filename + '.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+      
+    }
+  </script>
+
+  <script>
+    //This function checks if the current page is a child page and genreate a link to the parent page.
+            function isChild(){
+               params = window.location.search.split('=')[1];
+               if (params == undefined) {
+                return false;
+               }
+               params = params.split("&");
+               for (let i = 0; i < params.length; i++) {
+                if (params[i].includes("child")) {
+                  console.log("found child  ");
+                  console.log(params[i].split("child=")[1]);
+                  return params[i].split("child=")[1];
+                }
+               }
+               return false;
+            }
+    
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log("responseId:",window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../html/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+  <script>
+    function loadMarkdownFile() {
+      const markdownFilePath = "./markdown/14482436-0dce-40.md"; // Path to the markdown file
+      fetch(markdownFilePath)
+        .then(response => response.text())
+        .then(data => {
+          const blob = new Blob([data], { type: 'text/markdown' }); // Create a Blob from the markdown content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download = '14482436-0dce-40.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        })
+        .catch(error => console.error('Error loading markdown file:', error));
+    }
+  </script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

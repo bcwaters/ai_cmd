@@ -1,0 +1,199 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    <a id="markdown" href="./markdown/4a2afbf0.md"> markdown</a>
+    <a id="previous" href="../f894a902/html/f894a902.html?responseId=4a2afbf0">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+  </nav>
+
+  <div id="content"><p>To call a script using <code>window.onload</code> in HTML, you can use JavaScript to ensure that your script runs after the page has fully loaded. Here's how you can do it:</p>
+<h3>Using Inline JavaScript</h3>
+<p>You can place the script directly within the HTML file, typically inside the <code>&lt;head&gt;</code> or <code>&lt;body&gt;</code> section, but it's recommended to place it just before the closing <code>&lt;/body&gt;</code> tag for better performance.</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Example&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- Your content goes here --&gt;
+
+    &lt;script&gt;
+        window.onload = function() {
+            // Your code here
+            console.log("The page has loaded!");
+        };
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h3>Using an External JavaScript File</h3>
+<p>If you prefer to keep your JavaScript in a separate file, you can still use <code>window.onload</code> to run your script when the page loads. Here's how you can set it up:</p>
+<h4>HTML File</h4>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Example&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- Your content goes here --&gt;
+
+    &lt;script src="your-script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h4>JavaScript File (<code>your-script.js</code>)</h4>
+<pre><code class="language-javascript">window.onload = function() {
+    // Your code here
+    console.log("The page has loaded!");
+};
+</code></pre>
+<h3>Using <code>addEventListener</code></h3>
+<p>A more modern approach is to use <code>addEventListener</code> which allows you to attach multiple event listeners to the <code>load</code> event without overwriting existing ones.</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Example&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- Your content goes here --&gt;
+
+    &lt;script&gt;
+        window.addEventListener('load', function() {
+            // Your code here
+            console.log("The page has loaded!");
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>Or in an external JavaScript file:</p>
+<pre><code class="language-javascript">window.addEventListener('load', function() {
+    // Your code here
+    console.log("The page has loaded!");
+});
+</code></pre>
+<p>Using <code>window.onload</code> or <code>addEventListener</code> with the <code>load</code> event ensures that your script runs only after all the page's resources, including images and stylesheets, have finished loading.</p>
+<p>ResponseID:4a2afbf0</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+
+  <script>
+    function saveMarkdown() {
+      const content = document.documentElement.outerHTML; // Get the entire HTML content
+
+      let markdownLocation = "./markdown/";
+      let markdownFileName = "4a2afbf0.md";
+      let markdownFile = markdownLocation + markdownFileName;
+      
+
+      const url = URL.createObjectURL(blob); // Create a URL for the Blob
+      const divInnerText = document.getElementById('content').innerText;
+      let filename = divInnerText.substring(0, 25);
+      const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+          a.download =  filename + '.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+      
+    }
+  </script>
+
+  <script>
+    //This function checks if the current page is a child page and genreate a link to the parent page.
+            function isChild(){
+               params = window.location.search.split('=')[1];
+               if (params == undefined) {
+                return false;
+               }
+               params = params.split("&");
+               for (let i = 0; i < params.length; i++) {
+                if (params[i].includes("child")) {
+                  console.log("found child  ");
+                  console.log(params[i].split("child=")[1]);
+                  return params[i].split("child=")[1];
+                }
+               }
+               return false;
+            }
+    
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log("responseId:",window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../html/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+  <script>
+    function loadMarkdownFile() {
+      const markdownFilePath = "./markdown/4a2afbf0.md"; // Path to the markdown file
+      fetch(markdownFilePath)
+        .then(response => response.text())
+        .then(data => {
+          const blob = new Blob([data], { type: 'text/markdown' }); // Create a Blob from the markdown content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download = '4a2afbf0.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        })
+        .catch(error => console.error('Error loading markdown file:', error));
+    }
+  </script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

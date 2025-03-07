@@ -1,0 +1,146 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    <a id="markdown" href="./markdown/6a9f431d.md"> markdown</a>
+    <a id="previous" href="../65e7145e/html/65e7145e.html?responseId=6a9f431d">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+  </nav>
+
+  <div id="content"><h1>Mercury: A Detailed Overview</h1>
+<p>Mercury, the smallest planet in our solar system and the closest to the Sun, presents a fascinating subject for study due to its unique characteristics and extreme conditions. Here's an in-depth look at the key aspects of Mercury based on previously mentioned information:</p>
+<h3>Orbital Characteristics</h3>
+<p>Mercury orbits the Sun at an average distance of about 58 million kilometers (36 million miles). This orbit takes approximately 88 Earth days to complete, making Mercury's year significantly shorter than Earth's. The orbit of Mercury is notably elliptical, with an eccentricity of about 0.206, which is more pronounced than that of any other planet in the solar system. This elliptical path results in significant variations in Mercury's distance from the Sun throughout its orbit.</p>
+<h3>Atmosphere</h3>
+<p>Mercury has an extremely thin atmosphere, known as an exosphere, which is composed primarily of oxygen, sodium, hydrogen, helium, and potassium. This exosphere is so thin that it cannot be considered a true atmosphere in the way that Earth's is. The lack of a substantial atmosphere is due to Mercury's low gravity and its proximity to the Sun, which causes any atmospheric gases to be stripped away by solar wind.</p>
+<h3>Surface and Geology</h3>
+<p>The surface of Mercury is heavily cratered, resembling that of Earth's Moon. Notable features include the Caloris Basin, a large impact crater about 1,550 kilometers (963 miles) in diameter, and the "weird terrain" opposite the Caloris Basin, which is thought to be a result of the seismic waves from the impact that created the basin. Mercury's surface is also marked by long cliffs called scarps, which are believed to have formed as the planet cooled and contracted.</p>
+<p>Mercury's geological activity is driven by internal heat, similar to other terrestrial planets. However, unlike Earth, Mercury does not have plate tectonics. Instead, its geological activity is expressed through thermal expansion and contraction, which can cause surface features to shift and create the scarps mentioned earlier.</p>
+<h3>Exploration</h3>
+<p>Mercury has been the target of several space missions due to its proximity to the Sun and its intriguing characteristics. The first successful flyby was conducted by NASA's Mariner 10 spacecraft in 1974-1975, which mapped about 45% of Mercury's surface. More recently, the MESSENGER (MErcury Surface, Space ENvironment, GEochemistry, and Ranging) mission, launched by NASA in 2004, orbited Mercury from 2011 to 2015, providing detailed data on its surface, composition, and magnetic field. The BepiColombo mission, a joint effort by the European Space Agency (ESA) and the Japan Aerospace Exploration Agency (JAXA), launched in 2018 and is expected to arrive at Mercury in 2025, promising further insights into this enigmatic planet.</p>
+<h3>Future Missions</h3>
+<p>Future missions to Mercury are planned to further explore its surface and environment. The BepiColombo mission, mentioned earlier, will provide comprehensive data on Mercury's magnetic field, magnetosphere, and both its surface and subsurface composition. This mission aims to answer key questions about Mercury's formation and evolution, as well as its current state.</p>
+<p>In summary, Mercury's unique position in the solar system and its extreme conditions make it a compelling subject for scientific study. Continued exploration will undoubtedly reveal more about this enigmatic planet and its role in our understanding of planetary science.</p>
+<p>ResponseID:6a9f431d</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+
+  <script>
+    function saveMarkdown() {
+      const content = document.documentElement.outerHTML; // Get the entire HTML content
+
+      let markdownLocation = "./markdown/";
+      let markdownFileName = "6a9f431d.md";
+      let markdownFile = markdownLocation + markdownFileName;
+      
+
+      const url = URL.createObjectURL(blob); // Create a URL for the Blob
+      const divInnerText = document.getElementById('content').innerText;
+      let filename = divInnerText.substring(0, 25);
+      const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+          a.download =  filename + '.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+      
+    }
+  </script>
+
+  <script>
+    //This function checks if the current page is a child page and genreate a link to the parent page.
+            function isChild(){
+               params = window.location.search.split('=')[1];
+               if (params == undefined) {
+                return false;
+               }
+               params = params.split("&");
+               for (let i = 0; i < params.length; i++) {
+                if (params[i].includes("child")) {
+                  console.log("found child  ");
+                  console.log(params[i].split("child=")[1]);
+                  return params[i].split("child=")[1];
+                }
+               }
+               return false;
+            }
+    
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log("responseId:",window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../html/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+  <script>
+    function loadMarkdownFile() {
+      const markdownFilePath = "./markdown/6a9f431d.md"; // Path to the markdown file
+      fetch(markdownFilePath)
+        .then(response => response.text())
+        .then(data => {
+          const blob = new Blob([data], { type: 'text/markdown' }); // Create a Blob from the markdown content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download = '6a9f431d.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        })
+        .catch(error => console.error('Error loading markdown file:', error));
+    }
+  </script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

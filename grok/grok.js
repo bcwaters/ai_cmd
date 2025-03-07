@@ -73,7 +73,11 @@ export function parseCommandLineArgs(serverArgs) {
     let terminalMode = false;
     let browserMode = true;
     let codeReviewMode = false;
+    let baseContextDirectory ="./grok/context/";
 
+    if(args.includes("--mockMode")){
+        baseContextDirectory = "./grok/context/mockContext/"
+    }
 
     if(args.includes("--openai")){
         chosenModel = openai;
@@ -129,7 +133,7 @@ export function parseCommandLineArgs(serverArgs) {
     }
 
 
-    return new UserPromptRequest(userPrompt, isShort, isNew, context, depth, filePath, specialty, treeMode , browserMode, codeReviewMode);
+    return new UserPromptRequest(userPrompt, isShort, isNew, context, depth, filePath, specialty, treeMode , browserMode, codeReviewMode, baseContextDirectory);
 }
 
 // Read and parse the context file
@@ -215,6 +219,8 @@ export async function createApiRequest(userPromptRequest, priorConverstation, is
     
     terminal.debug(terminal.colors.green, "Prompt Sent to Grok", terminal.colors.reset, JSON.stringify(messages, null, 4));
   
+ 
+
     //grok-2-latest
     //terminal.debug(terminal.colors.green, "Prompt Sent to Grok", terminal.colors.reset, JSON.stringify(messages, null, 4));
     return {
@@ -373,13 +379,14 @@ export async function preprocessResponse(response) {
 }
 
 
-export async function appendToContext(newContent, MAX_CONTEXT_LENGTH) {
+export async function appendToContext(newContent, userPromptRequest) {
+    let MAX_CONTEXT_LENGTH = userPromptRequest.depth;
     if (typeof newContent !== 'string') {
         terminal.error("AI_CMD answered but forgot to include include the proper format! PROMPT AGAIN it should work", newContent);
         return; // Exit the function if newContent is invalid
     }
     
-    let contextData = await fs.readFile("./grok/context/context.data", "utf8");
+    let contextData = await fs.readFile(userPromptRequest.baseContextDirectory + "context.data", "utf8");
     newContent = newContent.replaceAll("[", "").replaceAll("]", "");
     let newContextDataKeywords = newContent.split(",");
     newContextDataKeywords.forEach(element => {
@@ -408,18 +415,19 @@ export async function appendToContext(newContent, MAX_CONTEXT_LENGTH) {
     terminal.debug(terminal.logDivider);
     terminal.debug(terminal.colors.green + "Current Context[" + MAX_CONTEXT_LENGTH, + "]:"+terminal.colors.reset, contextData);
     terminal.debug(terminal.logDivider);
-    await fs.writeFile("./grok/context/context.data", contextData);
+    await fs.writeFile(userPromptRequest.baseContextDirectory + "context.data", contextData);
 
 
 }
 
 //This can be done with grokruntime for efficiency and be labeled log previos ids.  Might be the place to reduce list size from time to time.
-export async function savePreviousId(responseId, userPrompt, contextHistoryLength){
-    let previousIds = await fs.readFile("./grok/context/context.history", "utf8");
+export async function savePreviousId(responseId, userPromptRequest, contextHistoryLength){
+    let userPrompt = userPromptRequest.dynamicPrompt;
+    let previousIds = await fs.readFile(userPromptRequest.baseContextDirectory + "context.history", "utf8");
     let parsedPreviousIds = JSON.parse(previousIds);
     let mostRecentHistoryId = parsedPreviousIds[parsedPreviousIds.length - 1];
     parsedPreviousIds.push({id: responseId, prompt: userPrompt});
-    await fs.writeFile("./grok/context/context.history", JSON.stringify(parsedPreviousIds));
+    await fs.writeFile(userPromptRequest.baseContextDirectory + "context.history", JSON.stringify(parsedPreviousIds));
 
     terminal.log(terminal.colors.green, "\nSwitch context to id to resume conversation", terminal.colors.reset);
     terminal.log(terminal.logDivider);
@@ -446,8 +454,9 @@ export async function saveCompletion(completion, id, baseDir = './grok/context')
 
 // Main function
 export async function main( ...serverArgs) {
-    //RAG_PROFILE_STATE class needs to be made before this bloats beyond repair
     
+   
+//USER SET CONTEXT WITH REQUEST, OTHERWISE DEFAULTS TO STANDARD .grok/context/
     const userPromptRequest = parseCommandLineArgs(serverArgs);
 
     let morePrompts = true;
@@ -473,17 +482,21 @@ export async function main( ...serverArgs) {
 
     //TODO Load the previous propmt - there is probably a clever way to use previous id and load as much history as requested... add parent to context.history
     const priorConverstation = await getConversationContext(userPromptRequest.context, userPromptRequest.isNew); // Ensure context is fetched based on context
-    const contextData = await fs.readFile("./grok/context/context.data", "utf8");
+    const contextData = await fs.readFile(userPromptRequest.baseContextDirectory + "context.data", "utf8");
 
 
 
     //Context is loaded for the api request
     let apiRequest = await createApiRequest(userPromptRequest, priorConverstation, userPromptRequest.isNew, userPromptRequest.isShort, contextData, userPromptRequest.context, userPromptRequest.filePath, userPromptRequest.specialty, processingRootNode);
-
-
-    const completion = await chosenModel.chat.completions.create(apiRequest);
+    let completion;
+    if(userPromptRequest.baseContextDirectory == "./grok/context/mockContext/"){
+        completion = await fs.readFile(userPromptRequest.baseContextDirectory + "currentChat/currentChat.json")
+        completion = JSON.parse(completion)
+    }else{
+        completion = await chosenModel.chat.completions.create(apiRequest);
+    }
     
-    await fs.writeFile("./grok/context/currentChat/currentChat.json", JSON.stringify(completion));
+    await fs.writeFile(userPromptRequest.baseContextDirectory + "currentChat/currentChat.json", JSON.stringify(completion));
     
 
     //TODO rmove this logic into userPromptRequest as a process completion method
@@ -500,7 +513,7 @@ export async function main( ...serverArgs) {
     }
 
 
-
+ 
     let {metaResponse, markdownContent} = await parseCompletionForResponseAndMetaResponse(completion);
     terminal.debug(terminal.getDividerWithMessage("RESPONSE-AND-META-RESPONSE"));
     terminal.debug(terminal.colors.green, "metaResponse", terminal.colors.reset, metaResponse);
@@ -511,14 +524,15 @@ export async function main( ...serverArgs) {
         userPromptRequest.parentReadme = markdownContent;
     }
 
-
+    console.log(terminal.colors.red,  "USERPROMPT", userPromptRequest)
     //STEP 3 now update the context for future prompts
     //let priorContextId = await saveContextFiles(userPromptRequest.dynamicResponseId, metaResponse, completion, markdownContent, userPromptRequest.depth);
-    await appendToContext(metaResponse, userPromptRequest.depth);
+    await appendToContext(metaResponse, userPromptRequest);
 
     //TODO examine the best depth ratio for length. this should round down but be atleast 1
     let contextHistoryLength = userPromptRequest.depth/500;
-    let priorContextId = await savePreviousId(userPromptRequest.dynamicResponseId, userPromptRequest.dynamicPrompt, contextHistoryLength);
+    //TODO THIS CAN BE ENCAPSULATED BY PASSING THE PROMPT REQUET
+    let priorContextId = await savePreviousId(userPromptRequest.dynamicResponseId, userPromptRequest, contextHistoryLength);
     
 
     await saveCompletion(completion, userPromptRequest.dynamicResponseId);
@@ -559,7 +573,7 @@ export async function main( ...serverArgs) {
         GlobalPromptProfile.setParentId(userPromptRequest.dynamicResponseId);
         GlobalPromptProfile.setParentReadme(markdownContent);
         userPromptRequest.childDirectory = GlobalPromptProfile.ParentId+"_children";
-        await fs.mkdir("./grok/context/history/responses/"+userPromptRequest.rootResponseId+"/tree/"+userPromptRequest.childDirectory+"/html", { recursive: true });
+        await fs.mkdir(userPromptRequest.baseContextDirectory + "history/responses/"+userPromptRequest.rootResponseId+"/tree/"+userPromptRequest.childDirectory+"/html", { recursive: true });
         
         terminal.log(terminal.colors.yellow, "\nParent ID", terminal.colors.reset, GlobalPromptProfile.ParentId);
         terminal.log(terminal.colors.blue, "Branches", terminal.colors.reset, userPromptRequest.branchList);
@@ -585,7 +599,7 @@ export async function main( ...serverArgs) {
         try{
                 //TODO fix the saveHtmlResponse function to handle differnt typeps
                 //REMOVE THIS AND RETURN STATIC FULL PAGE
-                //await fs.copyFile("./grok/context/currentChat/currentChat.html", "./grok/context/history/responses/"+userPromptRequest.rootResponseId+"/"+userPromptRequest.childDirectory+"/"+userPromptRequest.dynamicResponseId+".html");
+                //await fs.copyFile(userPromptRequest.baseContextDirectory + "currentChat/currentChat.html", userPromptRequest.baseContextDirectory + "history/responses/"+userPromptRequest.rootResponseId+"/"+userPromptRequest.childDirectory+"/"+userPromptRequest.dynamicResponseId+".html");
             
             let processedChildReadmes = [];
             //Is this a reference or a copy? 
@@ -639,8 +653,8 @@ export async function main( ...serverArgs) {
             //I could name this more intelligently.
             //I want to explorer a recursive approach for deeper trees. How do i template a child that is a parent and a child
             //I am pretty sure a recursive approach seting the context to the child repsonse ID and the recursively prompts from there
-            await fs.writeFile("./grok/context/history/responses/"+userPromptRequest.rootResponseId+"/tree/index.html", parentHtml);
-            await fs.writeFile("./grok/context/currentChat/currentChat.html", parentHtml);
+            await fs.writeFile(userPromptRequest.baseContextDirectory + "history/responses/"+userPromptRequest.rootResponseId+"/tree/index.html", parentHtml);
+            await fs.writeFile(userPromptRequest.baseContextDirectory + "currentChat/currentChat.html", parentHtml);
             //replace @REPLACEWITHCHILDRENDIVS@ with the childDivs string
             
 

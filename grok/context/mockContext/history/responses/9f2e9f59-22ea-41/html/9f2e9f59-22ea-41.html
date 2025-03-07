@@ -1,0 +1,247 @@
+<!doctype html>
+<html>
+<head>
+  <style>
+    pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
+  Theme: StackOverflow Light
+  Description: Light theme as used on stackoverflow.com
+  Author: stackoverflow.com
+  Maintainer: @Hirse
+  Website: https://github.com/StackExchange/Stacks
+  License: MIT
+  Updated: 2021-05-15
+
+  Updated for @stackoverflow/stacks v0.64.0
+  Code Blocks: /blob/v0.64.0/lib/css/components/_stacks-code-blocks.less
+  Colors: /blob/v0.64.0/lib/css/exports/_stacks-constants-colors.less
+*/.hljs{color:#2f3337;background:#f6f6f6}.hljs-subst{color:#2f3337}.hljs-comment{color:#656e77}.hljs-attr,.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-section,.hljs-selector-tag{color:#015692}.hljs-attribute{color:#803378}.hljs-name,.hljs-number,.hljs-quote,.hljs-selector-id,.hljs-template-tag,.hljs-type{color:#b75501}.hljs-selector-class{color:#015692}.hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-string,.hljs-symbol,.hljs-template-variable,.hljs-variable{color:#54790d}.hljs-meta,.hljs-selector-pseudo{color:#015692}.hljs-built_in,.hljs-literal,.hljs-title{color:#b75501}.hljs-bullet,.hljs-code{color:#535a60}.hljs-meta .hljs-string{color:#54790d}.hljs-deletion{color:#c02d2e}.hljs-addition{color:#2f6f44}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}
+
+    
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: left;
+      padding: 10px;
+    }
+    
+    .nav-right {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+  </style>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+ 
+    <a id="home" href="/?context=9f2e9f59-22ea-41">Prompt again</a>
+    <div class="nav-right">
+    <a id="markdown" href="../history/responses/9f2e9f59-22ea-41/markdown/9f2e9f59-22ea-41.md"> markdown</a>
+    <a id="previous" href="../history/responses/ead91080-d279-4d/html/ead91080-d279-4d.html?responseId=9f2e9f59-22ea-41">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    </div>
+  </nav>
+
+  <div id="content" class="markdown-body"><h1>Streaming OpenAI Responses and Processing Full Completion</h1>
+<p>When dealing with streaming responses from OpenAI, you can indeed stream the response to the user in real-time while also processing the full completion once it's ready. Here's how you can achieve this:</p>
+<h2>Streaming to the User</h2>
+<p>To stream the response to the user, you'll need to set up your server to handle streaming data. Here's an example using Express to stream the response:</p>
+<pre><code class="hljs language-javascript"><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
+<span class="hljs-keyword">const</span> { <span class="hljs-title class_">Configuration</span>, <span class="hljs-title class_">OpenAIApi</span> } = <span class="hljs-built_in">require</span>(<span class="hljs-string">"openai"</span>);
+
+<span class="hljs-keyword">const</span> app = <span class="hljs-title function_">express</span>();
+<span class="hljs-keyword">const</span> configuration = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Configuration</span>({
+  <span class="hljs-attr">apiKey</span>: process.<span class="hljs-property">env</span>.<span class="hljs-property">OPENAI_API_KEY</span>,
+});
+<span class="hljs-keyword">const</span> openai = <span class="hljs-keyword">new</span> <span class="hljs-title class_">OpenAIApi</span>(configuration);
+
+app.<span class="hljs-title function_">get</span>(<span class="hljs-string">'/stream'</span>, <span class="hljs-title function_">async</span> (req, res) =&gt; {
+  res.<span class="hljs-title function_">setHeader</span>(<span class="hljs-string">'Content-Type'</span>, <span class="hljs-string">'text/event-stream'</span>);
+  res.<span class="hljs-title function_">setHeader</span>(<span class="hljs-string">'Cache-Control'</span>, <span class="hljs-string">'no-cache'</span>);
+  res.<span class="hljs-title function_">setHeader</span>(<span class="hljs-string">'Connection'</span>, <span class="hljs-string">'keep-alive'</span>);
+
+  <span class="hljs-keyword">const</span> completion = <span class="hljs-keyword">await</span> openai.<span class="hljs-title function_">createCompletion</span>({
+    <span class="hljs-attr">model</span>: <span class="hljs-string">"text-davinci-003"</span>,
+    <span class="hljs-attr">prompt</span>: <span class="hljs-string">"Your prompt here"</span>,
+    <span class="hljs-attr">max_tokens</span>: <span class="hljs-number">100</span>,
+    <span class="hljs-attr">stream</span>: <span class="hljs-literal">true</span>,
+  });
+
+  completion.<span class="hljs-property">data</span>.<span class="hljs-title function_">on</span>(<span class="hljs-string">'data'</span>, <span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> {
+    <span class="hljs-keyword">const</span> lines = data.<span class="hljs-title function_">toString</span>().<span class="hljs-title function_">split</span>(<span class="hljs-string">'
+'</span>).<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> line.<span class="hljs-title function_">trim</span>());
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> line <span class="hljs-keyword">of</span> lines) {
+      <span class="hljs-keyword">const</span> message = line.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/^data: /</span>, <span class="hljs-string">''</span>);
+      <span class="hljs-keyword">if</span> (message === <span class="hljs-string">'[DONE]'</span>) {
+        res.<span class="hljs-title function_">write</span>(<span class="hljs-string">'event: end
+data: {}
+
+'</span>);
+      } <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">const</span> parsed = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(message);
+        res.<span class="hljs-title function_">write</span>(<span class="hljs-string">`data: <span class="hljs-subst">${<span class="hljs-built_in">JSON</span>.stringify(parsed.choices[<span class="hljs-number">0</span>].text)}</span>
+
+`</span>);
+      }
+    }
+  });
+
+  completion.<span class="hljs-property">data</span>.<span class="hljs-title function_">on</span>(<span class="hljs-string">'end'</span>, <span class="hljs-function">() =&gt;</span> {
+    res.<span class="hljs-title function_">end</span>();
+  });
+});
+
+app.<span class="hljs-title function_">listen</span>(<span class="hljs-number">3000</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'Server running on port 3000'</span>));
+</code></pre><p>In this example, the server streams the response to the client using Server-Sent Events (SSE). The client can then display this data in real-time.</p>
+<h2>Storing and Processing the Full Response</h2>
+<p>To process the full response once it's ready, you will need to store the stream as you show it to the user. Here's how you can modify the above code to store and process the full response:</p>
+<pre><code class="hljs language-javascript"><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
+<span class="hljs-keyword">const</span> { <span class="hljs-title class_">Configuration</span>, <span class="hljs-title class_">OpenAIApi</span> } = <span class="hljs-built_in">require</span>(<span class="hljs-string">"openai"</span>);
+
+<span class="hljs-keyword">const</span> app = <span class="hljs-title function_">express</span>();
+<span class="hljs-keyword">const</span> configuration = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Configuration</span>({
+  <span class="hljs-attr">apiKey</span>: process.<span class="hljs-property">env</span>.<span class="hljs-property">OPENAI_API_KEY</span>,
+});
+<span class="hljs-keyword">const</span> openai = <span class="hljs-keyword">new</span> <span class="hljs-title class_">OpenAIApi</span>(configuration);
+
+app.<span class="hljs-title function_">get</span>(<span class="hljs-string">'/stream'</span>, <span class="hljs-title function_">async</span> (req, res) =&gt; {
+  res.<span class="hljs-title function_">setHeader</span>(<span class="hljs-string">'Content-Type'</span>, <span class="hljs-string">'text/event-stream'</span>);
+  res.<span class="hljs-title function_">setHeader</span>(<span class="hljs-string">'Cache-Control'</span>, <span class="hljs-string">'no-cache'</span>);
+  res.<span class="hljs-title function_">setHeader</span>(<span class="hljs-string">'Connection'</span>, <span class="hljs-string">'keep-alive'</span>);
+
+  <span class="hljs-keyword">let</span> fullResponse = <span class="hljs-string">''</span>; <span class="hljs-comment">// Variable to store the full response</span>
+
+  <span class="hljs-keyword">const</span> completion = <span class="hljs-keyword">await</span> openai.<span class="hljs-title function_">createCompletion</span>({
+    <span class="hljs-attr">model</span>: <span class="hljs-string">"text-davinci-003"</span>,
+    <span class="hljs-attr">prompt</span>: <span class="hljs-string">"Your prompt here"</span>,
+    <span class="hljs-attr">max_tokens</span>: <span class="hljs-number">100</span>,
+    <span class="hljs-attr">stream</span>: <span class="hljs-literal">true</span>,
+  });
+
+  completion.<span class="hljs-property">data</span>.<span class="hljs-title function_">on</span>(<span class="hljs-string">'data'</span>, <span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> {
+    <span class="hljs-keyword">const</span> lines = data.<span class="hljs-title function_">toString</span>().<span class="hljs-title function_">split</span>(<span class="hljs-string">'
+'</span>).<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> line.<span class="hljs-title function_">trim</span>());
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> line <span class="hljs-keyword">of</span> lines) {
+      <span class="hljs-keyword">const</span> message = line.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/^data: /</span>, <span class="hljs-string">''</span>);
+      <span class="hljs-keyword">if</span> (message === <span class="hljs-string">'[DONE]'</span>) {
+        res.<span class="hljs-title function_">write</span>(<span class="hljs-string">'event: end
+data: {}
+
+'</span>);
+        <span class="hljs-comment">// Process the full response here</span>
+        <span class="hljs-title function_">processFullResponse</span>(fullResponse);
+      } <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">const</span> parsed = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(message);
+        <span class="hljs-keyword">const</span> text = parsed.<span class="hljs-property">choices</span>[<span class="hljs-number">0</span>].<span class="hljs-property">text</span>;
+        fullResponse += text; <span class="hljs-comment">// Append to the full response</span>
+        res.<span class="hljs-title function_">write</span>(<span class="hljs-string">`data: <span class="hljs-subst">${<span class="hljs-built_in">JSON</span>.stringify(text)}</span>
+
+`</span>); <span class="hljs-comment">// Stream to the user</span>
+      }
+    }
+  });
+
+  completion.<span class="hljs-property">data</span>.<span class="hljs-title function_">on</span>(<span class="hljs-string">'end'</span>, <span class="hljs-function">() =&gt;</span> {
+    res.<span class="hljs-title function_">end</span>();
+  });
+});
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">processFullResponse</span>(<span class="hljs-params">fullResponse</span>) {
+  <span class="hljs-comment">// Example: Log the full response</span>
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'Full Response:'</span>, fullResponse);
+  <span class="hljs-comment">// Add your processing logic here</span>
+}
+
+app.<span class="hljs-title function_">listen</span>(<span class="hljs-number">3000</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'Server running on port 3000'</span>));
+</code></pre><p>In this modified example, we store the full response in the <code>fullResponse</code> variable as we stream it to the user. Once the response is complete (<code>[DONE]</code> is received), we call the <code>processFullResponse</code> function to handle the full response.</p>
+<h2>Conclusion</h2>
+<p>By storing the stream as you show it to the user, you can achieve both real-time streaming and processing of the full response once it's ready. This approach allows you to provide an interactive experience for the user while also performing any necessary operations on the complete data.</p>
+<p>ResponseID:9f2e9f59-22ea-41</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+
+  <script>
+    //This function checks if the current page is a child page and genreate a link to the parent page.
+            function isChild(){
+               params = window.location.search.split('=')[1];
+               if (params == undefined) {
+                return false;
+               }
+               params = params.split("&");
+               for (let i = 0; i < params.length; i++) {
+                if (params[i].includes("child")) {
+                  console.log("found child  ");
+                  console.log(params[i].split("child=")[1]);
+                  return params[i].split("child=")[1];
+                }
+               }
+               return false;
+            }
+    
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log("responseId:",window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../html/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+  <script>
+    function loadMarkdownFile() {
+      const markdownFilePath = "./markdown/9f2e9f59-22ea-41.md"; // Path to the markdown file
+      fetch(markdownFilePath)
+        .then(response => response.text())
+        .then(data => {
+          const blob = new Blob([data], { type: 'text/markdown' }); // Create a Blob from the markdown content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download = '9f2e9f59-22ea-41.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        })
+        .catch(error => console.error('Error loading markdown file:', error));
+    }
+  </script>
+
+</body>
+</html>
+
+
+   

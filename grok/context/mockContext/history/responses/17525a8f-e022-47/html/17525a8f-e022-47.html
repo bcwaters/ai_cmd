@@ -1,0 +1,183 @@
+<!doctype html>
+<html>
+<head>
+  <style>pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
+  Theme: StackOverflow Light
+  Description: Light theme as used on stackoverflow.com
+  Author: stackoverflow.com
+  Maintainer: @Hirse
+  Website: https://github.com/StackExchange/Stacks
+  License: MIT
+  Updated: 2021-05-15
+
+  Updated for @stackoverflow/stacks v0.64.0
+  Code Blocks: /blob/v0.64.0/lib/css/components/_stacks-code-blocks.less
+  Colors: /blob/v0.64.0/lib/css/exports/_stacks-constants-colors.less
+*/.hljs{color:#2f3337;background:#f6f6f6}.hljs-subst{color:#2f3337}.hljs-comment{color:#656e77}.hljs-attr,.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-section,.hljs-selector-tag{color:#015692}.hljs-attribute{color:#803378}.hljs-name,.hljs-number,.hljs-quote,.hljs-selector-id,.hljs-template-tag,.hljs-type{color:#b75501}.hljs-selector-class{color:#015692}.hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-string,.hljs-symbol,.hljs-template-variable,.hljs-variable{color:#54790d}.hljs-meta,.hljs-selector-pseudo{color:#015692}.hljs-built_in,.hljs-literal,.hljs-title{color:#b75501}.hljs-bullet,.hljs-code{color:#535a60}.hljs-meta .hljs-string{color:#54790d}.hljs-deletion{color:#c02d2e}.hljs-addition{color:#2f6f44}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}
+</style>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    <a id="markdown" href="../history/responses/17525a8f-e022-47/markdown/17525a8f-e022-47.md"> markdown</a>
+    <a id="previous" href="../history/responses/d09b5463-f405-4e/html/d09b5463-f405-4e.html?responseId=17525a8f-e022-47">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+  </nav>
+
+  <div id="content" class="markdown-body"><h1>NGINX Configuration with ngx_http_js_module</h1>
+<p>Below is a complete configuration file for an NGINX server with the <code>ngx_http_js_module</code> enabled. This configuration sets up a basic server that uses JavaScript to handle requests.</p>
+<pre><code class="hljs language-nginx"><span class="hljs-comment"># Define the user and group that NGINX will run as</span>
+<span class="hljs-attribute">user</span> www-data;
+<span class="hljs-attribute">worker_processes</span> auto;
+<span class="hljs-attribute">pid</span> /run/nginx.pid;
+<span class="hljs-attribute">include</span> /etc/nginx/modules-enabled/<span class="hljs-regexp">*.conf</span>;
+
+<span class="hljs-section">events</span> {
+    <span class="hljs-attribute">worker_connections</span> <span class="hljs-number">768</span>;
+    <span class="hljs-comment"># multi_accept on;</span>
+}
+
+<span class="hljs-section">http</span> {
+    <span class="hljs-comment"># Basic settings</span>
+    <span class="hljs-attribute">sendfile</span> <span class="hljs-literal">on</span>;
+    <span class="hljs-attribute">tcp_nopush</span> <span class="hljs-literal">on</span>;
+    <span class="hljs-attribute">tcp_nodelay</span> <span class="hljs-literal">on</span>;
+    <span class="hljs-attribute">keepalive_timeout</span> <span class="hljs-number">65</span>;
+    <span class="hljs-attribute">types_hash_max_size</span> <span class="hljs-number">2048</span>;
+
+    <span class="hljs-comment"># Include MIME types</span>
+    <span class="hljs-attribute">include</span> /etc/nginx/mime.types;
+    <span class="hljs-attribute">default_type</span> application/octet-stream;
+
+    <span class="hljs-comment"># Logging settings</span>
+    <span class="hljs-attribute">access_log</span> /var/log/nginx/access.log;
+    <span class="hljs-attribute">error_log</span> /var/log/nginx/<span class="hljs-literal">error</span>.log;
+
+    <span class="hljs-comment"># Enable gzip compression</span>
+    <span class="hljs-attribute">gzip</span> <span class="hljs-literal">on</span>;
+    <span class="hljs-attribute">gzip_vary</span> <span class="hljs-literal">on</span>;
+    <span class="hljs-attribute">gzip_proxied</span> any;
+    <span class="hljs-attribute">gzip_comp_level</span> <span class="hljs-number">6</span>;
+    <span class="hljs-attribute">gzip_types</span> text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
+
+    <span class="hljs-comment"># Load the ngx_http_js_module</span>
+    <span class="hljs-attribute">js_path</span> /etc/nginx/njs/;
+    <span class="hljs-attribute">js_import</span> main from main.js;
+
+    <span class="hljs-section">server</span> {
+        <span class="hljs-attribute">listen</span> <span class="hljs-number">80</span>;
+        <span class="hljs-attribute">server_name</span> example.com;
+
+        <span class="hljs-comment"># Use JavaScript for handling requests</span>
+        <span class="hljs-section">location</span> / {
+            <span class="hljs-attribute">js_content</span> main.hello;
+        }
+
+        <span class="hljs-comment"># Example of using JavaScript for subrequests</span>
+        <span class="hljs-section">location</span> /subrequest {
+            <span class="hljs-attribute">js_content</span> main.subrequest;
+        }
+    }
+}
+</code></pre><p>In this configuration, the <code>js_path</code> and <code>js_import</code> directives are used to load and import JavaScript code. The <code>js_content</code> directive within the <code>location</code> blocks specifies that the request should be handled by a JavaScript function defined in <code>main.js</code>.</p>
+<p>Here is an example of what <code>main.js</code> might look like:</p>
+<pre><code class="hljs language-javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">hello</span>(<span class="hljs-params">r</span>) {
+    r.<span class="hljs-keyword">return</span>(<span class="hljs-number">200</span>, <span class="hljs-string">"Hello, World!"</span>);
+}
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">subrequest</span>(<span class="hljs-params">r</span>) {
+    r.<span class="hljs-title function_">subrequest</span>(<span class="hljs-string">'/backend'</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params">res</span>) {
+        r.<span class="hljs-keyword">return</span>(res.<span class="hljs-property">status</span>, res.<span class="hljs-property">responseBody</span>);
+    });
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {hello, subrequest};
+</code></pre><p>This JavaScript file defines two functions: <code>hello</code> which returns a simple "Hello, World!" message, and <code>subrequest</code> which demonstrates how to make a subrequest to another endpoint.</p>
+<p>ResponseID:17525a8f-e022-47</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+
+  <script>
+    //This function checks if the current page is a child page and genreate a link to the parent page.
+            function isChild(){
+               params = window.location.search.split('=')[1];
+               if (params == undefined) {
+                return false;
+               }
+               params = params.split("&");
+               for (let i = 0; i < params.length; i++) {
+                if (params[i].includes("child")) {
+                  console.log("found child  ");
+                  console.log(params[i].split("child=")[1]);
+                  return params[i].split("child=")[1];
+                }
+               }
+               return false;
+            }
+    
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log("responseId:",window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../html/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+  <script>
+    function loadMarkdownFile() {
+      const markdownFilePath = "./markdown/17525a8f-e022-47.md"; // Path to the markdown file
+      fetch(markdownFilePath)
+        .then(response => response.text())
+        .then(data => {
+          const blob = new Blob([data], { type: 'text/markdown' }); // Create a Blob from the markdown content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download = '17525a8f-e022-47.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        })
+        .catch(error => console.error('Error loading markdown file:', error));
+    }
+  </script>
+
+</body>
+</html>
+
+
+   

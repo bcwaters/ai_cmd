@@ -1,0 +1,408 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Home Page</title>
+  <style>
+    pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
+  Theme: StackOverflow Light
+  Description: Light theme as used on stackoverflow.com
+  Author: stackoverflow.com
+  Maintainer: @Hirse
+  Website: https://github.com/StackExchange/Stacks
+  License: MIT
+  Updated: 2021-05-15
+
+  Updated for @stackoverflow/stacks v0.64.0
+  Code Blocks: /blob/v0.64.0/lib/css/components/_stacks-code-blocks.less
+  Colors: /blob/v0.64.0/lib/css/exports/_stacks-constants-colors.less
+*/.hljs{color:#2f3337;background:#f6f6f6}.hljs-subst{color:#2f3337}.hljs-comment{color:#656e77}.hljs-attr,.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-section,.hljs-selector-tag{color:#015692}.hljs-attribute{color:#803378}.hljs-name,.hljs-number,.hljs-quote,.hljs-selector-id,.hljs-template-tag,.hljs-type{color:#b75501}.hljs-selector-class{color:#015692}.hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-string,.hljs-symbol,.hljs-template-variable,.hljs-variable{color:#54790d}.hljs-meta,.hljs-selector-pseudo{color:#015692}.hljs-built_in,.hljs-literal,.hljs-title{color:#b75501}.hljs-bullet,.hljs-code{color:#535a60}.hljs-meta .hljs-string{color:#54790d}.hljs-deletion{color:#c02d2e}.hljs-addition{color:#2f6f44}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: left;
+      padding: 10px;
+    }
+    
+    .nav-right {
+      display: flex;
+      gap: 50px;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a id="parentContentLink" href='/?context=a5b4df47-52e1-46'>Prompt again</a>
+
+      <select id="childSubjects">
+        <option value="home">Home</option>
+        <!-- Children are added here onload with setChildSubjects -->
+      </select>
+      <!-- Add a previous and next button for prior requests? -->
+      <!-- Add a button to save the current page as a markdown file -->
+
+      
+      <button id="saveButton" onclick="saveButton()">Save html</button>
+
+
+  </nav>
+
+  <div id="content">  
+    <div id="parentContent">
+        <p>Here are two equations presented in different forms:</p>
+<h3>Equation 1: Linear Equation in Standard Form</h3>
+<p>[ Ax + By = C ]</p>
+<h3>Equation 2: Linear Equation in Slope-Intercept Form</h3>
+<p>[ y = mx + b ]</p>
+
+    </div>
+    <div id="childDivs">
+      <div title="Linear Equation in Standard Form" id="childContent1" onclick="setVisibileChild('childContent1')" hidden=true><h3>Linear Equation in Standard Form</h3>
+<p>The standard form of a linear equation is expressed as:</p>
+<p>[ Ax + By = C ]</p>
+<p>Where:</p>
+<ul>
+<li>( A ), ( B ), and ( C ) are constants.</li>
+<li>( A ) and ( B ) are not both zero.</li>
+</ul>
+<h4>Components of the Equation</h4>
+<ul>
+<li><strong>( A ) and ( B )</strong>: These coefficients represent the weights of the variables ( x ) and ( y ). The ratio ( \frac{A}{B} ) gives the slope of the line when rearranged into slope-intercept form.</li>
+<li><strong>( C )</strong>: This constant term represents the offset from the origin. When ( x ) and ( y ) are both zero, ( C ) is the value that the equation equals.</li>
+</ul>
+<h4>Characteristics and Uses</h4>
+<ul>
+<li><strong>Uniqueness</strong>: Any linear equation can be written in standard form, and it is unique up to a non-zero scalar multiple. This means that multiplying the entire equation by a non-zero constant still results in an equivalent equation.</li>
+<li><strong>Slope</strong>: To find the slope from the standard form, you can rearrange the equation to solve for ( y ):
+[ By = -Ax + C ]
+[ y = -\frac{A}{B}x + \frac{C}{B} ]
+The slope ( m ) is ( -\frac{A}{B} ).</li>
+<li><strong>Intercepts</strong>: The ( x )-intercept can be found by setting ( y = 0 ):
+[ Ax = C ]
+[ x = \frac{C}{A} ]
+The ( y )-intercept can be found by setting ( x = 0 ):
+[ By = C ]
+[ y = \frac{C}{B} ]</li>
+</ul>
+<h4>Applications</h4>
+<ul>
+<li><strong>Graphing</strong>: The standard form is useful for graphing because it directly provides the intercepts. Plotting the ( x )- and ( y )-intercepts and drawing a line through them gives the graph of the equation.</li>
+<li><strong>Solving Systems</strong>: When solving systems of linear equations, the standard form is often used because it simplifies the process of elimination or substitution.</li>
+<li><strong>Real-World Problems</strong>: In real-world applications, such as budgeting or resource allocation, the standard form can represent constraints where ( x ) and ( y ) are variables representing different quantities, and ( C ) represents a total or limit.</li>
+</ul>
+<h4>Examples</h4>
+<ol>
+<li><p><strong>Example 1</strong>: ( 2x + 3y = 6 )</p>
+<ul>
+<li>( x )-intercept: ( x = \frac{6}{2} = 3 )</li>
+<li>( y )-intercept: ( y = \frac{6}{3} = 2 )</li>
+<li>Slope: ( m = -\frac{2}{3} )</li>
+</ul>
+</li>
+<li><p><strong>Example 2</strong>: ( 4x - 5y = 20 )</p>
+<ul>
+<li>( x )-intercept: ( x = \frac{20}{4} = 5 )</li>
+<li>( y )-intercept: ( y = \frac{20}{-5} = -4 )</li>
+<li>Slope: ( m = \frac{4}{5} )</li>
+</ul>
+</li>
+</ol>
+<h4>Educational Context</h4>
+<p>In educational settings, understanding the standard form of a linear equation is crucial for students learning algebra. It helps them to:</p>
+<ul>
+<li>Recognize different forms of linear equations.</li>
+<li>Convert between forms to suit different problem-solving strategies.</li>
+<li>Understand the geometric interpretation of linear equations, particularly in terms of intercepts and slopes.</li>
+</ul>
+<p>By mastering the standard form, students can better appreciate the versatility and applicability of linear equations in various fields, from mathematics to engineering and beyond.</p>
+<p>eof</p>
+<p>ResponseID:7fd8cc90-fc52-48</p>
+</div><div title="Linear Equation in SlopeIntercept Form" id="childContent2" onclick="setVisibileChild('childContent2')" hidden=true><h3>Linear Equation in Slope-Intercept Form: Detailed Explanation</h3>
+<p>The linear equation in slope-intercept form is expressed as:</p>
+<p>[ y = mx + b ]</p>
+<p>This form of the equation provides a straightforward way to understand and graph linear functions. Let's break down each component of this equation:</p>
+<h4>Slope (( m ))</h4>
+<ul>
+<li><strong>Definition</strong>: The slope ( m ) represents the rate of change of the line. It indicates how much ( y ) changes for a unit change in ( x ).</li>
+<li><strong>Calculation</strong>: The slope can be calculated as the change in ( y ) divided by the change in ( x ), often written as ( \frac{\Delta y}{\Delta x} ).</li>
+<li><strong>Interpretation</strong>: A positive slope means the line rises from left to right, a negative slope means it falls, and a slope of zero means the line is horizontal. The magnitude of ( m ) determines the steepness of the line.</li>
+</ul>
+<h4>Y-Intercept (( b ))</h4>
+<ul>
+<li><strong>Definition</strong>: The y-intercept ( b ) is the point where the line crosses the y-axis. It's the value of ( y ) when ( x ) is zero.</li>
+<li><strong>Graphical Representation</strong>: On a graph, it's the point ((0, b)).</li>
+<li><strong>Importance</strong>: The y-intercept provides a starting point for the line, helping to anchor it on the graph.</li>
+</ul>
+<h4>Equation Use</h4>
+<ul>
+<li><strong>Graphing</strong>: To graph a line using this form, start at the y-intercept ( b ) on the y-axis. Then, use the slope ( m ) to determine the direction and steepness of the line. For example, if ( m = 2 ), you can move up 2 units and right 1 unit from the y-intercept to plot another point.</li>
+<li><strong>Solving for Variables</strong>: If you need to solve for ( x ) or ( y ), you can rearrange the equation. For instance, to solve for ( x ), you can isolate ( x ) by subtracting ( b ) from both sides and then dividing by ( m ):
+[ x = \frac{y - b}{m} ]</li>
+</ul>
+<h4>Practical Applications</h4>
+<ul>
+<li><strong>Real-World Scenarios</strong>: The slope-intercept form is commonly used in real-world applications such as calculating costs (where ( m ) might represent the cost per unit and ( b ) the fixed cost), predicting trends in data, and modeling physical phenomena like the rate of change in temperature over time.</li>
+<li><strong>Education and Learning</strong>: This form is often taught early in algebra courses because it visually and mathematically simplifies the understanding of linear relationships.</li>
+</ul>
+<h4>Advantages of Slope-Intercept Form</h4>
+<ul>
+<li><strong>Ease of Use</strong>: It's easy to identify the slope and y-intercept directly from the equation, which is not always possible in other forms.</li>
+<li><strong>Graphing Simplicity</strong>: The process of graphing is straightforward, making it a preferred method for quick visualizations.</li>
+</ul>
+<p>In summary, the slope-intercept form of a linear equation (( y = mx + b )) is a powerful tool for understanding and working with linear relationships, offering clear insights into the slope and y-intercept of a line.</p>
+<p>ResponseID:6512beb2-e322-45</p>
+</div>
+    </div>
+  </div>
+
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+
+    <script>
+      function setChildSubjects(){
+        let dropDownOptions = [];
+        let childSubjects = document.getElementById('childDivs');
+        for (let child of childSubjects.children){
+           let subject = child.title;
+           let optionValue = child.id;
+
+           dropDownOptions.push({subject: subject, value: optionValue});
+        
+        }
+
+        for (let option of dropDownOptions){
+          let optionElement = document.createElement('option');
+          optionElement.value = option.value;
+          optionElement.text = option.subject;
+          document.getElementById('childSubjects').appendChild(optionElement);
+        }
+
+        document.getElementById('childSubjects').addEventListener('change', function() {
+          if(this.value == "home"){
+            goHomePage();
+          }else{
+            setVisibleChild(this.value);
+          }
+
+          }
+        );
+      }
+    </script>
+
+
+    <script>
+      function setVisibleChild(id){
+        //quick flicker home to reset state, this allows hoping between child views
+     
+    
+           let topNode = document.getElementById('content');
+           let parentNode = document.getElementById('parentContent');
+           let childVisibleNode = document.getElementById(id);
+           let childDivs = document.getElementById('childDivs');
+           for (let child of childDivs.children){
+            if(child.id != id){
+              child.hidden = true;
+            }else{
+              child.hidden = false; //redudant
+            }
+           }
+           parentNode.hidden = true;
+           childVisibleNode.hidden = false;
+         }
+      
+    </script>
+
+    <script>
+      function goHomePage(){
+         let topNode = document.getElementById('content');
+         let parentNode = document.getElementById('parentContent');
+         let children = document.getElementById('childDivs');
+         for (let child of children.children){
+            child.hidden = true;
+         }
+         parentNode.hidden = false;
+      }
+    </script>
+
+    <script>
+      function setChildLinks(){
+        let children = document.getElementById('childDivs'); 
+        let childSubjects = [];
+        let discoveredMatches = [];
+
+        
+        for (let child of children.children){
+          let subject = child.title;
+          childSubjects.push({subject: subject, child: child});
+          }
+             
+          let parentNodeH2Subjects = []
+          let parentNodeH3Subjects = []
+          let parentNodeH4Subjects = []
+          let parentNode = document.getElementById('parentContent');
+          let H2s = parentNode.getElementsByTagName("H2");
+          let H3s = parentNode.getElementsByTagName("H3");
+          let H4s = parentNode.getElementsByTagName("H4");
+          let isH2Match = false;
+          let isH3Match = false;
+          let isH4Match = false;
+
+          H2s.length > 0? parentNodeH2Subjects = H2s.map(item => ({subject: item.innerText, item: item})):isH2Match = false;
+          H3s.length > 0?parentNodeH3Subjects = H3s.map(item => ({subject: item.innerText, item: item})):isH3Match = false;
+          H4s.length > 0?parentNodeH4Subjects = H4s.map(item => ({subject: item.innerText, item: item})):isH4Match = false;
+
+          
+           isH3Match = H3s.length == childSubjects.length;
+           isH2Match = H2s.length == childSubjects.length;
+           isH4Match = H4s.length == childSubjects.length;
+          let allDiscovered = false;
+
+          if (isH3Match){
+            //We have a match.  We need to find the H2s
+            allDiscovered = true;
+          }
+          if (isH2Match){
+            //We have a match.  We need to find the H3s
+            allDiscovered = true;
+          }
+          if (isH4Match){
+            //We have a match.  We need to find the H2s
+            allDiscovered = true;
+          }
+
+          if(allDiscovered && (isH3Match + isH2Match + isH4Match) > 1){
+            //wierd.  ok we work from scratch.
+            allDiscovered = false;
+          }
+
+          if(!allDiscovered){
+
+            let fluffWords = ["a", "an", "the", "and", "but", "or", "for", "nor", "on", "at", "to", "from", "by", "with", "of"];
+            let fluffWordsRegex = new RegExp(fluffWords.join("|"), "g");
+          
+          //OK time to stumble through unpredictable llm output
+          //First check if the child subjects are in the parent node h2 subjects
+          let isH2 = false;
+          let isH3 = false;
+          let isH4 = false;
+      
+          //This can be optimized later.  Probably doesnt matter since it is client side with modern computing.
+          for (let i = 0; i < parentNodeH2Subjects.length; i++){
+            let subject = parentNodeH2Subjects[i].subject;
+            for (let j = 0; j < childSubjects.length; j++){
+              let childSubject = childSubjects[j].subject;
+              if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                isH2 = true;
+                discoveredMatches.push({parentLink: parentNodeH2Subjects[i].item, childLink: childSubjects[j].child});
+              }
+            }
+
+          }
+         
+          if(!isH2){
+            for (let i = 0; i < parentNodeH3Subjects.length; i++){
+              let subject = parentNodeH3Subjects[i].subject;
+              for (let j = 0; j < childSubjects.length; j++){
+                let childSubject = childSubjects[j].subject;  
+                if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                  isH3 = true;
+                  discoveredMatches.push({parentLink: parentNodeH3Subjects[i].item, childLink: childSubjects[j].child});
+                }
+              }
+            }
+          }
+
+          if(!isH3){
+            for (let i = 0; i < parentNodeH4Subjects.length; i++){
+              let subject = parentNodeH4Subjects[i].subject;
+              for (let j = 0; j < childSubjects.length; j++){
+                let childSubject = childSubjects[j].subject;
+                if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                  isH4 = true;
+                  discoveredMatches.push({parentLink: parentNodeH4Subjects[i].item, childLink: childSubjects[j].child});
+                }
+              }
+            }
+          }
+
+          if(!isH4){
+              //I suppose there are edge cases but this surely covers 99.9% of the cases.
+          }
+
+          }else{
+            if(isH3Match){
+              for (let i = 0; i < parentNodeH3Subjects.length; i++){
+                let child = childSubjects[i].child;
+                makeChildLinks(parentNodeH3Subjects[i].item, child);
+              }
+              return; //bye bye
+            }
+            if(isH2Match){
+              for (let i = 0; i < parentNodeH2Subjects.length; i++){
+                let child = childSubjects[i].child;
+                makeChildLinks(parentNodeH2Subjects[i].item, child);
+                return; //bye bye
+              }
+              if(isH4Match){
+                for (let i = 0; i < parentNodeH4Subjects.length; i++){
+                  let child = childSubjects[i].child;
+                  makeChildLinks(parentNodeH4Subjects[i].item, child);
+                }
+              }
+
+            }
+
+          }
+
+          for (let match of discoveredMatches){
+            makeChildLinks(match.parentLink, match.childLink);
+            if(match.length < childSubjects.length){ alert("LLMM added additional info that is hidden");}
+          }
+
+        }
+    </script>
+
+    <script>
+       function makeChildLinks(parent, child){
+            parent.style.cursor = "pointer";
+            parent.style.textDecoration = "underline";
+            parent.style.color = "blue";
+            parent.onclick = function(){
+              setVisibleChild(child.id);
+            }
+       }
+
+    </script>
+
+<script>window.onload = setChildSubjects;</script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

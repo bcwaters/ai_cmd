@@ -1,0 +1,165 @@
+<!doctype html>
+<html>
+<head>
+  <style>
+    pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
+  Theme: StackOverflow Light
+  Description: Light theme as used on stackoverflow.com
+  Author: stackoverflow.com
+  Maintainer: @Hirse
+  Website: https://github.com/StackExchange/Stacks
+  License: MIT
+  Updated: 2021-05-15
+
+  Updated for @stackoverflow/stacks v0.64.0
+  Code Blocks: /blob/v0.64.0/lib/css/components/_stacks-code-blocks.less
+  Colors: /blob/v0.64.0/lib/css/exports/_stacks-constants-colors.less
+*/.hljs{color:#2f3337;background:#f6f6f6}.hljs-subst{color:#2f3337}.hljs-comment{color:#656e77}.hljs-attr,.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-section,.hljs-selector-tag{color:#015692}.hljs-attribute{color:#803378}.hljs-name,.hljs-number,.hljs-quote,.hljs-selector-id,.hljs-template-tag,.hljs-type{color:#b75501}.hljs-selector-class{color:#015692}.hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-string,.hljs-symbol,.hljs-template-variable,.hljs-variable{color:#54790d}.hljs-meta,.hljs-selector-pseudo{color:#015692}.hljs-built_in,.hljs-literal,.hljs-title{color:#b75501}.hljs-bullet,.hljs-code{color:#535a60}.hljs-meta .hljs-string{color:#54790d}.hljs-deletion{color:#c02d2e}.hljs-addition{color:#2f6f44}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}
+
+    
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: left;
+      padding: 10px;
+    }
+    
+    .nav-right {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+  </style>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+ 
+    <a id="home" href="/?context=5498aedc-a7dd-42">Prompt again</a>
+    <div class="nav-right">
+    <a id="markdown" href="../history/responses/5498aedc-a7dd-42/markdown/5498aedc-a7dd-42.md"> markdown</a>
+    <a id="previous" href="../history/responses/1864cbbf-60d0-41/html/1864cbbf-60d0-41.html?responseId=5498aedc-a7dd-42">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    </div>
+  </nav>
+
+  <div id="content" class="markdown-body"><h2>Banana</h2>
+<h3>Overview</h3>
+<p>The banana is a popular fruit known scientifically as <em>Musa</em> species. Originating in Southeast Asia, it is now cultivated in many tropical regions around the world.</p>
+<h3>Nutritional Benefits</h3>
+<ul>
+<li><strong>Vitamins and Minerals:</strong> Bananas are rich in vitamin C, vitamin B6, and potassium. Potassium is essential for heart health and helps regulate blood pressure.</li>
+<li><strong>Fiber:</strong> They contain dietary fiber which aids in digestion and helps maintain a healthy gut.</li>
+<li><strong>Energy Source:</strong> Bananas are a good source of carbohydrates, providing quick and sustained energy, making them a favorite among athletes.</li>
+</ul>
+<h3>Cultivation</h3>
+<ul>
+<li><strong>Climate:</strong> Bananas thrive in warm, humid climates with temperatures ranging between 20°C to 30°C (68°F to 86°F).</li>
+<li><strong>Growth Cycle:</strong> The banana plant is not a tree but a type of herbaceous perennial. It takes about 9 to 12 months for a banana plant to produce fruit.</li>
+<li><strong>Harvesting:</strong> Bananas are typically harvested green and allowed to ripen off the plant. They are picked when the fruit is still firm and green, as they continue to ripen after being picked.</li>
+</ul>
+<h3>Varieties</h3>
+<ul>
+<li><strong>Cavendish:</strong> The most widely exported banana, known for its sweet flavor and creamy texture.</li>
+<li><strong>Plantain:</strong> A type of banana used more like a vegetable, often cooked or fried.</li>
+<li><strong>Red Banana:</strong> Smaller and sweeter than the Cavendish, with a reddish-purple skin when ripe.</li>
+</ul>
+<h3>Uses</h3>
+<ul>
+<li><strong>Culinary:</strong> Bananas can be eaten raw, used in smoothies, baked into breads and cakes, or fried as a snack.</li>
+<li><strong>Medicinal:</strong> In some cultures, bananas are used for their medicinal properties, such as soothing an upset stomach or aiding in weight loss diets.</li>
+</ul>
+<h3>Interesting Facts</h3>
+<ul>
+<li><strong>Botanical Classification:</strong> Bananas grow on a type of herbaceous perennial, not a tree, making them the largest herbaceous perennial plant.</li>
+<li><strong>Genetics:</strong> The banana we commonly eat is a seedless hybrid, resulting from the crossbreeding of two wild species, <em>Musa acuminata</em> and <em>Musa balbisiana</em>.</li>
+</ul>
+<p>This detailed overview covers the aspects of bananas mentioned in the initial list, providing a deeper understanding of their nutritional profile, cultivation, varieties, and uses.</p>
+<p>ResponseID:5498aedc-a7dd-42</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+
+  <script>
+    //This function checks if the current page is a child page and genreate a link to the parent page.
+            function isChild(){
+               params = window.location.search.split('=')[1];
+               if (params == undefined) {
+                return false;
+               }
+               params = params.split("&");
+               for (let i = 0; i < params.length; i++) {
+                if (params[i].includes("child")) {
+                  console.log("found child  ");
+                  console.log(params[i].split("child=")[1]);
+                  return params[i].split("child=")[1];
+                }
+               }
+               return false;
+            }
+    
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log("responseId:",window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../html/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+  <script>
+    function loadMarkdownFile() {
+      const markdownFilePath = "./markdown/5498aedc-a7dd-42.md"; // Path to the markdown file
+      fetch(markdownFilePath)
+        .then(response => response.text())
+        .then(data => {
+          const blob = new Blob([data], { type: 'text/markdown' }); // Create a Blob from the markdown content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download = '5498aedc-a7dd-42.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        })
+        .catch(error => console.error('Error loading markdown file:', error));
+    }
+  </script>
+
+</body>
+</html>
+
+
+   

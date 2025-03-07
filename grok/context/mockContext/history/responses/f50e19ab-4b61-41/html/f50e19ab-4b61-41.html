@@ -1,0 +1,177 @@
+<!doctype html>
+<html>
+<head>
+  <style>
+    pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
+  Theme: StackOverflow Light
+  Description: Light theme as used on stackoverflow.com
+  Author: stackoverflow.com
+  Maintainer: @Hirse
+  Website: https://github.com/StackExchange/Stacks
+  License: MIT
+  Updated: 2021-05-15
+
+  Updated for @stackoverflow/stacks v0.64.0
+  Code Blocks: /blob/v0.64.0/lib/css/components/_stacks-code-blocks.less
+  Colors: /blob/v0.64.0/lib/css/exports/_stacks-constants-colors.less
+*/.hljs{color:#2f3337;background:#f6f6f6}.hljs-subst{color:#2f3337}.hljs-comment{color:#656e77}.hljs-attr,.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-section,.hljs-selector-tag{color:#015692}.hljs-attribute{color:#803378}.hljs-name,.hljs-number,.hljs-quote,.hljs-selector-id,.hljs-template-tag,.hljs-type{color:#b75501}.hljs-selector-class{color:#015692}.hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-string,.hljs-symbol,.hljs-template-variable,.hljs-variable{color:#54790d}.hljs-meta,.hljs-selector-pseudo{color:#015692}.hljs-built_in,.hljs-literal,.hljs-title{color:#b75501}.hljs-bullet,.hljs-code{color:#535a60}.hljs-meta .hljs-string{color:#54790d}.hljs-deletion{color:#c02d2e}.hljs-addition{color:#2f6f44}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}
+
+    
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: left;
+      padding: 10px;
+    }
+    
+    .nav-right {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+  </style>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+ 
+    <a id="home" href="/?context=f50e19ab-4b61-41">Prompt again</a>
+    <div class="nav-right">
+    <a id="markdown" href="../history/responses/f50e19ab-4b61-41/markdown/f50e19ab-4b61-41.md"> markdown</a>
+    <a id="previous" href="../history/responses/54f7cb56-60ed-4a/html/54f7cb56-60ed-4a.html?responseId=f50e19ab-4b61-41">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    </div>
+  </nav>
+
+  <div id="content" class="markdown-body"><h1>Cost Breakdown of High-Performance System Components</h1>
+<p>Below is a detailed cost breakdown for the high-performance system components mentioned, including the test content keywords related to hardware specifications:</p>
+<h2>Hardware Components</h2>
+<h3>Processor</h3>
+<ul>
+<li><strong>Intel Core i9</strong>: The cost can vary widely based on the specific model, but you can expect to pay anywhere from $500 to $1000.</li>
+</ul>
+<h3>Graphics Card</h3>
+<ul>
+<li><strong>NVIDIA A100</strong>: This high-end GPU is used for AI and machine learning workloads. The cost is around $10,000 to $15,000.</li>
+<li><strong>RTX 3090</strong>: A consumer-grade high-performance GPU, which typically costs around $1,500 to $2,000.</li>
+</ul>
+<h3>Memory</h3>
+<ul>
+<li><strong>256GB RAM</strong>: High-capacity RAM like this can cost from $1,000 to $2,000, depending on the type and speed.</li>
+<li><strong>128GB RAM</strong>: Less than the 256GB but still high-end, you can expect to pay around $500 to $1,000.</li>
+</ul>
+<h3>CPU</h3>
+<ul>
+<li><strong>AMD Ryzen Threadripper</strong>: High-end CPUs like these can cost from $1,000 to $3,000, depending on the model.</li>
+</ul>
+<h3>Cooling System</h3>
+<ul>
+<li><strong>Liquid Cooling</strong>: A high-performance liquid cooling system can range from $100 to $300.</li>
+<li><strong>Cooling (General)</strong>: If opting for air cooling, you might spend between $50 to $150.</li>
+</ul>
+<h3>Power Supply</h3>
+<ul>
+<li><strong>Power Supply</strong>: A high-wattage power supply suitable for this setup might cost around $150 to $300.</li>
+</ul>
+<h3>Storage</h3>
+<ul>
+<li><strong>SSD</strong>: High-performance SSDs can cost from $100 to $500, depending on the capacity and speed.</li>
+</ul>
+<h3>Operating System</h3>
+<ul>
+<li><strong>Linux</strong>: Linux is often free, but if you opt for a commercial distribution with support, costs can be from $0 to $100.</li>
+</ul>
+<h3>Software</h3>
+<ul>
+<li><strong>CUDA</strong>: CUDA is free to use, but associated development tools and software can add to the cost, typically ranging from $0 to $100.</li>
+</ul>
+<h2>Total Estimated Cost</h2>
+<p>The total estimated cost for the high-performance system, considering the high-end components mentioned, would be around <strong>$15,000 to $25,000</strong>. This estimate can vary based on specific models, brands, and current market prices.</p>
+<p>ResponseID:f50e19ab-4b61-41</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+
+  <script>
+    //This function checks if the current page is a child page and genreate a link to the parent page.
+            function isChild(){
+               params = window.location.search.split('=')[1];
+               if (params == undefined) {
+                return false;
+               }
+               params = params.split("&");
+               for (let i = 0; i < params.length; i++) {
+                if (params[i].includes("child")) {
+                  console.log("found child  ");
+                  console.log(params[i].split("child=")[1]);
+                  return params[i].split("child=")[1];
+                }
+               }
+               return false;
+            }
+    
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log("responseId:",window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../html/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+  <script>
+    function loadMarkdownFile() {
+      const markdownFilePath = "./markdown/f50e19ab-4b61-41.md"; // Path to the markdown file
+      fetch(markdownFilePath)
+        .then(response => response.text())
+        .then(data => {
+          const blob = new Blob([data], { type: 'text/markdown' }); // Create a Blob from the markdown content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download = 'f50e19ab-4b61-41.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        })
+        .catch(error => console.error('Error loading markdown file:', error));
+    }
+  </script>
+
+</body>
+</html>
+
+
+   

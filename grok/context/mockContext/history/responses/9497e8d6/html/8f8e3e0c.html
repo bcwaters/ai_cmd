@@ -1,0 +1,174 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    <a id="markdown" href="./markdown/8f8e3e0c.md"> markdown</a>
+    <a id="previous" href="../9497e8d6/html/9497e8d6.html?responseId=8f8e3e0c">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+  </nav>
+
+  <div id="content"><h1>Custom Domain Tokenization</h1>
+<p>In specialized domains such as medical texts or legal documents, the need for custom tokenization arises due to the unique patterns and terminologies found within these fields. Custom domain tokenization involves creating regex patterns that are specifically tailored to identify and extract relevant tokens from these specialized texts.</p>
+<h2>Detailed Example: Medical and Legal Texts</h2>
+<h3>Medical Texts</h3>
+<p>In the medical field, texts often contain specific medical terms that need to be tokenized accurately for further analysis or processing. For instance, consider the following example:</p>
+<pre><code class="language-javascript">let text = "The patient was diagnosed with hypertension.";
+let tokens = text.match(/[A-Z][a-z]+/g);
+console.log(tokens);
+// Output: ["The", "patient", "was", "diagnosed", "with", "hypertension"]
+</code></pre>
+<p><strong>Explanation:</strong></p>
+<ul>
+<li><code>[A-Z][a-z]+</code> matches capitalized words, which are common in medical terminology. This pattern ensures that terms like "hypertension" are correctly identified as single tokens.</li>
+</ul>
+<h3>Legal Documents</h3>
+<p>Legal texts often include citations and specific legal terminology that need to be tokenized separately. For example:</p>
+<pre><code class="language-javascript">let text = "See case law Brown v. Board of Education.";
+let tokens = text.match(/[A-Z]+|[A-Z][a-z]+|\d+(?=\sv\.s\.v)|[^\s]+/g);
+console.log(tokens);
+// Output: ["See", "case", "law", "Brown", "v", "Board", "of", "Education"]
+</code></pre>
+<p><strong>Explanation:</strong></p>
+<ul>
+<li><code>[A-Z]+</code> matches sequences of uppercase letters, which is useful for identifying acronyms or capitalized names in legal citations.</li>
+<li><code>[A-Z][a-z]+</code> captures capitalized words, which are common in legal terminology.</li>
+<li><code>\d+(?=\sv\.s\.v)</code> matches numbers before "v." in legal citations, ensuring that case numbers are correctly tokenized.</li>
+<li><code>[^\s]+</code> matches any non-whitespace sequence, which helps in capturing other elements in the text.</li>
+</ul>
+<h2>Importance of Custom Domain Tokenization</h2>
+<p>Custom domain tokenization is crucial for:</p>
+<ul>
+<li><strong>Accurate Analysis</strong>: Ensuring that domain-specific terms are correctly identified and processed.</li>
+<li><strong>Specialized Applications</strong>: Tailoring the tokenization process to meet the needs of specific applications, such as medical diagnosis systems or legal research tools.</li>
+<li><strong>Improved Model Performance</strong>: Enhancing the performance of machine learning models by providing them with more relevant and accurately tokenized input data.</li>
+</ul>
+<h2>Challenges and Considerations</h2>
+<ul>
+<li><strong>Complexity of Patterns</strong>: Creating regex patterns that accurately capture the nuances of specialized domains can be challenging.</li>
+<li><strong>Domain Knowledge</strong>: A deep understanding of the domain is necessary to design effective tokenization strategies.</li>
+<li><strong>Adaptability</strong>: The regex patterns need to be adaptable to handle variations within the domain.</li>
+</ul>
+<p>By employing custom domain tokenization, you can significantly improve the quality of text processing and analysis in specialized fields, ensuring that the unique characteristics of the domain are respected and utilized effectively.</p>
+<p>ResponseID:8f8e3e0c</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+
+  <script>
+    function saveMarkdown() {
+      const content = document.documentElement.outerHTML; // Get the entire HTML content
+
+      let markdownLocation = "./markdown/";
+      let markdownFileName = "8f8e3e0c.md";
+      let markdownFile = markdownLocation + markdownFileName;
+      
+
+      const url = URL.createObjectURL(blob); // Create a URL for the Blob
+      const divInnerText = document.getElementById('content').innerText;
+      let filename = divInnerText.substring(0, 25);
+      const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+          a.download =  filename + '.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+      
+    }
+  </script>
+
+  <script>
+    //This function checks if the current page is a child page and genreate a link to the parent page.
+            function isChild(){
+               params = window.location.search.split('=')[1];
+               if (params == undefined) {
+                return false;
+               }
+               params = params.split("&");
+               for (let i = 0; i < params.length; i++) {
+                if (params[i].includes("child")) {
+                  console.log("found child  ");
+                  console.log(params[i].split("child=")[1]);
+                  return params[i].split("child=")[1];
+                }
+               }
+               return false;
+            }
+    
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log("responseId:",window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../html/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+  <script>
+    function loadMarkdownFile() {
+      const markdownFilePath = "./markdown/8f8e3e0c.md"; // Path to the markdown file
+      fetch(markdownFilePath)
+        .then(response => response.text())
+        .then(data => {
+          const blob = new Blob([data], { type: 'text/markdown' }); // Create a Blob from the markdown content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download = '8f8e3e0c.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        })
+        .catch(error => console.error('Error loading markdown file:', error));
+    }
+  </script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

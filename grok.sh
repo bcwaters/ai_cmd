@@ -211,6 +211,13 @@ while true; do
         continue
     fi
 
+      if [ "$prompt" == "mockMode" ]; then
+        
+        flags="$flags --mockMode"
+        draw_border
+        continue
+    fi
+
 
     if [ "$prompt" == "exit" ]; then
         echo -e "$color_red_light Exiting...\e[0m"

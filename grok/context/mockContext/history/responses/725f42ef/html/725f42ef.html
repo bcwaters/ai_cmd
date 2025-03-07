@@ -1,0 +1,179 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    <a id="markdown" href="./markdown/725f42ef.md"> markdown</a>
+    <a id="previous" href="../db2bd4f2/html/db2bd4f2.html?responseId=725f42ef">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+  </nav>
+
+  <div id="content"><h3>Mars</h3>
+<p>Mars, often referred to as the "Red Planet," is the fourth planet from the Sun and is known for its reddish appearance due to iron oxide (rust) on its surface. Here's a detailed overview of its key features:</p>
+<h4>Surface Features</h4>
+<ul>
+<li><strong>Olympus Mons</strong>: The largest volcano in the solar system, standing about 13.6 miles (22 kilometers) high and 374 miles (602 kilometers) in diameter.</li>
+<li><strong>Valles Marineris</strong>: A vast canyon system that stretches over 2,500 miles (4,000 kilometers) long and reaches depths of up to 4 miles (7 kilometers).</li>
+<li><strong>Polar Ice Caps</strong>: Mars has polar ice caps composed of water ice and dry ice (frozen carbon dioxide).</li>
+</ul>
+<h4>Moons</h4>
+<p>Mars has two small moons, <strong>Phobos</strong> and <strong>Deimos</strong>, both of which are irregularly shaped and thought to be captured asteroids.</p>
+<h4>Exploration</h4>
+<p>Mars has been the target of numerous space missions due to its potential to harbor life. Notable missions include:</p>
+<ul>
+<li><strong>NASA's Viking Program</strong> in the 1970s, which provided the first close-up images of the Martian surface.</li>
+<li><strong>Rovers like Spirit, Opportunity, and Curiosity</strong>, which have explored the Martian surface in detail.</li>
+<li><strong>Mars Reconnaissance Orbiter</strong> and <strong>Mars Express</strong>, which have been studying the planet from orbit.</li>
+</ul>
+<h4>Future Missions</h4>
+<p>Future missions planned for Mars include:</p>
+<ul>
+<li><strong>NASA's Perseverance Rover</strong> launched in 2020 to search for signs of ancient life and collect samples for future return to Earth.</li>
+<li><strong>SpaceX's plans</strong> to send humans to Mars in the coming decades.</li>
+</ul>
+<h4>Life on Mars</h4>
+<p>While no definitive evidence of current life has been found, there is interest in the possibility of past or subsurface microbial life. The search for life continues to be a major focus of Mars exploration.</p>
+<h3>Saturn</h3>
+<p>Saturn, the sixth planet from the Sun, is renowned for its spectacular ring system. Here's an in-depth look at its notable characteristics:</p>
+<h4>Ring System</h4>
+<p>Saturn's rings are composed of countless particles of ice and rock, ranging in size from tiny grains to large boulders. The rings are divided into several major groups, labeled A through E, with gaps between them.</p>
+<h4>Atmosphere and Composition</h4>
+<p>Saturn's atmosphere is primarily composed of hydrogen and helium, similar to Jupiter. It features bands of clouds and storms, though not as pronounced as those on Jupiter. The planet's most notable atmospheric feature is the <strong>Hexagon</strong>, a persistent hexagonal cloud pattern at the north pole.</p>
+<h4>Moons</h4>
+<p>Saturn boasts a large number of moons, with <strong>Titan</strong> being the most significant. Titan is larger than the planet Mercury and is the only known moon with a substantial atmosphere, which contains nitrogen and methane. The <strong>Cassini-Huygens mission</strong> provided detailed data on Titan, including landing on its surface.</p>
+<h4>Exploration</h4>
+<p>Saturn has been explored by several spacecraft, with the most comprehensive being:</p>
+<ul>
+<li><strong>Pioneer 11</strong> in 1979, which provided the first close-up images of the planet and its rings.</li>
+<li><strong>Voyager 1 and 2</strong> in the early 1980s, which offered more detailed views and data.</li>
+<li><strong>Cassini-Huygens</strong>, which orbited Saturn from 2004 to 2017, providing extensive data on the planet, its rings, and moons.</li>
+</ul>
+<h4>Future Missions</h4>
+<p>Future missions to Saturn include:</p>
+<ul>
+<li><strong>NASA's Dragonfly mission</strong>, set to launch in the mid-2020s and arrive at Titan in the mid-2030s. It will explore Titan using a rotorcraft-lander.</li>
+</ul>
+<h4>Life on Moons</h4>
+<p>While Saturn itself is unlikely to harbor life, its moon Titan, with its complex chemistry and liquid methane lakes, is a prime target for astrobiological research. The potential for life in its subsurface oceans is also of interest.</p>
+<p>ResponseID:725f42ef</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+
+  <script>
+    function saveMarkdown() {
+      const content = document.documentElement.outerHTML; // Get the entire HTML content
+
+      let markdownLocation = "./markdown/";
+      let markdownFileName = "725f42ef.md";
+      let markdownFile = markdownLocation + markdownFileName;
+      
+
+      const url = URL.createObjectURL(blob); // Create a URL for the Blob
+      const divInnerText = document.getElementById('content').innerText;
+      let filename = divInnerText.substring(0, 25);
+      const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+          a.download =  filename + '.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+      
+    }
+  </script>
+
+  <script>
+    //This function checks if the current page is a child page and genreate a link to the parent page.
+            function isChild(){
+               params = window.location.search.split('=')[1];
+               if (params == undefined) {
+                return false;
+               }
+               params = params.split("&");
+               for (let i = 0; i < params.length; i++) {
+                if (params[i].includes("child")) {
+                  console.log("found child  ");
+                  console.log(params[i].split("child=")[1]);
+                  return params[i].split("child=")[1];
+                }
+               }
+               return false;
+            }
+    
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log("responseId:",window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../html/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+  <script>
+    function loadMarkdownFile() {
+      const markdownFilePath = "./markdown/725f42ef.md"; // Path to the markdown file
+      fetch(markdownFilePath)
+        .then(response => response.text())
+        .then(data => {
+          const blob = new Blob([data], { type: 'text/markdown' }); // Create a Blob from the markdown content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download = '725f42ef.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        })
+        .catch(error => console.error('Error loading markdown file:', error));
+    }
+  </script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

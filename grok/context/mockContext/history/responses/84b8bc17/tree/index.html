@@ -1,0 +1,435 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Home Page</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    <a id="parentContentLink" href='javascript:goHomePage()'>Home</a>
+    <select id="childSubjects">
+      <option value="home">Home</option>
+      <!-- Children are added here onload with setChildSubjects -->
+    </select>
+    <!-- Add a previous and next button for prior requests? -->
+    <!-- Add a button to save the current page as a markdown file -->
+  </nav>
+
+  <div id="content">  
+    <div id="parentContent">
+        <h1>Directed Acyclic Graphs (DAGs) in Applications</h1>
+<p>Directed Acyclic Graphs, or DAGs, are a type of data structure used in various applications to model processes or dependencies where cycles are not allowed. Here's a brief overview of their applications:</p>
+<h2>Workflow Management</h2>
+<p>DAGs are extensively used in workflow management systems like Apache Airflow. They help in defining the sequence of tasks that need to be executed in a specific order, ensuring that each task is completed before the next begins.</p>
+<h2>Data Processing</h2>
+<p>In big data and data processing, DAGs are used to model the flow of data through various transformations. Systems like Apache Spark use DAGs to optimize the execution of data processing jobs.</p>
+<h2>Version Control Systems</h2>
+<p>DAGs are the underlying structure in version control systems such as Git. They represent the history of a project as a series of commits, where each commit can have multiple parents and children, but no cycles.</p>
+<h2>Scheduling</h2>
+<p>DAGs are useful in scheduling tasks, especially in scenarios where some tasks depend on the completion of others. They help in determining the critical path and optimizing the overall schedule.</p>
+<h2>Machine Learning</h2>
+<p>In machine learning, DAGs can be used to represent neural network architectures, where the flow of data is from input to output without any loops.</p>
+<h2>Blockchain Technology</h2>
+<p>In blockchain, DAGs are used in some cryptocurrencies to achieve faster transaction processing compared to traditional blockchains. They allow for multiple chains to exist simultaneously.</p>
+<hr>
+<p>Do you have any specific application in mind, or would you like to know more about how DAGs are implemented in these areas?</p>
+<p><strong>Follow-up questions:</strong></p>
+<ul>
+<li>Are you interested in a specific application of DAGs?</li>
+<li>Would you like to learn more about how DAGs are implemented in workflow management?</li>
+<li>Do you have any questions about the use of DAGs in data processing or machine learning?</li>
+</ul>
+
+    </div>
+    <div id="childDivs">
+      <div title="Workflow Management" id="childContent1" onclick="setVisibileChild('childContent1')" hidden=true><h1>Workflow Management</h1>
+<p>Workflow management is a crucial aspect of organizational efficiency and productivity. It involves the design, execution, and monitoring of business processes to ensure that tasks are completed in a timely and efficient manner. Here are some key components and benefits of effective workflow management:</p>
+<h3>Key Components</h3>
+<ul>
+<li><strong>Process Design</strong>: Defining the steps needed to complete a task or project. This includes identifying the sequence of activities, the resources required, and the roles and responsibilities of team members.</li>
+<li><strong>Automation</strong>: Using software tools to automate repetitive tasks, reducing manual effort and minimizing errors. This can include document routing, approval processes, and notifications.</li>
+<li><strong>Monitoring and Reporting</strong>: Tracking the progress of workflows to identify bottlenecks and areas for improvement. This involves generating reports and dashboards to provide visibility into the performance of various processes.</li>
+<li><strong>Collaboration</strong>: Facilitating communication and coordination among team members. This can be achieved through integrated communication tools within the workflow management system.</li>
+</ul>
+<h3>Benefits</h3>
+<ul>
+<li><strong>Increased Efficiency</strong>: By streamlining processes and reducing manual tasks, workflow management helps organizations complete tasks more quickly and with fewer errors.</li>
+<li><strong>Improved Accountability</strong>: Clear assignment of tasks and responsibilities ensures that everyone knows what they are supposed to do, which helps in tracking performance and accountability.</li>
+<li><strong>Enhanced Decision Making</strong>: With real-time data and analytics, managers can make informed decisions to optimize workflows and improve overall organizational performance.</li>
+<li><strong>Scalability</strong>: Workflow management systems can grow with the organization, adapting to new processes and increased workload without significant additional effort.</li>
+</ul>
+<h3>Implementation Tips</h3>
+<ul>
+<li><strong>Start Small</strong>: Begin with a single process or department to test and refine the approach before scaling up.</li>
+<li><strong>User Training</strong>: Ensure that all users are trained on the new system to maximize adoption and effectiveness.</li>
+<li><strong>Continuous Improvement</strong>: Regularly review and update workflows to adapt to changing business needs and technological advancements.</li>
+</ul>
+<p>If you have any specific aspects of workflow management you'd like to delve into further, feel free to ask!</p>
+<h3>Follow-up Questions</h3>
+<ul>
+<li>What specific tools or software do you use for workflow management in your organization?</li>
+<li>Have you encountered any challenges in implementing workflow management systems?</li>
+<li>How do you measure the success of your workflow management initiatives?</li>
+</ul>
+<p>ResponseID:5275ebe2</p>
+</div><div title="Data Processing" id="childContent2" onclick="setVisibileChild('childContent2')" hidden=true><h1>Data Processing</h1>
+<p>Data processing is a critical component in the realm of data management and analysis. It involves several stages, each designed to transform raw data into meaningful information. Here's a detailed look at the process:</p>
+<h3>1. <strong>Data Collection</strong></h3>
+<p>The first step in data processing is gathering data from various sources. This can include databases, sensors, web scraping, or manual entry. The method of collection depends on the nature of the data and the intended use.</p>
+<h3>2. <strong>Data Preparation</strong></h3>
+<p>Once collected, data often needs to be cleaned and transformed. This involves:</p>
+<ul>
+<li><strong>Data Cleaning:</strong> Removing or correcting errors, dealing with missing values, and eliminating duplicates.</li>
+<li><strong>Data Transformation:</strong> Converting data into a suitable format for analysis, such as normalization or encoding categorical variables.</li>
+</ul>
+<h3>3. <strong>Data Analysis</strong></h3>
+<p>With clean and prepared data, the next step is to analyze it to uncover patterns, trends, and insights. Techniques can range from simple statistical analysis to complex machine learning models.</p>
+<h3>4. <strong>Data Visualization</strong></h3>
+<p>To make the analysis more understandable, data is often visualized through charts, graphs, and dashboards. This step helps in communicating findings effectively to stakeholders.</p>
+<h3>5. <strong>Data Storage</strong></h3>
+<p>Processed data needs to be stored securely and efficiently. This can involve databases, data warehouses, or cloud storage solutions, depending on the scale and requirements of the data.</p>
+<h3>6. <strong>Data Utilization</strong></h3>
+<p>Finally, the processed data is used for decision-making, reporting, or as input for further analysis or systems.</p>
+<p>Understanding these stages of data processing is essential for anyone working with data, as it ensures the data is reliable and actionable.</p>
+<hr>
+<p>If you have any more questions about data processing or need further clarification on any of these steps, feel free to ask.</p>
+<p><strong>Follow-up Questions:</strong></p>
+<ul>
+<li>Can you explain the importance of data cleaning in more detail?</li>
+<li>What are some common tools used for data visualization?</li>
+<li>How does data processing differ between different industries?</li>
+</ul>
+<p>ResponseID:952eef34</p>
+</div><div title="Version Control Systems" id="childContent3" onclick="setVisibileChild('childContent3')" hidden=true><h1>Version Control Systems</h1>
+<p>Version Control Systems (VCS) are essential tools for managing changes to source code over time. They allow multiple developers to work on the same project simultaneously without overwriting each other's changes. Here's a deeper dive into the aspects of VCS that were previously mentioned:</p>
+<h3>1. <strong>Tracking Changes</strong></h3>
+<p>VCS meticulously records every modification made to the codebase. This history can be reviewed to understand the evolution of the project, which is crucial for debugging and auditing purposes. Each change is typically associated with a commit message that explains the purpose of the change.</p>
+<h3>2. <strong>Branching and Merging</strong></h3>
+<p>One of the most powerful features of VCS is the ability to create branches. Branches allow developers to work on different features or fixes independently of the main codebase. Once the work on a branch is complete and tested, it can be merged back into the main branch, ensuring that the integration is smooth and conflicts are minimized.</p>
+<h3>3. <strong>Collaboration</strong></h3>
+<p>VCS facilitates collaboration among team members by providing a structured way to share code. Platforms like GitHub, GitLab, and Bitbucket enhance this collaboration by adding features like pull requests, code reviews, and issue tracking. These tools help in maintaining code quality and ensuring that all team members are on the same page.</p>
+<h3>4. <strong>Backup and Recovery</strong></h3>
+<p>By maintaining a complete history of the project, VCS serves as an automatic backup system. In case of data loss, it's possible to recover previous versions of the project. This feature is invaluable in preventing loss of work and ensuring project continuity.</p>
+<h3>5. <strong>Versioning</strong></h3>
+<p>VCS allows for the release of different versions of a software product. This is important for maintaining stability while continuing to develop new features. Semantic versioning, for example, helps in communicating the nature of changes between versions to users and other developers.</p>
+<p>Understanding these aspects of VCS can significantly improve the way teams manage and develop software projects.</p>
+<p><strong>Follow-up Questions:</strong></p>
+<ul>
+<li>Can you explain how to set up a basic Git repository for a new project?</li>
+<li>What are some best practices for managing branches in a VCS?</li>
+<li>How does VCS help in maintaining code quality and facilitating code reviews?</li>
+</ul>
+<p>ResponseID:cad2f397</p>
+</div><div title="Scheduling" id="childContent4" onclick="setVisibileChild('childContent4')" hidden=true><h1>Scheduling</h1>
+<p>Scheduling is a critical aspect of managing time and resources effectively. Here's a more detailed look at the key elements involved:</p>
+<ul>
+<li><p><strong>Time Management</strong>: Scheduling helps in allocating specific time slots for tasks, ensuring that important activities are prioritized and completed within deadlines. Techniques such as time blocking or the Pomodoro Technique can be used to enhance productivity.</p>
+</li>
+<li><p><strong>Resource Allocation</strong>: It involves assigning the right resources, whether they are personnel, equipment, or budget, to the tasks at hand. Effective scheduling ensures that resources are not overstretched and are used efficiently.</p>
+</li>
+<li><p><strong>Prioritization</strong>: Understanding which tasks are urgent and important is crucial. Tools like the Eisenhower Matrix can help in deciding what to schedule first.</p>
+</li>
+<li><p><strong>Flexibility and Adaptability</strong>: A good schedule should have built-in flexibility to accommodate unforeseen changes or emergencies. This adaptability is key to maintaining productivity despite disruptions.</p>
+</li>
+<li><p><strong>Tools and Software</strong>: Utilizing scheduling software or apps can streamline the process. Tools like Google Calendar, Microsoft Outlook, or specialized project management tools like Trello or Asana can be incredibly beneficial.</p>
+</li>
+<li><p><strong>Communication</strong>: Effective scheduling requires clear communication with all stakeholders involved. This ensures everyone is on the same page and can plan their activities accordingly.</p>
+</li>
+<li><p><strong>Review and Adjustment</strong>: Regularly reviewing the schedule to assess its effectiveness and making necessary adjustments is important for continuous improvement.</p>
+</li>
+</ul>
+<p>By understanding and implementing these elements, one can master the art of scheduling, leading to improved efficiency and productivity.</p>
+<p>ResponseID:fcaadbc8</p>
+</div><div title="Machine Learning" id="childContent5" onclick="setVisibileChild('childContent5')" hidden=true><h1>Machine Learning</h1>
+<p>Machine Learning (ML) is a subset of artificial intelligence that involves the development of algorithms that can learn from and make decisions on data. Here's a more detailed look at the aspects of Machine Learning previously mentioned:</p>
+<ul>
+<li><p><strong>Types of Machine Learning</strong>: There are several types of ML, including supervised learning, where models are trained on labeled data; unsupervised learning, which finds patterns in unlabeled data; and reinforcement learning, where models learn to make sequences of decisions.</p>
+</li>
+<li><p><strong>Applications</strong>: Machine Learning is used in numerous fields such as healthcare for predicting patient outcomes, finance for fraud detection, and in technology for recommendation systems and autonomous vehicles.</p>
+</li>
+<li><p><strong>Challenges</strong>: Despite its power, ML faces challenges like data quality, model bias, and the need for interpretability. Ensuring models are fair and transparent is crucial, especially in sensitive applications.</p>
+</li>
+<li><p><strong>Future Trends</strong>: The future of ML might include more advanced neural networks, increased use of federated learning to protect privacy, and integration with other AI technologies like natural language processing.</p>
+</li>
+</ul>
+<p>Is there anything specific about Machine Learning you would like to explore further?</p>
+<p>ResponseID:af6fd92f</p>
+</div><div title="Blockchain Technology" id="childContent6" onclick="setVisibileChild('childContent6')" hidden=true><h1>Blockchain Technology</h1>
+<p>Blockchain technology is a decentralized and distributed digital ledger used to record transactions across numerous computers, ensuring that the record cannot be altered retroactively without the alteration of all subsequent blocks and the consensus of the network. This technology underpins cryptocurrencies like Bitcoin but has far-reaching applications beyond finance.</p>
+<h2>Key Features of Blockchain Technology</h2>
+<ul>
+<li><strong>Decentralization</strong>: Unlike traditional databases managed by a central authority, blockchain operates on a peer-to-peer network, reducing the risk of a single point of failure.</li>
+<li><strong>Transparency and Immutability</strong>: All participants have access to a real-time record of transactions, and once data is recorded, it becomes very difficult to change, fostering trust among users.</li>
+<li><strong>Security</strong>: The use of cryptographic means to secure transactions and to control the creation of new units makes the system highly secure against fraud and unauthorized activities.</li>
+<li><strong>Smart Contracts</strong>: These are self-executing contracts with the terms directly written into code. They automatically enforce and execute the terms of a contract when predetermined conditions are met.</li>
+</ul>
+<h2>Applications of Blockchain</h2>
+<ul>
+<li><strong>Cryptocurrencies</strong>: The most well-known application, allowing for peer-to-peer digital currency transactions.</li>
+<li><strong>Supply Chain Management</strong>: Blockchain can be used to create a permanent ledger for tracking the provenance of goods, enhancing transparency and efficiency.</li>
+<li><strong>Healthcare</strong>: For securely storing patient records and sharing them between authorized parties.</li>
+<li><strong>Voting Systems</strong>: To increase the transparency and integrity of electoral processes.</li>
+</ul>
+<p>Blockchain technology continues to evolve, with ongoing research into scalability, energy consumption, and regulatory frameworks.</p>
+<p>If you have any more specific aspects of blockchain technology you'd like to explore, feel free to ask.</p>
+<h3>Follow-up Questions</h3>
+<ul>
+<li>What are some challenges faced by blockchain technology?</li>
+<li>How does blockchain technology impact privacy?</li>
+<li>Can you explain how a blockchain transaction is processed?</li>
+</ul>
+<p>ResponseID:72dc047e</p>
+</div>
+    </div>
+  </div>
+
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+
+    <script>
+      function setChildSubjects(){
+        let dropDownOptions = [];
+        let childSubjects = document.getElementById('childDivs');
+        for (let child of childSubjects.children){
+           let subject = child.title;
+           let optionValue = child.id;
+
+           dropDownOptions.push({subject: subject, value: optionValue});
+        
+        }
+
+        for (let option of dropDownOptions){
+          let optionElement = document.createElement('option');
+          optionElement.value = option.value;
+          optionElement.text = option.subject;
+          document.getElementById('childSubjects').appendChild(optionElement);
+        }
+
+        document.getElementById('childSubjects').addEventListener('change', function() {
+          if(this.value == "home"){
+            goHomePage();
+          }else{
+            setVisibleChild(this.value);
+          }
+
+          }
+        );
+      }
+    </script>
+
+
+    <script>
+      function setVisibleChild(id){
+        //quick flicker home to reset state, this allows hoping between child views
+     
+    
+           let topNode = document.getElementById('content');
+           let parentNode = document.getElementById('parentContent');
+           let childVisibleNode = document.getElementById(id);
+           let childDivs = document.getElementById('childDivs');
+           for (let child of childDivs.children){
+            if(child.id != id){
+              child.hidden = true;
+            }else{
+              child.hidden = false; //redudant
+            }
+           }
+           parentNode.hidden = true;
+           childVisibleNode.hidden = false;
+         }
+      
+    </script>
+
+    <script>
+      function goHomePage(){
+         let topNode = document.getElementById('content');
+         let parentNode = document.getElementById('parentContent');
+         let children = document.getElementById('childDivs');
+         for (let child of children.children){
+            child.hidden = true;
+         }
+         parentNode.hidden = false;
+      }
+    </script>
+
+    <script>
+      function setChildLinks(){
+        let children = document.getElementById('childDivs'); 
+        let childSubjects = [];
+        let discoveredMatches = [];
+
+        
+        for (let child of children.children){
+          let subject = child.title;
+          childSubjects.push({subject: subject, child: child});
+          }
+             
+          let parentNodeH2Subjects = []
+          let parentNodeH3Subjects = []
+          let parentNodeH4Subjects = []
+          let parentNode = document.getElementById('parentContent');
+          let H2s = parentNode.getElementsByTagName("H2");
+          let H3s = parentNode.getElementsByTagName("H3");
+          let H4s = parentNode.getElementsByTagName("H4");
+          let isH2Match = false;
+          let isH3Match = false;
+          let isH4Match = false;
+
+          H2s.length > 0? parentNodeH2Subjects = H2s.map(item => ({subject: item.innerText, item: item})):isH2Match = false;
+          H3s.length > 0?parentNodeH3Subjects = H3s.map(item => ({subject: item.innerText, item: item})):isH3Match = false;
+          H4s.length > 0?parentNodeH4Subjects = H4s.map(item => ({subject: item.innerText, item: item})):isH4Match = false;
+
+          
+           isH3Match = H3s.length == childSubjects.length;
+           isH2Match = H2s.length == childSubjects.length;
+           isH4Match = H4s.length == childSubjects.length;
+          let allDiscovered = false;
+
+          if (isH3Match){
+            //We have a match.  We need to find the H2s
+            allDiscovered = true;
+          }
+          if (isH2Match){
+            //We have a match.  We need to find the H3s
+            allDiscovered = true;
+          }
+          if (isH4Match){
+            //We have a match.  We need to find the H2s
+            allDiscovered = true;
+          }
+
+          if(allDiscovered && (isH3Match + isH2Match + isH4Match) > 1){
+            //wierd.  ok we work from scratch.
+            allDiscovered = false;
+          }
+
+          if(!allDiscovered){
+
+            let fluffWords = ["a", "an", "the", "and", "but", "or", "for", "nor", "on", "at", "to", "from", "by", "with", "of"];
+            let fluffWordsRegex = new RegExp(fluffWords.join("|"), "g");
+          
+          //OK time to stumble through unpredictable llm output
+          //First check if the child subjects are in the parent node h2 subjects
+          let isH2 = false;
+          let isH3 = false;
+          let isH4 = false;
+      
+          //This can be optimized later.  Probably doesnt matter since it is client side with modern computing.
+          for (let i = 0; i < parentNodeH2Subjects.length; i++){
+            let subject = parentNodeH2Subjects[i].subject;
+            for (let j = 0; j < childSubjects.length; j++){
+              let childSubject = childSubjects[j].subject;
+              if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                isH2 = true;
+                discoveredMatches.push({parentLink: parentNodeH2Subjects[i].item, childLink: childSubjects[j].child});
+              }
+            }
+
+          }
+         
+          if(!isH2){
+            for (let i = 0; i < parentNodeH3Subjects.length; i++){
+              let subject = parentNodeH3Subjects[i].subject;
+              for (let j = 0; j < childSubjects.length; j++){
+                let childSubject = childSubjects[j].subject;  
+                if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                  isH3 = true;
+                  discoveredMatches.push({parentLink: parentNodeH3Subjects[i].item, childLink: childSubjects[j].child});
+                }
+              }
+            }
+          }
+
+          if(!isH3){
+            for (let i = 0; i < parentNodeH4Subjects.length; i++){
+              let subject = parentNodeH4Subjects[i].subject;
+              for (let j = 0; j < childSubjects.length; j++){
+                let childSubject = childSubjects[j].subject;
+                if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                  isH4 = true;
+                  discoveredMatches.push({parentLink: parentNodeH4Subjects[i].item, childLink: childSubjects[j].child});
+                }
+              }
+            }
+          }
+
+          if(!isH4){
+              //I suppose there are edge cases but this surely covers 99.9% of the cases.
+          }
+
+          }else{
+            if(isH3Match){
+              for (let i = 0; i < parentNodeH3Subjects.length; i++){
+                let child = childSubjects[i].child;
+                makeChildLinks(parentNodeH3Subjects[i].item, child);
+              }
+              return; //bye bye
+            }
+            if(isH2Match){
+              for (let i = 0; i < parentNodeH2Subjects.length; i++){
+                let child = childSubjects[i].child;
+                makeChildLinks(parentNodeH2Subjects[i].item, child);
+                return; //bye bye
+              }
+              if(isH4Match){
+                for (let i = 0; i < parentNodeH4Subjects.length; i++){
+                  let child = childSubjects[i].child;
+                  makeChildLinks(parentNodeH4Subjects[i].item, child);
+                }
+              }
+
+            }
+
+          }
+
+          for (let match of discoveredMatches){
+            makeChildLinks(match.parentLink, match.childLink);
+            if(match.length < childSubjects.length){ alert("LLMM added additional info that is hidden");}
+          }
+
+        }
+    </script>
+
+    <script>
+       function makeChildLinks(parent, child){
+            parent.style.cursor = "pointer";
+            parent.style.textDecoration = "underline";
+            parent.style.color = "blue";
+            parent.onclick = function(){
+              setVisibleChild(child.id);
+            }
+       }
+
+    </script>
+
+<script>window.onload = setChildSubjects;</script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

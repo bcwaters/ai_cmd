@@ -1,0 +1,157 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    <a id="markdown" href="./markdown/97a182c1.md"> markdown</a>
+    <a id="previous" href="../html/6fc5586f.html?responseId=97a182c1">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+  </nav>
+
+  <div id="content"><h1>Grok Me Up</h1>
+<h2>Understanding Connection</h2>
+<ul>
+<li><strong>Connection</strong>: The core of nuanced responses, creating a bridge between inquiry and deeper understanding.</li>
+<li><strong>Empathy</strong>: Crafting responses with emotional understanding to resonate with the inquirer&#39;s perspective.</li>
+<li><strong>Contextual Relevance</strong>: Tailoring answers to fit the specific context of the question, showing consideration for the unique situation.</li>
+</ul>
+<h2>Achieving Connection</h2>
+<ul>
+<li><strong>Active Listening</strong>: Paying close attention to the nuances of the request to align the response with what&#39;s sought.</li>
+<li><strong>Personalization</strong>: Using provided information to make the response more relevant and connected to the inquirer&#39;s world.</li>
+<li><strong>Depth and Breadth</strong>: Exploring the topic thoroughly and from multiple angles to connect the response to broader themes.</li>
+</ul>
+<h2>Impact of Connection</h2>
+<ul>
+<li><strong>Satisfaction and Fulfillment</strong>: Feeling connected to the response increases satisfaction and a sense of fulfillment.</li>
+<li><strong>Learning and Growth</strong>: Connected responses facilitate learning by making complex topics more accessible and relatable.</li>
+<li><strong>Continued Engagement</strong>: Strong connections encourage ongoing interactions that meet needs at a deeper level.</li>
+</ul>
+<h2>Nuanced Response Elements</h2>
+<ul>
+<li><strong>Engagement and Insight</strong>: Engaging deeply with the topic to provide insights that connect various aspects of the issue.</li>
+<li><strong>Trust</strong>: Building trust through commitment to going beyond the surface and connecting meaningfully.</li>
+<li><strong>Feedback Loop</strong>: Encouraging feedback to refine the connection and ensure future responses continue to meet needs.</li>
+</ul>
+<p>ResponseID:97a182c1</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+
+  <script>
+    function saveMarkdown() {
+      const content = document.documentElement.outerHTML; // Get the entire HTML content
+
+      let markdownLocation = "./markdown/";
+      let markdownFileName = "97a182c1.md";
+      let markdownFile = markdownLocation + markdownFileName;
+      
+
+      const url = URL.createObjectURL(blob); // Create a URL for the Blob
+      const divInnerText = document.getElementById('content').innerText;
+      let filename = divInnerText.substring(0, 25);
+      const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+          a.download =  filename + '.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+      
+    }
+  </script>
+
+  <script>
+    //This function checks if the current page is a child page and genreate a link to the parent page.
+            function isChild(){
+               params = window.location.search.split('=')[1];
+               if (params == undefined) {
+                return false;
+               }
+               params = params.split("&");
+               for (let i = 0; i < params.length; i++) {
+                if (params[i].includes("child")) {
+                  console.log("found child  ");
+                  console.log(params[i].split("child=")[1]);
+                  return params[i].split("child=")[1];
+                }
+               }
+               return false;
+            }
+    
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log("responseId:",window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../html/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+  <script>
+    function loadMarkdownFile() {
+      const markdownFilePath = "./markdown/97a182c1.md"; // Path to the markdown file
+      fetch(markdownFilePath)
+        .then(response => response.text())
+        .then(data => {
+          const blob = new Blob([data], { type: 'text/markdown' }); // Create a Blob from the markdown content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download = '97a182c1.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        })
+        .catch(error => console.error('Error loading markdown file:', error));
+    }
+  </script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

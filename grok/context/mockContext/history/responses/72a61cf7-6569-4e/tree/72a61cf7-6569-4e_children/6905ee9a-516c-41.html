@@ -1,0 +1,202 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response - CHILD of 72a61cf7-6569-4e</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    <a id="markdown" href="../../markdown/6905ee9a-516c-41.md"> markdown</a>
+    <a id="previous" href="./72a61cf7-6569-4e.html?responseId=6905ee9a-516c-41">Previous</a>
+    <a id="Parent" href="./72a61cf7-6569-4e.html?responseId=6905ee9a-516c-41">Parent</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+  </nav>
+
+  <div id="content"><h2>Unit Testing with Mocks in Jest</h2>
+<h3>Overview</h3>
+<p>Unit testing with mocks in Jest is a critical technique for isolating the unit of code under test. This isolation allows developers to focus on the behavior of a specific component or function without the interference of external dependencies. By using mocks, developers can simulate the behavior of these dependencies, making tests more reliable and easier to maintain.</p>
+<h3>Mock Functions</h3>
+<p>Mock functions in Jest are used to replace real functions with simulated ones. They are created using <code>jest.fn()</code> and can be configured to return specific values, throw errors, or even call a real function if needed. Here are some key aspects of mock functions:</p>
+<ul>
+<li><p><strong>Return Values</strong>: You can specify what a mock function should return when called. This is useful for simulating successful API responses or database queries.</p>
+<pre><code class="language-javascript">const mockFunction = jest.fn().mockReturnValue('mocked response');
+</code></pre>
+</li>
+<li><p><strong>Error Simulation</strong>: Mock functions can be set to throw errors, which is useful for testing error handling paths in your code.</p>
+<pre><code class="language-javascript">const mockFunction = jest.fn().mockImplementation(() =&gt; {
+  throw new Error('Mocked error');
+});
+</code></pre>
+</li>
+<li><p><strong>Call Tracking</strong>: Jest provides detailed information about how a mock function was called, including the number of calls, arguments passed, and the context of the call. This helps in verifying that the function under test interacts correctly with its dependencies.</p>
+<pre><code class="language-javascript">mockFunction.mock.calls; // Array of calls
+</code></pre>
+</li>
+</ul>
+<h3>Mock Modules</h3>
+<p>Jest allows you to mock entire modules, which is particularly useful when you need to isolate the module being tested from its dependencies. There are two primary ways to mock modules in Jest:</p>
+<ul>
+<li><p><strong>Manual Mocks</strong>: You can create a manual mock by placing a file in a <code>__mocks__</code> directory that mirrors the structure of the module you want to mock. This approach gives you fine-grained control over the mock behavior.</p>
+<pre><code class="language-javascript">// __mocks__/moduleName.js
+const mockModule = jest.genMockFromModule('../moduleName');
+mockModule.functionToMock = jest.fn();
+module.exports = mockModule;
+</code></pre>
+</li>
+<li><p><strong>Automatic Mocks</strong>: Jest can automatically mock modules without the need for manual mock files. This is done using <code>jest.mock('moduleName')</code>. Automatic mocks are useful for quick tests but offer less control over the mock behavior.</p>
+<pre><code class="language-javascript">jest.mock('moduleName');
+const moduleName = require('moduleName');
+moduleName.functionToMock.mockReturnValue('mocked result');
+</code></pre>
+</li>
+</ul>
+<h3>Enhancing Test Isolation</h3>
+<p>By using mocks, you can ensure that your tests are not affected by external factors such as network conditions or database availability. This isolation is crucial for:</p>
+<ul>
+<li><strong>Consistency</strong>: Tests run the same way every time, regardless of external conditions.</li>
+<li><strong>Speed</strong>: Tests run faster because they do not depend on external systems.</li>
+<li><strong>Reliability</strong>: Tests are less prone to failures caused by external dependencies.</li>
+</ul>
+<h3>Testing Business Logic</h3>
+<p>Mocks allow you to test the core logic of your application without worrying about the integration with external systems. This means you can focus on:</p>
+<ul>
+<li><strong>Algorithmic Logic</strong>: Testing the correctness of algorithms and business rules.</li>
+<li><strong>Error Handling</strong>: Ensuring that your code properly handles different types of errors.</li>
+<li><strong>Edge Cases</strong>: Verifying how your code behaves under unusual or boundary conditions.</li>
+</ul>
+<h3>Best Practices</h3>
+<p>To get the most out of unit testing with mocks in Jest, consider the following best practices:</p>
+<ul>
+<li><p><strong>Use Mocks Judiciously</strong>: Only mock what is necessary to isolate the unit under test. Over-mocking can lead to tests that are too brittle.</p>
+</li>
+<li><p><strong>Test Real Implementations</strong>: When possible, use real implementations in your tests to ensure that your mocks accurately reflect the behavior of the actual code.</p>
+</li>
+<li><p><strong>Clear Mock State</strong>: Always clear the state of mocks between tests to prevent test pollution.</p>
+<pre><code class="language-javascript">afterEach(() =&gt; {
+  jest.clearAllMocks();
+});
+</code></pre>
+</li>
+<li><p><strong>Document Mocking Strategy</strong>: Keep a clear documentation of your mocking strategy to ensure that other developers understand the intent and behavior of your tests.</p>
+</li>
+</ul>
+<p>By following these principles and practices, you can effectively use unit testing with mocks in Jest to ensure the reliability and correctness of your code.</p>
+<p>ResponseID:6905ee9a-516c-41</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+
+  <script>
+    function saveMarkdown() {
+      const content = document.documentElement.outerHTML; // Get the entire HTML content
+
+      let markdownLocation = "./markdown/";
+      let markdownFileName = "6905ee9a-516c-41.md";
+      let markdownFile = markdownLocation + markdownFileName;
+      
+
+      const url = URL.createObjectURL(blob); // Create a URL for the Blob
+      const divInnerText = document.getElementById('content').innerText;
+      let filename = divInnerText.substring(0, 25);
+      const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+          a.download =  filename + '.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+      
+    }
+  </script>
+
+  <script>
+    //This function checks if the current page is a child page and genreate a link to the parent page.
+            function isChild(){
+               params = window.location.search.split('=')[1];
+               if (params == undefined) {
+                return false;
+               }
+               params = params.split("&");
+               for (let i = 0; i < params.length; i++) {
+                if (params[i].includes("child")) {
+                  console.log("found child  ");
+                  console.log(params[i].split("child=")[1]);
+                  return params[i].split("child=")[1];
+                }
+               }
+               return false;
+            }
+    
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log("responseId:",window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../html/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+  <script>
+    function loadMarkdownFile() {
+      const markdownFilePath = "./markdown/6905ee9a-516c-41.md"; // Path to the markdown file
+      fetch(markdownFilePath)
+        .then(response => response.text())
+        .then(data => {
+          const blob = new Blob([data], { type: 'text/markdown' }); // Create a Blob from the markdown content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download = '6905ee9a-516c-41.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        })
+        .catch(error => console.error('Error loading markdown file:', error));
+    }
+  </script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

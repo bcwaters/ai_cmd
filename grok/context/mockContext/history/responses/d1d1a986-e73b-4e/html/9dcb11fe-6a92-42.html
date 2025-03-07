@@ -1,0 +1,164 @@
+<!doctype html>
+<html>
+<head>
+  <style>
+    pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
+  Theme: StackOverflow Light
+  Description: Light theme as used on stackoverflow.com
+  Author: stackoverflow.com
+  Maintainer: @Hirse
+  Website: https://github.com/StackExchange/Stacks
+  License: MIT
+  Updated: 2021-05-15
+
+  Updated for @stackoverflow/stacks v0.64.0
+  Code Blocks: /blob/v0.64.0/lib/css/components/_stacks-code-blocks.less
+  Colors: /blob/v0.64.0/lib/css/exports/_stacks-constants-colors.less
+*/.hljs{color:#2f3337;background:#f6f6f6}.hljs-subst{color:#2f3337}.hljs-comment{color:#656e77}.hljs-attr,.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-section,.hljs-selector-tag{color:#015692}.hljs-attribute{color:#803378}.hljs-name,.hljs-number,.hljs-quote,.hljs-selector-id,.hljs-template-tag,.hljs-type{color:#b75501}.hljs-selector-class{color:#015692}.hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-string,.hljs-symbol,.hljs-template-variable,.hljs-variable{color:#54790d}.hljs-meta,.hljs-selector-pseudo{color:#015692}.hljs-built_in,.hljs-literal,.hljs-title{color:#b75501}.hljs-bullet,.hljs-code{color:#535a60}.hljs-meta .hljs-string{color:#54790d}.hljs-deletion{color:#c02d2e}.hljs-addition{color:#2f6f44}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}
+
+    
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: left;
+      padding: 10px;
+    }
+    
+    .nav-right {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+  </style>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+ 
+    <a id="home" href="/?context=9dcb11fe-6a92-42">Prompt again</a>
+    <div class="nav-right">
+    <a id="markdown" href="../history/responses/9dcb11fe-6a92-42/markdown/9dcb11fe-6a92-42.md"> markdown</a>
+    <a id="previous" href="../history/responses/d1d1a986-e73b-4e/html/d1d1a986-e73b-4e.html?responseId=9dcb11fe-6a92-42">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    </div>
+  </nav>
+
+  <div id="content" class="markdown-body"><h2>The Inscribed Angle Theorem</h2>
+<h3>Statement:</h3>
+<p>The Inscribed Angle Theorem states that the measure of an angle inscribed in a circle is half the measure of the arc that the angle intercepts. This relationship holds true regardless of the position of the angle on the circle's circumference, as long as its vertex lies on the circle and its sides intersect the circle at two other points.</p>
+<h3>Mathematical Expression:</h3>
+<p>If we denote an inscribed angle as (\angle ABC) and the arc it intercepts as (\stackrel{\frown}{AC}), the theorem can be mathematically expressed as:
+[ \angle ABC = \frac{1}{2} \text{arc} \stackrel{\frown}{AC} ]
+This formula shows the direct proportionality between the inscribed angle and the intercepted arc, emphasizing the theorem's utility in angle and arc calculations.</p>
+<h3>Proof:</h3>
+<p>The proof of the Inscribed Angle Theorem can be approached in various ways, but a common method involves considering different cases based on the position of the inscribed angle relative to the circle's center:</p>
+<ol>
+<li><p><strong>Angle at the Center:</strong> If the angle is a central angle, (\angle AOC), where (O) is the center of the circle, then:
+[ \angle AOC = \text{arc} \stackrel{\frown}{AC} ]
+When an inscribed angle (\angle ABC) intercepts the same arc (\stackrel{\frown}{AC}), it is half of the central angle because:
+[ \angle ABC = \frac{1}{2} \angle AOC = \frac{1}{2} \text{arc} \stackrel{\frown}{AC} ]</p>
+</li>
+<li><p><strong>Angle on the Circle:</strong> For any other position of the inscribed angle on the circle, the same principle applies. By drawing the radius to the points where the angle's sides intersect the circle, we can form two isosceles triangles and use their properties to show that the inscribed angle is always half the central angle subtended by the same arc.</p>
+</li>
+</ol>
+<h3>Coolness Factor:</h3>
+<p>The elegance of the Inscribed Angle Theorem lies in its simplicity and the powerful insights it provides into the geometry of circles. It connects the measurement of angles directly to the arcs they intercept, allowing for straightforward calculations of angles and arcs within a circle.</p>
+<ul>
+<li><p><strong>Simplification of Complex Problems:</strong> The theorem simplifies the calculation of angles in circles, making it easier to solve problems that might otherwise be complex. For example, in a circle, if you know the measure of an arc, you can immediately find the measure of any inscribed angle intercepting that arc.</p>
+</li>
+<li><p><strong>Applications in Astronomy:</strong> In astronomy, the theorem is used to calculate the angles between celestial bodies as observed from Earth. Since the Earth can be considered the center of a circle for these observations, the angles formed by the lines of sight to different celestial bodies are inscribed angles, and their measures can be calculated using the theorem.</p>
+</li>
+<li><p><strong>Education and Visualization:</strong> The theorem is a staple in mathematics education due to its visual appeal and the intuitive understanding it fosters. It is often taught with diagrams that show how changing the position of the inscribed angle while keeping the intercepted arc constant does not change the angle's measure, which is a powerful demonstration of the theorem's validity.</p>
+</li>
+<li><p><strong>Generalization and Extensions:</strong> The Inscribed Angle Theorem can be extended to other conic sections, such as ellipses and hyperbolas, and it has counterparts in spherical geometry, making it a fundamental concept with broad applicability in geometry and related fields.</p>
+</li>
+</ul>
+<p>By understanding and applying the Inscribed Angle Theorem, one can gain deeper insights into the nature of circles and angles, making it a cornerstone of geometric analysis and a tool for solving a wide range of problems in mathematics and beyond.</p>
+<p>ResponseID:9dcb11fe-6a92-42</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+
+  <script>
+    //This function checks if the current page is a child page and genreate a link to the parent page.
+            function isChild(){
+               params = window.location.search.split('=')[1];
+               if (params == undefined) {
+                return false;
+               }
+               params = params.split("&");
+               for (let i = 0; i < params.length; i++) {
+                if (params[i].includes("child")) {
+                  console.log("found child  ");
+                  console.log(params[i].split("child=")[1]);
+                  return params[i].split("child=")[1];
+                }
+               }
+               return false;
+            }
+    
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log("responseId:",window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../html/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+  <script>
+    function loadMarkdownFile() {
+      const markdownFilePath = "./markdown/9dcb11fe-6a92-42.md"; // Path to the markdown file
+      fetch(markdownFilePath)
+        .then(response => response.text())
+        .then(data => {
+          const blob = new Blob([data], { type: 'text/markdown' }); // Create a Blob from the markdown content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download = '9dcb11fe-6a92-42.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        })
+        .catch(error => console.error('Error loading markdown file:', error));
+    }
+  </script>
+
+</body>
+</html>
+
+
+   

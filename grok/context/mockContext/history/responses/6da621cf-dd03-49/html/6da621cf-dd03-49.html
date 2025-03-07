@@ -1,0 +1,172 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    <a id="markdown" href="./6da621cf-dd03-49.md"> markdown</a>
+    <a id="previous" href="../083d66e0-b965-4c/html/083d66e0-b965-4c.html?responseId=6da621cf-dd03-49">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+  </nav>
+
+  <div id="content"><h1>Unit Testing in Pure JavaScript Node App</h1>
+<p>For unit testing in a pure JavaScript Node application, <strong>Jest</strong> is highly recommended. Here's why:</p>
+<ul>
+<li><strong>Ease of Setup</strong>: Jest is easy to set up and integrate into your Node.js project.</li>
+<li><strong>Feature-Rich</strong>: It comes with features like mocking, code coverage, and snapshot testing out of the box.</li>
+<li><strong>Community Support</strong>: It has a large community and is actively maintained by Facebook, ensuring it stays up-to-date with the latest JavaScript features.</li>
+<li><strong>Fast and Safe</strong>: Jest runs tests in parallel, making it fast, and it provides an isolated environment for each test, which is crucial for unit testing.</li>
+</ul>
+<p>To get started with Jest in your project, you can simply install it using npm:</p>
+<pre><code class="language-bash">npm install --save-dev jest
+</code></pre>
+<p>Then, update your <code>package.json</code> to use Jest as your test script:</p>
+<pre><code class="language-json">{
+  "scripts": {
+    "test": "jest"
+  }
+}
+</code></pre>
+<p>Now, you can write your tests in files that end with <code>.test.js</code> or <code>.spec.js</code>. Here's a simple example of how to test a utility function:</p>
+<pre><code class="language-javascript">// util.js
+function add(a, b) {
+  return a + b;
+}
+
+module.exports = add;
+
+// util.test.js
+const add = require('./util');
+
+test('adds 1 + 2 to equal 3', () =&gt; {
+  expect(add(1, 2)).toBe(3);
+});
+</code></pre>
+<p>Run your tests with <code>npm test</code>, and Jest will execute them.</p>
+<h3>Follow-up Questions:</h3>
+<ul>
+<li>Have you used any testing frameworks before?</li>
+<li>Are there specific features in Jest that you're interested in learning more about?</li>
+<li>Do you need help setting up Jest in your project?</li>
+</ul>
+<p>ResponseID:6da621cf-dd03-49</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+
+  <script>
+    function saveMarkdown() {
+      const content = document.documentElement.outerHTML; // Get the entire HTML content
+
+      let markdownLocation = "./markdown/";
+      let markdownFileName = "6da621cf-dd03-49.md";
+      let markdownFile = markdownLocation + markdownFileName;
+      
+
+      const url = URL.createObjectURL(blob); // Create a URL for the Blob
+      const divInnerText = document.getElementById('content').innerText;
+      let filename = divInnerText.substring(0, 25);
+      const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+          a.download =  filename + '.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+      
+    }
+  </script>
+
+  <script>
+    //This function checks if the current page is a child page and genreate a link to the parent page.
+            function isChild(){
+               params = window.location.search.split('=')[1];
+               if (params == undefined) {
+                return false;
+               }
+               params = params.split("&");
+               for (let i = 0; i < params.length; i++) {
+                if (params[i].includes("child")) {
+                  console.log("found child  ");
+                  console.log(params[i].split("child=")[1]);
+                  return params[i].split("child=")[1];
+                }
+               }
+               return false;
+            }
+    
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log("responseId:",window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../html/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+  <script>
+    function loadMarkdownFile() {
+      const markdownFilePath = "./markdown/6da621cf-dd03-49.md"; // Path to the markdown file
+      fetch(markdownFilePath)
+        .then(response => response.text())
+        .then(data => {
+          const blob = new Blob([data], { type: 'text/markdown' }); // Create a Blob from the markdown content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download = '6da621cf-dd03-49.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        })
+        .catch(error => console.error('Error loading markdown file:', error));
+    }
+  </script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

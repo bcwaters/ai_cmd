@@ -1,0 +1,165 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    <a id="markdown" href="./markdown/df965b03.md"> markdown</a>
+    <a id="previous" href="../b9de8ff6/html/b9de8ff6.html?responseId=df965b03">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+  </nav>
+
+  <div id="content"><h1>Sarasota Vanlife Scene: Hippy Places to Sleep, Late Spring Festivals, and Beachlife</h1>
+<h2>Hippy Places to Sleep</h2>
+<p>In Sarasota, the vanlife community often seeks out spots that resonate with a more bohemian vibe. Here are some places that might appeal to those looking for a hippy experience:</p>
+<ul>
+<li><p><strong>Oscar Scherer State Park</strong>: While not exclusively hippy, this park's natural setting and amenities like showers and electric hookups attract a diverse crowd, including those with a more relaxed, nature-loving lifestyle. The park's trails and serene environment make it a favorite among vanlifers who appreciate a laid-back atmosphere.</p>
+</li>
+<li><p><strong>Myakka River State Park</strong>: Known for its vast wilderness and hammocks, this park offers primitive camping which can appeal to those seeking a more rustic and free-spirited experience. The park's beauty and tranquility draw in many who enjoy living close to nature.</p>
+</li>
+<li><p><strong>Street Parking Near Siesta Key</strong>: Some vanlifers park overnight on streets near Siesta Key, enjoying the proximity to the beach and the laid-back beach culture. Always check for signs indicating parking restrictions to avoid fines.</p>
+</li>
+</ul>
+<h2>Known Festival in Late Spring</h2>
+<p>One of the most notable festivals in late spring in Sarasota is the <strong>Sarasota Music Festival</strong>. Held annually, this festival attracts a wide range of music enthusiasts and often draws in a bohemian crowd. The event features various performances and workshops, creating a vibrant atmosphere that many vanlifers enjoy. It's a great opportunity to connect with like-minded individuals and immerse yourself in the local arts scene.</p>
+<h2>Beachlife</h2>
+<p>Sarasota's beachlife is a significant draw for vanlifers. Here's what you can expect:</p>
+<ul>
+<li><p><strong>Siesta Key Beach</strong>: Known for its powdery white sand and clear waters, Siesta Key is a favorite among beachgoers. Vanlifers can park nearby and enjoy the beach's relaxed atmosphere, often engaging in activities like yoga, beach volleyball, and bonfires.</p>
+</li>
+<li><p><strong>Lido Beach</strong>: Another popular spot, Lido Beach offers a more serene environment with plenty of space to spread out. It's ideal for those looking to relax and soak up the sun, and the nearby Lido Key provides some street parking options.</p>
+</li>
+<li><p><strong>Beach Activities</strong>: Sarasota's beaches are perfect for various activities that align with the vanlife ethos. From surfing and paddleboarding to simply lounging and reading, there's something for everyone. Many vanlifers also enjoy the local beach culture, which often includes live music, art festivals, and community gatherings.</p>
+</li>
+</ul>
+<h2>Tips for Enjoying Sarasota's Vanlife Scene</h2>
+<ul>
+<li><p><strong>Engage with the Community</strong>: Join local vanlife groups on social media, like Vanlife Florida or Sarasota Vandwellers, to get insider tips on the best hippy spots and events.</p>
+</li>
+<li><p><strong>Respect Local Regulations</strong>: Always adhere to local parking and camping regulations to ensure you can continue enjoying these beautiful spots.</p>
+</li>
+<li><p><strong>Environmental Respect</strong>: Leave no trace and respect the natural beauty of Sarasota. This helps maintain access to these areas for future visitors.</p>
+</li>
+</ul>
+<p>By embracing the hippy vibe, attending late spring festivals, and enjoying the vibrant beachlife, you can fully experience what Sarasota has to offer to the vanlife community.</p>
+<p>ResponseID:df965b03</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+
+  <script>
+    function saveMarkdown() {
+      const content = document.documentElement.outerHTML; // Get the entire HTML content
+
+      let markdownLocation = "./markdown/";
+      let markdownFileName = "df965b03.md";
+      let markdownFile = markdownLocation + markdownFileName;
+      
+
+      const url = URL.createObjectURL(blob); // Create a URL for the Blob
+      const divInnerText = document.getElementById('content').innerText;
+      let filename = divInnerText.substring(0, 25);
+      const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+          a.download =  filename + '.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+      
+    }
+  </script>
+
+  <script>
+    //This function checks if the current page is a child page and genreate a link to the parent page.
+            function isChild(){
+               params = window.location.search.split('=')[1];
+               if (params == undefined) {
+                return false;
+               }
+               params = params.split("&");
+               for (let i = 0; i < params.length; i++) {
+                if (params[i].includes("child")) {
+                  console.log("found child  ");
+                  console.log(params[i].split("child=")[1]);
+                  return params[i].split("child=")[1];
+                }
+               }
+               return false;
+            }
+    
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log("responseId:",window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../html/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+  <script>
+    function loadMarkdownFile() {
+      const markdownFilePath = "./markdown/df965b03.md"; // Path to the markdown file
+      fetch(markdownFilePath)
+        .then(response => response.text())
+        .then(data => {
+          const blob = new Blob([data], { type: 'text/markdown' }); // Create a Blob from the markdown content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download = 'df965b03.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        })
+        .catch(error => console.error('Error loading markdown file:', error));
+    }
+  </script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

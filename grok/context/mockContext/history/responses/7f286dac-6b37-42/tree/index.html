@@ -1,0 +1,647 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Home Page</title>
+  <style>
+    
+html {
+  font-size: 100%;
+  overflow-y: scroll;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+body {
+  color: #444;
+  font-family: Georgia, Palatino, 'Palatino Linotype', Times, 'Times New Roman', serif;
+  font-size: 12px;
+  line-height: 1.5em;
+  padding: 1em;
+  margin: auto;
+  max-width: 50em;
+  background: #fefefe;
+}
+
+a {
+  color: #0645ad;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #0b0080;
+}
+
+a:hover {
+  color: #06e;
+}
+
+a:active {
+  color: #faa700;
+}
+
+a:focus {
+  outline: thin dotted;
+}
+
+a:hover,
+a:active {
+  outline: 0;
+}
+
+::-moz-selection {
+  background: rgba(255, 255, 0, 0.3);
+  color: #000;
+}
+
+::selection {
+  background: rgba(255, 255, 0, 0.3);
+  color: #000;
+}
+
+a::-moz-selection {
+  background: rgba(255, 255, 0, 0.3);
+  color: #0645ad;
+}
+
+a::selection {
+  background: rgba(255, 255, 0, 0.3);
+  color: #0645ad;
+}
+
+p {
+  margin: 1em 0;
+}
+
+img {
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
+  color: #111;
+  line-height: 1em;
+}
+
+h4,
+h5,
+h6 {
+  font-weight: bold;
+}
+
+h1 {
+  font-size: 2.5em;
+}
+
+h2 {
+  font-size: 2em;
+}
+
+h3 {
+  font-size: 1.5em;
+}
+
+h4 {
+  font-size: 1.2em;
+}
+
+h5 {
+  font-size: 1em;
+}
+
+h6 {
+  font-size: 0.9em;
+}
+
+blockquote {
+  color: #666666;
+  margin: 0;
+  padding-left: 3em;
+  border-left: 0.5em #eee solid;
+}
+
+hr {
+  display: block;
+  border: 0;
+  border-top: 1px solid #aaa;
+  border-bottom: 1px solid #eee;
+  margin: 1em 0;
+  padding: 0;
+}
+
+/* pre,
+code, */
+kbd,
+samp {
+  color: #000;
+  font-family: monospace, monospace;
+  _font-family: 'courier new', monospace;
+  font-size: 0.98em;
+}
+
+pre {
+  white-space: pre;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+b,
+strong {
+  font-weight: bold;
+}
+
+dfn {
+  font-style: italic;
+}
+
+ins {
+  background: #ff9;
+  color: #000;
+  text-decoration: none;
+}
+
+mark {
+  background: #ff0;
+  color: #000;
+  font-style: italic;
+  font-weight: bold;
+}
+
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sup {
+  top: -0.5em;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+ul,
+ol {
+  margin: 1em 0;
+  padding: 0 0 0 2em;
+}
+
+li p:last-child {
+  margin: 0;
+}
+
+dd {
+  margin: 0 0 0 2em;
+}
+
+img {
+  border: 0;
+  -ms-interpolation-mode: bicubic;
+  vertical-align: middle;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+td {
+  vertical-align: top;
+}
+
+@media only screen and (min-width: 480px) {
+  body {
+    font-size: 14px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  body {
+    font-size: 16px;
+  }
+}
+
+@media print {
+  * {
+    background: transparent !important;
+    color: black !important;
+    filter: none !important;
+    -ms-filter: none !important;
+  }
+
+  body {
+    font-size: 12pt;
+    max-width: 100%;
+  }
+
+  a,
+  a:visited {
+    text-decoration: underline;
+  }
+
+  hr {
+    height: 1px;
+    border: 0;
+    border-bottom: 1px solid black;
+  }
+
+  a[href]:after {
+    content: " (" attr(href) ")";
+  }
+
+  abbr[title]:after {
+    content: " (" attr(title) ")";
+  }
+
+  .ir a:after,
+  a[href^="javascript:"]:after,
+  a[href^="#"]:after {
+    content: "";
+  }
+
+  pre,
+  blockquote {
+    border: 1px solid #999;
+    padding-right: 1em;
+    page-break-inside: avoid;
+  }
+
+  tr,
+  img {
+    page-break-inside: avoid;
+  }
+
+  img {
+    max-width: 100% !important;
+  }
+
+  @page :left {
+    margin: 15mm 20mm 15mm 10mm;
+  }
+
+  @page :right {
+    margin: 15mm 10mm 15mm 20mm;
+  }
+
+  p,
+  h2,
+  h3 {
+    orphans: 3;
+    widows: 3;
+  }
+
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
+}
+
+
+pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px; font-size: 12px;}/*!
+  Theme: StackOverflow Light
+  Description: Light theme as used on stackoverflow.com
+  Author: stackoverflow.com
+  Maintainer: @Hirse
+  Website: https://github.com/StackExchange/Stacks
+  License: MIT
+  Updated: 2021-05-15
+
+  Updated for @stackoverflow/stacks v0.64.0
+  Code Blocks: /blob/v0.64.0/lib/css/components/_stacks-code-blocks.less
+  Colors: /blob/v0.64.0/lib/css/exports/_stacks-constants-colors.less
+*/.hljs{color:#2f3337;background:#f6f6f6}.hljs-subst{color:#2f3337}.hljs-comment{color:#656e77}.hljs-attr,.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-section,.hljs-selector-tag{color:#015692}.hljs-attribute{color:#803378}.hljs-name,.hljs-number,.hljs-quote,.hljs-selector-id,.hljs-template-tag,.hljs-type{color:#b75501}.hljs-selector-class{color:#015692}.hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-string,.hljs-symbol,.hljs-template-variable,.hljs-variable{color:#54790d}.hljs-meta,.hljs-selector-pseudo{color:#015692}.hljs-built_in,.hljs-literal,.hljs-title{color:#b75501}.hljs-bullet,.hljs-code{color:#535a60}.hljs-meta .hljs-string{color:#54790d}.hljs-deletion{color:#c02d2e}.hljs-addition{color:#2f6f44}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}
+
+
+    
+    .nav-button {
+      background-color: transparent;
+      border: 2px solid #008CBA;
+      color: #008CBA;
+      font-size: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .nav-button:hover {
+      background-color: #008CBA;
+      color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #f8f9fa;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+    }
+
+    /* Navbar links */
+    nav a {
+      color: #333;
+      text-decoration: none;
+      font-family: 'Arial', sans-serif;
+      text-transform: uppercase;
+      font-weight: 300;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #007bff;
+      text-decoration: underline;
+      background-color: rgba(0, 123, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .nav-right {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    
+    /* Dropdown styling */
+    select {
+      padding: 5px 10px;
+      border: 2px solid #008CBA;
+      border-radius: 4px;
+      background-color: white;
+      color: #333;
+      font-family: 'Arial', sans-serif;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    select:hover {
+      border-color: #007bff;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+    }
+    
+    select:focus {
+      outline: none;
+      border-color: #007bff;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+    
+    option {
+      padding: 5px;
+      background-color: white;
+      color: #333;
+    }
+    
+    option:hover {
+      background-color: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a id="parentContentLink" href='/?context=7f286dac-6b37-42'>Home</a>
+
+      <select id="childSubjects">
+        <option value="home">Home</option>
+        <!-- Children are added here onload with setChildSubjects -->
+      </select>
+      <!-- Add a previous and next button for prior requests? -->
+      <!-- Add a button to save the current page as a markdown file -->
+
+      
+      <button class="nav-button" id="saveButton" onclick="saveButton()">Save</button>
+
+
+  </nav>
+
+  <div id="content">  
+    <div id="parentContent">
+        <h1>Applications of TensorFlow.js by Big Tech in the Browser</h1>
+<h2>Google's Teachable Machine</h2>
+<p>Google's Teachable Machine is an interactive web-based tool that uses TensorFlow.js to enable users to create machine learning models directly in their browser. It allows users to train a model to recognize images, sounds, or poses without writing any code. This application demonstrates the power of TensorFlow.js by making machine learning accessible to a broader audience, showcasing real-time model training and inference in the browser.</p>
+<pre><code class="hljs language-javascript"><span class="hljs-comment">// Example of using TensorFlow.js in Teachable Machine</span>
+<span class="hljs-keyword">const</span> model = <span class="hljs-keyword">await</span> tmImage.<span class="hljs-title function_">loadFromFiles</span>(video, {
+  <span class="hljs-attr">tmFile</span>: <span class="hljs-string">'model.tm'</span>,
+  <span class="hljs-attr">metadataFile</span>: <span class="hljs-string">'metadata.json'</span>,
+  <span class="hljs-attr">weightsFile</span>: <span class="hljs-string">'weights.bin'</span>
+});
+
+<span class="hljs-keyword">const</span> prediction = <span class="hljs-keyword">await</span> model.<span class="hljs-title function_">predict</span>(video);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(prediction);</code></pre>
+<h2>Microsoft's Azure Custom Vision</h2>
+<p>Microsoft leverages TensorFlow.js in its Azure Custom Vision service to provide a browser-based interface for training and deploying image classification models. Users can upload images, train a model, and then use the trained model directly in the browser for real-time predictions. This application highlights the scalability and ease of use of TensorFlow.js for enterprise-level machine learning tasks.</p>
+<pre><code class="hljs language-javascript"><span class="hljs-comment">// Example of using TensorFlow.js in Azure Custom Vision</span>
+<span class="hljs-keyword">const</span> model = <span class="hljs-keyword">await</span> cocoSsd.<span class="hljs-title function_">load</span>();
+<span class="hljs-keyword">const</span> predictions = <span class="hljs-keyword">await</span> model.<span class="hljs-title function_">detect</span>(<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">'img'</span>));
+
+predictions.<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">prediction</span> =></span> {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(prediction);
+});</code></pre>
+    </div>
+    <div id="childDivs">
+      <div title="Googles Teachable Machine" id="childContent1" onclick="setVisibileChild('childContent1')" hidden=true><h1>Google's Teachable Machine</h1>
+<p>Google's Teachable Machine is a pioneering tool that exemplifies the capabilities of TensorFlow.js in making machine learning accessible and interactive directly within a web browser. This tool is designed to democratize machine learning by allowing users to create, train, and deploy machine learning models without any coding knowledge. Here's a detailed look into how it functions and its impact:</p>
+<h2><strong>Interactive Browser-Based Interface</strong></h2>
+<p>The core feature of Google's Teachable Machine is its user-friendly, browser-based interface. This interface allows users to engage with machine learning directly from their web browsers, eliminating the need for complex software installations or coding expertise. The tool is designed to be intuitive, guiding users through the process of training models to recognize images, sounds, or even poses.</p>
+<ul>
+<li><strong>Ease of Use:</strong> Users can start by selecting the type of model they wish to train—image, sound, or pose. This selection triggers a simple, step-by-step process to collect data and train the model.</li>
+<li><strong>Real-Time Feedback:</strong> As users train their models, Teachable Machine provides immediate feedback, showing the model's accuracy and performance in real-time. This feature is powered by TensorFlow.js, which efficiently handles the training and inference directly in the browser.</li>
+</ul>
+<h2><strong>Model Training and Inference</strong></h2>
+<p>Teachable Machine leverages TensorFlow.js to handle the complexities of model training and inference within the browser. This is a significant achievement in making machine learning more accessible.</p>
+<ul>
+<li><strong>Training Process:</strong> Users can train models by providing examples of what they want the model to recognize. For instance, in image classification, users upload images and label them. TensorFlow.js processes these inputs to train the model.</li>
+<li><strong>Inference Capabilities:</strong> Once trained, the model can be used immediately to classify new images, sounds, or poses directly in the browser. This real-time prediction is facilitated by TensorFlow.js's ability to run models efficiently in a web environment.</li>
+</ul>
+<pre><code class="hljs language-javascript"><span class="hljs-comment">// Example of using TensorFlow.js in Teachable Machine</span>
+<span class="hljs-keyword">const</span> model = <span class="hljs-keyword">await</span> tmImage.<span class="hljs-title function_">loadFromFiles</span>(video, {
+  <span class="hljs-attr">tmFile</span>: <span class="hljs-string">'model.tm'</span>,
+  <span class="hljs-attr">metadataFile</span>: <span class="hljs-string">'metadata.json'</span>,
+  <span class="hljs-attr">weightsFile</span>: <span class="hljs-string">'weights.bin'</span>
+});
+
+<span class="hljs-keyword">const</span> prediction = <span class="hljs-keyword">await</span> model.<span class="hljs-title function_">predict</span>(video);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(prediction);</code></pre>
+<h2><strong>Accessibility and Educational Impact</strong></h2>
+<p>Google's Teachable Machine has a significant impact on education and accessibility in machine learning.</p>
+<ul>
+<li><strong>Educational Tool:</strong> It serves as an excellent educational tool, allowing students and educators to experiment with machine learning concepts without the barrier of coding. This hands-on approach helps demystify machine learning and encourages creative exploration.</li>
+<li><strong>Broad Accessibility:</strong> By requiring no coding skills, Teachable Machine opens up machine learning to a wider audience, including artists, hobbyists, and professionals from non-technical backgrounds who can now experiment with AI-driven projects.</li>
+</ul>
+<h2><strong>Integration with Other Tools</strong></h2>
+<p>While primarily a standalone tool, Teachable Machine can be integrated with other web technologies and platforms, enhancing its utility.</p>
+<ul>
+<li><strong>Web Integration:</strong> Users can embed their trained models into websites or web applications, allowing for interactive experiences where users can see the model in action.</li>
+<li><strong>Exporting Models:</strong> Trained models can be exported for use in other environments, showcasing the flexibility of TensorFlow.js in deploying models across different platforms.</li>
+</ul>
+<p>In summary, Google's Teachable Machine is a testament to the power and accessibility of TensorFlow.js in the browser. It provides a user-friendly platform for creating and deploying machine learning models, making the technology accessible to everyone and fostering a deeper understanding and appreciation of AI technologies.</p>
+<p>ResponseID:7e05ee52-6e22-43</p></div><div title="Microsofts Azure Custom Vision" id="childContent2" onclick="setVisibileChild('childContent2')" hidden=true><h1>Microsoft's Azure Custom Vision</h1>
+<p>Microsoft's Azure Custom Vision is a powerful tool that integrates TensorFlow.js to offer a seamless and user-friendly platform for image classification. This service is designed to empower users to build, train, and deploy custom image classification models directly from their web browsers, making it an excellent example of how TensorFlow.js can be used for enterprise-level machine learning applications.</p>
+<h2>Browser-Based Interface</h2>
+<p>The primary interface of Azure Custom Vision is accessible directly through a web browser, eliminating the need for local installations or complex setups. This browser-based approach leverages TensorFlow.js to handle model training and inference in real-time, allowing users to interact with the model and see immediate results.</p>
+<h2>Model Training</h2>
+<p>Users can easily upload their own images to the Azure Custom Vision platform. These images are used to train custom models tailored to specific classification tasks. The training process is streamlined and user-friendly, with TensorFlow.js handling the computational complexity in the background. This makes it accessible even to users without deep technical knowledge of machine learning.</p>
+<pre><code class="hljs language-javascript"><span class="hljs-comment">// Example of uploading images for training</span>
+<span class="hljs-keyword">const</span> images = [
+  { <span class="hljs-attr">name</span>: <span class="hljs-string">'image1.jpg'</span>, <span class="hljs-attr">tag</span>: <span class="hljs-string">'dog'</span> },
+  { <span class="hljs-attr">name</span>: <span class="hljs-string">'image2.jpg'</span>, <span class="hljs-attr">tag</span>: <span class="hljs-string">'cat'</span> }
+];
+
+images.<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">image</span> =></span> {
+  <span class="hljs-title function_">uploadImage</span>(image.<span class="hljs-property">name</span>, image.<span class="hljs-property">tag</span>);
+});</code></pre>
+<h2>Real-Time Predictions</h2>
+<p>After training, the model can be used directly in the browser to make real-time predictions. This is facilitated by TensorFlow.js, which allows the model to run efficiently in the browser environment. Users can upload new images or use a webcam feed to test the model's accuracy and performance.</p>
+<pre><code class="hljs language-javascript"><span class="hljs-comment">// Example of using the trained model for real-time predictions</span>
+<span class="hljs-keyword">const</span> model = <span class="hljs-keyword">await</span> cocoSsd.<span class="hljs-title function_">load</span>();
+<span class="hljs-keyword">const</span> imgElement = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">'img'</span>);
+
+<span class="hljs-comment">// Function to predict on an image</span>
+<span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">predictImage</span>(<span class="hljs-params">img</span>) {
+  <span class="hljs-keyword">const</span> predictions = <span class="hljs-keyword">await</span> model.<span class="hljs-title function_">detect</span>(img);
+  predictions.<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">prediction</span> =></span> {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`Class: <span class="hljs-subst">${prediction.<span class="hljs-keyword">class</span>}</span>, Confidence: <span class="hljs-subst">${prediction.score}</span>`</span>);
+  });
+}
+
+<span class="hljs-comment">// Example usage with a new image</span>
+<span class="hljs-title function_">predictImage</span>(imgElement);</code></pre>
+<h2>Scalability and Ease of Use</h2>
+<p>Azure Custom Vision showcases the scalability of TensorFlow.js by handling large datasets and complex models within the browser. The ease of use is evident in the intuitive interface that guides users through the entire process, from image upload to model deployment. This makes it an ideal tool for businesses looking to implement custom image classification without extensive machine learning expertise.</p>
+<h2>Integration with Azure Ecosystem</h2>
+<p>As part of the Azure ecosystem, Azure Custom Vision seamlessly integrates with other Azure services, such as Azure Machine Learning and Azure Storage. This integration allows for a more comprehensive approach to machine learning workflows, from data storage and preprocessing to model deployment and monitoring.</p>
+<h2>Use Cases</h2>
+<p>Azure Custom Vision is used across various industries for tasks such as:</p>
+<ul>
+<li><strong>Retail</strong>: Classifying products for inventory management.</li>
+<li><strong>Healthcare</strong>: Identifying medical images for diagnostic purposes.</li>
+<li><strong>Manufacturing</strong>: Detecting defects in production lines.</li>
+</ul>
+<p>These use cases demonstrate the versatility and applicability of Azure Custom Vision in real-world scenarios, further emphasizing the utility of TensorFlow.js in enabling such advanced functionalities directly in the browser.</p>
+<p>In summary, Microsoft's Azure Custom Vision leverages TensorFlow.js to provide a robust, scalable, and user-friendly platform for custom image classification, making it a standout example of how big tech utilizes TensorFlow.js in the browser for enterprise-level machine learning applications.</p>
+<p>ResponseID:baeac62f-4c53-41</p></div>
+    </div>
+  </div>
+
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+
+    <script>
+      function setChildSubjects(){
+        let dropDownOptions = [];
+        let childSubjects = document.getElementById('childDivs');
+        for (let child of childSubjects.children){
+           let subject = child.title;
+           let optionValue = child.id;
+
+           dropDownOptions.push({subject: subject, value: optionValue});
+        
+        }
+
+        for (let option of dropDownOptions){
+          let optionElement = document.createElement('option');
+          optionElement.value = option.value;
+          optionElement.text = option.subject;
+          document.getElementById('childSubjects').appendChild(optionElement);
+        }
+
+        document.getElementById('childSubjects').addEventListener('change', function() {
+          if(this.value == "home"){
+            goHomePage();
+          }else{
+            setVisibleChild(this.value);
+          }
+
+          }
+        );
+      }
+    </script>
+
+
+    <script>
+      function setVisibleChild(id){
+        //quick flicker home to reset state, this allows hoping between child views
+     
+    
+           let topNode = document.getElementById('content');
+           let parentNode = document.getElementById('parentContent');
+           let childVisibleNode = document.getElementById(id);
+           let childDivs = document.getElementById('childDivs');
+           for (let child of childDivs.children){
+            if(child.id != id){
+              child.hidden = true;
+            }else{
+              child.hidden = false; //redudant
+            }
+           }
+           parentNode.hidden = true;
+           childVisibleNode.hidden = false;
+         }
+      
+    </script>
+
+    <script>
+      function goHomePage(){
+         let topNode = document.getElementById('content');
+         let parentNode = document.getElementById('parentContent');
+         let children = document.getElementById('childDivs');
+         for (let child of children.children){
+            child.hidden = true;
+         }
+         parentNode.hidden = false;
+      }
+    </script>
+        
+
+    <script>
+       function makeChildLinks(parent, child){
+            parent.style.cursor = "pointer";
+            parent.style.textDecoration = "underline";
+            parent.style.color = "blue";
+            parent.onclick = function(){
+              setVisibleChild(child.id);
+            }
+       }
+
+    </script>
+
+<script>window.onload = setChildSubjects;</script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

@@ -1,0 +1,147 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    <a id="markdown" href="./markdown/04fe10eb.md"> markdown</a>
+    <a id="previous" href="../c3a7b44d/html/c3a7b44d.html?responseId=04fe10eb">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+  </nav>
+
+  <div id="content"><h1>Earth: A Detailed Overview</h1>
+<p>Earth, the third planet from the Sun and the only known astronomical object in the universe known to harbor life, is a fascinating subject of study due to its unique characteristics. Here's a more detailed look at the information provided earlier:</p>
+<h3>Orbital Characteristics</h3>
+<p>Earth orbits the Sun at an average distance of about 149.6 million kilometers (93 million miles). This orbit takes approximately 365.24 days to complete, which is why we have a leap year every four years to account for the extra time. The Earth's orbit is nearly circular, with an eccentricity of about 0.0167. The tilt of Earth's axis is about 23.4 degrees, which is responsible for the changing of the seasons throughout the year. This tilt causes variations in the amount of sunlight received by different parts of the planet at different times, leading to seasonal changes.</p>
+<h3>Atmosphere</h3>
+<p>The Earth's atmosphere is composed mainly of nitrogen (78.09%) and oxygen (20.95%), with trace amounts of other gases such as argon, carbon dioxide, and water vapor. This atmosphere plays a crucial role in protecting life on Earth by absorbing ultraviolet solar radiation, warming the surface through heat retention, and reducing temperature extremes between day and night. The presence of water vapor in the atmosphere is essential for the water cycle, which is critical for life.</p>
+<h3>Surface and Geology</h3>
+<p>Earth's surface is incredibly diverse, featuring vast oceans that cover about 71% of the planet, and continents with varied topography including mountains, valleys, and plains. The highest point on Earth is Mount Everest, reaching 8,848 meters (29,029 feet) above sea level, while the lowest natural point is the Challenger Deep in the Mariana Trench, at about 10,920 meters (35,827 feet) below sea level. The planet's geology is dynamic, driven by tectonic plates that move and interact, leading to earthquakes, volcanic activity, and the creation of new landforms.</p>
+<h3>Moons</h3>
+<p>Earth has one natural satellite, the Moon, which orbits at an average distance of about 384,400 kilometers (238,855 miles). The Moon's gravitational influence on Earth causes tides in the oceans and has a stabilizing effect on Earth's axial tilt, which helps maintain the planet's climate. The Moon has been a subject of human exploration, with the first successful landing by humans achieved by the Apollo 11 mission in 1969.</p>
+<h3>Exploration</h3>
+<p>Human exploration of Earth has been extensive, ranging from surface expeditions to underwater exploration and atmospheric research. Satellites and space stations like the International Space Station (ISS) have provided invaluable data about Earth's climate, geology, and biosphere. The study of Earth from space has led to significant advancements in our understanding of the planet's systems and their interactions.</p>
+<h3>Future Missions</h3>
+<p>Future missions to Earth focus on continued monitoring and research to better understand climate change, natural disasters, and the overall health of the planet. Projects like the Earth System Observatory aim to provide comprehensive data to help predict and mitigate the impacts of environmental changes. Additionally, there are ongoing efforts to explore and understand the deep ocean and the Earth's interior, which remain largely uncharted.</p>
+<p>Earth's unique combination of conditions has made it a cradle for life, and its study continues to captivate scientists and the public alike, offering tantalizing clues about the potential for life elsewhere in the universe and the future of human space exploration.</p>
+<p>ResponseID:04fe10eb</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+
+  <script>
+    function saveMarkdown() {
+      const content = document.documentElement.outerHTML; // Get the entire HTML content
+
+      let markdownLocation = "./markdown/";
+      let markdownFileName = "04fe10eb.md";
+      let markdownFile = markdownLocation + markdownFileName;
+      
+
+      const url = URL.createObjectURL(blob); // Create a URL for the Blob
+      const divInnerText = document.getElementById('content').innerText;
+      let filename = divInnerText.substring(0, 25);
+      const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+          a.download =  filename + '.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+      
+    }
+  </script>
+
+  <script>
+    //This function checks if the current page is a child page and genreate a link to the parent page.
+            function isChild(){
+               params = window.location.search.split('=')[1];
+               if (params == undefined) {
+                return false;
+               }
+               params = params.split("&");
+               for (let i = 0; i < params.length; i++) {
+                if (params[i].includes("child")) {
+                  console.log("found child  ");
+                  console.log(params[i].split("child=")[1]);
+                  return params[i].split("child=")[1];
+                }
+               }
+               return false;
+            }
+    
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log("responseId:",window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../html/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+  <script>
+    function loadMarkdownFile() {
+      const markdownFilePath = "./markdown/04fe10eb.md"; // Path to the markdown file
+      fetch(markdownFilePath)
+        .then(response => response.text())
+        .then(data => {
+          const blob = new Blob([data], { type: 'text/markdown' }); // Create a Blob from the markdown content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download = '04fe10eb.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        })
+        .catch(error => console.error('Error loading markdown file:', error));
+    }
+  </script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

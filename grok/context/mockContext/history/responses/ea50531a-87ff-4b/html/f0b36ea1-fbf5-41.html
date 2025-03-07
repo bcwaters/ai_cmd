@@ -1,0 +1,162 @@
+<!doctype html>
+<html>
+<head>
+  <style>pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
+  Theme: StackOverflow Light
+  Description: Light theme as used on stackoverflow.com
+  Author: stackoverflow.com
+  Maintainer: @Hirse
+  Website: https://github.com/StackExchange/Stacks
+  License: MIT
+  Updated: 2021-05-15
+
+  Updated for @stackoverflow/stacks v0.64.0
+  Code Blocks: /blob/v0.64.0/lib/css/components/_stacks-code-blocks.less
+  Colors: /blob/v0.64.0/lib/css/exports/_stacks-constants-colors.less
+*/.hljs{color:#2f3337;background:#f6f6f6}.hljs-subst{color:#2f3337}.hljs-comment{color:#656e77}.hljs-attr,.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-section,.hljs-selector-tag{color:#015692}.hljs-attribute{color:#803378}.hljs-name,.hljs-number,.hljs-quote,.hljs-selector-id,.hljs-template-tag,.hljs-type{color:#b75501}.hljs-selector-class{color:#015692}.hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-string,.hljs-symbol,.hljs-template-variable,.hljs-variable{color:#54790d}.hljs-meta,.hljs-selector-pseudo{color:#015692}.hljs-built_in,.hljs-literal,.hljs-title{color:#b75501}.hljs-bullet,.hljs-code{color:#535a60}.hljs-meta .hljs-string{color:#54790d}.hljs-deletion{color:#c02d2e}.hljs-addition{color:#2f6f44}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}
+</style>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    <a id="home" href="/">home</a>
+    <a id="markdown" href="../history/responses/f0b36ea1-fbf5-41/markdown/f0b36ea1-fbf5-41.md"> markdown</a>
+    <a id="previous" href="../history/responses/ea50531a-87ff-4b/html/ea50531a-87ff-4b.html?responseId=f0b36ea1-fbf5-41">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+  </nav>
+
+  <div id="content" class="markdown-body"><h1>Recipes Using Apples and Bananas</h1>
+<h2>Apple Recipes</h2>
+<h3>Apple Pie</h3>
+<ul>
+<li><strong>Ingredients</strong>: Apples, sugar, cinnamon, flour, butter, pie crust</li>
+<li><strong>Instructions</strong>: <ol>
+<li>Preheat oven to 375°F (190°C).</li>
+<li>Peel, core, and slice apples.</li>
+<li>Mix apples with sugar, cinnamon, and a bit of flour.</li>
+<li>Place mixture into a pie crust, dot with butter, and cover with another crust.</li>
+<li>Bake for about 45-50 minutes until the crust is golden.</li>
+</ol>
+</li>
+</ul>
+<h3>Applesauce</h3>
+<ul>
+<li><strong>Ingredients</strong>: Apples, water, sugar (optional), cinnamon (optional)</li>
+<li><strong>Instructions</strong>: <ol>
+<li>Peel, core, and chop apples.</li>
+<li>Cook apples with a bit of water until soft.</li>
+<li>Mash or blend to desired consistency, add sugar or cinnamon if desired.</li>
+</ol>
+</li>
+</ul>
+<h2>Banana Recipes</h2>
+<h3>Banana Bread</h3>
+<ul>
+<li><strong>Ingredients</strong>: Ripe bananas, flour, sugar, eggs, butter, baking soda</li>
+<li><strong>Instructions</strong>: <ol>
+<li>Preheat oven to 350°F (175°C).</li>
+<li>Mash bananas, mix with sugar, eggs, and melted butter.</li>
+<li>Stir in flour and baking soda.</li>
+<li>Pour into a loaf pan and bake for about 60 minutes.</li>
+</ol>
+</li>
+</ul>
+<h3>Banana Smoothie</h3>
+<ul>
+<li><strong>Ingredients</strong>: Bananas, milk or yogurt, honey, ice</li>
+<li><strong>Instructions</strong>: <ol>
+<li>Blend bananas with milk or yogurt.</li>
+<li>Add honey for sweetness and ice for thickness.</li>
+<li>Blend until smooth.</li>
+</ol>
+</li>
+</ul>
+<p>These recipes highlight the versatility of apples and bananas in both sweet and healthy dishes. Whether you're baking a comforting pie or blending a quick smoothie, these fruits can be transformed into delicious treats.</p>
+<p>ResponseID:f0b36ea1-fbf5-41</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+
+  <script>
+    //This function checks if the current page is a child page and genreate a link to the parent page.
+            function isChild(){
+               params = window.location.search.split('=')[1];
+               if (params == undefined) {
+                return false;
+               }
+               params = params.split("&");
+               for (let i = 0; i < params.length; i++) {
+                if (params[i].includes("child")) {
+                  console.log("found child  ");
+                  console.log(params[i].split("child=")[1]);
+                  return params[i].split("child=")[1];
+                }
+               }
+               return false;
+            }
+    
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log("responseId:",window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../html/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+  <script>
+    function loadMarkdownFile() {
+      const markdownFilePath = "./markdown/f0b36ea1-fbf5-41.md"; // Path to the markdown file
+      fetch(markdownFilePath)
+        .then(response => response.text())
+        .then(data => {
+          const blob = new Blob([data], { type: 'text/markdown' }); // Create a Blob from the markdown content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download = 'f0b36ea1-fbf5-41.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        })
+        .catch(error => console.error('Error loading markdown file:', error));
+    }
+  </script>
+
+</body>
+</html>
+
+
+   

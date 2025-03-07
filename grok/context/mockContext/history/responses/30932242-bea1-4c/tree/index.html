@@ -1,0 +1,425 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Home Page</title>
+  <style>
+    pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
+  Theme: StackOverflow Light
+  Description: Light theme as used on stackoverflow.com
+  Author: stackoverflow.com
+  Maintainer: @Hirse
+  Website: https://github.com/StackExchange/Stacks
+  License: MIT
+  Updated: 2021-05-15
+
+  Updated for @stackoverflow/stacks v0.64.0
+  Code Blocks: /blob/v0.64.0/lib/css/components/_stacks-code-blocks.less
+  Colors: /blob/v0.64.0/lib/css/exports/_stacks-constants-colors.less
+*/.hljs{color:#2f3337;background:#f6f6f6}.hljs-subst{color:#2f3337}.hljs-comment{color:#656e77}.hljs-attr,.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-section,.hljs-selector-tag{color:#015692}.hljs-attribute{color:#803378}.hljs-name,.hljs-number,.hljs-quote,.hljs-selector-id,.hljs-template-tag,.hljs-type{color:#b75501}.hljs-selector-class{color:#015692}.hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-string,.hljs-symbol,.hljs-template-variable,.hljs-variable{color:#54790d}.hljs-meta,.hljs-selector-pseudo{color:#015692}.hljs-built_in,.hljs-literal,.hljs-title{color:#b75501}.hljs-bullet,.hljs-code{color:#535a60}.hljs-meta .hljs-string{color:#54790d}.hljs-deletion{color:#c02d2e}.hljs-addition{color:#2f6f44}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: left;
+      padding: 10px;
+    }
+    
+    .nav-right {
+      display: flex;
+      gap: 50px;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a id="parentContentLink" href='/?context=30932242-bea1-4c'>Prompt again</a>
+
+      <select id="childSubjects">
+        <option value="home">Home</option>
+        <!-- Children are added here onload with setChildSubjects -->
+      </select>
+      <!-- Add a previous and next button for prior requests? -->
+      <!-- Add a button to save the current page as a markdown file -->
+
+      
+      <button id="saveButton" onclick="saveButton()">Save html</button>
+
+
+  </nav>
+
+  <div id="content">  
+    <div id="parentContent">
+        <p>Here are two TensorFlow.js models suitable for fine-tuning to recognize AI-generated images:</p>
+<ol>
+<li><p><strong>MobileNet</strong></p>
+<ul>
+<li>Lightweight and efficient, ideal for mobile and edge devices.</li>
+<li>Can be fine-tuned for AI-generated image detection.</li>
+</ul>
+</li>
+<li><p><strong>EfficientNet</strong></p>
+<ul>
+<li>Developed by Google, offering state-of-the-art accuracy with efficiency.</li>
+<li>Suitable for fine-tuning to detect AI-generated images.</li>
+</ul>
+</li>
+</ol>
+<p>Both models can be loaded and used in TensorFlow.js for AI image classification tasks.</p>
+
+    </div>
+    <div id="childDivs">
+      <div title="MobileNet" id="childContent1" onclick="setVisibileChild('childContent1')" hidden=true><h2>MobileNet in TensorFlow.js for AI-Generated Image Detection</h2>
+<h3>Overview</h3>
+<p>MobileNet is a family of convolutional neural network (CNN) architectures designed for efficient on-device machine learning. Developed by Google, it's particularly well-suited for mobile and edge devices due to its lightweight structure and efficiency. In the context of detecting AI-generated images, MobileNet's ability to perform well with limited computational resources makes it an excellent candidate for fine-tuning.</p>
+<h3>Architecture</h3>
+<p>MobileNet's architecture is built around depthwise separable convolutions, which significantly reduce the number of parameters and computational cost compared to traditional convolutional layers. The key components include:</p>
+<ul>
+<li><strong>Depthwise Separable Convolutions</strong>: These consist of a depthwise convolution followed by a pointwise convolution. This approach separates the spatial filtering from the feature generation, leading to fewer computations.</li>
+<li><strong>Width Multiplier</strong>: A parameter that allows for scaling down the number of channels in each layer, further reducing model size and computational cost.</li>
+<li><strong>Resolution Multiplier</strong>: Enables scaling of the input image resolution, which can be adjusted to balance between accuracy and efficiency.</li>
+</ul>
+<h3>Performance and Efficiency</h3>
+<p>MobileNet models are known for their high performance in terms of accuracy while maintaining efficiency. They are designed to be fast and resource-efficient, making them ideal for deployment on devices with limited processing power. Key metrics include:</p>
+<ul>
+<li><strong>Model Size</strong>: Significantly smaller than traditional models like VGG or ResNet, making them suitable for edge computing.</li>
+<li><strong>Inference Speed</strong>: Faster inference times due to the use of depthwise separable convolutions.</li>
+<li><strong>Accuracy</strong>: Competitive performance on benchmark datasets like ImageNet, with the ability to be fine-tuned for specific tasks such as detecting AI-generated images.</li>
+</ul>
+<h3>Fine-Tuning for AI-Generated Image Detection</h3>
+<p>To use MobileNet for detecting AI-generated images, the model can be fine-tuned as follows:</p>
+<ol>
+<li><p><strong>Loading Pretrained Weights</strong>: Start with a MobileNet model pretrained on a large dataset like ImageNet. This provides a strong foundation for feature extraction.</p>
+</li>
+<li><p><strong>Adding Custom Layers</strong>: Optionally, add new layers on top of the pretrained model. This could include additional dense layers or a custom output layer tailored for binary classification (real vs. AI-generated).</p>
+</li>
+<li><p><strong>Data Augmentation</strong>: Use techniques like rotation, flipping, and color jittering to increase the diversity of the training dataset. This helps the model generalize better to unseen AI-generated images.</p>
+</li>
+<li><p><strong>Training</strong>: Fine-tune the model on a dataset containing both AI-generated and real images. Adjust the learning rate and other hyperparameters to optimize performance.</p>
+</li>
+<li><p><strong>Evaluation</strong>: Assess the model's performance on a validation set to ensure it can accurately distinguish between AI-generated and real images.</p>
+</li>
+</ol>
+<h3>Implementation in TensorFlow.js</h3>
+<p>MobileNet can be implemented in TensorFlow.js, allowing for model deployment in web browsers and on mobile devices. The steps include:</p>
+<ol>
+<li><p><strong>Loading the Model</strong>: Use TensorFlow.js to load the pretrained MobileNet model.</p>
+<pre><code class="hljs language-javascript"><span class="hljs-keyword">const</span> model = <span class="hljs-keyword">await</span> tf.<span class="hljs-title function_">loadLayersModel</span>(<span class="hljs-string">'https://storage.googleapis.com/tfjs-models/tfjs/mobilenet_v1_0.25_224/model.json'</span>);
+</code></pre></li>
+<li><p><strong>Preprocessing Images</strong>: Ensure images are resized to the model's expected input size (e.g., 224x224) and normalized.</p>
+<pre><code class="hljs language-javascript"><span class="hljs-keyword">const</span> image = tf.<span class="hljs-property">browser</span>.<span class="hljs-title function_">fromPixels</span>(imageElement);
+<span class="hljs-keyword">const</span> resizedImage = tf.<span class="hljs-property">image</span>.<span class="hljs-title function_">resizeBilinear</span>(image, [<span class="hljs-number">224</span>, <span class="hljs-number">224</span>]);
+<span class="hljs-keyword">const</span> normalizedImage = resizedImage.<span class="hljs-title function_">div</span>(<span class="hljs-number">255.0</span>).<span class="hljs-title function_">expandDims</span>(<span class="hljs-number">0</span>);
+</code></pre></li>
+<li><p><strong>Inference</strong>: Run the preprocessed images through the model to get predictions.</p>
+<pre><code class="hljs language-javascript"><span class="hljs-keyword">const</span> predictions = model.<span class="hljs-title function_">predict</span>(normalizedImage);
+</code></pre></li>
+<li><p><strong>Postprocessing</strong>: Interpret the model's output to determine if an image is AI-generated. This may involve thresholding or using additional layers for binary classification.</p>
+</li>
+</ol>
+<h3>Use Cases</h3>
+<p>MobileNet's efficiency makes it suitable for various applications beyond AI-generated image detection, including:</p>
+<ul>
+<li><strong>Mobile Applications</strong>: Real-time image classification on mobile devices.</li>
+<li><strong>Edge Devices</strong>: Running on IoT devices with limited computational power.</li>
+<li><strong>Web Applications</strong>: Enhancing web-based image analysis tools.</li>
+</ul>
+<h3>Conclusion</h3>
+<p>MobileNet's lightweight and efficient architecture make it an ideal choice for fine-tuning to detect AI-generated images. Its ability to maintain high accuracy with minimal computational resources makes it versatile for various deployment scenarios, including those supported by TensorFlow.js.</p>
+<p>ResponseID:deafe509-0dc8-4a</p>
+</div><div title="EfficientNet" id="childContent2" onclick="setVisibileChild('childContent2')" hidden=true><h1>EfficientNet</h1>
+<h2>Overview</h2>
+<p>EfficientNet is a family of convolutional neural network (CNN) architectures developed by Google. It is designed to achieve state-of-the-art accuracy while maintaining efficiency in terms of computational resources. This makes it an excellent choice for tasks such as detecting AI-generated images.</p>
+<h2>Architecture</h2>
+<p>EfficientNet's architecture is based on a scaling method called compound scaling, which uniformly scales network width, depth, and resolution with a fixed set of scaling coefficients. This approach allows EfficientNet to achieve better performance compared to traditional scaling methods that only scale one dimension.</p>
+<h3>Key Components:</h3>
+<ul>
+<li><strong>Baseline Network (EfficientNet-B0)</strong>: The smallest model in the family, which serves as the starting point for scaling.</li>
+<li><strong>Compound Scaling</strong>: Uses a compound coefficient to scale up the network uniformly across depth, width, and resolution.</li>
+<li><strong>MBConv (Mobile Inverted Residual Bottleneck)</strong>: A building block that combines depthwise separable convolutions and inverted residuals for efficiency.</li>
+</ul>
+<h2>Performance</h2>
+<p>EfficientNet models have been shown to outperform other state-of-the-art models like ResNet, Inception, and VGG on various benchmark datasets. For instance, EfficientNet-B7 achieves top-1 accuracy on ImageNet that is competitive with models that are significantly larger and more computationally expensive.</p>
+<h2>Efficiency</h2>
+<p>One of the main advantages of EfficientNet is its efficiency. It achieves high accuracy with fewer parameters and less computational cost than other models. This makes it suitable for deployment on a variety of platforms, including those with limited resources.</p>
+<h2>Fine-Tuning for AI-Generated Image Detection</h2>
+<p>EfficientNet can be fine-tuned for the specific task of detecting AI-generated images. The process involves:</p>
+<ul>
+<li><strong>Loading Pre-trained Weights</strong>: Start with the pre-trained weights from ImageNet or other large datasets.</li>
+<li><strong>Adding Custom Layers</strong>: Optionally, add new layers on top of the pre-trained model to better suit the new task.</li>
+<li><strong>Data Augmentation</strong>: Use techniques like rotation, flipping, and color jittering to increase the diversity of the training data.</li>
+<li><strong>Training</strong>: Fine-tune the model on a dataset of AI-generated and real images, adjusting the learning rate and other hyperparameters as needed.</li>
+</ul>
+<h2>Implementation in TensorFlow.js</h2>
+<p>EfficientNet can be implemented in TensorFlow.js, which allows for model deployment on web browsers and mobile devices. The TensorFlow.js library provides tools for loading pre-trained models and performing inference on client-side devices.</p>
+<h3>Steps to Use EfficientNet in TensorFlow.js:</h3>
+<ol>
+<li><strong>Load the Model</strong>: Use TensorFlow.js to load the pre-trained EfficientNet model.</li>
+<li><strong>Preprocess Images</strong>: Ensure images are resized and normalized according to the model's requirements.</li>
+<li><strong>Inference</strong>: Run the preprocessed images through the model to get predictions.</li>
+<li><strong>Post-processing</strong>: Interpret the model's output to determine if an image is AI-generated.</li>
+</ol>
+<h2>Use Cases</h2>
+<p>EfficientNet's efficiency and high performance make it suitable for a variety of applications beyond AI-generated image detection, including:</p>
+<ul>
+<li><strong>Mobile Applications</strong>: Deploying on mobile devices for real-time image classification.</li>
+<li><strong>Edge Devices</strong>: Running on IoT devices with limited computational power.</li>
+<li><strong>Web Applications</strong>: Enhancing web-based image analysis tools.</li>
+</ul>
+<h2>Conclusion</h2>
+<p>EfficientNet is a powerful and efficient model that can be effectively fine-tuned for detecting AI-generated images. Its ability to maintain high accuracy with minimal computational resources makes it a versatile choice for various deployment scenarios, including those supported by TensorFlow.js.</p>
+<p>ResponseID:95c2d24f-8802-40</p>
+</div>
+    </div>
+  </div>
+
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+
+    <script>
+      function setChildSubjects(){
+        let dropDownOptions = [];
+        let childSubjects = document.getElementById('childDivs');
+        for (let child of childSubjects.children){
+           let subject = child.title;
+           let optionValue = child.id;
+
+           dropDownOptions.push({subject: subject, value: optionValue});
+        
+        }
+
+        for (let option of dropDownOptions){
+          let optionElement = document.createElement('option');
+          optionElement.value = option.value;
+          optionElement.text = option.subject;
+          document.getElementById('childSubjects').appendChild(optionElement);
+        }
+
+        document.getElementById('childSubjects').addEventListener('change', function() {
+          if(this.value == "home"){
+            goHomePage();
+          }else{
+            setVisibleChild(this.value);
+          }
+
+          }
+        );
+      }
+    </script>
+
+
+    <script>
+      function setVisibleChild(id){
+        //quick flicker home to reset state, this allows hoping between child views
+     
+    
+           let topNode = document.getElementById('content');
+           let parentNode = document.getElementById('parentContent');
+           let childVisibleNode = document.getElementById(id);
+           let childDivs = document.getElementById('childDivs');
+           for (let child of childDivs.children){
+            if(child.id != id){
+              child.hidden = true;
+            }else{
+              child.hidden = false; //redudant
+            }
+           }
+           parentNode.hidden = true;
+           childVisibleNode.hidden = false;
+         }
+      
+    </script>
+
+    <script>
+      function goHomePage(){
+         let topNode = document.getElementById('content');
+         let parentNode = document.getElementById('parentContent');
+         let children = document.getElementById('childDivs');
+         for (let child of children.children){
+            child.hidden = true;
+         }
+         parentNode.hidden = false;
+      }
+    </script>
+
+    <script>
+      function setChildLinks(){
+        let children = document.getElementById('childDivs'); 
+        let childSubjects = [];
+        let discoveredMatches = [];
+
+        
+        for (let child of children.children){
+          let subject = child.title;
+          childSubjects.push({subject: subject, child: child});
+          }
+             
+          let parentNodeH2Subjects = []
+          let parentNodeH3Subjects = []
+          let parentNodeH4Subjects = []
+          let parentNode = document.getElementById('parentContent');
+          let H2s = parentNode.getElementsByTagName("H2");
+          let H3s = parentNode.getElementsByTagName("H3");
+          let H4s = parentNode.getElementsByTagName("H4");
+          let isH2Match = false;
+          let isH3Match = false;
+          let isH4Match = false;
+
+          H2s.length > 0? parentNodeH2Subjects = H2s.map(item => ({subject: item.innerText, item: item})):isH2Match = false;
+          H3s.length > 0?parentNodeH3Subjects = H3s.map(item => ({subject: item.innerText, item: item})):isH3Match = false;
+          H4s.length > 0?parentNodeH4Subjects = H4s.map(item => ({subject: item.innerText, item: item})):isH4Match = false;
+
+          
+           isH3Match = H3s.length == childSubjects.length;
+           isH2Match = H2s.length == childSubjects.length;
+           isH4Match = H4s.length == childSubjects.length;
+          let allDiscovered = false;
+
+          if (isH3Match){
+            //We have a match.  We need to find the H2s
+            allDiscovered = true;
+          }
+          if (isH2Match){
+            //We have a match.  We need to find the H3s
+            allDiscovered = true;
+          }
+          if (isH4Match){
+            //We have a match.  We need to find the H2s
+            allDiscovered = true;
+          }
+
+          if(allDiscovered && (isH3Match + isH2Match + isH4Match) > 1){
+            //wierd.  ok we work from scratch.
+            allDiscovered = false;
+          }
+
+          if(!allDiscovered){
+
+            let fluffWords = ["a", "an", "the", "and", "but", "or", "for", "nor", "on", "at", "to", "from", "by", "with", "of"];
+            let fluffWordsRegex = new RegExp(fluffWords.join("|"), "g");
+          
+          //OK time to stumble through unpredictable llm output
+          //First check if the child subjects are in the parent node h2 subjects
+          let isH2 = false;
+          let isH3 = false;
+          let isH4 = false;
+      
+          //This can be optimized later.  Probably doesnt matter since it is client side with modern computing.
+          for (let i = 0; i < parentNodeH2Subjects.length; i++){
+            let subject = parentNodeH2Subjects[i].subject;
+            for (let j = 0; j < childSubjects.length; j++){
+              let childSubject = childSubjects[j].subject;
+              if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                isH2 = true;
+                discoveredMatches.push({parentLink: parentNodeH2Subjects[i].item, childLink: childSubjects[j].child});
+              }
+            }
+
+          }
+         
+          if(!isH2){
+            for (let i = 0; i < parentNodeH3Subjects.length; i++){
+              let subject = parentNodeH3Subjects[i].subject;
+              for (let j = 0; j < childSubjects.length; j++){
+                let childSubject = childSubjects[j].subject;  
+                if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                  isH3 = true;
+                  discoveredMatches.push({parentLink: parentNodeH3Subjects[i].item, childLink: childSubjects[j].child});
+                }
+              }
+            }
+          }
+
+          if(!isH3){
+            for (let i = 0; i < parentNodeH4Subjects.length; i++){
+              let subject = parentNodeH4Subjects[i].subject;
+              for (let j = 0; j < childSubjects.length; j++){
+                let childSubject = childSubjects[j].subject;
+                if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                  isH4 = true;
+                  discoveredMatches.push({parentLink: parentNodeH4Subjects[i].item, childLink: childSubjects[j].child});
+                }
+              }
+            }
+          }
+
+          if(!isH4){
+              //I suppose there are edge cases but this surely covers 99.9% of the cases.
+          }
+
+          }else{
+            if(isH3Match){
+              for (let i = 0; i < parentNodeH3Subjects.length; i++){
+                let child = childSubjects[i].child;
+                makeChildLinks(parentNodeH3Subjects[i].item, child);
+              }
+              return; //bye bye
+            }
+            if(isH2Match){
+              for (let i = 0; i < parentNodeH2Subjects.length; i++){
+                let child = childSubjects[i].child;
+                makeChildLinks(parentNodeH2Subjects[i].item, child);
+                return; //bye bye
+              }
+              if(isH4Match){
+                for (let i = 0; i < parentNodeH4Subjects.length; i++){
+                  let child = childSubjects[i].child;
+                  makeChildLinks(parentNodeH4Subjects[i].item, child);
+                }
+              }
+
+            }
+
+          }
+
+          for (let match of discoveredMatches){
+            makeChildLinks(match.parentLink, match.childLink);
+            if(match.length < childSubjects.length){ alert("LLMM added additional info that is hidden");}
+          }
+
+        }
+    </script>
+
+    <script>
+       function makeChildLinks(parent, child){
+            parent.style.cursor = "pointer";
+            parent.style.textDecoration = "underline";
+            parent.style.color = "blue";
+            parent.onclick = function(){
+              setVisibleChild(child.id);
+            }
+       }
+
+    </script>
+
+<script>window.onload = setChildSubjects;</script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

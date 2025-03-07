@@ -1,0 +1,106 @@
+Certainly! Here's a simplified ASCII art representation of the United States oriented vertically (rotated 90 degrees).
+
+```
+Maine
+  |
+N.Hampshire
+  |
+Vermont
+  |
+Massachusetts
+  |
+Rhode Island
+  |
+Connecticut
+  |
+New York
+  |
+Pennsylvania
+  |
+New Jersey
+  |
+Delaware
+  |
+Maryland
+  |
+Virginia
+  |
+W.Virginia
+  |
+Ohio
+  |
+Kentucky
+  |
+Indiana
+  |
+Illinois
+  |
+Michigan
+  |
+Wisconsin
+  |
+Minnesota
+  |
+Iowa
+  |
+Missouri
+  |
+Arkansas
+  |
+Tennessee
+  |
+N.Carolina
+  |
+S.Carolina
+  |
+Georgia
+  |
+Florida
+  |
+Alabama
+  |
+Mississippi
+  |
+Louisiana
+  |
+Texas
+  |
+Oklahoma
+  |
+Kansas
+  |
+Nebraska
+  |
+S.Dakota
+  |
+N.Dakota
+  |
+Montana
+  |
+Wyoming
+  |
+Colorado
+  |
+New Mexico
+  |
+Utah
+  |
+Arizona
+  |
+Idaho
+  |
+Nevada
+  |
+Washington
+  |
+Oregon
+  |
+California
+  |
+Alaska
+  |
+Hawaii
+```
+
+This vertical representation makes it easier to visualize each state clearly listed vertically due to ASCII art limitations.  
+Please note, it's a representation in text form, and not geographically precise.  

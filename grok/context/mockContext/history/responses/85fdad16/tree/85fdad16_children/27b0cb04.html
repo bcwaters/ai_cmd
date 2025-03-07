@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response - CHILD of 85fdad16</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    <a id="markdown" href="../../markdown/27b0cb04.md"> markdown</a>
+    <a id="previous" href="../85fdad16.html?responseId=27b0cb04">Previous</a>
+    <a id="Parent" href="../85fdad16.html?responseId=27b0cb04">Parent</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+  </nav>
+
+  <div id="content"><h1>Pluto</h1>
+<p>Pluto, once considered the ninth planet, is now classified as a dwarf planet. It has a highly elliptical orbit and a thin atmosphere. Pluto's surface is composed of nitrogen, methane, and carbon monoxide ices, which give it a reddish hue. Its most significant moon is Charon, which is so large compared to Pluto that they are often considered a binary system. Pluto also has four smaller moons: Styx, Nix, Kerberos, and Hydra.</p>
+<h3>Orbit and Atmosphere</h3>
+<p>Pluto's orbit is highly elliptical, taking it inside Neptune's orbit at its closest approach to the Sun and far beyond at its farthest. This orbit results in significant seasonal changes. Pluto's thin atmosphere is primarily nitrogen, with traces of methane and carbon monoxide. As Pluto moves away from the Sun, its atmosphere freezes and falls to the surface as ice.</p>
+<h3>Surface Features</h3>
+<p>The surface of Pluto is diverse, featuring mountains, valleys, and plains. The most notable feature is the heart-shaped region known as Tombaugh Regio, named after Pluto's discoverer, Clyde Tombaugh. Within this region, Sputnik Planitia is a vast plain of nitrogen ice. The surface also shows evidence of geological activity, including cryovolcanoes that may erupt water, ammonia, or methane.</p>
+<h3>Moons</h3>
+<p>Charon, Pluto's largest moon, is about half the size of Pluto and orbits so closely that the two are tidally locked, meaning they always show the same face to each other. Charon's surface is covered with water ice and has a canyon system that stretches for hundreds of miles. The other moons, Styx, Nix, Kerberos, and Hydra, are much smaller and less well-studied but are believed to be composed primarily of water ice.</p>
+<h3>Exploration</h3>
+<p>The New Horizons spacecraft, launched by NASA in 2006, provided the first close-up images and data about Pluto and its moons during its flyby in July 2015. This mission revealed many of the details we know about Pluto today, including its surface features and atmospheric composition.</p>
+<p>Pluto's reclassification as a dwarf planet came after the discovery of other similar-sized objects in the Kuiper Belt, leading to the establishment of a new category of celestial bodies by the International Astronomical Union in 2006.</p>
+<p>ResponseID:27b0cb04</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+
+  <script>
+    function saveMarkdown() {
+      const content = document.documentElement.outerHTML; // Get the entire HTML content
+
+      let markdownLocation = "./markdown/";
+      let markdownFileName = "27b0cb04.md";
+      let markdownFile = markdownLocation + markdownFileName;
+      
+
+      const url = URL.createObjectURL(blob); // Create a URL for the Blob
+      const divInnerText = document.getElementById('content').innerText;
+      let filename = divInnerText.substring(0, 25);
+      const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+          a.download =  filename + '.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+      
+    }
+  </script>
+
+  <script>
+    //This function checks if the current page is a child page and genreate a link to the parent page.
+            function isChild(){
+               params = window.location.search.split('=')[1];
+               if (params == undefined) {
+                return false;
+               }
+               params = params.split("&");
+               for (let i = 0; i < params.length; i++) {
+                if (params[i].includes("child")) {
+                  console.log("found child  ");
+                  console.log(params[i].split("child=")[1]);
+                  return params[i].split("child=")[1];
+                }
+               }
+               return false;
+            }
+    
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log("responseId:",window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../html/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+  <script>
+    function loadMarkdownFile() {
+      const markdownFilePath = "./markdown/27b0cb04.md"; // Path to the markdown file
+      fetch(markdownFilePath)
+        .then(response => response.text())
+        .then(data => {
+          const blob = new Blob([data], { type: 'text/markdown' }); // Create a Blob from the markdown content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download = '27b0cb04.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        })
+        .catch(error => console.error('Error loading markdown file:', error));
+    }
+  </script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

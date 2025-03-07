@@ -1,0 +1,437 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Home Page</title>
+  <style>
+    pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
+  Theme: StackOverflow Light
+  Description: Light theme as used on stackoverflow.com
+  Author: stackoverflow.com
+  Maintainer: @Hirse
+  Website: https://github.com/StackExchange/Stacks
+  License: MIT
+  Updated: 2021-05-15
+
+  Updated for @stackoverflow/stacks v0.64.0
+  Code Blocks: /blob/v0.64.0/lib/css/components/_stacks-code-blocks.less
+  Colors: /blob/v0.64.0/lib/css/exports/_stacks-constants-colors.less
+*/.hljs{color:#2f3337;background:#f6f6f6}.hljs-subst{color:#2f3337}.hljs-comment{color:#656e77}.hljs-attr,.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-section,.hljs-selector-tag{color:#015692}.hljs-attribute{color:#803378}.hljs-name,.hljs-number,.hljs-quote,.hljs-selector-id,.hljs-template-tag,.hljs-type{color:#b75501}.hljs-selector-class{color:#015692}.hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-string,.hljs-symbol,.hljs-template-variable,.hljs-variable{color:#54790d}.hljs-meta,.hljs-selector-pseudo{color:#015692}.hljs-built_in,.hljs-literal,.hljs-title{color:#b75501}.hljs-bullet,.hljs-code{color:#535a60}.hljs-meta .hljs-string{color:#54790d}.hljs-deletion{color:#c02d2e}.hljs-addition{color:#2f6f44}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: left;
+      padding: 10px;
+    }
+    
+    .nav-right {
+      display: flex;
+      gap: 50px;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a id="parentContentLink" href='/?context=be4fc3c8-af18-46'>Prompt again</a>
+
+      <select id="childSubjects">
+        <option value="home">Home</option>
+        <!-- Children are added here onload with setChildSubjects -->
+      </select>
+      <!-- Add a previous and next button for prior requests? -->
+      <!-- Add a button to save the current page as a markdown file -->
+
+      
+      <button id="saveButton" onclick="saveButton()">Save html</button>
+
+
+  </nav>
+
+  <div id="content">  
+    <div id="parentContent">
+        <h2>Branches of Mathematics</h2>
+<h3>1. Algebra</h3>
+<ul>
+<li>Focuses on symbols and the rules for manipulating those symbols.</li>
+<li>Involves solving equations and studying algebraic structures.</li>
+</ul>
+<h3>2. Geometry</h3>
+<ul>
+<li>Concerned with the properties and relationships of points, lines, surfaces, and solids.</li>
+<li>Includes Euclidean and non-Euclidean geometries.</li>
+</ul>
+<h3>3. Calculus</h3>
+<ul>
+<li>Divided into differential calculus and integral calculus.</li>
+<li>Used to study rates of change and accumulation.</li>
+</ul>
+
+    </div>
+    <div id="childDivs">
+      <div title="Algebra" id="childContent1" onclick="setVisibileChild('childContent1')" hidden=true><h2>Algebra</h2>
+<p>Algebra is a broad branch of mathematics that deals with symbols and the rules for manipulating those symbols. It is fundamental in solving mathematical problems and is used extensively in various fields such as physics, engineering, and economics. Here, we delve deeper into the aspects of algebra previously mentioned:</p>
+<h3>Focuses on Symbols and the Rules for Manipulating Those Symbols</h3>
+<p>Algebra uses letters, often called variables, to represent numbers whose values are not specified or can change. These symbols are manipulated according to specific rules to solve equations and express mathematical relationships. For example, in the equation (2x + 3 = 7), (x) is a variable, and the goal is to find the value of (x) that satisfies the equation.</p>
+<p><strong>Key Aspects:</strong></p>
+<ul>
+<li><strong>Variables and Constants:</strong> Variables represent unknown values, while constants are fixed numerical values. In the equation (3a + 5 = 14), (a) is a variable, and 3, 5, and 14 are constants.</li>
+<li><strong>Operations:</strong> Algebraic operations include addition, subtraction, multiplication, and division. These operations follow the standard rules of arithmetic but are applied to both numbers and variables.</li>
+<li><strong>Expressions and Equations:</strong> An expression is a combination of numbers, variables, and operations without an equal sign, such as (3x + 2). An equation includes an equal sign and sets two expressions equal to each other, such as (3x + 2 = 8).</li>
+</ul>
+<h3>Involves Solving Equations and Studying Algebraic Structures</h3>
+<p>Solving equations is a central task in algebra. It involves finding the values of variables that make the equation true. Techniques for solving equations include isolating the variable, using substitution, and applying algebraic rules.</p>
+<p><strong>Solving Equations:</strong></p>
+<ul>
+<li><strong>Linear Equations:</strong> Equations of the form (ax + b = c), where (a), (b), and (c) are constants. Solving (2x + 3 = 7) involves isolating (x): 
+[
+2x + 3 - 3 = 7 - 3 \implies 2x = 4 \implies x = \frac{4}{2} \implies x = 2
+]</li>
+<li><strong>Quadratic Equations:</strong> Equations of the form (ax^2 + bx + c = 0). These can be solved using the quadratic formula (x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}).</li>
+</ul>
+<p><strong>Studying Algebraic Structures:</strong>
+Algebraic structures are sets of mathematical objects with operations defined on them, following certain axioms. These structures include groups, rings, and fields.</p>
+<ul>
+<li><strong>Groups:</strong> A set with a single operation that satisfies closure, associativity, the existence of an identity element, and the existence of inverse elements. For example, the set of integers under addition forms a group.</li>
+<li><strong>Rings:</strong> A set with two operations (usually addition and multiplication) where the set is a group under addition, and multiplication is associative and distributes over addition. The integers form a ring under addition and multiplication.</li>
+<li><strong>Fields:</strong> A set that is a ring, where the nonzero elements form a group under multiplication. The rational numbers, real numbers, and complex numbers are examples of fields.</li>
+</ul>
+<p>Algebra is not only about solving equations but also about understanding the underlying structures that govern mathematical operations. It provides the tools and language to describe and solve problems in a wide range of disciplines.</p>
+<p>ResponseID:d6dd6212-cf7c-4b</p>
+</div><div title="Geometry" id="childContent2" onclick="setVisibileChild('childContent2')" hidden=true><h1>Geometry</h1>
+<p>Geometry is a fundamental branch of mathematics that deals with the study of the shape, size, position, and properties of two-dimensional and three-dimensional objects. It is divided into several subfields, each focusing on different aspects of geometric analysis.</p>
+<h2>Euclidean Geometry</h2>
+<p>Euclidean geometry, named after the ancient Greek mathematician Euclid, is the study of plane and solid figures on the basis of axioms and theorems. It is primarily concerned with the properties of common geometric figures such as:</p>
+<ul>
+<li><strong>Points</strong>: Fundamental elements in geometry, defined as having no size, only position.</li>
+<li><strong>Lines</strong>: Straight or curved paths that extend infinitely in both directions.</li>
+<li><strong>Angles</strong>: Formed by two rays sharing a common endpoint, measured in degrees or radians.</li>
+<li><strong>Triangles</strong>: Three-sided polygons with angles summing to 180 degrees.</li>
+<li><strong>Circles</strong>: Sets of all points in a plane equidistant from a given point, the center.</li>
+</ul>
+<p>Key theorems in Euclidean geometry include the Pythagorean theorem, which states that in a right-angled triangle, the square of the length of the hypotenuse is equal to the sum of the squares of the lengths of the other two sides.</p>
+<h2>Non-Euclidean Geometry</h2>
+<p>Non-Euclidean geometry refers to any geometry that is not based on Euclid's axioms, particularly the parallel postulate. There are two main types:</p>
+<ul>
+<li><strong>Spherical Geometry</strong>: The geometry of the surface of a sphere, where the sum of the angles in a triangle is greater than 180 degrees.</li>
+<li><strong>Hyperbolic Geometry</strong>: A geometry where the parallel postulate is replaced by the statement that through any point not on a given line, there are at least two lines parallel to the given line. In hyperbolic geometry, the sum of the angles in a triangle is less than 180 degrees.</li>
+</ul>
+<p>Both types of non-Euclidean geometries have significant applications in theoretical physics, particularly in the theory of general relativity, where the geometry of spacetime is described as non-Euclidean.</p>
+<h2>Properties and Relationships</h2>
+<p>Geometry is concerned with understanding the relationships between different geometric objects. Some key areas include:</p>
+<ul>
+<li><strong>Congruence</strong>: Two figures are congruent if they have the same shape and size.</li>
+<li><strong>Similarity</strong>: Two figures are similar if they have the same shape but not necessarily the same size.</li>
+<li><strong>Symmetry</strong>: The property of a figure that looks the same after a transformation, such as reflection, rotation, or translation.</li>
+<li><strong>Transformation Geometry</strong>: The study of how geometric figures are changed through various transformations, including translations, rotations, reflections, and dilations.</li>
+</ul>
+<h2>Applications</h2>
+<p>Geometry has numerous applications in various fields:</p>
+<ul>
+<li><strong>Architecture and Engineering</strong>: Used in designing buildings and structures, ensuring stability and aesthetic appeal.</li>
+<li><strong>Art and Design</strong>: Fundamental in creating visual art, understanding perspective, and designing patterns.</li>
+<li><strong>Physics and Astronomy</strong>: Essential in understanding the motion of celestial bodies and the structure of the universe.</li>
+<li><strong>Computer Graphics and Animation</strong>: Used to create realistic 3D models and animations.</li>
+</ul>
+<h2>Conclusion</h2>
+<p>Geometry is a rich and diverse field of mathematics that not only forms the basis for understanding the physical world but also has profound implications in abstract mathematical theories. Its principles and applications continue to be relevant and influential across multiple disciplines.</p>
+<p>ResponseID:3da5d620-a713-4a</p>
+</div><div title="Calculus" id="childContent3" onclick="setVisibileChild('childContent3')" hidden=true><h2>Calculus</h2>
+<p>Calculus is a branch of mathematics that is fundamental in understanding continuous change and motion. It is divided into two main sub-disciplines: <strong>differential calculus</strong> and <strong>integral calculus</strong>, each serving distinct yet interconnected purposes.</p>
+<h3>Differential Calculus</h3>
+<p>Differential calculus is primarily concerned with the study of rates of change and slopes of curves. Its key concept is the <strong>derivative</strong>, which measures how a function changes as its input changes. Here's a more detailed look at differential calculus:</p>
+<ul>
+<li><p><strong>Derivative</strong>: The derivative of a function at a given point is the slope of the tangent line to the function at that point. It is calculated as the limit of the ratio of the change in the function to the change in the input as the change in the input approaches zero.</p>
+<p>[
+f'(x) = \lim_{{h \to 0}} \frac{f(x+h) - f(x)}{h}
+]</p>
+</li>
+<li><p><strong>Applications</strong>: Differential calculus is used in various fields such as physics (to determine velocity and acceleration), economics (to optimize profit and cost functions), and engineering (to analyze stress and strain in materials).</p>
+</li>
+</ul>
+<h3>Integral Calculus</h3>
+<p>Integral calculus focuses on accumulation and the inverse process of differentiation, known as <strong>integration</strong>. It deals with the area under curves, volumes of solids, and more. Here's a deeper dive into integral calculus:</p>
+<ul>
+<li><p><strong>Definite Integral</strong>: The definite integral of a function over an interval calculates the net area between the function and the x-axis from the start to the end of the interval.</p>
+<p>[
+\int_a^b f(x) , dx
+]</p>
+</li>
+<li><p><strong>Indefinite Integral</strong>: The indefinite integral represents a family of functions whose derivative is the integrand. It is essentially the antiderivative of a function plus a constant.</p>
+<p>[
+\int f(x) , dx = F(x) + C
+]</p>
+</li>
+<li><p><strong>Applications</strong>: Integral calculus is essential in physics for calculating work, in engineering for determining quantities like fluid flow, and in economics for calculating total revenue or cost.</p>
+</li>
+</ul>
+<h3>Interconnection between Differential and Integral Calculus</h3>
+<p>The <strong>Fundamental Theorem of Calculus</strong> bridges the two sub-disciplines by establishing a relationship between differentiation and integration:</p>
+<ul>
+<li><p><strong>First Part</strong>: If ( F ) is an antiderivative of ( f ), then the definite integral of ( f ) from ( a ) to ( b ) is given by ( F(b) - F(a) ).</p>
+<p>[
+\int_a^b f(x) , dx = F(b) - F(a)
+]</p>
+</li>
+<li><p><strong>Second Part</strong>: The derivative of the integral of a function ( f ) from a constant ( a ) to a variable ( x ) is equal to ( f(x) ).</p>
+<p>[
+\frac{d}{dx} \left( \int_a^x f(t) , dt \right) = f(x)
+]</p>
+</li>
+</ul>
+<p>This theorem underscores the deep connection between the two branches, making calculus a coherent and powerful tool for solving complex problems in various scientific and engineering fields.</p>
+<p>ResponseID:4996b6c1-9bfb-48</p>
+</div>
+    </div>
+  </div>
+
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+
+    <script>
+      function setChildSubjects(){
+        let dropDownOptions = [];
+        let childSubjects = document.getElementById('childDivs');
+        for (let child of childSubjects.children){
+           let subject = child.title;
+           let optionValue = child.id;
+
+           dropDownOptions.push({subject: subject, value: optionValue});
+        
+        }
+
+        for (let option of dropDownOptions){
+          let optionElement = document.createElement('option');
+          optionElement.value = option.value;
+          optionElement.text = option.subject;
+          document.getElementById('childSubjects').appendChild(optionElement);
+        }
+
+        document.getElementById('childSubjects').addEventListener('change', function() {
+          if(this.value == "home"){
+            goHomePage();
+          }else{
+            setVisibleChild(this.value);
+          }
+
+          }
+        );
+      }
+    </script>
+
+
+    <script>
+      function setVisibleChild(id){
+        //quick flicker home to reset state, this allows hoping between child views
+     
+    
+           let topNode = document.getElementById('content');
+           let parentNode = document.getElementById('parentContent');
+           let childVisibleNode = document.getElementById(id);
+           let childDivs = document.getElementById('childDivs');
+           for (let child of childDivs.children){
+            if(child.id != id){
+              child.hidden = true;
+            }else{
+              child.hidden = false; //redudant
+            }
+           }
+           parentNode.hidden = true;
+           childVisibleNode.hidden = false;
+         }
+      
+    </script>
+
+    <script>
+      function goHomePage(){
+         let topNode = document.getElementById('content');
+         let parentNode = document.getElementById('parentContent');
+         let children = document.getElementById('childDivs');
+         for (let child of children.children){
+            child.hidden = true;
+         }
+         parentNode.hidden = false;
+      }
+    </script>
+
+    <script>
+      function setChildLinks(){
+        let children = document.getElementById('childDivs'); 
+        let childSubjects = [];
+        let discoveredMatches = [];
+
+        
+        for (let child of children.children){
+          let subject = child.title;
+          childSubjects.push({subject: subject, child: child});
+          }
+             
+          let parentNodeH2Subjects = []
+          let parentNodeH3Subjects = []
+          let parentNodeH4Subjects = []
+          let parentNode = document.getElementById('parentContent');
+          let H2s = parentNode.getElementsByTagName("H2");
+          let H3s = parentNode.getElementsByTagName("H3");
+          let H4s = parentNode.getElementsByTagName("H4");
+          let isH2Match = false;
+          let isH3Match = false;
+          let isH4Match = false;
+
+          H2s.length > 0? parentNodeH2Subjects = H2s.map(item => ({subject: item.innerText, item: item})):isH2Match = false;
+          H3s.length > 0?parentNodeH3Subjects = H3s.map(item => ({subject: item.innerText, item: item})):isH3Match = false;
+          H4s.length > 0?parentNodeH4Subjects = H4s.map(item => ({subject: item.innerText, item: item})):isH4Match = false;
+
+          
+           isH3Match = H3s.length == childSubjects.length;
+           isH2Match = H2s.length == childSubjects.length;
+           isH4Match = H4s.length == childSubjects.length;
+          let allDiscovered = false;
+
+          if (isH3Match){
+            //We have a match.  We need to find the H2s
+            allDiscovered = true;
+          }
+          if (isH2Match){
+            //We have a match.  We need to find the H3s
+            allDiscovered = true;
+          }
+          if (isH4Match){
+            //We have a match.  We need to find the H2s
+            allDiscovered = true;
+          }
+
+          if(allDiscovered && (isH3Match + isH2Match + isH4Match) > 1){
+            //wierd.  ok we work from scratch.
+            allDiscovered = false;
+          }
+
+          if(!allDiscovered){
+
+            let fluffWords = ["a", "an", "the", "and", "but", "or", "for", "nor", "on", "at", "to", "from", "by", "with", "of"];
+            let fluffWordsRegex = new RegExp(fluffWords.join("|"), "g");
+          
+          //OK time to stumble through unpredictable llm output
+          //First check if the child subjects are in the parent node h2 subjects
+          let isH2 = false;
+          let isH3 = false;
+          let isH4 = false;
+      
+          //This can be optimized later.  Probably doesnt matter since it is client side with modern computing.
+          for (let i = 0; i < parentNodeH2Subjects.length; i++){
+            let subject = parentNodeH2Subjects[i].subject;
+            for (let j = 0; j < childSubjects.length; j++){
+              let childSubject = childSubjects[j].subject;
+              if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                isH2 = true;
+                discoveredMatches.push({parentLink: parentNodeH2Subjects[i].item, childLink: childSubjects[j].child});
+              }
+            }
+
+          }
+         
+          if(!isH2){
+            for (let i = 0; i < parentNodeH3Subjects.length; i++){
+              let subject = parentNodeH3Subjects[i].subject;
+              for (let j = 0; j < childSubjects.length; j++){
+                let childSubject = childSubjects[j].subject;  
+                if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                  isH3 = true;
+                  discoveredMatches.push({parentLink: parentNodeH3Subjects[i].item, childLink: childSubjects[j].child});
+                }
+              }
+            }
+          }
+
+          if(!isH3){
+            for (let i = 0; i < parentNodeH4Subjects.length; i++){
+              let subject = parentNodeH4Subjects[i].subject;
+              for (let j = 0; j < childSubjects.length; j++){
+                let childSubject = childSubjects[j].subject;
+                if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                  isH4 = true;
+                  discoveredMatches.push({parentLink: parentNodeH4Subjects[i].item, childLink: childSubjects[j].child});
+                }
+              }
+            }
+          }
+
+          if(!isH4){
+              //I suppose there are edge cases but this surely covers 99.9% of the cases.
+          }
+
+          }else{
+            if(isH3Match){
+              for (let i = 0; i < parentNodeH3Subjects.length; i++){
+                let child = childSubjects[i].child;
+                makeChildLinks(parentNodeH3Subjects[i].item, child);
+              }
+              return; //bye bye
+            }
+            if(isH2Match){
+              for (let i = 0; i < parentNodeH2Subjects.length; i++){
+                let child = childSubjects[i].child;
+                makeChildLinks(parentNodeH2Subjects[i].item, child);
+                return; //bye bye
+              }
+              if(isH4Match){
+                for (let i = 0; i < parentNodeH4Subjects.length; i++){
+                  let child = childSubjects[i].child;
+                  makeChildLinks(parentNodeH4Subjects[i].item, child);
+                }
+              }
+
+            }
+
+          }
+
+          for (let match of discoveredMatches){
+            makeChildLinks(match.parentLink, match.childLink);
+            if(match.length < childSubjects.length){ alert("LLMM added additional info that is hidden");}
+          }
+
+        }
+    </script>
+
+    <script>
+       function makeChildLinks(parent, child){
+            parent.style.cursor = "pointer";
+            parent.style.textDecoration = "underline";
+            parent.style.color = "blue";
+            parent.onclick = function(){
+              setVisibleChild(child.id);
+            }
+       }
+
+    </script>
+
+<script>window.onload = setChildSubjects;</script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

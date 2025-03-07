@@ -1,0 +1,518 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Home Page</title>
+  <style>
+    pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
+  Theme: StackOverflow Light
+  Description: Light theme as used on stackoverflow.com
+  Author: stackoverflow.com
+  Maintainer: @Hirse
+  Website: https://github.com/StackExchange/Stacks
+  License: MIT
+  Updated: 2021-05-15
+
+  Updated for @stackoverflow/stacks v0.64.0
+  Code Blocks: /blob/v0.64.0/lib/css/components/_stacks-code-blocks.less
+  Colors: /blob/v0.64.0/lib/css/exports/_stacks-constants-colors.less
+*/.hljs{color:#2f3337;background:#f6f6f6}.hljs-subst{color:#2f3337}.hljs-comment{color:#656e77}.hljs-attr,.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-section,.hljs-selector-tag{color:#015692}.hljs-attribute{color:#803378}.hljs-name,.hljs-number,.hljs-quote,.hljs-selector-id,.hljs-template-tag,.hljs-type{color:#b75501}.hljs-selector-class{color:#015692}.hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-string,.hljs-symbol,.hljs-template-variable,.hljs-variable{color:#54790d}.hljs-meta,.hljs-selector-pseudo{color:#015692}.hljs-built_in,.hljs-literal,.hljs-title{color:#b75501}.hljs-bullet,.hljs-code{color:#535a60}.hljs-meta .hljs-string{color:#54790d}.hljs-deletion{color:#c02d2e}.hljs-addition{color:#2f6f44}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}
+
+    nav {
+      display: flex;
+      justify-content: flex-start;
+      align-items: left;
+      padding: 10px;
+    }
+    
+    .nav-right {
+      align-self: flex-end;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a id="parentContentLink" href='/?context=2369209a-b74b-44'>Home</a>
+    <select id="childSubjects">
+      <option value="home">Home</option>
+      <!-- Children are added here onload with setChildSubjects -->
+    </select>
+    <!-- Add a previous and next button for prior requests? -->
+    <!-- Add a button to save the current page as a markdown file -->
+
+    <div class="nav-right">
+      <button id="saveButton" onclick="saveButton()">Save html</button>
+
+    </div>
+
+  </nav>
+
+  <div id="content">  
+    <div id="parentContent">
+        <ul>
+<li><strong>California</strong>: Sacramento</li>
+<li><strong>New York</strong>: Albany</li>
+</ul>
+
+    </div>
+    <div id="childDivs">
+      <div title="US States" id="childContent1" onclick="setVisibileChild('childContent1')" hidden=true><h1>California: Sacramento</h1>
+<h2>Overview</h2>
+<p>California, officially the State of California, is a state located on the West Coast of the United States. It is the most populous state in the country and the third-largest by area. The capital of California is Sacramento.</p>
+<h2>Sacramento: The Capital</h2>
+<h3>History</h3>
+<p>Sacramento was founded in 1848 by John Sutter during the California Gold Rush. It was named after the Sacramento River, which itself was named by Spanish cavalry officer Gabriel Moraga in 1808, who named it after the Holy Sacrament.</p>
+<h3>Geography</h3>
+<p>Sacramento is located at the confluence of the Sacramento River and the American River in the northern part of the state. The city serves as the seat of Sacramento County and is part of the Sacramento–Arden-Arcade–Roseville metropolitan area.</p>
+<h3>Government</h3>
+<p>As the capital, Sacramento is home to the California State Capitol, which houses the state legislature and the office of the Governor of California. The city's economy is heavily influenced by state government activities.</p>
+<h3>Culture</h3>
+<p>Sacramento is known for its diverse cultural scene, with numerous museums, theaters, and annual events like the Sacramento Music Festival and the California State Fair. The city also has a rich culinary scene, often highlighted by its farm-to-fork movement.</p>
+<h3>Economy</h3>
+<p>The economy of Sacramento is diverse, with major sectors including government, healthcare, education, and technology. The presence of state government offices and the University of California, Davis, nearby, contribute significantly to the local economy.</p>
+<h3>Demographics</h3>
+<p>As of the latest census, Sacramento has a population of approximately 500,000 people. The city is known for its ethnic diversity, with significant populations of Asian, African American, and Hispanic residents.</p>
+<h3>Education</h3>
+<p>Sacramento is served by the Sacramento City Unified School District, which includes numerous elementary, middle, and high schools. Higher education institutions in the area include Sacramento State University and several community colleges.</p>
+<h3>Transportation</h3>
+<p>Sacramento is a major transportation hub with Sacramento International Airport, Amtrak's Sacramento Valley Station, and an extensive public transit system operated by Sacramento Regional Transit District.</p>
+<p>ResponseID:0cb8af3b-54c5-4f</p>
+</div><div title="State Capitals" id="childContent2" onclick="setVisibileChild('childContent2')" hidden=true><h2>New York: Albany</h2>
+<h3>Overview</h3>
+<p>Albany, the capital of New York, is a city rich in history and culture. Located on the west bank of the Hudson River, it serves as the seat of Albany County. The city is not only the political hub of the state but also a center for education, healthcare, and technology.</p>
+<h3>History</h3>
+<ul>
+<li><strong>Founding</strong>: Albany was founded by Dutch colonists in 1614 as Fort Nassau, and later renamed Fort Orange. It was officially chartered as a city in 1686.</li>
+<li><strong>Role in American History</strong>: Albany played a pivotal role during the American Revolutionary War, serving as a strategic military outpost. It was also a significant stop on the Underground Railroad.</li>
+</ul>
+<h3>Geography</h3>
+<ul>
+<li><strong>Location</strong>: Situated in the eastern part of New York, approximately 150 miles north of New York City.</li>
+<li><strong>Climate</strong>: Albany experiences a humid continental climate with warm, humid summers and cold, snowy winters.</li>
+</ul>
+<h3>Economy</h3>
+<ul>
+<li><strong>Key Industries</strong>: Government, education, healthcare, and technology are the primary sectors driving Albany's economy.</li>
+<li><strong>Major Employers</strong>: The New York State government, Albany Medical Center, and the University at Albany are among the largest employers.</li>
+</ul>
+<h3>Culture and Education</h3>
+<ul>
+<li><strong>Cultural Attractions</strong>: The New York State Museum, the Albany Institute of History &amp; Art, and the Egg (a performing arts venue) are notable cultural landmarks.</li>
+<li><strong>Educational Institutions</strong>: Albany is home to several colleges and universities, including the University at Albany, SUNY, and the Albany College of Pharmacy and Health Sciences.</li>
+</ul>
+<h3>Government</h3>
+<ul>
+<li><strong>State Capitol</strong>: The New York State Capitol, located in Albany, is a striking example of late 19th-century architecture. It is where the state's legislative and executive branches operate.</li>
+<li><strong>Local Government</strong>: Albany operates under a mayor-council form of government, with the mayor serving as the chief executive.</li>
+</ul>
+<h3>Transportation</h3>
+<ul>
+<li><strong>Accessibility</strong>: Albany is well-connected by several major highways, including I-87, I-90, and I-787. The Albany International Airport serves the region, and Amtrak provides rail service via the Albany-Rensselaer station.</li>
+</ul>
+<h3>Notable Residents</h3>
+<ul>
+<li><strong>Historical Figures</strong>: Albany has been home to notable figures such as President Martin Van Buren, who was born in nearby Kinderhook, and author Herman Melville, who wrote parts of "Moby-Dick" while living in Albany.</li>
+</ul>
+<h3>Tourism</h3>
+<ul>
+<li><strong>Attractions</strong>: Visitors to Albany can explore historical sites like the Schuyler Mansion, enjoy the natural beauty of the Hudson River, and partake in events like the Tulip Festival, which celebrates the city's Dutch heritage.</li>
+</ul>
+<p>This detailed overview of Albany, New York, provides a comprehensive look at its history, economy, culture, and more, highlighting why it is an important city beyond just being the state capital.</p>
+<p>ResponseID:0ee61c30-3465-42</p>
+</div><div title="California" id="childContent3" onclick="setVisibileChild('childContent3')" hidden=true><h1>California: Sacramento</h1>
+<h2>Overview</h2>
+<p>Sacramento, the capital city of California, is located at the confluence of the Sacramento and American Rivers. It serves as the political center of the state, hosting the California State Capitol and numerous government offices.</p>
+<h2>History</h2>
+<ul>
+<li><strong>Founding</strong>: Sacramento was founded in 1848 by John Sutter, during the California Gold Rush. It was named after the Sacramento River, which itself was named after the Holy Sacrament.</li>
+<li><strong>Growth</strong>: The city grew rapidly due to its strategic location and became an important hub for transportation and commerce.</li>
+</ul>
+<h2>Geography</h2>
+<ul>
+<li><strong>Location</strong>: Situated in the northern part of California's Central Valley.</li>
+<li><strong>Climate</strong>: Sacramento has a Mediterranean climate with hot, dry summers and mild, wet winters.</li>
+<li><strong>Landmarks</strong>: Notable landmarks include the Tower Bridge, Old Sacramento State Historic Park, and the California State Capitol.</li>
+</ul>
+<h2>Demographics</h2>
+<ul>
+<li><strong>Population</strong>: As of the latest census, Sacramento has a population of approximately 500,000 residents.</li>
+<li><strong>Diversity</strong>: The city is known for its diverse population, with significant communities of various ethnic backgrounds.</li>
+</ul>
+<h2>Economy</h2>
+<ul>
+<li><strong>Key Industries</strong>: Government, healthcare, technology, and agriculture are among the major sectors driving the local economy.</li>
+<li><strong>Employment</strong>: The presence of state government offices provides stable employment opportunities.</li>
+</ul>
+<h2>Education</h2>
+<ul>
+<li><strong>Institutions</strong>: Sacramento is home to several educational institutions, including Sacramento State University and the University of California, Davis (nearby).</li>
+<li><strong>Public Schools</strong>: The Sacramento City Unified School District serves the educational needs of the city's youth.</li>
+</ul>
+<h2>Culture</h2>
+<ul>
+<li><strong>Events</strong>: The city hosts numerous cultural events, including the Sacramento Music Festival and the California State Fair.</li>
+<li><strong>Arts</strong>: Sacramento has a vibrant arts scene, with theaters like the B Street Theatre and art museums such as the Crocker Art Museum.</li>
+</ul>
+<h2>Transportation</h2>
+<ul>
+<li><strong>Air Travel</strong>: Sacramento International Airport serves as the main gateway for air travel.</li>
+<li><strong>Public Transit</strong>: The Sacramento Regional Transit District operates buses and light rail throughout the city.</li>
+</ul>
+<h2>Recreation</h2>
+<ul>
+<li><strong>Parks</strong>: The American River Parkway offers extensive trails for hiking, biking, and other outdoor activities.</li>
+<li><strong>Sports</strong>: The city supports professional sports teams like the Sacramento Kings (NBA) and Sacramento River Cats (MiLB).</li>
+</ul>
+<h2>Conclusion</h2>
+<p>Sacramento, with its rich history, diverse population, and robust economy, stands as a vibrant capital city that continues to grow and evolve. Its blend of cultural, educational, and recreational offerings makes it a unique and appealing destination.</p>
+<p>ResponseID:cbf0b1eb-1f51-47</p>
+</div><div title="New York" id="childContent4" onclick="setVisibileChild('childContent4')" hidden=true><h2>New York: Albany</h2>
+<p>New York, one of the most populous states in the United States, has Albany as its capital city. Here's a more detailed look into Albany:</p>
+<h3>History</h3>
+<p>Albany was founded by Dutch colonists in 1614 as Fort Orange, named after the royal Dutch House of Orange-Nassau. The city played a pivotal role during the American Revolutionary War, serving as a key military and logistical hub. It officially became the capital of New York in 1797, succeeding New York City.</p>
+<h3>Geography</h3>
+<p>Albany is located on the west bank of the Hudson River, approximately 150 miles north of New York City. The city covers an area of about 21.8 square miles and has a population of around 97,000 people as per the latest census. The city's terrain is mostly flat, with the river providing a scenic backdrop.</p>
+<h3>Economy</h3>
+<p>The economy of Albany is diverse, with significant contributions from government, healthcare, education, and technology sectors. As the capital, it hosts numerous state government offices, including the New York State Capitol and the Empire State Plaza. The presence of the State University of New York (SUNY) system and several hospitals also boosts the local economy.</p>
+<h3>Culture and Attractions</h3>
+<p>Albany is rich in cultural attractions. The New York State Museum offers insights into the state's history and natural resources. The Albany Institute of History and Art showcases art and historical artifacts. The city also hosts several annual events, including the Tulip Festival, which celebrates its Dutch heritage.</p>
+<h3>Transportation</h3>
+<p>Albany is well-connected by various modes of transportation. The Albany International Airport serves the region, while Amtrak provides rail service through the Albany-Rensselaer station. The city is also accessible via several major highways, including I-87 and I-90.</p>
+<h3>Education</h3>
+<p>Albany is home to several educational institutions, including the University at Albany, part of the SUNY system. The city's public school system is managed by the Albany City School District, which serves thousands of students.</p>
+<h3>Notable Residents</h3>
+<p>Albany has been home to several notable figures, including politicians, artists, and athletes. Among them are former U.S. President Chester A. Arthur and author Herman Melville, who wrote parts of "Moby-Dick" while living in the city.</p>
+<p>This detailed overview provides a comprehensive look at Albany, the capital of New York, covering its historical significance, geographical features, economic landscape, cultural attractions, transportation options, educational institutions, and notable residents.</p>
+<p>ResponseID:555fbcea-f110-43</p>
+</div><div title="Sacramento" id="childContent5" onclick="setVisibileChild('childContent5')" hidden=true><h2>Sacramento, California</h2>
+<h3>Overview</h3>
+<p>Sacramento is the capital city of California, located in the northern part of the state. It serves as the political and cultural hub of the region, known for its historic landmarks, vibrant community, and pivotal role in state governance.</p>
+<h3>History</h3>
+<ul>
+<li><strong>Founding</strong>: Sacramento was founded in 1848 by John Sutter, during the California Gold Rush. Its strategic location along the Sacramento River made it a central point for trade and transportation.</li>
+<li><strong>State Capital</strong>: In 1854, Sacramento was chosen as the permanent state capital, replacing San Jose, Vallejo, and Benicia.</li>
+</ul>
+<h3>Geography</h3>
+<ul>
+<li><strong>Location</strong>: Situated at the confluence of the Sacramento River and the American River.</li>
+<li><strong>Climate</strong>: Sacramento has a Mediterranean climate, characterized by hot, dry summers and mild, wet winters.</li>
+<li><strong>Size</strong>: The city spans approximately 100.1 square miles.</li>
+</ul>
+<h3>Demographics</h3>
+<ul>
+<li><strong>Population</strong>: As of the last census, Sacramento has a population of about 524,943 residents.</li>
+<li><strong>Diversity</strong>: The city is known for its diverse population, with significant communities of African American, Asian, Hispanic, and other ethnic groups.</li>
+</ul>
+<h3>Economy</h3>
+<ul>
+<li><strong>Major Industries</strong>: Government, healthcare, education, and technology are among the primary sectors driving Sacramento's economy.</li>
+<li><strong>Employment</strong>: The city is home to numerous state government offices, contributing significantly to local employment.</li>
+</ul>
+<h3>Government and Politics</h3>
+<ul>
+<li><strong>State Capitol</strong>: The California State Capitol, a prominent landmark, is located in downtown Sacramento. It houses the offices of the Governor of California and the state legislature.</li>
+<li><strong>Local Governance</strong>: Sacramento is governed by a mayor-council system, with the mayor serving as the chief executive and the city council as the legislative body.</li>
+</ul>
+<h3>Education</h3>
+<ul>
+<li><strong>Higher Education</strong>: Sacramento is home to several institutions of higher learning, including Sacramento State University and the University of California, Davis (nearby).</li>
+<li><strong>Public Schools</strong>: The city has a robust public school system managed by the Sacramento City Unified School District.</li>
+</ul>
+<h3>Culture and Attractions</h3>
+<ul>
+<li><strong>Historic Sites</strong>: Old Sacramento, a historic district, offers a glimpse into the city's past with its preserved 19th-century buildings and museums.</li>
+<li><strong>Annual Events</strong>: The city hosts numerous events, including the California State Fair and the Sacramento Music Festival.</li>
+<li><strong>Parks and Recreation</strong>: Sacramento boasts numerous parks, including the American River Parkway, offering extensive trails and outdoor activities.</li>
+</ul>
+<h3>Transportation</h3>
+<ul>
+<li><strong>Public Transit</strong>: Sacramento Regional Transit District (SacRT) provides bus and light rail services throughout the city and surrounding areas.</li>
+<li><strong>Air Travel</strong>: Sacramento International Airport (SMF) serves as the primary gateway for air travel in the region.</li>
+</ul>
+<h3>Future Developments</h3>
+<ul>
+<li><strong>Infrastructure</strong>: Ongoing projects aim to improve the city's infrastructure, including new transit lines and community developments.</li>
+<li><strong>Sustainability</strong>: Sacramento is committed to sustainability, with initiatives focused on reducing carbon emissions and promoting green energy.</li>
+</ul>
+<p>ResponseID:43a15c65-ebcf-4e</p>
+</div><div title="Albany
+
+Followup questions
+- Would you like to know about more states and their capitals?
+- Are you" id="childContent6" onclick="setVisibileChild('childContent6')" hidden=true><h1>Albany, New York: A Detailed Overview</h1>
+<h2>History and Significance</h2>
+<p>Albany, the capital of New York, has a rich history dating back to its founding in 1614 by Dutch colonists. Originally named Fort Orange, it was a pivotal trading post in the fur trade. The city was renamed Albany in 1664 when the English took control of the area. Albany played a crucial role during the American Revolutionary War, serving as a strategic location for military operations.</p>
+<h2>Geography and Climate</h2>
+<p>Located on the west bank of the Hudson River, Albany is approximately 150 miles north of New York City. The city covers an area of about 21.8 square miles. Albany experiences a humid continental climate, characterized by warm, humid summers and cold, snowy winters. The average high temperature in July is around 83°F, while the average low in January hovers around 16°F.</p>
+<h2>Economy and Industry</h2>
+<p>Albany's economy is diverse, with significant contributions from government, education, healthcare, and technology sectors. The city is home to several major employers, including the State of New York, the University at Albany, and Albany Medical Center. The tech industry has been growing, with companies like GlobalFoundries and the Albany Nanotech Complex driving innovation in the region.</p>
+<h2>Culture and Attractions</h2>
+<p>Albany boasts a vibrant cultural scene with numerous museums, theaters, and historical sites. Key attractions include the New York State Museum, which showcases the state's history and natural heritage, and the Empire State Plaza, a complex of government buildings and public spaces designed by Wallace Harrison. The city also hosts several annual events, such as the Tulip Festival, celebrating its Dutch heritage.</p>
+<h2>Education and Research</h2>
+<p>Education is a cornerstone of Albany's community, with institutions like the University at Albany (part of the State University of New York system) and Albany Law School providing higher education opportunities. The city is also a hub for research, particularly in nanotechnology and semiconductor manufacturing, thanks to facilities like the College of Nanoscale Science and Engineering.</p>
+<h2>Transportation</h2>
+<p>Albany is well-connected by various modes of transportation. The Albany International Airport serves the region, offering domestic and some international flights. Amtrak provides rail service through the Albany-Rensselaer station, connecting the city to major destinations along the Northeast Corridor. Additionally, Interstate 87 and Interstate 90 intersect in Albany, facilitating road travel.</p>
+<h2>Government and Politics</h2>
+<p>As the state capital, Albany is the seat of the New York State government. The New York State Capitol, a striking example of Romanesque Revival architecture, is where the state legislature convenes. The city also hosts various state agencies and is a focal point for political activity in New York.</p>
+<p>Follow-up questions:</p>
+<ul>
+<li>Would you like to know about more states and their capitals?</li>
+<li>Are you interested in learning about other aspects of Albany?</li>
+</ul>
+<p>ResponseID:33fe8b92-e2ee-46</p>
+</div>
+    </div>
+  </div>
+
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+
+    <script>
+      function setChildSubjects(){
+        let dropDownOptions = [];
+        let childSubjects = document.getElementById('childDivs');
+        for (let child of childSubjects.children){
+           let subject = child.title;
+           let optionValue = child.id;
+
+           dropDownOptions.push({subject: subject, value: optionValue});
+        
+        }
+
+        for (let option of dropDownOptions){
+          let optionElement = document.createElement('option');
+          optionElement.value = option.value;
+          optionElement.text = option.subject;
+          document.getElementById('childSubjects').appendChild(optionElement);
+        }
+
+        document.getElementById('childSubjects').addEventListener('change', function() {
+          if(this.value == "home"){
+            goHomePage();
+          }else{
+            setVisibleChild(this.value);
+          }
+
+          }
+        );
+      }
+    </script>
+
+
+    <script>
+      function setVisibleChild(id){
+        //quick flicker home to reset state, this allows hoping between child views
+     
+    
+           let topNode = document.getElementById('content');
+           let parentNode = document.getElementById('parentContent');
+           let childVisibleNode = document.getElementById(id);
+           let childDivs = document.getElementById('childDivs');
+           for (let child of childDivs.children){
+            if(child.id != id){
+              child.hidden = true;
+            }else{
+              child.hidden = false; //redudant
+            }
+           }
+           parentNode.hidden = true;
+           childVisibleNode.hidden = false;
+         }
+      
+    </script>
+
+    <script>
+      function goHomePage(){
+         let topNode = document.getElementById('content');
+         let parentNode = document.getElementById('parentContent');
+         let children = document.getElementById('childDivs');
+         for (let child of children.children){
+            child.hidden = true;
+         }
+         parentNode.hidden = false;
+      }
+    </script>
+
+    <script>
+      function setChildLinks(){
+        let children = document.getElementById('childDivs'); 
+        let childSubjects = [];
+        let discoveredMatches = [];
+
+        
+        for (let child of children.children){
+          let subject = child.title;
+          childSubjects.push({subject: subject, child: child});
+          }
+             
+          let parentNodeH2Subjects = []
+          let parentNodeH3Subjects = []
+          let parentNodeH4Subjects = []
+          let parentNode = document.getElementById('parentContent');
+          let H2s = parentNode.getElementsByTagName("H2");
+          let H3s = parentNode.getElementsByTagName("H3");
+          let H4s = parentNode.getElementsByTagName("H4");
+          let isH2Match = false;
+          let isH3Match = false;
+          let isH4Match = false;
+
+          H2s.length > 0? parentNodeH2Subjects = H2s.map(item => ({subject: item.innerText, item: item})):isH2Match = false;
+          H3s.length > 0?parentNodeH3Subjects = H3s.map(item => ({subject: item.innerText, item: item})):isH3Match = false;
+          H4s.length > 0?parentNodeH4Subjects = H4s.map(item => ({subject: item.innerText, item: item})):isH4Match = false;
+
+          
+           isH3Match = H3s.length == childSubjects.length;
+           isH2Match = H2s.length == childSubjects.length;
+           isH4Match = H4s.length == childSubjects.length;
+          let allDiscovered = false;
+
+          if (isH3Match){
+            //We have a match.  We need to find the H2s
+            allDiscovered = true;
+          }
+          if (isH2Match){
+            //We have a match.  We need to find the H3s
+            allDiscovered = true;
+          }
+          if (isH4Match){
+            //We have a match.  We need to find the H2s
+            allDiscovered = true;
+          }
+
+          if(allDiscovered && (isH3Match + isH2Match + isH4Match) > 1){
+            //wierd.  ok we work from scratch.
+            allDiscovered = false;
+          }
+
+          if(!allDiscovered){
+
+            let fluffWords = ["a", "an", "the", "and", "but", "or", "for", "nor", "on", "at", "to", "from", "by", "with", "of"];
+            let fluffWordsRegex = new RegExp(fluffWords.join("|"), "g");
+          
+          //OK time to stumble through unpredictable llm output
+          //First check if the child subjects are in the parent node h2 subjects
+          let isH2 = false;
+          let isH3 = false;
+          let isH4 = false;
+      
+          //This can be optimized later.  Probably doesnt matter since it is client side with modern computing.
+          for (let i = 0; i < parentNodeH2Subjects.length; i++){
+            let subject = parentNodeH2Subjects[i].subject;
+            for (let j = 0; j < childSubjects.length; j++){
+              let childSubject = childSubjects[j].subject;
+              if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                isH2 = true;
+                discoveredMatches.push({parentLink: parentNodeH2Subjects[i].item, childLink: childSubjects[j].child});
+              }
+            }
+
+          }
+         
+          if(!isH2){
+            for (let i = 0; i < parentNodeH3Subjects.length; i++){
+              let subject = parentNodeH3Subjects[i].subject;
+              for (let j = 0; j < childSubjects.length; j++){
+                let childSubject = childSubjects[j].subject;  
+                if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                  isH3 = true;
+                  discoveredMatches.push({parentLink: parentNodeH3Subjects[i].item, childLink: childSubjects[j].child});
+                }
+              }
+            }
+          }
+
+          if(!isH3){
+            for (let i = 0; i < parentNodeH4Subjects.length; i++){
+              let subject = parentNodeH4Subjects[i].subject;
+              for (let j = 0; j < childSubjects.length; j++){
+                let childSubject = childSubjects[j].subject;
+                if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                  isH4 = true;
+                  discoveredMatches.push({parentLink: parentNodeH4Subjects[i].item, childLink: childSubjects[j].child});
+                }
+              }
+            }
+          }
+
+          if(!isH4){
+              //I suppose there are edge cases but this surely covers 99.9% of the cases.
+          }
+
+          }else{
+            if(isH3Match){
+              for (let i = 0; i < parentNodeH3Subjects.length; i++){
+                let child = childSubjects[i].child;
+                makeChildLinks(parentNodeH3Subjects[i].item, child);
+              }
+              return; //bye bye
+            }
+            if(isH2Match){
+              for (let i = 0; i < parentNodeH2Subjects.length; i++){
+                let child = childSubjects[i].child;
+                makeChildLinks(parentNodeH2Subjects[i].item, child);
+                return; //bye bye
+              }
+              if(isH4Match){
+                for (let i = 0; i < parentNodeH4Subjects.length; i++){
+                  let child = childSubjects[i].child;
+                  makeChildLinks(parentNodeH4Subjects[i].item, child);
+                }
+              }
+
+            }
+
+          }
+
+          for (let match of discoveredMatches){
+            makeChildLinks(match.parentLink, match.childLink);
+            if(match.length < childSubjects.length){ alert("LLMM added additional info that is hidden");}
+          }
+
+        }
+    </script>
+
+    <script>
+       function makeChildLinks(parent, child){
+            parent.style.cursor = "pointer";
+            parent.style.textDecoration = "underline";
+            parent.style.color = "blue";
+            parent.onclick = function(){
+              setVisibleChild(child.id);
+            }
+       }
+
+    </script>
+
+<script>window.onload = setChildSubjects;</script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

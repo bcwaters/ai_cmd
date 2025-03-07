@@ -1,0 +1,183 @@
+<!doctype html>
+<html>
+<head>
+  <style>
+    pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
+  Theme: StackOverflow Light
+  Description: Light theme as used on stackoverflow.com
+  Author: stackoverflow.com
+  Maintainer: @Hirse
+  Website: https://github.com/StackExchange/Stacks
+  License: MIT
+  Updated: 2021-05-15
+
+  Updated for @stackoverflow/stacks v0.64.0
+  Code Blocks: /blob/v0.64.0/lib/css/components/_stacks-code-blocks.less
+  Colors: /blob/v0.64.0/lib/css/exports/_stacks-constants-colors.less
+*/.hljs{color:#2f3337;background:#f6f6f6}.hljs-subst{color:#2f3337}.hljs-comment{color:#656e77}.hljs-attr,.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-section,.hljs-selector-tag{color:#015692}.hljs-attribute{color:#803378}.hljs-name,.hljs-number,.hljs-quote,.hljs-selector-id,.hljs-template-tag,.hljs-type{color:#b75501}.hljs-selector-class{color:#015692}.hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-string,.hljs-symbol,.hljs-template-variable,.hljs-variable{color:#54790d}.hljs-meta,.hljs-selector-pseudo{color:#015692}.hljs-built_in,.hljs-literal,.hljs-title{color:#b75501}.hljs-bullet,.hljs-code{color:#535a60}.hljs-meta .hljs-string{color:#54790d}.hljs-deletion{color:#c02d2e}.hljs-addition{color:#2f6f44}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}
+
+    
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: left;
+      padding: 10px;
+    }
+    
+    .nav-right {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+  </style>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+ 
+    <a id="home" href="/?context=43a15c65-ebcf-4e">Prompt again</a>
+    <div class="nav-right">
+    <a id="markdown" href="../history/responses/43a15c65-ebcf-4e/markdown/43a15c65-ebcf-4e.md"> markdown</a>
+    <a id="previous" href="../history/responses/33fe8b92-e2ee-46/html/33fe8b92-e2ee-46.html?responseId=43a15c65-ebcf-4e">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    </div>
+  </nav>
+
+  <div id="content" class="markdown-body"><h2>Sacramento, California</h2>
+<h3>Overview</h3>
+<p>Sacramento is the capital city of California, located in the northern part of the state. It serves as the political and cultural hub of the region, known for its historic landmarks, vibrant community, and pivotal role in state governance.</p>
+<h3>History</h3>
+<ul>
+<li><strong>Founding</strong>: Sacramento was founded in 1848 by John Sutter, during the California Gold Rush. Its strategic location along the Sacramento River made it a central point for trade and transportation.</li>
+<li><strong>State Capital</strong>: In 1854, Sacramento was chosen as the permanent state capital, replacing San Jose, Vallejo, and Benicia.</li>
+</ul>
+<h3>Geography</h3>
+<ul>
+<li><strong>Location</strong>: Situated at the confluence of the Sacramento River and the American River.</li>
+<li><strong>Climate</strong>: Sacramento has a Mediterranean climate, characterized by hot, dry summers and mild, wet winters.</li>
+<li><strong>Size</strong>: The city spans approximately 100.1 square miles.</li>
+</ul>
+<h3>Demographics</h3>
+<ul>
+<li><strong>Population</strong>: As of the last census, Sacramento has a population of about 524,943 residents.</li>
+<li><strong>Diversity</strong>: The city is known for its diverse population, with significant communities of African American, Asian, Hispanic, and other ethnic groups.</li>
+</ul>
+<h3>Economy</h3>
+<ul>
+<li><strong>Major Industries</strong>: Government, healthcare, education, and technology are among the primary sectors driving Sacramento's economy.</li>
+<li><strong>Employment</strong>: The city is home to numerous state government offices, contributing significantly to local employment.</li>
+</ul>
+<h3>Government and Politics</h3>
+<ul>
+<li><strong>State Capitol</strong>: The California State Capitol, a prominent landmark, is located in downtown Sacramento. It houses the offices of the Governor of California and the state legislature.</li>
+<li><strong>Local Governance</strong>: Sacramento is governed by a mayor-council system, with the mayor serving as the chief executive and the city council as the legislative body.</li>
+</ul>
+<h3>Education</h3>
+<ul>
+<li><strong>Higher Education</strong>: Sacramento is home to several institutions of higher learning, including Sacramento State University and the University of California, Davis (nearby).</li>
+<li><strong>Public Schools</strong>: The city has a robust public school system managed by the Sacramento City Unified School District.</li>
+</ul>
+<h3>Culture and Attractions</h3>
+<ul>
+<li><strong>Historic Sites</strong>: Old Sacramento, a historic district, offers a glimpse into the city's past with its preserved 19th-century buildings and museums.</li>
+<li><strong>Annual Events</strong>: The city hosts numerous events, including the California State Fair and the Sacramento Music Festival.</li>
+<li><strong>Parks and Recreation</strong>: Sacramento boasts numerous parks, including the American River Parkway, offering extensive trails and outdoor activities.</li>
+</ul>
+<h3>Transportation</h3>
+<ul>
+<li><strong>Public Transit</strong>: Sacramento Regional Transit District (SacRT) provides bus and light rail services throughout the city and surrounding areas.</li>
+<li><strong>Air Travel</strong>: Sacramento International Airport (SMF) serves as the primary gateway for air travel in the region.</li>
+</ul>
+<h3>Future Developments</h3>
+<ul>
+<li><strong>Infrastructure</strong>: Ongoing projects aim to improve the city's infrastructure, including new transit lines and community developments.</li>
+<li><strong>Sustainability</strong>: Sacramento is committed to sustainability, with initiatives focused on reducing carbon emissions and promoting green energy.</li>
+</ul>
+<p>ResponseID:43a15c65-ebcf-4e</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+
+  <script>
+    //This function checks if the current page is a child page and genreate a link to the parent page.
+            function isChild(){
+               params = window.location.search.split('=')[1];
+               if (params == undefined) {
+                return false;
+               }
+               params = params.split("&");
+               for (let i = 0; i < params.length; i++) {
+                if (params[i].includes("child")) {
+                  console.log("found child  ");
+                  console.log(params[i].split("child=")[1]);
+                  return params[i].split("child=")[1];
+                }
+               }
+               return false;
+            }
+    
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log("responseId:",window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../html/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+  <script>
+    function loadMarkdownFile() {
+      const markdownFilePath = "./markdown/43a15c65-ebcf-4e.md"; // Path to the markdown file
+      fetch(markdownFilePath)
+        .then(response => response.text())
+        .then(data => {
+          const blob = new Blob([data], { type: 'text/markdown' }); // Create a Blob from the markdown content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download = '43a15c65-ebcf-4e.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        })
+        .catch(error => console.error('Error loading markdown file:', error));
+    }
+  </script>
+
+</body>
+</html>
+
+
+   

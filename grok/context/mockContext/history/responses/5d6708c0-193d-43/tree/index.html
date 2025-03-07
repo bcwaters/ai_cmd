@@ -1,0 +1,482 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Home Page</title>
+  <style>
+    pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
+  Theme: StackOverflow Light
+  Description: Light theme as used on stackoverflow.com
+  Author: stackoverflow.com
+  Maintainer: @Hirse
+  Website: https://github.com/StackExchange/Stacks
+  License: MIT
+  Updated: 2021-05-15
+
+  Updated for @stackoverflow/stacks v0.64.0
+  Code Blocks: /blob/v0.64.0/lib/css/components/_stacks-code-blocks.less
+  Colors: /blob/v0.64.0/lib/css/exports/_stacks-constants-colors.less
+*/.hljs{color:#2f3337;background:#f6f6f6}.hljs-subst{color:#2f3337}.hljs-comment{color:#656e77}.hljs-attr,.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-section,.hljs-selector-tag{color:#015692}.hljs-attribute{color:#803378}.hljs-name,.hljs-number,.hljs-quote,.hljs-selector-id,.hljs-template-tag,.hljs-type{color:#b75501}.hljs-selector-class{color:#015692}.hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-string,.hljs-symbol,.hljs-template-variable,.hljs-variable{color:#54790d}.hljs-meta,.hljs-selector-pseudo{color:#015692}.hljs-built_in,.hljs-literal,.hljs-title{color:#b75501}.hljs-bullet,.hljs-code{color:#535a60}.hljs-meta .hljs-string{color:#54790d}.hljs-deletion{color:#c02d2e}.hljs-addition{color:#2f6f44}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: left;
+      padding: 10px;
+    }
+    
+    .nav-right {
+      display: flex;
+      gap: 50px;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a id="parentContentLink" href='/?context=5d6708c0-193d-43'>Prompt again</a>
+
+      <select id="childSubjects">
+        <option value="home">Home</option>
+        <!-- Children are added here onload with setChildSubjects -->
+      </select>
+      <!-- Add a previous and next button for prior requests? -->
+      <!-- Add a button to save the current page as a markdown file -->
+
+      
+      <button id="saveButton" onclick="saveButton()">Save html</button>
+
+
+  </nav>
+
+  <div id="content">  
+    <div id="parentContent">
+        <h1>Response to "Testing one two"</h1>
+<p>The system acknowledges the input "testing one two" and processes it accordingly. This test helps ensure that the system can handle simple inputs and generate the expected output format.</p>
+<h2>Follow-up Questions</h2>
+<ul>
+<li>Would you like to test more complex inputs?</li>
+<li>How can the system's response be improved for this type of input?</li>
+<li>Are there specific formats or additional information you need in the response?</li>
+</ul>
+
+    </div>
+    <div id="childDivs">
+      <div title="Testing" id="childContent1" onclick="setVisibileChild('childContent1')" hidden=true><h1>Detailed Explanation of Testing</h1>
+<p>The process of testing within the context of the input "testing one two" is fundamental to ensuring that the system functions as intended. Here's a more detailed exploration of the testing process:</p>
+<h2>Purpose of Testing</h2>
+<p>Testing is conducted to validate that the system can correctly interpret and respond to basic inputs. In this case, the input "testing one two" is a simple string designed to check if the system can:</p>
+<ul>
+<li><strong>Receive Input</strong>: Confirm that the input is correctly received by the system.</li>
+<li><strong>Parse and Interpret</strong>: Ensure that the system understands the input as a simple text string without any special commands or formatting.</li>
+<li><strong>Process and Respond</strong>: Verify that the system can generate a response in the expected format, which in this case is a markdown-formatted acknowledgment of the input.</li>
+</ul>
+<h2>Methodology</h2>
+<p>The methodology for testing this input involves:</p>
+<ul>
+<li><strong>Input Submission</strong>: The user submits the input "testing one two" to the system.</li>
+<li><strong>System Processing</strong>: The system processes this input through its internal logic, which includes:<ul>
+<li><strong>Parsing</strong>: Breaking down the input into its components (in this case, it's a single string).</li>
+<li><strong>Interpretation</strong>: Recognizing the input as a test case rather than a command or query.</li>
+<li><strong>Response Generation</strong>: Creating a response that confirms the input was processed and meets the expected output criteria.</li>
+</ul>
+</li>
+<li><strong>Output Verification</strong>: The user or an automated test script verifies that the output matches the expected markdown format and content.</li>
+</ul>
+<h2>Expected Outcome</h2>
+<p>The expected outcome of this test is a simple acknowledgment in markdown format, indicating that the system has successfully processed the input. The response should clearly state that the input was received and processed, which confirms the system's ability to handle basic inputs.</p>
+<h2>Importance of Simple Tests</h2>
+<p>Simple tests like "testing one two" are crucial because they:</p>
+<ul>
+<li><strong>Establish a Baseline</strong>: They help establish a baseline for system functionality, ensuring that the most basic operations are working correctly.</li>
+<li><strong>Facilitate Debugging</strong>: If the system fails to handle such a simple input, it can indicate deeper issues that need to be addressed.</li>
+<li><strong>Ensure Consistency</strong>: Regular testing with simple inputs helps maintain consistency in system performance over time.</li>
+</ul>
+<h2>Conclusion</h2>
+<p>Testing with the input "testing one two" is a foundational step in ensuring the system's reliability and functionality. It serves as a simple yet effective way to confirm that the system can handle basic inputs and generate the expected output, paving the way for more complex testing and system validation.</p>
+<p>ResponseID:8de8ff49-79fb-48</p>
+</div><div title="Input Processing" id="childContent2" onclick="setVisibileChild('childContent2')" hidden=true><h2>Input Processing</h2>
+<p>Input processing is a fundamental aspect of any system that interacts with users or processes data. In the context of the system's response to the input "testing one two," input processing involves several steps and considerations:</p>
+<h3>1. <strong>Reception of Input</strong></h3>
+<p>   The system first receives the input "testing one two." This input is captured through an interface, which could be a command line, a graphical user interface, or an API endpoint. The system must be designed to recognize and accept this input format, ensuring that it can handle strings and simple commands effectively.</p>
+<h3>2. <strong>Parsing and Interpretation</strong></h3>
+<p>   Once the input is received, the system needs to parse and interpret it. For the input "testing one two," the system identifies it as a simple test string. The parsing mechanism should be robust enough to handle various input types, including text, numbers, or more complex data structures.</p>
+<h3>3. <strong>Processing Logic</strong></h3>
+<p>   After parsing, the system applies its processing logic. In this case, the logic is to acknowledge the input and confirm that it has been processed correctly. This involves checking the input against expected patterns or formats and deciding on the appropriate response.</p>
+<h3>4. <strong>Error Handling</strong></h3>
+<p>   Input processing also includes error handling. If the input were to be malformed or unexpected, the system should be able to identify this and respond appropriately, perhaps by requesting clarification or providing an error message. For the input "testing one two," there are no errors, but the system's error handling capabilities are crucial for more complex inputs.</p>
+<h3>5. <strong>Response Generation</strong></h3>
+<p>   Finally, the system generates a response based on the processed input. For "testing one two," the response is straightforward: acknowledgment and confirmation of correct processing. The response generation should be formatted according to predefined rules, in this case, using Markdown to ensure readability and consistency.</p>
+<h3>6. <strong>Feedback Loop</strong></h3>
+<p>   Input processing often includes a feedback loop where the system can learn from the input and improve its handling over time. For simple inputs like "testing one two," the feedback might be minimal, but for more complex systems, this loop is essential for enhancing performance and user experience.</p>
+<h3>7. <strong>Security Considerations</strong></h3>
+<p>   While not directly relevant to "testing one two," input processing must consider security aspects. The system should validate inputs to prevent injection attacks or other malicious attempts to compromise the system.</p>
+<h3>8. <strong>Performance and Efficiency</strong></h3>
+<p>   The efficiency of input processing affects the overall performance of the system. The system should process inputs like "testing one two" quickly and with minimal resource use, ensuring a responsive user experience.</p>
+<h3>9. <strong>Scalability</strong></h3>
+<p>   The input processing mechanism should be scalable to handle varying volumes of input. While "testing one two" is a simple test, the system's design should accommodate more complex and frequent inputs without degradation in performance.</p>
+<h3>10. <strong>User Experience</strong></h3>
+<p>   Ultimately, input processing impacts user experience. The system's ability to handle "testing one two" correctly and provide a clear, formatted response contributes to a positive user experience. Users expect systems to process inputs accurately and respond in a way that is understandable and useful.</p>
+<p>By considering these aspects, the system can ensure robust and effective input processing, even for simple inputs like "testing one two."</p>
+<h2>Follow-up Questions</h2>
+<ul>
+<li>Would you like to test more complex inputs?</li>
+<li>How can the system's response be improved for this type of input?</li>
+<li>Are there specific formats or additional information you need in the response?</li>
+</ul>
+<p>ResponseID:ad3a1936-b933-46</p>
+</div><div title="Markdown Format" id="childContent3" onclick="setVisibileChild('childContent3')" hidden=true><h1>Markdown Format in System Responses</h1>
+<p>When responding to inputs like "testing one two," the system utilizes Markdown format to structure and present the output in a clear and readable manner. Markdown is a lightweight markup language that allows for the creation of formatted text using a plain text syntax. Here's a detailed breakdown of how Markdown format is applied and why it is beneficial:</p>
+<h2>Why Markdown Format?</h2>
+<ul>
+<li><strong>Readability</strong>: Markdown allows for the creation of headings, lists, and other formatting options that make the response easier to read and understand. This is particularly important for technical users who may need to quickly scan through the information.</li>
+<li><strong>Flexibility</strong>: It can be easily converted to HTML or other formats, making it versatile for various platforms and applications.</li>
+<li><strong>Simplicity</strong>: Markdown's syntax is straightforward, allowing users to focus on the content rather than the formatting.</li>
+</ul>
+<h2>How Markdown is Used in Responses</h2>
+<ul>
+<li><strong>Headings</strong>: The system uses headings (<code>#</code>, <code>##</code>, etc.) to organize the response into sections. For example, the main title of the response is denoted with a single <code>#</code>, while subsections use <code>##</code>.</li>
+<li><strong>Lists</strong>: Bullet points (<code>-</code>) or numbered lists (<code>1.</code>, <code>2.</code>, etc.) are used to present follow-up questions or key points clearly.</li>
+<li><strong>Emphasis</strong>: Bold (<code>**text**</code>) and italics (<code>*text*</code>) can be used to highlight important terms or concepts.</li>
+<li><strong>Code Blocks</strong>: If necessary, code blocks can be included using triple backticks (```) to show examples or technical details.</li>
+</ul>
+<h2>Benefits for Different User Groups</h2>
+<ul>
+<li><strong>Technical Users</strong>: They appreciate the structured format that allows for quick reference and understanding of technical details.</li>
+<li><strong>Educational Context</strong>: Students and educators can benefit from the clear presentation of information, which aids in learning and teaching.</li>
+<li><strong>Business Users</strong>: Professionals can quickly extract key information and action items from the responses.</li>
+</ul>
+<h2>Customization and Adaptability</h2>
+<ul>
+<li><strong>User Needs</strong>: The system can be adjusted to include specific Markdown elements based on user preferences, such as adding tables or images if required.</li>
+<li><strong>Feedback Loop</strong>: User feedback on the format can be used to refine and improve how information is presented, ensuring it meets the needs of the audience.</li>
+</ul>
+<h2>Additional Information and Format Preferences</h2>
+<ul>
+<li><strong>User Interface</strong>: The Markdown format integrates well with various user interfaces, making it a versatile choice for different platforms.</li>
+<li><strong>Data Processing</strong>: The system processes the input and formats the response in Markdown, ensuring that the output is both functional and aesthetically pleasing.</li>
+<li><strong>Storage and Retrieval</strong>: Markdown files are easy to store and retrieve, maintaining the integrity of the formatted text.</li>
+</ul>
+<p>By using Markdown, the system ensures that responses are not only informative but also presented in a manner that is accessible and tailored to the needs of various user groups.</p>
+<p>ResponseID:4c5d6f8e-11df-4b</p>
+</div><div title="System Response" id="childContent4" onclick="setVisibileChild('childContent4')" hidden=true><h2>System Response</h2>
+<p>When the system receives the input "testing one two," it processes this input to ensure it can handle simple text entries and generate an appropriate response in the expected format. Here's a detailed breakdown of how the system responds:</p>
+<h3>Input Processing</h3>
+<ul>
+<li><strong>Recognition</strong>: The system first recognizes the input as a string of text. It identifies "testing one two" as a simple test phrase often used to check functionality.</li>
+<li><strong>Analysis</strong>: The system analyzes the input to determine if it matches any predefined patterns or commands. In this case, it's a generic test input without specific commands or queries.</li>
+<li><strong>Processing</strong>: The system processes the input to generate a response. For simple inputs like "testing one two," the response is straightforward, confirming receipt and processing of the input.</li>
+</ul>
+<h3>Output Generation</h3>
+<ul>
+<li><strong>Formatting</strong>: The system formats the response in markdown, as per the specified requirement. This ensures consistency and readability in the output.</li>
+<li><strong>Content</strong>: The response content acknowledges the input and briefly explains the purpose of the test. It states that the system can handle simple inputs and generate the expected output format.</li>
+<li><strong>Delivery</strong>: The response is delivered back to the user, completing the input-output cycle.</li>
+</ul>
+<h3>Purpose of the Test</h3>
+<ul>
+<li><strong>Functionality Check</strong>: The primary purpose of using "testing one two" is to verify that the system is operational and can process basic inputs correctly.</li>
+<li><strong>Format Verification</strong>: It also serves to check if the system adheres to the required output format, in this case, markdown.</li>
+</ul>
+<h3>System's Capability</h3>
+<ul>
+<li><strong>Handling Simple Inputs</strong>: The system demonstrates its ability to handle and respond to simple inputs effectively.</li>
+<li><strong>Expected Output</strong>: The response confirms that the system meets the expected output criteria, which is essential for user satisfaction and further interaction.</li>
+</ul>
+<h3>Follow-up Questions</h3>
+<ul>
+<li><strong>Complexity Testing</strong>: The system suggests testing more complex inputs to further evaluate its capabilities. This helps in understanding how it handles more intricate queries or commands.</li>
+<li><strong>Improvement Suggestions</strong>: Asking for feedback on how the response can be improved for this type of input encourages user interaction and system refinement.</li>
+<li><strong>Specific Requirements</strong>: Inquiring about specific formats or additional information needed in the response allows the system to tailor its output to user preferences and requirements.</li>
+</ul>
+<p>This detailed examination of the system's response to "testing one two" highlights the importance of processing simple inputs accurately and providing clear, formatted output. It also underscores the system's readiness to adapt and improve based on user feedback and more complex testing scenarios.</p>
+<p>ResponseID:4c1c00d4-2b43-45</p>
+</div><div title="Followup Questions" id="childContent5" onclick="setVisibileChild('childContent5')" hidden=true><h3>Follow-up Questions: Are there specific formats or additional information you need in the response?</h3>
+<p>When asking about specific formats or additional information needed in the response, we delve into the customization and optimization of the system's output. This question is crucial for ensuring that the system meets the user's needs effectively. Here's a detailed breakdown of what this question entails:</p>
+<h4>Understanding User Needs</h4>
+<ul>
+<li><p><strong>Format Preferences</strong>: Users might have particular preferences for how the information is structured. For example, they might prefer bullet points, numbered lists, or tables. Understanding these preferences helps tailor the response to be more readable and useful.</p>
+</li>
+<li><p><strong>Additional Information</strong>: This could include requests for more detailed explanations, examples, or visual aids like diagrams or charts. Users might need different levels of detail depending on their familiarity with the topic.</p>
+</li>
+</ul>
+<h4>Customization of Responses</h4>
+<ul>
+<li><p><strong>Adaptability</strong>: The system should be capable of adjusting its output based on the user's feedback. If a user specifies a need for a certain format, the system should adapt accordingly.</p>
+</li>
+<li><p><strong>Feedback Loop</strong>: This question also opens up a feedback loop where users can continuously refine what they need from the system, improving the quality of interaction over time.</p>
+</li>
+</ul>
+<h4>Examples of Specific Requests</h4>
+<ul>
+<li><p><strong>Technical Users</strong>: A technical user might request the system to include code snippets or mathematical formulas in the response, formatted in a way that is easy to read and copy.</p>
+</li>
+<li><p><strong>Educational Context</strong>: In an educational setting, users might ask for summaries, key takeaways, or study guides, which would require a different format and possibly additional sections like quizzes or exercises.</p>
+</li>
+<li><p><strong>Business Users</strong>: Business users might need responses formatted as reports, with executive summaries, detailed analysis, and actionable recommendations.</p>
+</li>
+</ul>
+<h4>Implementation Considerations</h4>
+<ul>
+<li><p><strong>User Interface</strong>: The system's user interface should allow users to specify their format preferences easily, perhaps through a settings menu or direct input options.</p>
+</li>
+<li><p><strong>Data Processing</strong>: The backend of the system needs to be flexible enough to handle different formatting requests without compromising the accuracy or speed of the response.</p>
+</li>
+<li><p><strong>Storage and Retrieval</strong>: If users frequently request certain formats, the system could store these preferences for future interactions, enhancing user experience by reducing the need to specify preferences repeatedly.</p>
+</li>
+</ul>
+<p>By asking "Are there specific formats or additional information you need in the response?", the system not only seeks to improve its immediate output but also builds a foundation for a more personalized and effective user experience in the long term.</p>
+<p>ResponseID:f21c2d46-8c17-45</p>
+</div>
+    </div>
+  </div>
+
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+
+    <script>
+      function setChildSubjects(){
+        let dropDownOptions = [];
+        let childSubjects = document.getElementById('childDivs');
+        for (let child of childSubjects.children){
+           let subject = child.title;
+           let optionValue = child.id;
+
+           dropDownOptions.push({subject: subject, value: optionValue});
+        
+        }
+
+        for (let option of dropDownOptions){
+          let optionElement = document.createElement('option');
+          optionElement.value = option.value;
+          optionElement.text = option.subject;
+          document.getElementById('childSubjects').appendChild(optionElement);
+        }
+
+        document.getElementById('childSubjects').addEventListener('change', function() {
+          if(this.value == "home"){
+            goHomePage();
+          }else{
+            setVisibleChild(this.value);
+          }
+
+          }
+        );
+      }
+    </script>
+
+
+    <script>
+      function setVisibleChild(id){
+        //quick flicker home to reset state, this allows hoping between child views
+     
+    
+           let topNode = document.getElementById('content');
+           let parentNode = document.getElementById('parentContent');
+           let childVisibleNode = document.getElementById(id);
+           let childDivs = document.getElementById('childDivs');
+           for (let child of childDivs.children){
+            if(child.id != id){
+              child.hidden = true;
+            }else{
+              child.hidden = false; //redudant
+            }
+           }
+           parentNode.hidden = true;
+           childVisibleNode.hidden = false;
+         }
+      
+    </script>
+
+    <script>
+      function goHomePage(){
+         let topNode = document.getElementById('content');
+         let parentNode = document.getElementById('parentContent');
+         let children = document.getElementById('childDivs');
+         for (let child of children.children){
+            child.hidden = true;
+         }
+         parentNode.hidden = false;
+      }
+    </script>
+
+    <script>
+      function setChildLinks(){
+        let children = document.getElementById('childDivs'); 
+        let childSubjects = [];
+        let discoveredMatches = [];
+
+        
+        for (let child of children.children){
+          let subject = child.title;
+          childSubjects.push({subject: subject, child: child});
+          }
+             
+          let parentNodeH2Subjects = []
+          let parentNodeH3Subjects = []
+          let parentNodeH4Subjects = []
+          let parentNode = document.getElementById('parentContent');
+          let H2s = parentNode.getElementsByTagName("H2");
+          let H3s = parentNode.getElementsByTagName("H3");
+          let H4s = parentNode.getElementsByTagName("H4");
+          let isH2Match = false;
+          let isH3Match = false;
+          let isH4Match = false;
+
+          H2s.length > 0? parentNodeH2Subjects = H2s.map(item => ({subject: item.innerText, item: item})):isH2Match = false;
+          H3s.length > 0?parentNodeH3Subjects = H3s.map(item => ({subject: item.innerText, item: item})):isH3Match = false;
+          H4s.length > 0?parentNodeH4Subjects = H4s.map(item => ({subject: item.innerText, item: item})):isH4Match = false;
+
+          
+           isH3Match = H3s.length == childSubjects.length;
+           isH2Match = H2s.length == childSubjects.length;
+           isH4Match = H4s.length == childSubjects.length;
+          let allDiscovered = false;
+
+          if (isH3Match){
+            //We have a match.  We need to find the H2s
+            allDiscovered = true;
+          }
+          if (isH2Match){
+            //We have a match.  We need to find the H3s
+            allDiscovered = true;
+          }
+          if (isH4Match){
+            //We have a match.  We need to find the H2s
+            allDiscovered = true;
+          }
+
+          if(allDiscovered && (isH3Match + isH2Match + isH4Match) > 1){
+            //wierd.  ok we work from scratch.
+            allDiscovered = false;
+          }
+
+          if(!allDiscovered){
+
+            let fluffWords = ["a", "an", "the", "and", "but", "or", "for", "nor", "on", "at", "to", "from", "by", "with", "of"];
+            let fluffWordsRegex = new RegExp(fluffWords.join("|"), "g");
+          
+          //OK time to stumble through unpredictable llm output
+          //First check if the child subjects are in the parent node h2 subjects
+          let isH2 = false;
+          let isH3 = false;
+          let isH4 = false;
+      
+          //This can be optimized later.  Probably doesnt matter since it is client side with modern computing.
+          for (let i = 0; i < parentNodeH2Subjects.length; i++){
+            let subject = parentNodeH2Subjects[i].subject;
+            for (let j = 0; j < childSubjects.length; j++){
+              let childSubject = childSubjects[j].subject;
+              if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                isH2 = true;
+                discoveredMatches.push({parentLink: parentNodeH2Subjects[i].item, childLink: childSubjects[j].child});
+              }
+            }
+
+          }
+         
+          if(!isH2){
+            for (let i = 0; i < parentNodeH3Subjects.length; i++){
+              let subject = parentNodeH3Subjects[i].subject;
+              for (let j = 0; j < childSubjects.length; j++){
+                let childSubject = childSubjects[j].subject;  
+                if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                  isH3 = true;
+                  discoveredMatches.push({parentLink: parentNodeH3Subjects[i].item, childLink: childSubjects[j].child});
+                }
+              }
+            }
+          }
+
+          if(!isH3){
+            for (let i = 0; i < parentNodeH4Subjects.length; i++){
+              let subject = parentNodeH4Subjects[i].subject;
+              for (let j = 0; j < childSubjects.length; j++){
+                let childSubject = childSubjects[j].subject;
+                if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                  isH4 = true;
+                  discoveredMatches.push({parentLink: parentNodeH4Subjects[i].item, childLink: childSubjects[j].child});
+                }
+              }
+            }
+          }
+
+          if(!isH4){
+              //I suppose there are edge cases but this surely covers 99.9% of the cases.
+          }
+
+          }else{
+            if(isH3Match){
+              for (let i = 0; i < parentNodeH3Subjects.length; i++){
+                let child = childSubjects[i].child;
+                makeChildLinks(parentNodeH3Subjects[i].item, child);
+              }
+              return; //bye bye
+            }
+            if(isH2Match){
+              for (let i = 0; i < parentNodeH2Subjects.length; i++){
+                let child = childSubjects[i].child;
+                makeChildLinks(parentNodeH2Subjects[i].item, child);
+                return; //bye bye
+              }
+              if(isH4Match){
+                for (let i = 0; i < parentNodeH4Subjects.length; i++){
+                  let child = childSubjects[i].child;
+                  makeChildLinks(parentNodeH4Subjects[i].item, child);
+                }
+              }
+
+            }
+
+          }
+
+          for (let match of discoveredMatches){
+            makeChildLinks(match.parentLink, match.childLink);
+            if(match.length < childSubjects.length){ alert("LLMM added additional info that is hidden");}
+          }
+
+        }
+    </script>
+
+    <script>
+       function makeChildLinks(parent, child){
+            parent.style.cursor = "pointer";
+            parent.style.textDecoration = "underline";
+            parent.style.color = "blue";
+            parent.onclick = function(){
+              setVisibleChild(child.id);
+            }
+       }
+
+    </script>
+
+<script>window.onload = setChildSubjects;</script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

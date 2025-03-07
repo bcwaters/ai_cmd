@@ -1,0 +1,762 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Home Page</title>
+  <style>
+    
+html {
+  font-size: 100%;
+  overflow-y: scroll;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+body {
+  color: #444;
+  font-family: Georgia, Palatino, 'Palatino Linotype', Times, 'Times New Roman', serif;
+  font-size: 12px;
+  line-height: 1.5em;
+  padding: 1em;
+  margin: auto;
+  max-width: 50em;
+  background: #fefefe;
+}
+
+a {
+  color: #0645ad;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #0b0080;
+}
+
+a:hover {
+  color: #06e;
+}
+
+a:active {
+  color: #faa700;
+}
+
+a:focus {
+  outline: thin dotted;
+}
+
+a:hover,
+a:active {
+  outline: 0;
+}
+
+::-moz-selection {
+  background: rgba(255, 255, 0, 0.3);
+  color: #000;
+}
+
+::selection {
+  background: rgba(255, 255, 0, 0.3);
+  color: #000;
+}
+
+a::-moz-selection {
+  background: rgba(255, 255, 0, 0.3);
+  color: #0645ad;
+}
+
+a::selection {
+  background: rgba(255, 255, 0, 0.3);
+  color: #0645ad;
+}
+
+p {
+  margin: 1em 0;
+}
+
+img {
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
+  color: #111;
+  line-height: 1em;
+}
+
+h4,
+h5,
+h6 {
+  font-weight: bold;
+}
+
+h1 {
+  font-size: 2.5em;
+}
+
+h2 {
+  font-size: 2em;
+}
+
+h3 {
+  font-size: 1.5em;
+}
+
+h4 {
+  font-size: 1.2em;
+}
+
+h5 {
+  font-size: 1em;
+}
+
+h6 {
+  font-size: 0.9em;
+}
+
+blockquote {
+  color: #666666;
+  margin: 0;
+  padding-left: 3em;
+  border-left: 0.5em #eee solid;
+}
+
+hr {
+  display: block;
+  border: 0;
+  border-top: 1px solid #aaa;
+  border-bottom: 1px solid #eee;
+  margin: 1em 0;
+  padding: 0;
+}
+
+/* pre,
+code, */
+kbd,
+samp {
+  color: #000;
+  font-family: monospace, monospace;
+  _font-family: 'courier new', monospace;
+  font-size: 0.98em;
+}
+
+pre {
+  white-space: pre;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+b,
+strong {
+  font-weight: bold;
+}
+
+dfn {
+  font-style: italic;
+}
+
+ins {
+  background: #ff9;
+  color: #000;
+  text-decoration: none;
+}
+
+mark {
+  background: #ff0;
+  color: #000;
+  font-style: italic;
+  font-weight: bold;
+}
+
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sup {
+  top: -0.5em;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+ul,
+ol {
+  margin: 1em 0;
+  padding: 0 0 0 2em;
+}
+
+li p:last-child {
+  margin: 0;
+}
+
+dd {
+  margin: 0 0 0 2em;
+}
+
+img {
+  border: 0;
+  -ms-interpolation-mode: bicubic;
+  vertical-align: middle;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+td {
+  vertical-align: top;
+}
+
+@media only screen and (min-width: 480px) {
+  body {
+    font-size: 14px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  body {
+    font-size: 16px;
+  }
+}
+
+@media print {
+  * {
+    background: transparent !important;
+    color: black !important;
+    filter: none !important;
+    -ms-filter: none !important;
+  }
+
+  body {
+    font-size: 12pt;
+    max-width: 100%;
+  }
+
+  a,
+  a:visited {
+    text-decoration: underline;
+  }
+
+  hr {
+    height: 1px;
+    border: 0;
+    border-bottom: 1px solid black;
+  }
+
+  a[href]:after {
+    content: " (" attr(href) ")";
+  }
+
+  abbr[title]:after {
+    content: " (" attr(title) ")";
+  }
+
+  .ir a:after,
+  a[href^="javascript:"]:after,
+  a[href^="#"]:after {
+    content: "";
+  }
+
+  pre,
+  blockquote {
+    border: 1px solid #999;
+    padding-right: 1em;
+    page-break-inside: avoid;
+  }
+
+  tr,
+  img {
+    page-break-inside: avoid;
+  }
+
+  img {
+    max-width: 100% !important;
+  }
+
+  @page :left {
+    margin: 15mm 20mm 15mm 10mm;
+  }
+
+  @page :right {
+    margin: 15mm 10mm 15mm 20mm;
+  }
+
+  p,
+  h2,
+  h3 {
+    orphans: 3;
+    widows: 3;
+  }
+
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
+}
+
+
+pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px; font-size: 12px;}/*!
+  Theme: StackOverflow Light
+  Description: Light theme as used on stackoverflow.com
+  Author: stackoverflow.com
+  Maintainer: @Hirse
+  Website: https://github.com/StackExchange/Stacks
+  License: MIT
+  Updated: 2021-05-15
+
+  Updated for @stackoverflow/stacks v0.64.0
+  Code Blocks: /blob/v0.64.0/lib/css/components/_stacks-code-blocks.less
+  Colors: /blob/v0.64.0/lib/css/exports/_stacks-constants-colors.less
+*/.hljs{color:#2f3337;background:#f6f6f6}.hljs-subst{color:#2f3337}.hljs-comment{color:#656e77}.hljs-attr,.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-section,.hljs-selector-tag{color:#015692}.hljs-attribute{color:#803378}.hljs-name,.hljs-number,.hljs-quote,.hljs-selector-id,.hljs-template-tag,.hljs-type{color:#b75501}.hljs-selector-class{color:#015692}.hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-string,.hljs-symbol,.hljs-template-variable,.hljs-variable{color:#54790d}.hljs-meta,.hljs-selector-pseudo{color:#015692}.hljs-built_in,.hljs-literal,.hljs-title{color:#b75501}.hljs-bullet,.hljs-code{color:#535a60}.hljs-meta .hljs-string{color:#54790d}.hljs-deletion{color:#c02d2e}.hljs-addition{color:#2f6f44}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: left;
+      padding: 10px;
+    }
+    
+    .nav-right {
+      display: flex;
+      gap: 50px;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a id="parentContentLink" href='/?context=ebdb5e21-3392-4c'>Prompt again</a>
+
+      <select id="childSubjects">
+        <option value="home">Home</option>
+        <!-- Children are added here onload with setChildSubjects -->
+      </select>
+      <!-- Add a previous and next button for prior requests? -->
+      <!-- Add a button to save the current page as a markdown file -->
+
+      
+      <button id="saveButton" onclick="saveButton()">Save html</button>
+
+
+  </nav>
+
+  <div id="content">  
+    <div id="parentContent">
+        <p>To demonstrate two parsers for LaTeX in the unified ecosystem, we'll look at <code>rehype-katex</code> and <code>remark-math</code>. These are plugins that can be used within the unified processor to handle LaTeX math expressions. Here's how you might use them:</p>
+<h3>1. rehype-katex</h3>
+<p><code>rehype-katex</code> is a rehype plugin that converts LaTeX math in HTML to KaTeX, which is a fast LaTeX rendering library. It's particularly useful for rendering math on the web.</p>
+<pre><code class="hljs language-javascript"><span class="hljs-keyword">const</span> unified = <span class="hljs-built_in">require</span>(<span class="hljs-string">'unified'</span>)
+<span class="hljs-keyword">const</span> parse = <span class="hljs-built_in">require</span>(<span class="hljs-string">'rehype-parse'</span>)
+<span class="hljs-keyword">const</span> katex = <span class="hljs-built_in">require</span>(<span class="hljs-string">'rehype-katex'</span>)
+<span class="hljs-keyword">const</span> stringify = <span class="hljs-built_in">require</span>(<span class="hljs-string">'rehype-stringify'</span>)
+
+<span class="hljs-title function_">unified</span>()
+  .<span class="hljs-title function_">use</span>(parse)
+  .<span class="hljs-title function_">use</span>(katex)
+  .<span class="hljs-title function_">use</span>(stringify)
+  .<span class="hljs-title function_">process</span>(<span class="hljs-string">'&lt;p&gt;$E=mc^2REPLACEMElt;/p&gt;'</span>, <span class="hljs-function">(<span class="hljs-params">err, file</span>) =&gt;</span> {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">String</span>(file))
+  })</code></pre>
+<p>This example processes HTML containing LaTeX math and outputs HTML with the math rendered by KaTeX.</p>
+<h3>2. remark-math</h3>
+<p><code>remark-math</code> is a remark plugin that allows you to use LaTeX math syntax in Markdown. It's useful for processing Markdown documents that contain mathematical expressions.</p>
+<pre><code class="hljs language-javascript"><span class="hljs-keyword">const</span> unified = <span class="hljs-built_in">require</span>(<span class="hljs-string">'unified'</span>)
+<span class="hljs-keyword">const</span> parse = <span class="hljs-built_in">require</span>(<span class="hljs-string">'remark-parse'</span>)
+<span class="hljs-keyword">const</span> math = <span class="hljs-built_in">require</span>(<span class="hljs-string">'remark-math'</span>)
+<span class="hljs-keyword">const</span> katex = <span class="hljs-built_in">require</span>(<span class="hljs-string">'rehype-katex'</span>)
+<span class="hljs-keyword">const</span> remark2rehype = <span class="hljs-built_in">require</span>(<span class="hljs-string">'remark-rehype'</span>)
+<span class="hljs-keyword">const</span> stringify = <span class="hljs-built_in">require</span>(<span class="hljs-string">'rehype-stringify'</span>)
+
+<span class="hljs-title function_">unified</span>()
+  .<span class="hljs-title function_">use</span>(parse)
+  .<span class="hljs-title function_">use</span>(math)
+  .<span class="hljs-title function_">use</span>(remark2rehype)
+  .<span class="hljs-title function_">use</span>(katex)
+  .<span class="hljs-title function_">use</span>(stringify)
+  .<span class="hljs-title function_">process</span>(<span class="hljs-string">'Inline math: $E=mc^2$. Display math: $E=mc^2$'</span>, <span class="hljs-function">(<span class="hljs-params">err, file</span>) =&gt;</span> {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">String</span>(file))
+  })</code></pre>
+<p>This example processes a Markdown string with LaTeX math and outputs HTML with the math rendered by KaTeX.</p>
+<p>Both of these plugins are part of the unified ecosystem and can be combined with other plugins to create a full processing pipeline for documents containing LaTeX math.</p>
+<hr>
+<p><strong>Follow-up questions:</strong></p>
+<ul>
+<li>Do you need help integrating these plugins into a larger project?</li>
+<li>Are you interested in learning about other plugins that can be used with LaTeX in unified?</li>
+<li>Would you like to see examples of how these plugins handle more complex LaTeX expressions?</li>
+</ul>
+    </div>
+    <div id="childDivs">
+      <div title="rehypekatex" id="childContent1" onclick="setVisibileChild('childContent1')" hidden=true><h1>rehype-katex: Detailed Overview</h1>
+<p><code>rehype-katex</code> is a specialized plugin within the <code>rehype</code> ecosystem, which itself is part of the larger <code>unified</code> framework. This plugin is designed specifically to handle LaTeX mathematical expressions embedded within HTML documents and convert them into renderable KaTeX format, which is a fast and efficient JavaScript library for rendering LaTeX math on the web.</p>
+<h2>Functionality and Usage</h2>
+<h3>Basic Setup</h3>
+<p>To integrate <code>rehype-katex</code> into your project, you'll need to set up a processing pipeline using the <code>unified</code> processor. Here's an expanded example of how you might configure this:</p>
+<pre><code class="hljs language-javascript"><span class="hljs-keyword">const</span> unified = <span class="hljs-built_in">require</span>(<span class="hljs-string">'unified'</span>);
+<span class="hljs-keyword">const</span> rehypeParse = <span class="hljs-built_in">require</span>(<span class="hljs-string">'rehype-parse'</span>);
+<span class="hljs-keyword">const</span> rehypeKatex = <span class="hljs-built_in">require</span>(<span class="hljs-string">'rehype-katex'</span>);
+<span class="hljs-keyword">const</span> rehypeStringify = <span class="hljs-built_in">require</span>(<span class="hljs-string">'rehype-stringify'</span>);
+
+<span class="hljs-title function_">unified</span>()
+  .<span class="hljs-title function_">use</span>(rehypeParse, { <span class="hljs-attr">fragment</span>: <span class="hljs-literal">true</span> }) <span class="hljs-comment">// Parse HTML</span>
+  .<span class="hljs-title function_">use</span>(rehypeKatex) <span class="hljs-comment">// Convert LaTeX to KaTeX</span>
+  .<span class="hljs-title function_">use</span>(rehypeStringify) <span class="hljs-comment">// Output HTML</span>
+  .<span class="hljs-title function_">process</span>(<span class="hljs-string">'&lt;p&gt;$E=mc^2@REPLACEWITHCHILDRENDIVS@lt;/p&gt;'</span>, <span class="hljs-function">(<span class="hljs-params">err, file</span>) =&gt;</span> {
+    <span class="hljs-keyword">if</span> (err) <span class="hljs-keyword">throw</span> err;
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">String</span>(file));
+  });</code></pre>
+<p>In this setup, <code>rehype-parse</code> parses the HTML input, <code>rehype-katex</code> processes the LaTeX math, and <code>rehype-stringify</code> converts the result back into HTML with KaTeX rendering.</p>
+<h3>Advanced Options</h3>
+<p><code>rehype-katex</code> can be configured with several options to customize its behavior:</p>
+<ul>
+<li><strong>ThrowOnError</strong>: By default, <code>rehype-katex</code> will throw an error if it encounters an invalid LaTeX expression. You can set this to <code>false</code> to ignore errors and continue processing.</li>
+<li><strong>Macros</strong>: You can define custom LaTeX macros to be used during processing. This is useful for defining frequently used symbols or formatting.</li>
+</ul>
+<p>Here's an example of how to use these options:</p>
+<pre><code class="hljs language-javascript"><span class="hljs-title function_">unified</span>()
+  .<span class="hljs-title function_">use</span>(rehypeParse, { <span class="hljs-attr">fragment</span>: <span class="hljs-literal">true</span> })
+  .<span class="hljs-title function_">use</span>(rehypeKatex, {
+    <span class="hljs-attr">throwOnError</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">macros</span>: {
+      <span class="hljs-string">'\\RR'</span>: <span class="hljs-string">'\\mathbb{R}'</span>
+    }
+  })
+  .<span class="hljs-title function_">use</span>(rehypeStringify)
+  .<span class="hljs-title function_">process</span>(<span class="hljs-string">'&lt;p&gt;$E=mc^2$, $x \\in \\RR@REPLACEWITHCHILDRENDIVS@lt;/p&gt;'</span>, <span class="hljs-function">(<span class="hljs-params">err, file</span>) =&gt;</span> {
+    <span class="hljs-keyword">if</span> (err) <span class="hljs-keyword">throw</span> err;
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">String</span>(file));
+  });</code></pre>
+<h3>Integration with Other Plugins</h3>
+<p><code>rehype-katex</code> can be combined with other <code>rehype</code> plugins to create a more comprehensive processing pipeline. For instance, you might want to add syntax highlighting for code blocks or handle other types of content within your documents.</p>
+<h3>Performance Considerations</h3>
+<p>KaTeX is designed to be fast, but the performance can vary based on the complexity of the LaTeX expressions and the number of expressions in the document. For large documents or documents with many complex expressions, consider optimizing the rendering process or splitting the document into smaller chunks.</p>
+<h3>Browser Compatibility</h3>
+<p>KaTeX works well in modern browsers, but you should ensure that your target audience's browsers support the necessary features. KaTeX provides polyfills for older browsers if needed.</p>
+<h3>Accessibility</h3>
+<p>When using <code>rehype-katex</code>, consider the accessibility of your mathematical content. KaTeX can generate accessible MathML, but you may need to configure this manually or use additional plugins to ensure your math is accessible to screen readers.</p>
+<h2>Conclusion</h2>
+<p><code>rehype-katex</code> is a powerful tool for anyone looking to embed and render LaTeX math within HTML documents. Its integration with the <code>unified</code> ecosystem makes it versatile and easy to combine with other document processing tools. Whether you're creating educational content, technical documentation, or any other type of document that requires mathematical expressions, <code>rehype-katex</code> can help you achieve professional and accessible results.</p>
+<hr>
+<p><strong>Follow-up questions:</strong></p>
+<ul>
+<li>Do you need help integrating <code>rehype-katex</code> into a larger project?</li>
+<li>Are you interested in learning about other plugins that can be used with LaTeX in unified?</li>
+<li>Would you like to see examples of how <code>rehype-katex</code> handles more complex LaTeX expressions?</li>
+</ul>
+<p>ResponseID:394e2b22-8b19-40</p></div><div title="remarkmath" id="childContent2" onclick="setVisibileChild('childContent2')" hidden=true><h1>Remark-math in Detail</h1>
+<p><code>remark-math</code> is a plugin designed to work within the unified ecosystem, specifically tailored for handling LaTeX math expressions in Markdown documents. Here's an in-depth look at how <code>remark-math</code> functions and its utility:</p>
+<h2>Integration with Unified</h2>
+<p><code>remark-math</code> integrates seamlessly with the <code>unified</code> processor, which is a toolkit for processing text using plugins. When you include <code>remark-math</code> in your pipeline, it enables the processing of LaTeX math syntax within your Markdown files.</p>
+<h3>Example Pipeline</h3>
+<pre><code class="hljs language-javascript"><span class="hljs-keyword">const</span> unified = <span class="hljs-built_in">require</span>(<span class="hljs-string">'unified'</span>)
+<span class="hljs-keyword">const</span> parse = <span class="hljs-built_in">require</span>(<span class="hljs-string">'remark-parse'</span>)
+<span class="hljs-keyword">const</span> math = <span class="hljs-built_in">require</span>(<span class="hljs-string">'remark-math'</span>)
+<span class="hljs-keyword">const</span> katex = <span class="hljs-built_in">require</span>(<span class="hljs-string">'rehype-katex'</span>)
+<span class="hljs-keyword">const</span> remark2rehype = <span class="hljs-built_in">require</span>(<span class="hljs-string">'remark-rehype'</span>)
+<span class="hljs-keyword">const</span> stringify = <span class="hljs-built_in">require</span>(<span class="hljs-string">'rehype-stringify'</span>)
+
+<span class="hljs-title function_">unified</span>()
+  .<span class="hljs-title function_">use</span>(parse)
+  .<span class="hljs-title function_">use</span>(math)
+  .<span class="hljs-title function_">use</span>(remark2rehype)
+  .<span class="hljs-title function_">use</span>(katex)
+  .<span class="hljs-title function_">use</span>(stringify)
+  .<span class="hljs-title function_">process</span>(<span class="hljs-string">'Inline math: $E=mc^2$. Display math: $E=mc^2$'</span>, <span class="hljs-function">(<span class="hljs-params">err, file</span>) =&gt;</span> {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">String</span>(file))
+  })</code></pre>
+<p>This pipeline demonstrates how <code>remark-math</code> fits into the processing chain. It parses the Markdown, recognizes and processes the LaTeX math syntax, converts it to HTML, and then renders the math using KaTeX.</p>
+<h2>Handling LaTeX Syntax</h2>
+<p><code>remark-math</code> supports both inline and display math syntax:</p>
+<ul>
+<li><strong>Inline Math</strong>: Enclosed in single dollar signs, e.g., <code>$E=mc^2$</code>.</li>
+<li><strong>Display Math</strong>: Enclosed in double dollar signs, e.g., <code>$E=mc^2$</code>.</li>
+</ul>
+<p>When <code>remark-math</code> encounters these syntaxes, it identifies them as math expressions and prepares them for conversion to HTML.</p>
+<h2>Conversion to HTML</h2>
+<p>After identifying the LaTeX math expressions, <code>remark-math</code> converts the Markdown containing these expressions into an abstract syntax tree (AST). This AST is then passed to <code>remark-rehype</code>, which converts the Markdown AST into an HTML AST. Finally, <code>rehype-katex</code> renders the math expressions in the HTML using KaTeX.</p>
+<h3>Output Example</h3>
+<p>For the input <code>Inline math: $E=mc^2$. Display math: $E=mc^2$</code>, the output might look like this:</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Inline math: <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"katex"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">math</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">"http://www.w3.org/1998/Math/MathML"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">semantics</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">mrow</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">mi</span>&gt;</span>E<span class="hljs-tag">&lt;/<span class="hljs-name">mi</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">mo</span>&gt;</span>=<span class="hljs-tag">&lt;/<span class="hljs-name">mo</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">mi</span>&gt;</span>m<span class="hljs-tag">&lt;/<span class="hljs-name">mi</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">msup</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">mi</span>&gt;</span>c<span class="hljs-tag">&lt;/<span class="hljs-name">mi</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">mn</span>&gt;</span>2<span class="hljs-tag">&lt;/<span class="hljs-name">mn</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">msup</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">mrow</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">annotation</span> <span class="hljs-attr">encoding</span>=<span class="hljs-string">"application/x-tex"</span>&gt;</span>E=mc^2<span class="hljs-tag">&lt;/<span class="hljs-name">annotation</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">semantics</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">math</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>. Display math: <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"katex-display"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">math</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">"http://www.w3.org/1998/Math/MathML"</span> <span class="hljs-attr">display</span>=<span class="hljs-string">"block"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">semantics</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">mrow</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">mi</span>&gt;</span>E<span class="hljs-tag">&lt;/<span class="hljs-name">mi</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">mo</span>&gt;</span>=<span class="hljs-tag">&lt;/<span class="hljs-name">mo</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">mi</span>&gt;</span>m<span class="hljs-tag">&lt;/<span class="hljs-name">mi</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">msup</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">mi</span>&gt;</span>c<span class="hljs-tag">&lt;/<span class="hljs-name">mi</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">mn</span>&gt;</span>2<span class="hljs-tag">&lt;/<span class="hljs-name">mn</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">msup</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">mrow</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">annotation</span> <span class="hljs-attr">encoding</span>=<span class="hljs-string">"application/x-tex"</span>&gt;</span>E=mc^2<span class="hljs-tag">&lt;/<span class="hljs-name">annotation</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">semantics</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">math</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></code></pre>
+<p>This HTML can then be rendered in a browser, displaying the math correctly.</p>
+<h2>Use Cases</h2>
+<p><code>remark-math</code> is particularly useful for:</p>
+<ul>
+<li><strong>Academic and Technical Writing</strong>: Where mathematical expressions are common and need to be seamlessly integrated into Markdown documents.</li>
+<li><strong>Documentation</strong>: For software and tools that require mathematical notation.</li>
+<li><strong>Blogging Platforms</strong>: To enable authors to include math in their posts without needing to manually convert LaTeX to HTML.</li>
+</ul>
+<h2>Further Considerations</h2>
+<ul>
+<li><strong>Complex Expressions</strong>: <code>remark-math</code> can handle more complex LaTeX expressions, including matrices, integrals, and more. However, the complexity of the expressions might require additional configuration or plugins.</li>
+<li><strong>Accessibility</strong>: The output HTML can be configured to improve accessibility, such as adding appropriate ARIA labels for screen readers.</li>
+</ul>
+<hr>
+<p><strong>Follow-up questions:</strong></p>
+<ul>
+<li>Do you need help integrating <code>remark-math</code> into a larger project?</li>
+<li>Are you interested in learning about other plugins that can be used with LaTeX in unified?</li>
+<li>Would you like to see examples of how <code>remark-math</code> handles more complex LaTeX expressions?</li>
+</ul>
+<p>ResponseID:fd15e809-c92c-4d</p></div>
+    </div>
+  </div>
+
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+
+    <script>
+      function setChildSubjects(){
+        let dropDownOptions = [];
+        let childSubjects = document.getElementById('childDivs');
+        for (let child of childSubjects.children){
+           let subject = child.title;
+           let optionValue = child.id;
+
+           dropDownOptions.push({subject: subject, value: optionValue});
+        
+        }
+
+        for (let option of dropDownOptions){
+          let optionElement = document.createElement('option');
+          optionElement.value = option.value;
+          optionElement.text = option.subject;
+          document.getElementById('childSubjects').appendChild(optionElement);
+        }
+
+        document.getElementById('childSubjects').addEventListener('change', function() {
+          if(this.value == "home"){
+            goHomePage();
+          }else{
+            setVisibleChild(this.value);
+          }
+
+          }
+        );
+      }
+    </script>
+
+
+    <script>
+      function setVisibleChild(id){
+        //quick flicker home to reset state, this allows hoping between child views
+     
+    
+           let topNode = document.getElementById('content');
+           let parentNode = document.getElementById('parentContent');
+           let childVisibleNode = document.getElementById(id);
+           let childDivs = document.getElementById('childDivs');
+           for (let child of childDivs.children){
+            if(child.id != id){
+              child.hidden = true;
+            }else{
+              child.hidden = false; //redudant
+            }
+           }
+           parentNode.hidden = true;
+           childVisibleNode.hidden = false;
+         }
+      
+    </script>
+
+    <script>
+      function goHomePage(){
+         let topNode = document.getElementById('content');
+         let parentNode = document.getElementById('parentContent');
+         let children = document.getElementById('childDivs');
+         for (let child of children.children){
+            child.hidden = true;
+         }
+         parentNode.hidden = false;
+      }
+    </script>
+
+    <script>
+      function setChildLinks(){
+        let children = document.getElementById('childDivs'); 
+        let childSubjects = [];
+        let discoveredMatches = [];
+
+        
+        for (let child of children.children){
+          let subject = child.title;
+          childSubjects.push({subject: subject, child: child});
+          }
+             
+          let parentNodeH2Subjects = []
+          let parentNodeH3Subjects = []
+          let parentNodeH4Subjects = []
+          let parentNode = document.getElementById('parentContent');
+          let H2s = parentNode.getElementsByTagName("H2");
+          let H3s = parentNode.getElementsByTagName("H3");
+          let H4s = parentNode.getElementsByTagName("H4");
+          let isH2Match = false;
+          let isH3Match = false;
+          let isH4Match = false;
+
+          H2s.length > 0? parentNodeH2Subjects = H2s.map(item => ({subject: item.innerText, item: item})):isH2Match = false;
+          H3s.length > 0?parentNodeH3Subjects = H3s.map(item => ({subject: item.innerText, item: item})):isH3Match = false;
+          H4s.length > 0?parentNodeH4Subjects = H4s.map(item => ({subject: item.innerText, item: item})):isH4Match = false;
+
+          
+           isH3Match = H3s.length == childSubjects.length;
+           isH2Match = H2s.length == childSubjects.length;
+           isH4Match = H4s.length == childSubjects.length;
+          let allDiscovered = false;
+
+          if (isH3Match){
+            //We have a match.  We need to find the H2s
+            allDiscovered = true;
+          }
+          if (isH2Match){
+            //We have a match.  We need to find the H3s
+            allDiscovered = true;
+          }
+          if (isH4Match){
+            //We have a match.  We need to find the H2s
+            allDiscovered = true;
+          }
+
+          if(allDiscovered && (isH3Match + isH2Match + isH4Match) > 1){
+            //wierd.  ok we work from scratch.
+            allDiscovered = false;
+          }
+
+          if(!allDiscovered){
+
+            let fluffWords = ["a", "an", "the", "and", "but", "or", "for", "nor", "on", "at", "to", "from", "by", "with", "of"];
+            let fluffWordsRegex = new RegExp(fluffWords.join("|"), "g");
+          
+          //OK time to stumble through unpredictable llm output
+          //First check if the child subjects are in the parent node h2 subjects
+          let isH2 = false;
+          let isH3 = false;
+          let isH4 = false;
+      
+          //This can be optimized later.  Probably doesnt matter since it is client side with modern computing.
+          for (let i = 0; i < parentNodeH2Subjects.length; i++){
+            let subject = parentNodeH2Subjects[i].subject;
+            for (let j = 0; j < childSubjects.length; j++){
+              let childSubject = childSubjects[j].subject;
+              if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                isH2 = true;
+                discoveredMatches.push({parentLink: parentNodeH2Subjects[i].item, childLink: childSubjects[j].child});
+              }
+            }
+
+          }
+         
+          if(!isH2){
+            for (let i = 0; i < parentNodeH3Subjects.length; i++){
+              let subject = parentNodeH3Subjects[i].subject;
+              for (let j = 0; j < childSubjects.length; j++){
+                let childSubject = childSubjects[j].subject;  
+                if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                  isH3 = true;
+                  discoveredMatches.push({parentLink: parentNodeH3Subjects[i].item, childLink: childSubjects[j].child});
+                }
+              }
+            }
+          }
+
+          if(!isH3){
+            for (let i = 0; i < parentNodeH4Subjects.length; i++){
+              let subject = parentNodeH4Subjects[i].subject;
+              for (let j = 0; j < childSubjects.length; j++){
+                let childSubject = childSubjects[j].subject;
+                if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                  isH4 = true;
+                  discoveredMatches.push({parentLink: parentNodeH4Subjects[i].item, childLink: childSubjects[j].child});
+                }
+              }
+            }
+          }
+
+          if(!isH4){
+              //I suppose there are edge cases but this surely covers 99.9% of the cases.
+          }
+
+          }else{
+            if(isH3Match){
+              for (let i = 0; i < parentNodeH3Subjects.length; i++){
+                let child = childSubjects[i].child;
+                makeChildLinks(parentNodeH3Subjects[i].item, child);
+              }
+              return; //bye bye
+            }
+            if(isH2Match){
+              for (let i = 0; i < parentNodeH2Subjects.length; i++){
+                let child = childSubjects[i].child;
+                makeChildLinks(parentNodeH2Subjects[i].item, child);
+                return; //bye bye
+              }
+              if(isH4Match){
+                for (let i = 0; i < parentNodeH4Subjects.length; i++){
+                  let child = childSubjects[i].child;
+                  makeChildLinks(parentNodeH4Subjects[i].item, child);
+                }
+              }
+
+            }
+
+          }
+
+          for (let match of discoveredMatches){
+            makeChildLinks(match.parentLink, match.childLink);
+            if(match.length < childSubjects.length){ alert("LLMM added additional info that is hidden");}
+          }
+
+        }
+    </script>
+
+    <script>
+       function makeChildLinks(parent, child){
+            parent.style.cursor = "pointer";
+            parent.style.textDecoration = "underline";
+            parent.style.color = "blue";
+            parent.onclick = function(){
+              setVisibleChild(child.id);
+            }
+       }
+
+    </script>
+
+<script>window.onload = setChildSubjects;</script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

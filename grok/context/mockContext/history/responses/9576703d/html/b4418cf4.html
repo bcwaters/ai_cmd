@@ -1,0 +1,139 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    <a id="markdown" href="./markdown/b4418cf4.md"> markdown</a>
+    <a id="previous" href="../9576703d/html/9576703d.html?responseId=b4418cf4">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+  </nav>
+
+  <div id="content"><h1>Saturn</h1>
+<p>Saturn is renowned for its extensive and complex ring system, which is one of the most striking features in our solar system. Composed mostly of ice particles with a smaller amount of rocky debris and dust, these rings are believed to be remnants from comets, asteroids, or shattered moons that were torn apart by Saturn's gravitational forces.</p>
+<p>As the second largest planet in our solar system, Saturn is a gas giant, following Jupiter in size. Its atmosphere is primarily composed of hydrogen and helium, similar to the composition of the Sun. This atmosphere hosts dynamic weather patterns, including strong winds that can reach speeds of up to 1,800 kilometers per hour near the equator.</p>
+<p>Saturn has 82 known moons, with Titan being the largest. Titan is particularly interesting because it is the only known moon in the solar system with a substantial atmosphere, which is rich in nitrogen and methane. The surface of Titan harbors lakes and seas of liquid methane and ethane, making it a subject of interest for astrobiology and the search for life beyond Earth.</p>
+<p>Exploration of Saturn has been significantly advanced by space missions like the Cassini-Huygens mission, a collaborative project between NASA, ESA, and the Italian Space Agency. The Cassini spacecraft orbited Saturn from 2004 to 2017, providing detailed data about the planet, its rings, and its moons. The Huygens probe, part of this mission, successfully landed on Titan in 2005, sending back valuable data about its surface and atmosphere.</p>
+<p>Saturn's magnetic field is another fascinating aspect. It is weaker than Jupiter's but still strong enough to create spectacular auroras at its poles, similar to those on Earth but much more powerful.</p>
+<p>The study of Saturn continues to evolve, with future missions planned to delve deeper into its mysteries, particularly focusing on its moons and the potential for life on Titan or Enceladus, another moon known for its subsurface ocean.</p>
+<p>ResponseID:b4418cf4</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+
+  <script>
+    function saveMarkdown() {
+      const content = document.documentElement.outerHTML; // Get the entire HTML content
+
+      let markdownLocation = "./markdown/";
+      let markdownFileName = "b4418cf4.md";
+      let markdownFile = markdownLocation + markdownFileName;
+      
+
+      const url = URL.createObjectURL(blob); // Create a URL for the Blob
+      const divInnerText = document.getElementById('content').innerText;
+      let filename = divInnerText.substring(0, 25);
+      const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+          a.download =  filename + '.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+      
+    }
+  </script>
+
+  <script>
+    //This function checks if the current page is a child page and genreate a link to the parent page.
+            function isChild(){
+               params = window.location.search.split('=')[1];
+               if (params == undefined) {
+                return false;
+               }
+               params = params.split("&");
+               for (let i = 0; i < params.length; i++) {
+                if (params[i].includes("child")) {
+                  console.log("found child  ");
+                  console.log(params[i].split("child=")[1]);
+                  return params[i].split("child=")[1];
+                }
+               }
+               return false;
+            }
+    
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log("responseId:",window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../html/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+  <script>
+    function loadMarkdownFile() {
+      const markdownFilePath = "./markdown/b4418cf4.md"; // Path to the markdown file
+      fetch(markdownFilePath)
+        .then(response => response.text())
+        .then(data => {
+          const blob = new Blob([data], { type: 'text/markdown' }); // Create a Blob from the markdown content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download = 'b4418cf4.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        })
+        .catch(error => console.error('Error loading markdown file:', error));
+    }
+  </script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

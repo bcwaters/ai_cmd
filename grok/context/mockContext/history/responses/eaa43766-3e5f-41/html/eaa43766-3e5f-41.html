@@ -1,0 +1,185 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    <a id="markdown" href="./eaa43766-3e5f-41.md"> markdown</a>
+    <a id="previous" href="../6da621cf-dd03-49/html/6da621cf-dd03-49.html?responseId=eaa43766-3e5f-41">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+  </nav>
+
+  <div id="content"><h1>Prompt for Claude to Set Up Unit Test Mocks for All JS Files in Your Project</h1>
+<p>To set up unit test mocks for all JS files in your project using Jest, while keeping your business logic unchanged and storing the tests in a separate <code>tests</code> directory, you can provide the following prompt to Claude:</p>
+<hr>
+<p><strong>Prompt for Claude:</strong></p>
+<p>"Claude, please set up Jest unit test mocks for all JavaScript files in my project. The business logic in my existing files should remain unchanged. I want the tests to be organized in a separate directory named <code>tests</code>. Here's what I need:</p>
+<ol>
+<li><p><strong>Install Jest</strong>: First, ensure that Jest is installed in my project. If it's not already installed, please add it to my <code>package.json</code> as a dev dependency.</p>
+</li>
+<li><p><strong>Create Test Directory</strong>: Create a new directory named <code>tests</code> at the root level of my project.</p>
+</li>
+<li><p><strong>Generate Test Files</strong>: For each JavaScript file in my project (excluding files already in the <code>tests</code> directory), create a corresponding test file in the <code>tests</code> directory. The test file should have the same name as the original file but with <code>.test.js</code> appended to the end.</p>
+</li>
+<li><p><strong>Set Up Mocks</strong>: In each test file, set up mocks for any external dependencies or modules that are imported in the corresponding original file. Use Jest's <code>jest.mock()</code> function to create these mocks.</p>
+</li>
+<li><p><strong>Write Basic Test Structure</strong>: Include a basic test structure in each test file that tests the main functionality of the corresponding original file. The tests should not alter the business logic but should verify its correctness.</p>
+</li>
+<li><p><strong>Update <code>package.json</code></strong>: Ensure that the <code>package.json</code> file is updated to include a test script that runs Jest.</p>
+</li>
+</ol>
+<p>Here's an example of how the directory structure and a test file might look:</p>
+<pre><code class="language-plaintext">project-root/
+├── src/
+│   ├── utils.js
+│   └── otherModule.js
+├── tests/
+│   ├── utils.test.js
+│   └── otherModule.test.js
+└── package.json
+</code></pre>
+<p>For <code>utils.js</code> which might contain:</p>
+<pre><code class="language-javascript">// utils.js
+function add(a, b) {
+  return a + b;
+}
+module.exports = { add };
+</code></pre>
+<p>The corresponding test file <code>utils.test.js</code> should look like this:</p>
+<pre><code class="language-javascript">// tests/utils.test.js
+const { add } = require('../src/utils');
+
+jest.mock('../src/otherModule', () =&gt; ({
+  // Mock any dependencies here
+}));
+
+describe('utils', () =&gt; {
+  test('add function should return the sum of two numbers', () =&gt; {
+    expect(add(1, 2)).toBe(3);
+  });
+});
+</code></pre>
+<p>Please ensure that all these steps are followed accurately to set up the unit testing environment for my project."</p>
+<hr>
+<p>This prompt should guide Claude to set up Jest, create the necessary test files, and ensure that mocks are properly implemented without altering the existing business logic. The tests will be neatly organized in a <code>tests</code> directory, keeping your project structure clean and maintainable.</p>
+<p>ResponseID:eaa43766-3e5f-41</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+
+  <script>
+    function saveMarkdown() {
+      const content = document.documentElement.outerHTML; // Get the entire HTML content
+
+      let markdownLocation = "./markdown/";
+      let markdownFileName = "eaa43766-3e5f-41.md";
+      let markdownFile = markdownLocation + markdownFileName;
+      
+
+      const url = URL.createObjectURL(blob); // Create a URL for the Blob
+      const divInnerText = document.getElementById('content').innerText;
+      let filename = divInnerText.substring(0, 25);
+      const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+          a.download =  filename + '.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+      
+    }
+  </script>
+
+  <script>
+    //This function checks if the current page is a child page and genreate a link to the parent page.
+            function isChild(){
+               params = window.location.search.split('=')[1];
+               if (params == undefined) {
+                return false;
+               }
+               params = params.split("&");
+               for (let i = 0; i < params.length; i++) {
+                if (params[i].includes("child")) {
+                  console.log("found child  ");
+                  console.log(params[i].split("child=")[1]);
+                  return params[i].split("child=")[1];
+                }
+               }
+               return false;
+            }
+    
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log("responseId:",window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../html/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+  <script>
+    function loadMarkdownFile() {
+      const markdownFilePath = "./markdown/eaa43766-3e5f-41.md"; // Path to the markdown file
+      fetch(markdownFilePath)
+        .then(response => response.text())
+        .then(data => {
+          const blob = new Blob([data], { type: 'text/markdown' }); // Create a Blob from the markdown content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download = 'eaa43766-3e5f-41.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        })
+        .catch(error => console.error('Error loading markdown file:', error));
+    }
+  </script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

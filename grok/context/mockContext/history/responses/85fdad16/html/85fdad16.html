@@ -1,0 +1,151 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    <a id="markdown" href="./markdown/85fdad16.md"> markdown</a>
+    <a id="previous" href="../725f42ef/html/725f42ef.html?responseId=85fdad16">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+  </nav>
+
+  <div id="content"><h1>Planets in Our Solar System</h1>
+<h2>Mercury</h2>
+<p>Mercury is the closest planet to the Sun and the smallest planet in the solar system. It has no moons and a very thin atmosphere, making its surface temperature vary greatly. Mercury's surface is heavily cratered, similar to the Moon.</p>
+<h2>Venus</h2>
+<p>Venus is often called Earth's "sister planet" due to their similar size and composition. It has a thick, toxic atmosphere that traps heat, resulting in surface temperatures hot enough to melt lead. Venus rotates in the opposite direction to most planets.</p>
+<h2>Earth</h2>
+<p>Earth is the only known planet with life. It has a unique combination of features, including liquid water, a protective atmosphere, and a stable climate. Earth has one natural satellite, the Moon.</p>
+<h2>Mars</h2>
+<p>Mars, known as the "Red Planet," has a reddish appearance due to iron oxide (rust) on its surface. Key features include Olympus Mons, the largest volcano in the solar system, Valles Marineris, a vast canyon system, and polar ice caps. Mars has two small moons, Phobos and Deimos.</p>
+<h2>Jupiter</h2>
+<p>Jupiter is the largest planet in the solar system, known for its Great Red Spot, a massive storm. Its atmosphere is primarily hydrogen and helium, and it has a strong magnetic field. Jupiter has numerous moons, with Ganymede being the largest.</p>
+<h2>Saturn</h2>
+<p>Saturn is renowned for its spectacular ring system, composed of ice and rock particles. Its atmosphere is similar to Jupiter's, with bands of clouds and storms. Saturn's moon Titan is notable for its thick atmosphere and lakes of liquid methane.</p>
+<h2>Uranus</h2>
+<p>Uranus is an ice giant with a unique tilt, causing it to roll around the Sun like a ball. Its atmosphere is composed of hydrogen, helium, and methane, giving it a blue-green color. Uranus has a system of faint rings and numerous moons.</p>
+<h2>Neptune</h2>
+<p>Neptune, another ice giant, is known for its dynamic atmosphere with the fastest winds in the solar system. Its blue color comes from methane in its atmosphere. Neptune has a few rings and several moons, with Triton being the largest.</p>
+<h2>Pluto</h2>
+<p>Pluto was once considered the ninth planet but is now classified as a dwarf planet. It has a highly elliptical orbit and a thin atmosphere. Pluto has five known moons, with Charon being the largest and most significant.</p>
+<p>ResponseID:85fdad16</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+
+  <script>
+    function saveMarkdown() {
+      const content = document.documentElement.outerHTML; // Get the entire HTML content
+
+      let markdownLocation = "./markdown/";
+      let markdownFileName = "85fdad16.md";
+      let markdownFile = markdownLocation + markdownFileName;
+      
+
+      const url = URL.createObjectURL(blob); // Create a URL for the Blob
+      const divInnerText = document.getElementById('content').innerText;
+      let filename = divInnerText.substring(0, 25);
+      const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+          a.download =  filename + '.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+      
+    }
+  </script>
+
+  <script>
+    //This function checks if the current page is a child page and genreate a link to the parent page.
+            function isChild(){
+               params = window.location.search.split('=')[1];
+               if (params == undefined) {
+                return false;
+               }
+               params = params.split("&");
+               for (let i = 0; i < params.length; i++) {
+                if (params[i].includes("child")) {
+                  console.log("found child  ");
+                  console.log(params[i].split("child=")[1]);
+                  return params[i].split("child=")[1];
+                }
+               }
+               return false;
+            }
+    
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log("responseId:",window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../html/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+  <script>
+    function loadMarkdownFile() {
+      const markdownFilePath = "./markdown/85fdad16.md"; // Path to the markdown file
+      fetch(markdownFilePath)
+        .then(response => response.text())
+        .then(data => {
+          const blob = new Blob([data], { type: 'text/markdown' }); // Create a Blob from the markdown content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download = '85fdad16.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        })
+        .catch(error => console.error('Error loading markdown file:', error));
+    }
+  </script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

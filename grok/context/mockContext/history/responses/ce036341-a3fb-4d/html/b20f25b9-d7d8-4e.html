@@ -1,0 +1,156 @@
+<!doctype html>
+<html>
+<head>
+  <style>
+    pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
+  Theme: StackOverflow Light
+  Description: Light theme as used on stackoverflow.com
+  Author: stackoverflow.com
+  Maintainer: @Hirse
+  Website: https://github.com/StackExchange/Stacks
+  License: MIT
+  Updated: 2021-05-15
+
+  Updated for @stackoverflow/stacks v0.64.0
+  Code Blocks: /blob/v0.64.0/lib/css/components/_stacks-code-blocks.less
+  Colors: /blob/v0.64.0/lib/css/exports/_stacks-constants-colors.less
+*/.hljs{color:#2f3337;background:#f6f6f6}.hljs-subst{color:#2f3337}.hljs-comment{color:#656e77}.hljs-attr,.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-section,.hljs-selector-tag{color:#015692}.hljs-attribute{color:#803378}.hljs-name,.hljs-number,.hljs-quote,.hljs-selector-id,.hljs-template-tag,.hljs-type{color:#b75501}.hljs-selector-class{color:#015692}.hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-string,.hljs-symbol,.hljs-template-variable,.hljs-variable{color:#54790d}.hljs-meta,.hljs-selector-pseudo{color:#015692}.hljs-built_in,.hljs-literal,.hljs-title{color:#b75501}.hljs-bullet,.hljs-code{color:#535a60}.hljs-meta .hljs-string{color:#54790d}.hljs-deletion{color:#c02d2e}.hljs-addition{color:#2f6f44}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}
+
+    
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: left;
+      padding: 10px;
+    }
+    
+    .nav-right {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+  </style>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+ 
+    <a id="home" href="/?context=b20f25b9-d7d8-4e">Prompt again</a>
+    <div class="nav-right">
+    <a id="markdown" href="../history/responses/b20f25b9-d7d8-4e/markdown/b20f25b9-d7d8-4e.md"> markdown</a>
+    <a id="previous" href="../history/responses/d5a1daf7-1b63-45/html/d5a1daf7-1b63-45.html?responseId=b20f25b9-d7d8-4e">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    </div>
+  </nav>
+
+  <div id="content" class="markdown-body"><h1>Mars: The Red Planet</h1>
+<h2>Overview</h2>
+<p>Mars, the fourth planet from the Sun, is often referred to as the "Red Planet" due to its iron-rich dust that gives its surface a reddish appearance. It is roughly half the size of Earth and orbits the Sun at an average distance of about 228 million kilometers.</p>
+<h2>Atmosphere</h2>
+<p>Mars has a thin atmosphere, primarily composed of carbon dioxide (95.3%), with minor amounts of nitrogen (2.7%) and argon (1.6%). The atmospheric pressure on Mars is less than 1% of Earth's, making it much less dense. This thin atmosphere results in large temperature swings, with temperatures ranging from -195 degrees Celsius at the poles to about 20 degrees Celsius at the equator during midday.</p>
+<h2>Geological Features</h2>
+<h3>Volcanic Activity</h3>
+<p>Mars is home to some of the largest volcanoes in the solar system. The most famous is Olympus Mons, a shield volcano that stands about 22 kilometers high and spans 600 kilometers in diameter. It is the tallest known volcano and mountain in the entire solar system.</p>
+<h3>Canyons</h3>
+<p>The planet also features Valles Marineris, a vast canyon system that stretches over 4,000 kilometers long, 200 kilometers wide, and up to 7 kilometers deep. This canyon system is believed to have been formed through tectonic activity and erosion.</p>
+<h3>Evidence of Water</h3>
+<p>Mars shows evidence of ancient water flows, suggesting that it once had liquid water on its surface. Features such as river valleys, lake beds, and deltas have been identified. The presence of water ice near the poles and underground further supports the idea that Mars had a wetter past.</p>
+<h2>Exploration</h2>
+<p>Mars has been a focal point for space exploration. Numerous missions have been sent to study the planet, including orbiters, landers, and rovers. Notable missions include:</p>
+<ul>
+<li><strong>Viking Program</strong>: Landed in 1976 and conducted the first successful soft landings and surface experiments.</li>
+<li><strong>Mars Pathfinder</strong>: Launched in 1996, it included the Sojourner rover, which explored the Martian surface.</li>
+<li><strong>Mars Exploration Rovers (Spirit and Opportunity)</strong>: Launched in 2003, these rovers provided extensive data about Martian geology and potential past water environments.</li>
+<li><strong>Curiosity Rover</strong>: Launched in 2011, it is exploring Gale Crater and has found evidence of past habitable environments.</li>
+<li><strong>Perseverance Rover</strong>: Launched in 2020, it is currently exploring Jezero Crater and collecting samples for future return to Earth.</li>
+</ul>
+<h2>Future Prospects</h2>
+<p>Mars continues to be a target for future human exploration and potential colonization. Plans are underway to establish sustainable human presence on Mars, with missions like NASA's Artemis program and private initiatives like SpaceX's Mars colonization efforts.</p>
+<p>ResponseID:b20f25b9-d7d8-4e</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+
+  <script>
+    //This function checks if the current page is a child page and genreate a link to the parent page.
+            function isChild(){
+               params = window.location.search.split('=')[1];
+               if (params == undefined) {
+                return false;
+               }
+               params = params.split("&");
+               for (let i = 0; i < params.length; i++) {
+                if (params[i].includes("child")) {
+                  console.log("found child  ");
+                  console.log(params[i].split("child=")[1]);
+                  return params[i].split("child=")[1];
+                }
+               }
+               return false;
+            }
+    
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log("responseId:",window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../html/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+  <script>
+    function loadMarkdownFile() {
+      const markdownFilePath = "./markdown/b20f25b9-d7d8-4e.md"; // Path to the markdown file
+      fetch(markdownFilePath)
+        .then(response => response.text())
+        .then(data => {
+          const blob = new Blob([data], { type: 'text/markdown' }); // Create a Blob from the markdown content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download = 'b20f25b9-d7d8-4e.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        })
+        .catch(error => console.error('Error loading markdown file:', error));
+    }
+  </script>
+
+</body>
+</html>
+
+
+   

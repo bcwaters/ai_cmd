@@ -1,0 +1,214 @@
+<!doctype html>
+<html>
+<head>
+  <style>pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
+  Theme: StackOverflow Light
+  Description: Light theme as used on stackoverflow.com
+  Author: stackoverflow.com
+  Maintainer: @Hirse
+  Website: https://github.com/StackExchange/Stacks
+  License: MIT
+  Updated: 2021-05-15
+
+  Updated for @stackoverflow/stacks v0.64.0
+  Code Blocks: /blob/v0.64.0/lib/css/components/_stacks-code-blocks.less
+  Colors: /blob/v0.64.0/lib/css/exports/_stacks-constants-colors.less
+*/.hljs{color:#2f3337;background:#f6f6f6}.hljs-subst{color:#2f3337}.hljs-comment{color:#656e77}.hljs-attr,.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-section,.hljs-selector-tag{color:#015692}.hljs-attribute{color:#803378}.hljs-name,.hljs-number,.hljs-quote,.hljs-selector-id,.hljs-template-tag,.hljs-type{color:#b75501}.hljs-selector-class{color:#015692}.hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-string,.hljs-symbol,.hljs-template-variable,.hljs-variable{color:#54790d}.hljs-meta,.hljs-selector-pseudo{color:#015692}.hljs-built_in,.hljs-literal,.hljs-title{color:#b75501}.hljs-bullet,.hljs-code{color:#535a60}.hljs-meta .hljs-string{color:#54790d}.hljs-deletion{color:#c02d2e}.hljs-addition{color:#2f6f44}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}
+</style>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    <a id="markdown" href="../history/responses/734e2823-d0f3-4a/markdown/734e2823-d0f3-4a.md"> markdown</a>
+    <a id="previous" href="../history/responses/f278a25a-593e-45/html/f278a25a-593e-45.html?responseId=734e2823-d0f3-4a">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+  </nav>
+
+  <div id="content" class="markdown-body"><p>Certainly, I'll provide a simple example of how NGINX can receive query parameters, run a Node.js script (<code>choosehtml.js</code>), and then return a file outputted by the script. Let's break this down step-by-step:</p>
+<ol>
+<li><strong>NGINX Configuration:</strong>
+First, we'll set up NGINX to handle the request and pass it to our Node.js server.</li>
+</ol>
+<pre><code class="hljs language-nginx"><span class="hljs-section">http</span> {
+    <span class="hljs-section">server</span> {
+        <span class="hljs-attribute">listen</span> <span class="hljs-number">80</span>;
+        <span class="hljs-attribute">server_name</span> example.com;
+
+        <span class="hljs-section">location</span> / {
+            <span class="hljs-comment"># Pass the request to Node.js server</span>
+            <span class="hljs-attribute">proxy_pass</span> http://localhost:3000;
+            <span class="hljs-attribute">proxy_http_version</span> <span class="hljs-number">1</span>.<span class="hljs-number">1</span>;
+            <span class="hljs-attribute">proxy_set_header</span> Upgrade <span class="hljs-variable">$http_upgrade</span>;
+            <span class="hljs-attribute">proxy_set_header</span> Connection <span class="hljs-string">'upgrade'</span>;
+            <span class="hljs-attribute">proxy_set_header</span> Host <span class="hljs-variable">$host</span>;
+            <span class="hljs-attribute">proxy_cache_bypass</span> <span class="hljs-variable">$http_upgrade</span>;
+        }
+    }
+}
+</code></pre><ol start="2">
+<li><strong>Node.js Server (Express.js):</strong>
+We'll create a simple Express.js server that receives the query parameters, runs <code>choosehtml.js</code>, and sends the output file back to NGINX.</li>
+</ol>
+<pre><code class="hljs language-javascript"><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
+<span class="hljs-keyword">const</span> { exec } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'child_process'</span>);
+<span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>);
+<span class="hljs-keyword">const</span> app = <span class="hljs-title function_">express</span>();
+<span class="hljs-keyword">const</span> port = <span class="hljs-number">3000</span>;
+
+app.<span class="hljs-title function_">get</span>(<span class="hljs-string">'/'</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> {
+    <span class="hljs-keyword">const</span> queryParams = req.<span class="hljs-property">query</span>;
+    
+    <span class="hljs-comment">// Run choosehtml.js with query parameters</span>
+    <span class="hljs-keyword">const</span> command = <span class="hljs-string">`node choosehtml.js <span class="hljs-subst">${<span class="hljs-built_in">JSON</span>.stringify(queryParams)}</span>`</span>;
+    
+    <span class="hljs-title function_">exec</span>(command, <span class="hljs-function">(<span class="hljs-params">error, stdout, stderr</span>) =&gt;</span> {
+        <span class="hljs-keyword">if</span> (error) {
+            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span class="hljs-string">`Error executing choosehtml.js: <span class="hljs-subst">${error}</span>`</span>);
+            <span class="hljs-keyword">return</span> res.<span class="hljs-title function_">status</span>(<span class="hljs-number">500</span>).<span class="hljs-title function_">send</span>(<span class="hljs-string">'Internal Server Error'</span>);
+        }
+        
+        <span class="hljs-comment">// Assume choosehtml.js outputs a filename</span>
+        <span class="hljs-keyword">const</span> outputFilename = stdout.<span class="hljs-title function_">trim</span>();
+        <span class="hljs-keyword">const</span> filePath = path.<span class="hljs-title function_">join</span>(__dirname, outputFilename);
+        
+        <span class="hljs-comment">// Send the file back to NGINX</span>
+        res.<span class="hljs-title function_">sendFile</span>(filePath, <span class="hljs-function">(<span class="hljs-params">err</span>) =&gt;</span> {
+            <span class="hljs-keyword">if</span> (err) {
+                <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(<span class="hljs-string">`Error sending file: <span class="hljs-subst">${err}</span>`</span>);
+                res.<span class="hljs-title function_">status</span>(err.<span class="hljs-property">status</span>).<span class="hljs-title function_">end</span>();
+            }
+        });
+    });
+});
+
+app.<span class="hljs-title function_">listen</span>(port, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`Server running on port <span class="hljs-subst">${port}</span>`</span>);
+});
+</code></pre><ol start="3">
+<li><strong>choosehtml.js:</strong>
+This script will process the query parameters and output a filename.</li>
+</ol>
+<pre><code class="hljs language-javascript"><span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>);
+
+<span class="hljs-comment">// Function to choose HTML based on query parameters</span>
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">chooseHTML</span>(<span class="hljs-params">queryParams</span>) {
+    <span class="hljs-comment">// Simple logic to choose a file based on query params</span>
+    <span class="hljs-keyword">if</span> (queryParams.<span class="hljs-property">type</span> === <span class="hljs-string">'home'</span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'home.html'</span>;
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (queryParams.<span class="hljs-property">type</span> === <span class="hljs-string">'about'</span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'about.html'</span>;
+    } <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">'default.html'</span>;
+    }
+}
+
+<span class="hljs-comment">// Get query parameters from command line argument</span>
+<span class="hljs-keyword">const</span> queryParams = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(process.<span class="hljs-property">argv</span>[<span class="hljs-number">2</span>]);
+
+<span class="hljs-comment">// Choose the HTML file</span>
+<span class="hljs-keyword">const</span> chosenFile = <span class="hljs-title function_">chooseHTML</span>(queryParams);
+
+<span class="hljs-comment">// Output the chosen filename</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(chosenFile);
+
+<span class="hljs-comment">// Optionally, you can create the file if it doesn't exist</span>
+<span class="hljs-keyword">if</span> (!fs.<span class="hljs-title function_">existsSync</span>(chosenFile)) {
+    fs.<span class="hljs-title function_">writeFileSync</span>(chosenFile, <span class="hljs-string">`&lt;h1&gt;<span class="hljs-subst">${chosenFile}</span>&lt;/h1&gt;`</span>);
+}
+</code></pre><p><strong>How it works:</strong></p>
+<ol>
+<li>A user sends a request to <code>example.com/?type=home</code>.</li>
+<li>NGINX receives this request and forwards it to our Node.js server running on <code>localhost:3000</code>.</li>
+<li>The Express.js server receives the query parameters and runs <code>choosehtml.js</code> with these parameters.</li>
+<li><code>choosehtml.js</code> processes the parameters and outputs a filename (e.g., <code>home.html</code>).</li>
+<li>The Node.js server then sends this file back to NGINX, which in turn sends it to the client.</li>
+</ol>
+<p>This setup demonstrates how NGINX can act as a reverse proxy, how Node.js can process query parameters and run scripts, and how the output can be sent back through NGINX to the client.</p>
+<p>ResponseID:734e2823-d0f3-4a</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+
+  <script>
+    //This function checks if the current page is a child page and genreate a link to the parent page.
+            function isChild(){
+               params = window.location.search.split('=')[1];
+               if (params == undefined) {
+                return false;
+               }
+               params = params.split("&");
+               for (let i = 0; i < params.length; i++) {
+                if (params[i].includes("child")) {
+                  console.log("found child  ");
+                  console.log(params[i].split("child=")[1]);
+                  return params[i].split("child=")[1];
+                }
+               }
+               return false;
+            }
+    
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log("responseId:",window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../html/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+  <script>
+    function loadMarkdownFile() {
+      const markdownFilePath = "./markdown/734e2823-d0f3-4a.md"; // Path to the markdown file
+      fetch(markdownFilePath)
+        .then(response => response.text())
+        .then(data => {
+          const blob = new Blob([data], { type: 'text/markdown' }); // Create a Blob from the markdown content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download = '734e2823-d0f3-4a.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        })
+        .catch(error => console.error('Error loading markdown file:', error));
+    }
+  </script>
+
+</body>
+</html>
+
+
+   

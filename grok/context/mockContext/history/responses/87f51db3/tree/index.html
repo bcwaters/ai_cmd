@@ -1,0 +1,397 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Home Page</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    <a id="parentContentLink" href='javascript:goHomePage()'>Home</a>
+    <select id="childSubjects">
+      <option value="home">Home</option>
+      <!-- Children are added here onload with setChildSubjects -->
+    </select>
+    <!-- Add a previous and next button for prior requests? -->
+    <!-- Add a button to save the current page as a markdown file -->
+  </nav>
+
+  <div id="content">  
+    <div id="parentContent">
+        <p>Hello! I'm doing well, thank you for asking. It's great to see you exploring both terminalMode and treeMode. How can I assist you today in enhancing your CLI efficiency or with any data visualization tasks?</p>
+
+    </div>
+    <div id="childDivs">
+      <div title="terminalMode" id="childContent1" onclick="setVisibileChild('childContent1')" hidden=true><h1>Terminal Mode: Enhancing CLI Data Visualization</h1>
+<p>Terminal Mode, often referred to as <code>tree mode</code>, is a powerful feature within the command-line interface (CLI) that enhances the visualization of hierarchical data structures. This mode is particularly useful when dealing with nested data, such as file systems, organizational structures, or any data that can be represented in a tree-like format. Let's delve deeper into how Terminal Mode can be utilized effectively within the CLI environment.</p>
+<h3>Visualizing Hierarchical Data</h3>
+<p>Terminal Mode allows users to visualize complex data hierarchies in a clear and concise manner. For instance, when navigating through a file system, Terminal Mode can display directories and subdirectories in a tree structure, making it easier to understand the layout without needing to manually list each directory.</p>
+<pre><code class="language-bash"># Example of a simple tree command in the terminal
+tree -L 2
+</code></pre>
+<p>This command would output a visual representation of the current directory's structure up to two levels deep.</p>
+<h3>Integration with Visualization Tools</h3>
+<p>When combined with tools like GNUPlot or Plotext, Terminal Mode can be enhanced to provide not just structural information but also data-driven insights. For example, you could use a script to generate a tree representation of data and then use GNUPlot to overlay statistical information or highlight specific branches based on certain criteria.</p>
+<pre><code class="language-bash"># Example of integrating tree output with GNUPlot
+tree -J | jq '{name: .name, contents: .contents}' | gnuplot -e 'set terminal png; set output "tree_plot.png"; plot "-" using 1:2 with lines'
+</code></pre>
+<p>This script converts the tree output to JSON, processes it with <code>jq</code>, and then uses GNUPlot to create a visual representation.</p>
+<h3>Scripting and Automation</h3>
+<p>Terminal Mode can be scripted to automate the visualization of dynamic data structures. For instance, in a continuous integration environment, you might use Terminal Mode to generate a visual report of the project's dependency tree, which can be crucial for understanding the project's complexity and dependencies.</p>
+<pre><code class="language-bash"># Example of scripting Terminal Mode for dependency visualization
+npm list --json | treeify &gt; dependency_tree.txt
+</code></pre>
+<p>This command generates a tree representation of npm dependencies, which can be further processed or visualized.</p>
+<h3>Best Practices</h3>
+<ul>
+<li><strong>Simplicity</strong>: When using Terminal Mode, focus on displaying only the necessary levels of the hierarchy to avoid overwhelming the viewer.</li>
+<li><strong>Speed</strong>: Optimize your scripts to run quickly, especially when dealing with large datasets. Use efficient parsing and rendering techniques.</li>
+<li><strong>Customization</strong>: Allow for dynamic adjustments to the tree based on user input or data changes, ensuring the visualization remains relevant and useful.</li>
+</ul>
+<p>By leveraging Terminal Mode within the CLI, you can significantly enhance your ability to understand and interact with hierarchical data structures, making it a valuable tool in data analysis and visualization workflows.</p>
+<p>ResponseID:e459d662</p>
+</div><div title="treeMode" id="childContent2" onclick="setVisibileChild('childContent2')" hidden=true><h1>Tree Mode: Enhancing CLI Data Visualization</h1>
+<p>In the context of enhancing CLI efficiency with data visualization, <strong>Tree Mode</strong> represents a powerful method to display hierarchical data structures directly from the command line. This mode is particularly useful when dealing with nested data, such as file systems, organizational structures, or any data that can be represented in a tree-like format. Here's a deeper dive into how Tree Mode can be utilized effectively within the CLI environment:</p>
+<h3>Visualizing Hierarchical Data</h3>
+<p>Tree Mode allows users to visualize complex data hierarchies in a clear and concise manner. For instance, when navigating through a file system, Tree Mode can display directories and subdirectories in a tree structure, making it easier to understand the layout without needing to manually list each directory.</p>
+<pre><code class="language-bash"># Example of a simple tree command in the terminal
+tree -L 2
+</code></pre>
+<p>This command would output a visual representation of the current directory's structure up to two levels deep.</p>
+<h3>Integration with Visualization Tools</h3>
+<p>When combined with tools like GNUPlot or Plotext, Tree Mode can be enhanced to provide not just structural information but also data-driven insights. For example, you could use a script to generate a tree representation of data and then use GNUPlot to overlay statistical information or highlight specific branches based on certain criteria.</p>
+<pre><code class="language-bash"># Example of integrating tree output with GNUPlot
+tree -J | jq '.[] | {name, contents}' | gnuplot -e "set terminal png; set output 'tree_plot.png'; plot '-' using 1:2 with lines"
+</code></pre>
+<p>This script converts the tree output to JSON, processes it with <code>jq</code>, and then uses GNUPlot to create a visual representation.</p>
+<h3>Scripting and Automation</h3>
+<p>Tree Mode can be scripted to automate the visualization of dynamic data structures. For instance, in a continuous integration environment, you might use Tree Mode to generate a visual report of the project's dependency tree, which can be crucial for understanding the project's complexity and dependencies.</p>
+<pre><code class="language-bash"># Example of scripting Tree Mode for dependency visualization
+npm list --json | treeify &gt; dependency_tree.txt
+</code></pre>
+<p>This command generates a tree representation of npm dependencies, which can be further processed or visualized.</p>
+<h3>Best Practices</h3>
+<ul>
+<li><strong>Simplicity</strong>: When using Tree Mode, focus on displaying only the necessary levels of the hierarchy to avoid overwhelming the viewer.</li>
+<li><strong>Speed</strong>: Optimize your scripts to run quickly, especially when dealing with large data sets. Use efficient parsing and rendering techniques.</li>
+<li><strong>Customization</strong>: Allow for dynamic adjustments to the tree based on user input or data changes, ensuring the visualization remains relevant and useful.</li>
+</ul>
+<p>By leveraging Tree Mode within the CLI, you can significantly enhance your ability to understand and interact with hierarchical data structures, making it a valuable tool in data analysis and visualization workflows.</p>
+<p>ResponseID:ca83281a</p>
+</div><div title="CLIefficiency" id="childContent3" onclick="setVisibileChild('childContent3')" hidden=true><h1>Enhancing CLI Efficiency with Data Visualization</h1>
+<p>In the realm of data visualization, the command line interface (CLI) offers unique advantages for efficiency, particularly in environments where a graphical user interface (GUI) is not available or where quick, scriptable analysis is needed. Here's a deeper dive into how CLI efficiency can be maximized through data visualization:</p>
+<h3>Terminal-Based Tools</h3>
+<p><strong>GNUPlot and Plotext</strong> are two powerful tools that can be utilized directly from the terminal to visualize data. These tools are particularly useful for:</p>
+<ul>
+<li><p><strong>Quick Analysis</strong>: When you need to rapidly visualize data without setting up a full GUI environment, terminal-based tools can plot data in seconds. This is invaluable in scenarios where you're working on a remote server or in a constrained environment.</p>
+</li>
+<li><p><strong>Script Integration</strong>: Both GNUPlot and Plotext can be easily integrated into scripts, allowing for automated data visualization as part of data processing pipelines. This automation can save significant time and reduce the likelihood of human error in repetitive tasks.</p>
+</li>
+</ul>
+<h3>Integration with Scripts</h3>
+<p>Automating data visualization in scripts enhances efficiency by:</p>
+<ul>
+<li><p><strong>Streamlining Workflows</strong>: By embedding visualization commands within data processing scripts, you create an end-to-end workflow that goes from data ingestion to visualization without manual intervention. This is particularly useful in big data scenarios where manual processing would be impractical.</p>
+</li>
+<li><p><strong>Reproducibility</strong>: Scripted visualizations ensure that the same data processing and visualization steps can be repeated exactly, which is crucial for scientific research and data-driven decision-making processes.</p>
+</li>
+<li><p><strong>Customization and Flexibility</strong>: Scripts allow for dynamic adjustments to visualizations based on the data being processed, enabling more tailored and context-specific visual outputs.</p>
+</li>
+</ul>
+<h3>Best Practices for CLI Visualizations</h3>
+<p>To maximize the efficiency and effectiveness of CLI-based data visualizations, consider the following:</p>
+<ul>
+<li><p><strong>Focus on Simplicity</strong>: Even in a terminal environment, keep visualizations simple and focused on the key message. Overly complex plots can be difficult to interpret in a text-based setting.</p>
+</li>
+<li><p><strong>Use Appropriate Tools</strong>: Select tools that are well-suited to the type of data you're working with and the specific needs of your analysis. For instance, GNUPlot is excellent for a wide range of plot types, while Plotext is particularly good for creating simple, text-based charts.</p>
+</li>
+<li><p><strong>Optimize for Speed</strong>: Since one of the main advantages of CLI tools is speed, ensure that your scripts and visualizations are optimized to run quickly, especially when dealing with large datasets.</p>
+</li>
+</ul>
+<p>By leveraging these aspects of CLI efficiency in data visualization, you can significantly enhance your ability to process and understand data quickly and effectively, even in environments where traditional GUI tools are not available.</p>
+<p>ResponseID:58731c0a</p>
+</div><div title="datavisualization" id="childContent4" onclick="setVisibileChild('childContent4')" hidden=true><h1>Data Visualization</h1>
+<p>Data visualization is a critical tool for enhancing understanding and communication of complex data sets. Here are some key aspects to consider:</p>
+<h3>Importance of Data Visualization</h3>
+<ul>
+<li><strong>Understanding Complex Data</strong>: Visual representations help in quickly grasping trends, patterns, and outliers that might go unnoticed in raw data.</li>
+<li><strong>Decision Making</strong>: Effective visualizations aid in decision-making processes by providing clear insights into data, enabling stakeholders to make informed choices.</li>
+<li><strong>Communication</strong>: Visuals are an excellent way to communicate information to diverse audiences, making it easier to convey findings to those who might not be data-savvy.</li>
+</ul>
+<h3>Tools and Techniques</h3>
+<ul>
+<li><strong>Charts and Graphs</strong>: Common types include bar charts, pie charts, line graphs, and scatter plots. Each type is suited for different kinds of data and analysis.</li>
+<li><strong>Interactive Visualizations</strong>: Tools like Tableau, Power BI, or D3.js allow for interactive data exploration, which can be particularly useful in presentations or on websites.</li>
+<li><strong>Heatmaps and Geographic Maps</strong>: Useful for spatial data analysis, showing variations across different regions.</li>
+</ul>
+<h3>Best Practices</h3>
+<ul>
+<li><strong>Clarity and Simplicity</strong>: Aim for simplicity to avoid overwhelming the viewer. Focus on the key message you want to convey.</li>
+<li><strong>Color Usage</strong>: Use colors judiciously to highlight important data points or to differentiate between data sets. Be mindful of color blindness.</li>
+<li><strong>Accessibility</strong>: Ensure that your visualizations are accessible, with text descriptions for those who might use screen readers.</li>
+</ul>
+<h3>Enhancing CLI Efficiency with Data Visualization</h3>
+<ul>
+<li><strong>Terminal-based Tools</strong>: Tools like <code>gnuplot</code> or <code>plotext</code> can be used directly in the terminal to visualize data, which can be particularly useful for quick analysis or when working in environments without a GUI.</li>
+<li><strong>Integration with Scripts</strong>: Automating data visualization in scripts can streamline workflows, especially in data processing pipelines.</li>
+</ul>
+<h3>Learning and Exploration</h3>
+<ul>
+<li><strong>Tutorials and Courses</strong>: Platforms like Coursera, Udemy, and free resources on YouTube can be great starting points for learning data visualization techniques.</li>
+<li><strong>Practice</strong>: Regularly practicing with different datasets and tools will enhance your skills and understanding of what works best in different scenarios.</li>
+</ul>
+<p>By integrating these elements into your work, you can significantly improve your ability to communicate data effectively and make more informed decisions based on visual insights.</p>
+<p>ResponseID:d21986c3</p>
+</div>
+    </div>
+  </div>
+
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+
+    <script>
+      function setChildSubjects(){
+        let dropDownOptions = [];
+        let childSubjects = document.getElementById('childDivs');
+        for (let child of childSubjects.children){
+           let subject = child.title;
+           let optionValue = child.id;
+
+           dropDownOptions.push({subject: subject, value: optionValue});
+        
+        }
+
+        for (let option of dropDownOptions){
+          let optionElement = document.createElement('option');
+          optionElement.value = option.value;
+          optionElement.text = option.subject;
+          document.getElementById('childSubjects').appendChild(optionElement);
+        }
+
+        document.getElementById('childSubjects').addEventListener('change', function() {
+          if(this.value == "home"){
+            goHomePage();
+          }else{
+            setVisibleChild(this.value);
+          }
+
+          }
+        );
+      }
+    </script>
+
+
+    <script>
+      function setVisibleChild(id){
+        //quick flicker home to reset state, this allows hoping between child views
+     
+    
+           let topNode = document.getElementById('content');
+           let parentNode = document.getElementById('parentContent');
+           let childVisibleNode = document.getElementById(id);
+           let childDivs = document.getElementById('childDivs');
+           for (let child of childDivs.children){
+            if(child.id != id){
+              child.hidden = true;
+            }else{
+              child.hidden = false; //redudant
+            }
+           }
+           parentNode.hidden = true;
+           childVisibleNode.hidden = false;
+         }
+      
+    </script>
+
+    <script>
+      function goHomePage(){
+         let topNode = document.getElementById('content');
+         let parentNode = document.getElementById('parentContent');
+         let children = document.getElementById('childDivs');
+         for (let child of children.children){
+            child.hidden = true;
+         }
+         parentNode.hidden = false;
+      }
+    </script>
+
+    <script>
+      function setChildLinks(){
+        let children = document.getElementById('childDivs'); 
+        let childSubjects = [];
+        let discoveredMatches = [];
+
+        
+        for (let child of children.children){
+          let subject = child.title;
+          childSubjects.push({subject: subject, child: child});
+          }
+             
+          let parentNodeH2Subjects = []
+          let parentNodeH3Subjects = []
+          let parentNodeH4Subjects = []
+          let parentNode = document.getElementById('parentContent');
+          let H2s = parentNode.getElementsByTagName("H2");
+          let H3s = parentNode.getElementsByTagName("H3");
+          let H4s = parentNode.getElementsByTagName("H4");
+          let isH2Match = false;
+          let isH3Match = false;
+          let isH4Match = false;
+
+          H2s.length > 0? parentNodeH2Subjects = H2s.map(item => ({subject: item.innerText, item: item})):isH2Match = false;
+          H3s.length > 0?parentNodeH3Subjects = H3s.map(item => ({subject: item.innerText, item: item})):isH3Match = false;
+          H4s.length > 0?parentNodeH4Subjects = H4s.map(item => ({subject: item.innerText, item: item})):isH4Match = false;
+
+          
+           isH3Match = H3s.length == childSubjects.length;
+           isH2Match = H2s.length == childSubjects.length;
+           isH4Match = H4s.length == childSubjects.length;
+          let allDiscovered = false;
+
+          if (isH3Match){
+            //We have a match.  We need to find the H2s
+            allDiscovered = true;
+          }
+          if (isH2Match){
+            //We have a match.  We need to find the H3s
+            allDiscovered = true;
+          }
+          if (isH4Match){
+            //We have a match.  We need to find the H2s
+            allDiscovered = true;
+          }
+
+          if(allDiscovered && (isH3Match + isH2Match + isH4Match) > 1){
+            //wierd.  ok we work from scratch.
+            allDiscovered = false;
+          }
+
+          if(!allDiscovered){
+
+            let fluffWords = ["a", "an", "the", "and", "but", "or", "for", "nor", "on", "at", "to", "from", "by", "with", "of"];
+            let fluffWordsRegex = new RegExp(fluffWords.join("|"), "g");
+          
+          //OK time to stumble through unpredictable llm output
+          //First check if the child subjects are in the parent node h2 subjects
+          let isH2 = false;
+          let isH3 = false;
+          let isH4 = false;
+      
+          //This can be optimized later.  Probably doesnt matter since it is client side with modern computing.
+          for (let i = 0; i < parentNodeH2Subjects.length; i++){
+            let subject = parentNodeH2Subjects[i].subject;
+            for (let j = 0; j < childSubjects.length; j++){
+              let childSubject = childSubjects[j].subject;
+              if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                isH2 = true;
+                discoveredMatches.push({parentLink: parentNodeH2Subjects[i].item, childLink: childSubjects[j].child});
+              }
+            }
+
+          }
+         
+          if(!isH2){
+            for (let i = 0; i < parentNodeH3Subjects.length; i++){
+              let subject = parentNodeH3Subjects[i].subject;
+              for (let j = 0; j < childSubjects.length; j++){
+                let childSubject = childSubjects[j].subject;  
+                if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                  isH3 = true;
+                  discoveredMatches.push({parentLink: parentNodeH3Subjects[i].item, childLink: childSubjects[j].child});
+                }
+              }
+            }
+          }
+
+          if(!isH3){
+            for (let i = 0; i < parentNodeH4Subjects.length; i++){
+              let subject = parentNodeH4Subjects[i].subject;
+              for (let j = 0; j < childSubjects.length; j++){
+                let childSubject = childSubjects[j].subject;
+                if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                  isH4 = true;
+                  discoveredMatches.push({parentLink: parentNodeH4Subjects[i].item, childLink: childSubjects[j].child});
+                }
+              }
+            }
+          }
+
+          if(!isH4){
+              //I suppose there are edge cases but this surely covers 99.9% of the cases.
+          }
+
+          }else{
+            if(isH3Match){
+              for (let i = 0; i < parentNodeH3Subjects.length; i++){
+                let child = childSubjects[i].child;
+                makeChildLinks(parentNodeH3Subjects[i].item, child);
+              }
+              return; //bye bye
+            }
+            if(isH2Match){
+              for (let i = 0; i < parentNodeH2Subjects.length; i++){
+                let child = childSubjects[i].child;
+                makeChildLinks(parentNodeH2Subjects[i].item, child);
+                return; //bye bye
+              }
+              if(isH4Match){
+                for (let i = 0; i < parentNodeH4Subjects.length; i++){
+                  let child = childSubjects[i].child;
+                  makeChildLinks(parentNodeH4Subjects[i].item, child);
+                }
+              }
+
+            }
+
+          }
+
+          for (let match of discoveredMatches){
+            makeChildLinks(match.parentLink, match.childLink);
+            if(match.length < childSubjects.length){ alert("LLMM added additional info that is hidden");}
+          }
+
+        }
+    </script>
+
+    <script>
+       function makeChildLinks(parent, child){
+            parent.style.cursor = "pointer";
+            parent.style.textDecoration = "underline";
+            parent.style.color = "blue";
+            parent.onclick = function(){
+              setVisibleChild(child.id);
+            }
+       }
+
+    </script>
+
+<script>window.onload = setChildSubjects;</script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

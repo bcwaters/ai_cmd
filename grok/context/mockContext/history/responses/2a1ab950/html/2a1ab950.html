@@ -1,0 +1,183 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    <a id="markdown" href="./markdown/2a1ab950.md"> markdown</a>
+    <a id="previous" href="../13badfda/html/13badfda.html?responseId=2a1ab950">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+  </nav>
+
+  <div id="content"><p>Here are three tricks for enhancing the modern feel of headings and unordered list (ul) items using pure HTML and CSS inline styling:</p>
+<h3>1. <strong>Gradient Text for Headings</strong></h3>
+<p>Using a gradient background with a text fill can give headings a modern and dynamic look. This technique works well for headings to make them stand out.</p>
+<p><strong>HTML:</strong></p>
+<pre><code class="language-html">&lt;h1 style="background: -webkit-linear-gradient(left, #ff7f50, #ff4500); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"&gt;Modern Heading&lt;/h1&gt;
+</code></pre>
+<p><strong>Explanation:</strong></p>
+<ul>
+<li>The <code>background</code> property creates a gradient from coral to orange-red.</li>
+<li><code>-webkit-background-clip: text</code> ensures the background is clipped to the text shape.</li>
+<li><code>-webkit-text-fill-color: transparent</code> makes the text color transparent, allowing the gradient to show through.</li>
+</ul>
+<h3>2. <strong>Hover Effects on List Items</strong></h3>
+<p>Adding subtle hover effects to list items can enhance interactivity and modernize the look of a list.</p>
+<p><strong>HTML:</strong></p>
+<pre><code class="language-html">&lt;ul&gt;
+  &lt;li style="transition: all 0.3s ease; padding: 10px;"&gt;Item 1&lt;/li&gt;
+  &lt;li style="transition: all 0.3s ease; padding: 10px;"&gt;Item 2&lt;/li&gt;
+  &lt;li style="transition: all 0.3s ease; padding: 10px;"&gt;Item 3&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+<p><strong>CSS (inline):</strong></p>
+<pre><code class="language-html">&lt;style&gt;
+  ul li:hover {
+    background-color: #f0f0f0;
+    transform: translateX(5px);
+  }
+&lt;/style&gt;
+</code></pre>
+<p><strong>Explanation:</strong></p>
+<ul>
+<li><code>transition: all 0.3s ease</code> provides a smooth transition for all properties over 0.3 seconds.</li>
+<li><code>padding: 10px</code> adds some space around the text.</li>
+<li>The hover effect changes the background color to light gray and shifts the item slightly to the right.</li>
+</ul>
+<h3>3. <strong>Custom Bullet Points for List Items</strong></h3>
+<p>Replacing default bullet points with custom icons or shapes can give your lists a more contemporary and tailored appearance.</p>
+<p><strong>HTML:</strong></p>
+<pre><code class="language-html">&lt;ul style="list-style-type: none;"&gt;
+  &lt;li style="padding-left: 20px; background: url('data:image/svg+xml,&lt;svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10"&gt;&lt;circle cx="5" cy="5" r="4" stroke="black" stroke-width="1" fill="none"/&gt;&lt;/svg&gt;') no-repeat left center;"&gt;Item 1&lt;/li&gt;
+  &lt;li style="padding-left: 20px; background: url('data:image/svg+xml,&lt;svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10"&gt;&lt;circle cx="5" cy="5" r="4" stroke="black" stroke-width="1" fill="none"/&gt;&lt;/svg&gt;') no-repeat left center;"&gt;Item 2&lt;/li&gt;
+  &lt;li style="padding-left: 20px; background: url('data:image/svg+xml,&lt;svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10"&gt;&lt;circle cx="5" cy="5" r="4" stroke="black" stroke-width="1" fill="none"/&gt;&lt;/svg&gt;') no-repeat left center;"&gt;Item 3&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+<p><strong>Explanation:</strong></p>
+<ul>
+<li><code>list-style-type: none</code> removes the default bullet points.</li>
+<li><code>background</code> with a data URI SVG creates a custom bullet point (a circle in this case).</li>
+<li><code>padding-left: 20px</code> ensures there's space between the custom bullet and the text.</li>
+</ul>
+<p>These techniques can help make your headings and lists appear more modern and engaging using only HTML and CSS inline styling.</p>
+<p>ResponseID:2a1ab950</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+
+  <script>
+    function saveMarkdown() {
+      const content = document.documentElement.outerHTML; // Get the entire HTML content
+
+      let markdownLocation = "./markdown/";
+      let markdownFileName = "2a1ab950.md";
+      let markdownFile = markdownLocation + markdownFileName;
+      
+
+      const url = URL.createObjectURL(blob); // Create a URL for the Blob
+      const divInnerText = document.getElementById('content').innerText;
+      let filename = divInnerText.substring(0, 25);
+      const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+          a.download =  filename + '.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+      
+    }
+  </script>
+
+  <script>
+    //This function checks if the current page is a child page and genreate a link to the parent page.
+            function isChild(){
+               params = window.location.search.split('=')[1];
+               if (params == undefined) {
+                return false;
+               }
+               params = params.split("&");
+               for (let i = 0; i < params.length; i++) {
+                if (params[i].includes("child")) {
+                  console.log("found child  ");
+                  console.log(params[i].split("child=")[1]);
+                  return params[i].split("child=")[1];
+                }
+               }
+               return false;
+            }
+    
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log("responseId:",window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../html/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+  <script>
+    function loadMarkdownFile() {
+      const markdownFilePath = "./markdown/2a1ab950.md"; // Path to the markdown file
+      fetch(markdownFilePath)
+        .then(response => response.text())
+        .then(data => {
+          const blob = new Blob([data], { type: 'text/markdown' }); // Create a Blob from the markdown content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download = '2a1ab950.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        })
+        .catch(error => console.error('Error loading markdown file:', error));
+    }
+  </script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

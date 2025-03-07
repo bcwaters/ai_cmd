@@ -1,0 +1,420 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Home Page</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    <a id="home" href='javascript:goHomePage()'>Home</a>
+    <!-- Add a previous and next button for prior requests? -->
+    <!-- Add a button to save the current page as a markdown file -->
+  </nav>
+
+  <div id="content">  
+    <div id="parentContent">
+        <h3>Approaches to Fuzzy Search for Strings with Variable Words and Spaces</h3>
+<p>When dealing with strings that have variable words and spaces, and are mapped to strings with similar content but with omissions or additions of common words like "the," "and," "or," "but," etc., you can employ fuzzy search techniques. Below are three approaches to achieve this:</p>
+<h4>1. <strong>Levenshtein Distance with Tokenization</strong></h4>
+<p>The Levenshtein Distance algorithm measures the difference between two sequences. By tokenizing the strings and applying the Levenshtein Distance, you can compare the similarity between two strings while considering omissions or additions.</p>
+<pre><code class="language-python">import re
+from Levenshtein import distance
+
+def tokenize_and_compare(str1, str2):
+    # Tokenize the strings by splitting on spaces
+    tokens1 = re.findall(r'\w+', str1.lower())
+    tokens2 = re.findall(r'\w+', str2.lower())
+    
+    # Remove common words (fluff)
+    fluff = ['the', 'and', 'or', 'but']
+    tokens1 = [token for token in tokens1 if token not in fluff]
+    tokens2 = [token for token in tokens2 if token not in fluff]
+    
+    # Join the tokens back into strings
+    str1_cleaned = ' '.join(tokens1)
+    str2_cleaned = ' '.join(tokens2)
+    
+    # Calculate Levenshtein Distance
+    return distance(str1_cleaned, str2_cleaned)
+
+# Example usage
+str1 = "The quick brown fox jumps over the lazy dog"
+str2 = "Quick brown fox jumps over lazy dog"
+similarity = tokenize_and_compare(str1, str2)
+print(f"Levenshtein Distance: {similarity}")
+</code></pre>
+<h4>2. <strong>Cosine Similarity with TF-IDF</strong></h4>
+<p>Cosine Similarity measures the cosine of the angle between two vectors projected in a multi-dimensional space. By using Term Frequency-Inverse Document Frequency (TF-IDF) to weigh the importance of words, you can compare the similarity between two strings while considering the impact of common words.</p>
+<pre><code class="language-python">from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+
+def cosine_similarity_tfidf(str1, str2):
+    # Create TF-IDF vectorizer
+    vectorizer = TfidfVectorizer()
+    
+    # Fit and transform the strings
+    tfidf_matrix = vectorizer.fit_transform([str1, str2])
+    
+    # Calculate cosine similarity
+    similarity = cosine_similarity(tfidf_matrix[0:1], tfidf_matrix[1:2])[0][0]
+    
+    return similarity
+
+# Example usage
+str1 = "The quick brown fox jumps over the lazy dog"
+str2 = "Quick brown fox jumps over lazy dog"
+similarity = cosine_similarity_tfidf(str1, str2)
+print(f"Cosine Similarity: {similarity}")
+</code></pre>
+<h4>3. <strong>Jaro-Winkler Distance with Stop Words Removal</strong></h4>
+<p>The Jaro-Winkler Distance is another measure of similarity between two strings. By removing stop words (common words that carry less importance), you can improve the accuracy of the comparison.</p>
+<pre><code class="language-python">import jellyfish
+
+def jaro_winkler_with_stop_words_removal(str1, str2):
+    # Define stop words (fluff)
+    stop_words = ['the', 'and', 'or', 'but']
+    
+    # Remove stop words from both strings
+    tokens1 = [word for word in str1.lower().split() if word not in stop_words]
+    tokens2 = [word for word in str2.lower().split() if word not in stop_words]
+    
+    # Join the tokens back into strings
+    str1_cleaned = ' '.join(tokens1)
+    str2_cleaned = ' '.join(tokens2)
+    
+    # Calculate Jaro-Winkler Distance
+    return jellyfish.jaro_winkler(str1_cleaned, str2_cleaned)
+
+# Example usage
+str1 = "The quick brown fox jumps over the lazy dog"
+str2 = "Quick brown fox jumps over lazy dog"
+similarity = jaro_winkler_with_stop_words_removal(str1, str2)
+print(f"Jaro-Winkler Distance: {similarity}")
+</code></pre>
+<p>Each of these approaches has its strengths and can be used depending on the specific requirements of your fuzzy search application. </p>
+
+    </div>
+    <div id="childDivs">
+      <div title=""\n\nLevenshtein Distance with Tokenization" id="childContent1" onclick="setVisibileChild('childContent1')" hidden=true><h1>Levenshtein Distance with Tokenization</h1>
+<p>The <strong>Levenshtein Distance</strong>, also known as the edit distance, is a measure of the difference between two sequences. It calculates the minimum number of single-character edits (insertions, deletions, or substitutions) required to change one word into the other. When applied to text comparison, it can be a powerful tool for measuring how similar or different two strings are.</p>
+<p><strong>Tokenization</strong> is the process of breaking down text into smaller units called tokens, which can be words, phrases, or other meaningful elements. Tokenization is crucial in preparing text for various text analysis tasks because it helps in understanding the structure and meaning of the text more effectively.</p>
+<h3>Combining Levenshtein Distance with Tokenization</h3>
+<p>When you combine <strong>Levenshtein Distance</strong> with <strong>Tokenization</strong>, you enhance the capability to compare texts in a more granular way. Here's a detailed look at how this combination works:</p>
+<ol>
+<li><p><strong>Text Preprocessing</strong>: Before applying the Levenshtein Distance, the text must be tokenized. This involves:</p>
+<ul>
+<li><strong>Splitting the text</strong> into tokens, usually words or phrases.</li>
+<li><strong>Converting text to lowercase</strong> to ensure the comparison is case-insensitive.</li>
+<li><strong>Removing punctuation</strong> and possibly other non-alphanumeric characters to focus on the core content.</li>
+<li><strong>Handling stop words</strong>—common words like 'the', 'a', 'an', etc., which might be removed to focus on more meaningful content.</li>
+<li><strong>Stemming or lemmatization</strong> to reduce words to their base or root form, which can help in comparing words with similar meanings but different forms.</li>
+</ul>
+</li>
+<li><p><strong>Token-by-Token Comparison</strong>: After tokenization, the Levenshtein Distance can be applied to each pair of tokens from the two texts. This allows for a detailed comparison at the level of individual words or phrases rather than entire strings.</p>
+</li>
+<li><p><strong>Aggregating Results</strong>: The individual Levenshtein Distances for each pair of tokens are then aggregated to provide an overall measure of similarity or difference between the two texts. This could be a simple sum, an average, or a more complex function depending on the specific needs of the analysis.</p>
+</li>
+<li><p><strong>Applications</strong>: This method is particularly useful in:</p>
+<ul>
+<li><strong>Spell Checking</strong>: Where the distance between a misspelled word and the correct word is calculated to suggest corrections.</li>
+<li><strong>Plagiarism Detection</strong>: Comparing texts to find similarities that might indicate copying.</li>
+<li><strong>Natural Language Processing</strong>: For tasks like machine translation, where understanding the similarity between words in different languages can be crucial.</li>
+</ul>
+</li>
+<li><p><strong>Advantages</strong>:</p>
+<ul>
+<li><strong>Flexibility</strong>: The method can be adjusted to suit different levels of granularity, from whole words to smaller units like morphemes.</li>
+<li><strong>Robustness</strong>: By focusing on tokens rather than whole strings, it can better handle variations in text length and structure.</li>
+</ul>
+</li>
+<li><p><strong>Limitations</strong>:</p>
+<ul>
+<li><strong>Computational Cost</strong>: Calculating Levenshtein Distance for every token pair can be computationally intensive, especially for large texts.</li>
+<li><strong>Sensitivity to Preprocessing</strong>: The choice of tokenization and preprocessing steps can significantly affect the results, requiring careful consideration.</li>
+</ul>
+</li>
+</ol>
+<p>By integrating Levenshtein Distance with Tokenization, you can achieve a more nuanced and effective approach to text comparison, which is valuable in various fields including computational linguistics, information retrieval, and text analytics.</p>
+<p>ResponseID:32a6d4a9</p>
+</div><div title=" Cosine Similarity with TF-IDF" id="childContent2" onclick="setVisibileChild('childContent2')" hidden=true><h2>Cosine Similarity with TF-IDF</h2>
+<p>Cosine Similarity with TF-IDF (Term Frequency-Inverse Document Frequency) is a method used to determine how similar two documents are, irrespective of their size. This approach is particularly effective for text comparison and information retrieval tasks. Below, we delve deeper into the aspects previously mentioned about this method.</p>
+<h3>Term Frequency (TF)</h3>
+<p>Term Frequency measures how frequently a term appears in a document. It is calculated as the number of times a word appears in a document divided by the total number of words in that document. The formula for TF is:</p>
+<p>[ \text{TF}(t, d) = \frac{\text{Number of times term } t \text{ appears in document } d}{\text{Total number of terms in document } d} ]</p>
+<h3>Inverse Document Frequency (IDF)</h3>
+<p>Inverse Document Frequency measures the importance of a term across a collection of documents. It diminishes the weight of terms that appear very frequently in the document set and increases the weight of terms that occur rarely. The formula for IDF is:</p>
+<p>[ \text{IDF}(t, D) = \log \left( \frac{\text{Total number of documents } D}{\text{Number of documents with term } t \text{ in it}} \right) ]</p>
+<h3>TF-IDF Calculation</h3>
+<p>Combining TF and IDF, the TF-IDF score of a term in a document is calculated as:</p>
+<p>[ \text{TF-IDF}(t, d, D) = \text{TF}(t, d) \times \text{IDF}(t, D) ]</p>
+<p>This score reflects how important a word is to a document in a collection or corpus.</p>
+<h3>Cosine Similarity</h3>
+<p>Cosine Similarity measures the cosine of the angle between two vectors projected in a multi-dimensional space. The cosine similarity between two vectors (or documents) is calculated using their TF-IDF vectors. The formula is:</p>
+<p>[ \text{Cosine Similarity}(d_1, d_2) = \frac{d_1 \cdot d_2}{|d_1| |d_2|} ]</p>
+<p>Where:</p>
+<ul>
+<li>(d_1 \cdot d_2) is the dot product of vectors (d_1) and (d_2),</li>
+<li>(|d_1|) and (|d_2|) are the magnitudes of vectors (d_1) and (d_2), respectively.</li>
+</ul>
+<h3>Implementation Details</h3>
+<p>To implement Cosine Similarity with TF-IDF, you typically follow these steps:</p>
+<ol>
+<li><strong>Text Preprocessing</strong>: Tokenize the text, convert to lowercase, remove stop words, and possibly stem or lemmatize the words.</li>
+<li><strong>TF-IDF Calculation</strong>: Calculate TF-IDF scores for each term in each document.</li>
+<li><strong>Vector Representation</strong>: Represent each document as a vector of TF-IDF scores.</li>
+<li><strong>Cosine Similarity Calculation</strong>: Compute the cosine similarity between the vectors.</li>
+</ol>
+<p>Here's a simple Python example using <code>scikit-learn</code> to illustrate:</p>
+<pre><code class="language-python">from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+
+<h1>Sample documents</h1>
+<p>documents = [
+    "The quick brown fox jumps over the lazy dog",
+    "A quick brown dog jumps over the lazy fox"
+]</p>
+<h1>Create the TF-IDF vectorizer</h1>
+<p>tfidf_vectorizer = TfidfVectorizer()</p>
+<h1>Fit and transform the documents</h1>
+<p>tfidf_matrix = tfidf_vectorizer.fit_transform(documents)</p>
+<h1>Compute cosine similarity</h1>
+<p>cosine_sim = cosine_similarity(tfidf_matrix[0:1], tfidf_matrix)</p>
+</code><p><code class="language-python">print("Cosine Similarity:", cosine_sim)
+</code></p></pre><p></p>
+<h3>Advantages</h3>
+<ul>
+<li><strong>Robustness to Document Length</strong>: Cosine Similarity is not affected by the length of the documents, making it suitable for comparing texts of varying sizes.</li>
+<li><strong>Semantic Understanding</strong>: By using TF-IDF, the method can capture the importance of terms in the context of the entire document set, leading to more meaningful comparisons.</li>
+<li><strong>Efficient for Large Corpora</strong>: It can be efficiently computed even for large sets of documents, making it scalable for big data applications.</li>
+</ul>
+<h3>Limitations</h3>
+<ul>
+<li><strong>Sensitivity to Preprocessing</strong>: The results can be highly sensitive to the choice of preprocessing steps, such as stop word removal and stemming.</li>
+<li><strong>Context Ignorance</strong>: It does not take into account the context or order of words, which can be a limitation for tasks where word order is crucial.</li>
+<li><strong>Sparsity</strong>: For large vocabularies, the resulting vectors can be very sparse, which may affect computational efficiency.</li>
+</ul>
+<p>By combining TF-IDF with Cosine Similarity, you can achieve a powerful method for comparing documents based on their content and relevance, which is widely used in information retrieval, text mining, and recommendation systems.</p>
+<p>ResponseID:8b20a1d6</p>
+</div><div title=" Jaro-Winkler Distance with Stop Words Removal"" id="childContent3" onclick="setVisibileChild('childContent3')" hidden=true><h3>Jaro-Winkler Distance with Stop Words Removal</h3>
+<p>The Jaro-Winkler Distance is a measure of similarity between two strings that is particularly effective for short strings such as names or addresses. It is an extension of the Jaro Distance metric, which gives more weight to prefix matches. The Jaro-Winkler algorithm adjusts the Jaro Distance by adding a scaling factor for how many of the first few characters are the same.</p>
+<p>To apply this method for fuzzy search on strings with variable words and spaces, we can enhance its effectiveness by removing stop words—common words like "the," "and," "or," and "but" that do not carry significant semantic value. Here's a more detailed look at how this is implemented:</p>
+<h4>Implementation Details</h4>
+<pre><code class="language-python">import jellyfish
+
+<p>def jaro_winkler_with_stop_words_removal(str1, str2):
+    # Define stop words
+    fluff_stop_words = ['the', 'and', 'or', 'but']</p>
+<pre><code># Remove stop words from both strings
+tokens1 = [word for word in str1.lower().split() if word not in fluff_stop_words]
+tokens2 = [word for word in str2.lower().split() if word not in fluff_stop_words]
+
+# Join the tokens back into strings
+str1_cleaned = ' '.join(tokens1)
+str2_cleaned = ' '.join(tokens2)
+
+# Calculate Jaro-Winkler Distance
+return jellyfish.jaro_winkler(str1_cleaned, str2_cleaned)
+</code></pre>
+<h1>Example usage</h1>
+</code><p><code class="language-python">str1 = "The quick brown fox jumps over the lazy dog"
+str2 = "Quick brown fox jumps over lazy dog"
+similarity = jaro_winkler_with_stop_words_removal(str1, str2)
+print(f"Jaro-Winkler Distance: {similarity}")
+</code></p></pre><p></p>
+<h4>Explanation</h4>
+<ol>
+<li><p><strong>Stop Words Removal</strong>: By removing common words that do not add much meaning to the comparison, we focus on the more significant content of the strings. This can lead to a more accurate similarity score when comparing strings that may differ only by the presence or absence of these common words.</p>
+</li>
+<li><p><strong>Tokenization and Cleaning</strong>: The strings are tokenized by splitting them into words, and then any stop words identified in the <code>fluff_stop_words</code> list are removed. The remaining tokens are then joined back into a single string for each input.</p>
+</li>
+<li><p><strong>Jaro-Winkler Distance Calculation</strong>: After cleaning, the Jaro-Winkler Distance is calculated on the cleaned strings. The Jaro-Winkler algorithm gives more favorable ratings to strings that match from the beginning for a set prefix length (usually up to 4 characters).</p>
+</li>
+<li><p><strong>Advantages</strong>: This method is particularly useful when dealing with strings where the order of words is important, and where the presence of common words might otherwise skew the similarity score. It is also efficient for short strings and can provide good results for names, addresses, or other similar data types.</p>
+</li>
+<li><p><strong>Limitations</strong>: While effective for certain types of strings, the Jaro-Winkler Distance might not be as effective for longer texts or when the semantic meaning of the text is more important than the exact sequence of words. Additionally, the choice of stop words can significantly affect the outcome, and a broader or different set of stop words might be needed depending on the specific application.</p>
+</li>
+</ol>
+<p>By integrating stop words removal with the Jaro-Winkler Distance, you can achieve a more nuanced and relevant comparison for strings that vary in terms of common words and spaces.</p>
+<p>ResponseID:d84f8d89</p>
+</div>
+    </div>
+  </div>
+
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+
+    <script>
+      function setVisibileChild(id){
+         let topNode = document.getElementById('content');
+         let parentNode = document.getElementById('parentContent');
+         let childVisibleNode = document.getElementById(id);
+         parentNode.hidden = true;
+         childVisibleNode.hidden = false;
+      }
+    </script>
+
+    <script>
+      function goHomePage(){
+         let topNode = document.getElementById('content');
+         let parentNode = document.getElementById('parentContent');
+         let children = document.getElementById('childDivs');
+         for (let child of children.children){
+            child.hidden = true;
+         }
+         parentNode.hidden = false;
+      }
+    </script>
+
+    <script>
+      function setChildLinks(){
+        let children = document.getElementById('childDivs'); 
+        let childSubjects = [];
+        for (let child of children.children){
+          let subject = child.title;
+          childSubjects.push({subject: subject, child: child});
+          }
+             
+          let parentNodeH2Subjects = []
+          let parentNodeH3Subjects = []
+          let parentNode = document.getElementById('parentContent');
+          let H2s = parentNode.getElementsByTagName("H2");
+          let H3s = parentNode.getElementsByTagName("H3");
+          
+          let isH3Match = H3s.length == childSubjects.length;
+          let isH2Match = H2s.length == childSubjects.length;
+
+          let allDiscovered = false;
+
+          if (isH3Match){
+            //We have a match.  We need to find the H2s
+            allDiscovered = true;
+          }
+          if (isH2Match){
+            //We have a match.  We need to find the H3s
+            allDiscovered = true;
+          }
+          if(isH3Match && isH2Match){
+            //wierd.  ok we work from scratch.
+            allDiscovered = false;
+          }
+
+          if(!allDiscovered){
+            
+          for (let item of H2s){
+            let subject = item.innerText;
+              parentNodeH2Subjects.push({subject: subject, item: item});
+
+            }
+
+            if(item.tagName == "H3" ){
+              let subject = item.innerText;
+              parentNodeH3Subjects.push({subject: subject, item: item});
+
+            }
+          
+          //OK time to stumble through unpredictable llm output
+          //First check if the child subjects are in the parent node h2 subjects
+          let isH2 = false;
+          let isH3 = false;
+          let discoveredMatches = [];
+
+
+          //This can be optimized later.  Probably doesnt matter since it is client side with modern computing.
+          for (let i = 0; i < parentNodeH2Subjects.length; i++){
+            let subject = parentNodeH2Subjects[i].subject;
+            for (let j = 0; j < childSubjects.length; j++){
+              if(childSubjects[j].subject == subject){
+                isH2 = true;
+                discoveredMatches.push({parentLink: parentNodeH2Subjects[i].item, childLink: childSubjects[j].child});
+              }
+            }
+
+          }
+          //Assume h3 at this point
+          if(!isH2){
+            for (let i = 0; i < parentNodeH3Subjects.length; i++){
+              let subject = parentNodeH3Subjects[i].subject;
+              for (let j = 0; j < childSubjects.length; j++){
+                if(childSubjects[j].subject == subject){
+                  isH3 = true;
+                  discoveredMatches.push({parentLink: parentNodeH3Subjects[i].item, childLink: childSubjects[j].child});
+                }
+              }
+            }
+          }
+
+          for (let i = 0; i < parentNodeH2Subjects.length; i++){
+            let child = childSubjects[i].child;
+            parentNodeH2Subjects[i].item.onclick = function(){
+              setVisibileChild(child.id);
+            }
+
+          }
+          }else{
+            if(isH3Match){
+              for (let i = 0; i < parentNodeH3Subjects.length; i++){
+                let child = childSubjects[i].child;
+                makeChildLinks(parentNodeH3Subjects[i].item, child);
+              }
+              return; //bye bye
+            }
+            if(isH2Match){
+              for (let i = 0; i < parentNodeH2Subjects.length; i++){
+                let child = childSubjects[i].child;
+                makeChildLinks(parentNodeH2Subjects[i].item, child);
+              }
+              return; //bye bye
+            }
+
+          }
+
+          for (let match of discoveredMatches){
+            makeChildLinks(match.parentLink, match.childLink);
+          }
+
+        }
+    </script>
+
+    <script>
+       function makeChildLinks(parent, child){
+            parent.style.cursor = "pointer";
+            parent.style.textDecoration = "underline";
+            parent.style.color = "blue";
+            parent.onclick = function(){
+              setVisibileChild(child.id);
+            }
+       }
+
+    </script>
+
+
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

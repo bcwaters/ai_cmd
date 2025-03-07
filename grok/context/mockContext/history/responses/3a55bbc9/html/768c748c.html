@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    <a id="markdown" href="./markdown/768c748c.md"> markdown</a>
+    <a id="previous" href="../8cc74799/html/8cc74799.html?responseId=768c748c">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+  </nav>
+
+  <div id="content"><h2>4. Meeting the Mentor</h2>
+<p>Brent's initial resistance to the call from the tech startup is rooted in his deep connection to the forest and his fear of losing the balance he has cultivated between his coding work and his natural surroundings. This fear is a significant barrier, as he contemplates the potential disruption that the fast-paced and often impersonal tech world could bring to his life.</p>
+<h3>The Arrival of the Mentor</h3>
+<p>An old friend, who had once been a prominent figure in the tech industry but now dedicates his life to environmental causes, visits Brent at his secluded cabin. This friend, whom Brent greatly respects, serves as his mentor in this pivotal moment. The mentor's arrival is not just a casual visit; it is timed perfectly with Brent's internal struggle and the recent call to adventure.</p>
+<h3>The Mentor's Influence</h3>
+<p>The mentor shares his own journey of transitioning from the tech world to environmental activism. He explains how he used his technological expertise to make significant contributions to environmental causes, illustrating that it is possible to blend technology and nature effectively. This narrative resonates deeply with Brent, as it mirrors his own dual passions.</p>
+<h3>Encouragement and Insight</h3>
+<p>The mentor encourages Brent to see the startup's offer not as a threat to his current lifestyle but as an opportunity to expand his impact. He emphasizes that Brent's unique perspective, honed by his life in the forest, could bring a fresh approach to the tech world. The mentor's insights help Brent reframe the challenge, viewing it as a chance to bridge the gap between technology and nature.</p>
+<h3>The Turning Point</h3>
+<p>Through their conversations, the mentor instills in Brent a sense of purpose and confidence. He challenges Brent to consider how his skills could be used to enhance digital connectivity in remote areas while preserving the environment. This discussion becomes a turning point for Brent, shifting his perspective from one of fear and resistance to one of potential and possibility.</p>
+<h3>The Decision to Reconsider</h3>
+<p>Ultimately, the mentor's visit and their deep, meaningful discussions lead Brent to reconsider the startup's offer. The mentor's encouragement and the shared vision of using technology for environmental good become the catalyst for Brent's decision to step out of his comfort zone and embark on this new journey.</p>
+<p>In summary, the mentor's role is crucial in Brent's hero's journey. By providing guidance, sharing personal experiences, and offering a new perspective, the mentor helps Brent overcome his initial refusal of the call and sets him on the path to crossing the threshold into the unknown.</p>
+<p>ResponseID:768c748c</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+
+  <script>
+    function saveMarkdown() {
+      const content = document.documentElement.outerHTML; // Get the entire HTML content
+
+      let markdownLocation = "./markdown/";
+      let markdownFileName = "768c748c.md";
+      let markdownFile = markdownLocation + markdownFileName;
+      
+
+      const url = URL.createObjectURL(blob); // Create a URL for the Blob
+      const divInnerText = document.getElementById('content').innerText;
+      let filename = divInnerText.substring(0, 25);
+      const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+          a.download =  filename + '.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+      
+    }
+  </script>
+
+  <script>
+    //This function checks if the current page is a child page and genreate a link to the parent page.
+            function isChild(){
+               params = window.location.search.split('=')[1];
+               if (params == undefined) {
+                return false;
+               }
+               params = params.split("&");
+               for (let i = 0; i < params.length; i++) {
+                if (params[i].includes("child")) {
+                  console.log("found child  ");
+                  console.log(params[i].split("child=")[1]);
+                  return params[i].split("child=")[1];
+                }
+               }
+               return false;
+            }
+    
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log("responseId:",window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../html/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+  <script>
+    function loadMarkdownFile() {
+      const markdownFilePath = "./markdown/768c748c.md"; // Path to the markdown file
+      fetch(markdownFilePath)
+        .then(response => response.text())
+        .then(data => {
+          const blob = new Blob([data], { type: 'text/markdown' }); // Create a Blob from the markdown content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download = '768c748c.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        })
+        .catch(error => console.error('Error loading markdown file:', error));
+    }
+  </script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

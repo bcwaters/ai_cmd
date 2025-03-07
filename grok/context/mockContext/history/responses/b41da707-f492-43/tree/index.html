@@ -1,0 +1,672 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Home Page</title>
+  <style>
+    
+html {
+  font-size: 100%;
+  overflow-y: scroll;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+body {
+  color: #444;
+  font-family: Georgia, Palatino, 'Palatino Linotype', Times, 'Times New Roman', serif;
+  font-size: 12px;
+  line-height: 1.5em;
+  padding: 1em;
+  margin: auto;
+  max-width: 50em;
+  background: #fefefe;
+}
+
+a {
+  color: #0645ad;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #0b0080;
+}
+
+a:hover {
+  color: #06e;
+}
+
+a:active {
+  color: #faa700;
+}
+
+a:focus {
+  outline: thin dotted;
+}
+
+a:hover,
+a:active {
+  outline: 0;
+}
+
+::-moz-selection {
+  background: rgba(255, 255, 0, 0.3);
+  color: #000;
+}
+
+::selection {
+  background: rgba(255, 255, 0, 0.3);
+  color: #000;
+}
+
+a::-moz-selection {
+  background: rgba(255, 255, 0, 0.3);
+  color: #0645ad;
+}
+
+a::selection {
+  background: rgba(255, 255, 0, 0.3);
+  color: #0645ad;
+}
+
+p {
+  margin: 1em 0;
+}
+
+img {
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
+  color: #111;
+  line-height: 1em;
+}
+
+h4,
+h5,
+h6 {
+  font-weight: bold;
+}
+
+h1 {
+  font-size: 2.5em;
+}
+
+h2 {
+  font-size: 2em;
+}
+
+h3 {
+  font-size: 1.5em;
+}
+
+h4 {
+  font-size: 1.2em;
+}
+
+h5 {
+  font-size: 1em;
+}
+
+h6 {
+  font-size: 0.9em;
+}
+
+blockquote {
+  color: #666666;
+  margin: 0;
+  padding-left: 3em;
+  border-left: 0.5em #eee solid;
+}
+
+hr {
+  display: block;
+  border: 0;
+  border-top: 1px solid #aaa;
+  border-bottom: 1px solid #eee;
+  margin: 1em 0;
+  padding: 0;
+}
+
+/* pre,
+code, */
+kbd,
+samp {
+  color: #000;
+  font-family: monospace, monospace;
+  _font-family: 'courier new', monospace;
+  font-size: 0.98em;
+}
+
+pre {
+  white-space: pre;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+b,
+strong {
+  font-weight: bold;
+}
+
+dfn {
+  font-style: italic;
+}
+
+ins {
+  background: #ff9;
+  color: #000;
+  text-decoration: none;
+}
+
+mark {
+  background: #ff0;
+  color: #000;
+  font-style: italic;
+  font-weight: bold;
+}
+
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sup {
+  top: -0.5em;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+ul,
+ol {
+  margin: 1em 0;
+  padding: 0 0 0 2em;
+}
+
+li p:last-child {
+  margin: 0;
+}
+
+dd {
+  margin: 0 0 0 2em;
+}
+
+img {
+  border: 0;
+  -ms-interpolation-mode: bicubic;
+  vertical-align: middle;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+td {
+  vertical-align: top;
+}
+
+@media only screen and (min-width: 480px) {
+  body {
+    font-size: 14px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  body {
+    font-size: 16px;
+  }
+}
+
+@media print {
+  * {
+    background: transparent !important;
+    color: black !important;
+    filter: none !important;
+    -ms-filter: none !important;
+  }
+
+  body {
+    font-size: 12pt;
+    max-width: 100%;
+  }
+
+  a,
+  a:visited {
+    text-decoration: underline;
+  }
+
+  hr {
+    height: 1px;
+    border: 0;
+    border-bottom: 1px solid black;
+  }
+
+  a[href]:after {
+    content: " (" attr(href) ")";
+  }
+
+  abbr[title]:after {
+    content: " (" attr(title) ")";
+  }
+
+  .ir a:after,
+  a[href^="javascript:"]:after,
+  a[href^="#"]:after {
+    content: "";
+  }
+
+  pre,
+  blockquote {
+    border: 1px solid #999;
+    padding-right: 1em;
+    page-break-inside: avoid;
+  }
+
+  tr,
+  img {
+    page-break-inside: avoid;
+  }
+
+  img {
+    max-width: 100% !important;
+  }
+
+  @page :left {
+    margin: 15mm 20mm 15mm 10mm;
+  }
+
+  @page :right {
+    margin: 15mm 10mm 15mm 20mm;
+  }
+
+  p,
+  h2,
+  h3 {
+    orphans: 3;
+    widows: 3;
+  }
+
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
+}
+
+
+pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px; font-size: 12px;}/*!
+  Theme: StackOverflow Light
+  Description: Light theme as used on stackoverflow.com
+  Author: stackoverflow.com
+  Maintainer: @Hirse
+  Website: https://github.com/StackExchange/Stacks
+  License: MIT
+  Updated: 2021-05-15
+
+  Updated for @stackoverflow/stacks v0.64.0
+  Code Blocks: /blob/v0.64.0/lib/css/components/_stacks-code-blocks.less
+  Colors: /blob/v0.64.0/lib/css/exports/_stacks-constants-colors.less
+*/.hljs{color:#2f3337;background:#f6f6f6}.hljs-subst{color:#2f3337}.hljs-comment{color:#656e77}.hljs-attr,.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-section,.hljs-selector-tag{color:#015692}.hljs-attribute{color:#803378}.hljs-name,.hljs-number,.hljs-quote,.hljs-selector-id,.hljs-template-tag,.hljs-type{color:#b75501}.hljs-selector-class{color:#015692}.hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-string,.hljs-symbol,.hljs-template-variable,.hljs-variable{color:#54790d}.hljs-meta,.hljs-selector-pseudo{color:#015692}.hljs-built_in,.hljs-literal,.hljs-title{color:#b75501}.hljs-bullet,.hljs-code{color:#535a60}.hljs-meta .hljs-string{color:#54790d}.hljs-deletion{color:#c02d2e}.hljs-addition{color:#2f6f44}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}
+
+
+    
+    .nav-button {
+      background-color: transparent;
+      border: 2px solid #008CBA;
+      color: #008CBA;
+      font-size: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .nav-button:hover {
+      background-color: #008CBA;
+      color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #f8f9fa;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+    }
+
+    /* Navbar links */
+    nav a {
+      color: #333;
+      text-decoration: none;
+      font-family: 'Arial', sans-serif;
+      text-transform: uppercase;
+      font-weight: 300;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #007bff;
+      text-decoration: underline;
+      background-color: rgba(0, 123, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .nav-right {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    
+    /* Dropdown styling */
+    select {
+      padding: 5px 10px;
+      border: 2px solid #008CBA;
+      border-radius: 4px;
+      background-color: white;
+      color: #333;
+      font-family: 'Arial', sans-serif;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    select:hover {
+      border-color: #007bff;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+    }
+    
+    select:focus {
+      outline: none;
+      border-color: #007bff;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+    
+    option {
+      padding: 5px;
+      background-color: white;
+      color: #333;
+    }
+    
+    option:hover {
+      background-color: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a id="parentContentLink" href='/?context=b41da707-f492-43'>Home</a>
+
+      <select id="childSubjects">
+        <option value="home">Home</option>
+        <!-- Children are added here onload with setChildSubjects -->
+      </select>
+      <!-- Add a previous and next button for prior requests? -->
+      <!-- Add a button to save the current page as a markdown file -->
+
+      
+      <button class="nav-button" id="saveButton" onclick="saveButton()">Save</button>
+
+
+  </nav>
+
+  <div id="content">  
+    <div id="parentContent">
+        <p>Here are two animals:</p>
+<ol>
+<li>
+<p><strong>Carrot</strong>:</p>
+<ul>
+<li><strong>Scientific Name</strong>: Daucus carota</li>
+<li><strong>Family</strong>: Apiaceae</li>
+<li><strong>Physical Characteristics</strong>: Elongated, conical root; typically orange but can be purple, red, white, or yellow; grows up to 12 inches long.</li>
+<li><strong>Nutritional Profile</strong>: High in beta-carotene, vitamin A, fiber, vitamins C and K, potassium, and antioxidants.</li>
+<li><strong>Health Benefits</strong>: Supports vision health, immune function, skin health, and digestive health.</li>
+<li><strong>Culinary Uses</strong>: Can be eaten raw, cooked, in soups and stews, or juiced.</li>
+<li><strong>Growing Conditions</strong>: Prefers cooler temperatures, well-drained sandy soil; takes 60-80 days to mature.</li>
+</ul>
+</li>
+<li>
+<p><strong>Broccoli</strong>:</p>
+<ul>
+<li><strong>Scientific Name</strong>: Brassica oleracea var. italica</li>
+<li><strong>Family</strong>: Brassicaceae</li>
+<li><strong>Physical Characteristics</strong>: Green, tree-like clusters of florets on thick stalks; can grow up to 2 feet tall.</li>
+<li><strong>Nutritional Profile</strong>: Rich in vitamins C and K, fiber, and antioxidants like sulforaphane.</li>
+<li><strong>Health Benefits</strong>: Supports heart health, reduces inflammation, and may have cancer-fighting properties.</li>
+<li><strong>Culinary Uses</strong>: Can be eaten raw, steamed, roasted, or stir-fried; commonly used in salads, soups, and side dishes.</li>
+<li><strong>Growing Conditions</strong>: Prefers cool weather, well-drained soil; takes about 60-100 days to mature.</li>
+</ul>
+</li>
+</ol>
+    </div>
+    <div id="childDivs">
+      <div title="Carrot" id="childContent1" onclick="setVisibileChild('childContent1')" hidden=true><h2>Carrot</h2>
+<h3>Scientific Name and Family</h3>
+<ul>
+<li><strong>Scientific Name</strong>: <em>Daucus carota</em></li>
+<li><strong>Family</strong>: Apiaceae, also known as the carrot family or parsley family. This family includes other vegetables and herbs such as parsley, celery, and fennel, which share similar nutritional profiles and culinary uses.</li>
+</ul>
+<h3>Physical Characteristics</h3>
+<ul>
+<li><strong>Shape and Size</strong>: Carrots are typically elongated and conical, though some varieties can be cylindrical or round. They usually grow up to 12 inches long, but sizes can vary depending on the specific cultivar.</li>
+<li><strong>Color Varieties</strong>: While the most common color is orange, carrots can also be purple, red, white, or yellow. The color is due to different pigments; orange carrots contain beta-carotene, while purple ones contain anthocyanins.</li>
+<li><strong>Texture</strong>: When fresh, carrots are crisp and firm. The texture can become softer when cooked, depending on the cooking method.</li>
+<li><strong>Growth</strong>: Carrots grow underground as a root vegetable. The part we eat is the taproot, which stores nutrients and energy for the plant.</li>
+</ul>
+<h3>Nutritional Profile</h3>
+<ul>
+<li><strong>Beta-Carotene and Vitamin A</strong>: Carrots are renowned for their high beta-carotene content, which the body converts into vitamin A. A single medium-sized carrot can provide over 200% of the daily recommended value of vitamin A, crucial for vision health.</li>
+<li><strong>Vitamins C and K</strong>: Carrots contain significant amounts of vitamin C, an antioxidant that supports immune function, and vitamin K, which is essential for blood clotting and bone health.</li>
+<li><strong>Fiber</strong>: A medium carrot provides about 2 grams of dietary fiber, aiding in digestive health and helping to maintain a feeling of fullness.</li>
+<li><strong>Potassium</strong>: Carrots are a good source of potassium, which helps in regulating blood pressure and supporting muscle function.</li>
+<li><strong>Antioxidants</strong>: In addition to beta-carotene, carrots contain other antioxidants like lutein and zeaxanthin, which are beneficial for eye health.</li>
+</ul>
+<h3>Health Benefits</h3>
+<ul>
+<li><strong>Vision Health</strong>: The high levels of beta-carotene and vitamin A in carrots are vital for maintaining good eyesight, particularly in low-light conditions.</li>
+<li><strong>Immune Function</strong>: Vitamin C in carrots supports the immune system by helping to produce white blood cells and acting as an antioxidant to protect cells.</li>
+<li><strong>Skin Health</strong>: The antioxidants in carrots, including beta-carotene, can help protect skin from damage caused by UV rays and environmental toxins.</li>
+<li><strong>Digestive Health</strong>: The fiber content in carrots aids in digestion by promoting regular bowel movements and supporting a healthy gut microbiome.</li>
+</ul>
+<h3>Culinary Uses</h3>
+<ul>
+<li><strong>Raw Consumption</strong>: Carrots can be eaten raw, often as a snack or added to salads. They are commonly enjoyed with dips like hummus or ranch.</li>
+<li><strong>Cooking Methods</strong>: Carrots can be steamed, boiled, roasted, or sautéed. Each method brings out different flavors and textures. For example, roasting carrots can caramelize their natural sugars, enhancing their sweetness.</li>
+<li><strong>In Soups and Stews</strong>: Carrots are a staple in many soups and stews, adding both flavor and nutrition. They are particularly popular in dishes like chicken soup and beef stew.</li>
+<li><strong>Juicing</strong>: Carrot juice is a popular way to consume carrots, often mixed with other fruits and vegetables for a nutritious drink.</li>
+<li><strong>Flavor Pairings</strong>: Carrots pair well with herbs like dill and parsley, spices like cumin and ginger, and can be sweetened with honey or maple syrup.</li>
+</ul>
+<h3>Growing Conditions</h3>
+<ul>
+<li><strong>Climate</strong>: Carrots prefer cooler temperatures, with optimal growth occurring between 60°F and 70°F. They can tolerate light frosts, making them suitable for spring and fall planting.</li>
+<li><strong>Soil</strong>: Well-drained, sandy soil is ideal for carrot growth. Heavy or clay soils can cause the roots to fork or become misshapen. A soil pH between 6.0 and 6.8 is recommended.</li>
+<li><strong>Growth Cycle</strong>: From seed to harvest, carrots take about 60-80 days to mature, depending on the variety. They are often directly sown into the garden as they do not transplant well.</li>
+<li><strong>Care</strong>: Regular watering is crucial, especially when the roots are developing. Thinning seedlings to about 2 inches apart ensures proper growth. Carrots benefit from mulching to retain soil moisture and reduce weed growth.</li>
+</ul>
+<p>By delving into these aspects in detail, you can appreciate the full value of carrots, from their nutritional benefits to their culinary versatility and the care required to grow them successfully.</p>
+<p>ResponseID:22264e4c-fa23-45</p></div><div title="Broccoli" id="childContent2" onclick="setVisibileChild('childContent2')" hidden=true><h1>Broccoli: Detailed Overview</h1>
+<h2>Scientific Name and Family</h2>
+<ul>
+<li><strong>Scientific Name</strong>: <em>Brassica oleracea var. italica</em></li>
+<li><strong>Family</strong>: Brassicaceae (also known as the mustard family). This family includes other vegetables like cabbage, kale, and cauliflower, which share many nutritional and health benefits.</li>
+</ul>
+<h2>Physical Characteristics</h2>
+<ul>
+<li><strong>Appearance</strong>: Broccoli is known for its distinctive green, tree-like structure. The edible part consists of <strong>florets</strong>, which are the flowering heads, arranged in tight clusters on thick, sturdy stalks. The plant can grow up to 2 feet tall, with the central head being the primary harvest, though smaller side shoots can also be eaten.</li>
+<li><strong>Color</strong>: Typically, broccoli is a vibrant green, but there are also purple varieties, which contain anthocyanins, a type of antioxidant.</li>
+</ul>
+<h2>Nutritional Profile</h2>
+<ul>
+<li><strong>Vitamins and Minerals</strong>: Broccoli is exceptionally rich in <strong>Vitamin C</strong>, providing more than 100% of the daily recommended value in a single cup, and <strong>Vitamin K</strong>, crucial for blood clotting and bone health. It's also a good source of <strong>Vitamin A</strong>, <strong>folate</strong>, and <strong>potassium</strong>.</li>
+<li><strong>Fiber</strong>: A cup of broccoli contains around 2.4 grams of fiber, aiding in digestive health and appetite control.</li>
+<li><strong>Antioxidants</strong>: Broccoli contains a range of antioxidants, including <strong>sulforaphane</strong>, which is formed when broccoli is chopped or chewed. Sulforaphane has been studied for its potential to reduce inflammation and protect against chronic diseases.</li>
+</ul>
+<h2>Health Benefits</h2>
+<ul>
+<li><strong>Heart Health</strong>: The fiber, potassium, and antioxidants in broccoli contribute to cardiovascular health by reducing blood pressure, maintaining proper heart function, and lowering the risk of heart disease.</li>
+<li><strong>Anti-Inflammatory Effects</strong>: The sulforaphane and other compounds in broccoli have been shown to reduce inflammation, which is linked to numerous chronic diseases.</li>
+<li><strong>Cancer-Fighting Properties</strong>: Studies suggest that broccoli's sulforaphane may have anti-cancer effects, particularly in reducing the risk of certain types of cancer, such as prostate and colon cancers.</li>
+<li><strong>Detoxification</strong>: Broccoli contains glucoraphanin, which the body can convert into sulforaphane, aiding in the detoxification process by enhancing the body's ability to eliminate environmental toxins.</li>
+</ul>
+<h2>Culinary Uses</h2>
+<ul>
+<li><strong>Preparation Methods</strong>: Broccoli can be enjoyed <strong>raw</strong>, often in salads or as a snack with dips. It can also be <strong>steamed</strong>, <strong>roasted</strong>, or <strong>stir-fried</strong>, which can enhance its flavor and nutritional benefits. Roasting broccoli brings out its natural sweetness and adds a delightful crunch.</li>
+<li><strong>Common Dishes</strong>: It's a versatile ingredient in <strong>soups</strong>, <strong>stews</strong>, and <strong>side dishes</strong>. It's also used in <strong>casseroles</strong>, <strong>frittatas</strong>, and as a topping for pizzas and pastas.</li>
+<li><strong>Flavor Pairings</strong>: Broccoli pairs well with garlic, lemon, soy sauce, and cheese, enhancing its taste and making it a popular choice in various cuisines.</li>
+</ul>
+<h2>Growing Conditions</h2>
+<ul>
+<li><strong>Climate</strong>: Broccoli prefers <strong>cool weather</strong>, with optimal growing temperatures between 65°F and 75°F. It can tolerate light frosts, making it suitable for spring and fall planting in many regions.</li>
+<li><strong>Soil</strong>: It thrives in <strong>well-drained soil</strong> with a pH between 6.0 and 7.5. Adding compost or well-rotted manure can improve soil fertility and drainage.</li>
+<li><strong>Growth Cycle</strong>: From seed to harvest, broccoli takes about <strong>60-100 days</strong> to mature, depending on the variety. It's often planted as a <strong>transplant</strong> to give it a head start before the heat of summer.</li>
+<li><strong>Care</strong>: Regular watering, especially during dry spells, and mulching can help maintain soil moisture and temperature. Broccoli benefits from balanced fertilization, and it's important to watch for pests like cabbage worms and aphids.</li>
+</ul>
+<p>By understanding these aspects in detail, you can appreciate the full value of broccoli, from its nutritional benefits to its culinary versatility and the care it requires to grow successfully.</p>
+<p>ResponseID:892634e5-fd93-46</p></div>
+    </div>
+  </div>
+
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+
+    <script>
+      function setChildSubjects(){
+        let dropDownOptions = [];
+        let childSubjects = document.getElementById('childDivs');
+        for (let child of childSubjects.children){
+           let subject = child.title;
+           let optionValue = child.id;
+
+           dropDownOptions.push({subject: subject, value: optionValue});
+        
+        }
+
+        for (let option of dropDownOptions){
+          let optionElement = document.createElement('option');
+          optionElement.value = option.value;
+          optionElement.text = option.subject;
+          document.getElementById('childSubjects').appendChild(optionElement);
+        }
+
+        document.getElementById('childSubjects').addEventListener('change', function() {
+          if(this.value == "home"){
+            goHomePage();
+          }else{
+            setVisibleChild(this.value);
+          }
+
+          }
+        );
+      }
+    </script>
+
+
+    <script>
+      function setVisibleChild(id){
+        //quick flicker home to reset state, this allows hoping between child views
+     
+    
+           let topNode = document.getElementById('content');
+           let parentNode = document.getElementById('parentContent');
+           let childVisibleNode = document.getElementById(id);
+           let childDivs = document.getElementById('childDivs');
+           for (let child of childDivs.children){
+            if(child.id != id){
+              child.hidden = true;
+            }else{
+              child.hidden = false; //redudant
+            }
+           }
+           parentNode.hidden = true;
+           childVisibleNode.hidden = false;
+         }
+      
+    </script>
+
+    <script>
+      function goHomePage(){
+         let topNode = document.getElementById('content');
+         let parentNode = document.getElementById('parentContent');
+         let children = document.getElementById('childDivs');
+         for (let child of children.children){
+            child.hidden = true;
+         }
+         parentNode.hidden = false;
+      }
+    </script>
+        
+
+    <script>
+       function makeChildLinks(parent, child){
+            parent.style.cursor = "pointer";
+            parent.style.textDecoration = "underline";
+            parent.style.color = "blue";
+            parent.onclick = function(){
+              setVisibleChild(child.id);
+            }
+       }
+
+    </script>
+
+<script>window.onload = setChildSubjects;</script>
+
+<script>
+  // Add this function to handle home link click
+  document.addEventListener('DOMContentLoaded', function() {
+    // Get the home link
+    const homeLink = document.getElementById('parentContentLink');
+    
+    // Add click event listener
+    homeLink.addEventListener('click', function(event) {
+      this.style.backgroundColor = '#666666';
+      this.style.color = '#ffffff';
+      this.style.boxShadow = '0 0 10px #666666';
+      this.innerText = 'Processing...';
+      this.style.pointerEvents = 'none';
+    });
+  });
+</script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

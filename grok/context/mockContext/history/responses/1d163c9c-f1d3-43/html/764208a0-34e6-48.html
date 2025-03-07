@@ -1,0 +1,190 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    <a id="markdown" href="./764208a0-34e6-48.md"> markdown</a>
+    <a id="previous" href="../1d163c9c-f1d3-43/html/1d163c9c-f1d3-43.html?responseId=764208a0-34e6-48">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+  </nav>
+
+  <div id="content"><h2>Mock Functions in Jest</h2>
+<h3>Introduction to Mock Functions</h3>
+<p>Mock functions in Jest are a powerful feature used to simulate the behavior of real objects in a controlled way. This is particularly useful in unit testing, where you want to isolate the code being tested from its dependencies.</p>
+<h3>Creating Mock Functions</h3>
+<p>In Jest, mock functions can be created using <code>jest.fn()</code>. This function returns a new mock function that you can use in your tests. Here's how you create a basic mock function:</p>
+<pre><code class="language-javascript">const mockFunction = jest.fn();
+</code></pre>
+<h3>Tracking Calls</h3>
+<p>One of the key features of mock functions is the ability to track how they are called. You can check if the function was called, how many times it was called, and with what arguments:</p>
+<pre><code class="language-javascript">mockFunction('arg1', 'arg2');
+expect(mockFunction).toHaveBeenCalled();
+expect(mockFunction).toHaveBeenCalledTimes(1);
+expect(mockFunction).toHaveBeenCalledWith('arg1', 'arg2');
+</code></pre>
+<h3>Customizing Return Values</h3>
+<p>Mock functions can be configured to return specific values. This is useful for simulating different scenarios in your tests:</p>
+<pre><code class="language-javascript">mockFunction.mockReturnValue('mockReturnValue');
+expect(mockFunction()).toBe('mockReturnValue');
+</code></pre>
+<p>You can also set up the mock function to return different values on successive calls:</p>
+<pre><code class="language-javascript">mockFunction
+  .mockReturnValueOnce('first call')
+  .mockReturnValueOnce('second call')
+  .mockReturnValue('default return');
+
+expect(mockFunction()).toBe('first call');
+expect(mockFunction()).toBe('second call');
+expect(mockFunction()).toBe('default return');
+</code></pre>
+<h3>Simulating Errors</h3>
+<p>You can also use mock functions to simulate errors, which is useful for testing error handling:</p>
+<pre><code class="language-javascript">mockFunction.mockImplementationOnce(() =&gt; {
+  throw new Error('Mock error');
+});
+
+expect(() =&gt; mockFunction()).toThrow('Mock error');
+</code></pre>
+<h3>Mocking Modules</h3>
+<p>Jest also allows you to mock entire modules, which can be useful when testing components that depend on external libraries or other parts of your application. You can use <code>jest.mock()</code> to mock a module:</p>
+<pre><code class="language-javascript">jest.mock('moduleName', () =&gt; ({
+  exportedFunction: jest.fn(),
+}));
+</code></pre>
+<h3>Advanced Usage</h3>
+<p>For more complex scenarios, you can use <code>mockImplementation</code> to define the behavior of the mock function:</p>
+<pre><code class="language-javascript">const mockFunction = jest.fn().mockImplementation((arg) =&gt; {
+  return `Processed: ${arg}`;
+});
+
+expect(mockFunction('input')).toBe('Processed: input');
+</code></pre>
+<h3>Best Practices</h3>
+<ul>
+<li><strong>Isolation</strong>: Use mock functions to isolate the unit of code you are testing from its dependencies.</li>
+<li><strong>Clarity</strong>: Ensure that your mock functions clearly represent the behavior you are testing.</li>
+<li><strong>Reusability</strong>: Consider creating reusable mock functions for commonly used dependencies.</li>
+</ul>
+<p>By leveraging mock functions in Jest, you can create more robust and reliable tests that focus on the specific behavior of your code, making it easier to catch bugs and ensure the quality of your software.</p>
+<p>ResponseID:764208a0-34e6-48</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+
+  <script>
+    function saveMarkdown() {
+      const content = document.documentElement.outerHTML; // Get the entire HTML content
+
+      let markdownLocation = "./markdown/";
+      let markdownFileName = "764208a0-34e6-48.md";
+      let markdownFile = markdownLocation + markdownFileName;
+      
+
+      const url = URL.createObjectURL(blob); // Create a URL for the Blob
+      const divInnerText = document.getElementById('content').innerText;
+      let filename = divInnerText.substring(0, 25);
+      const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+          a.download =  filename + '.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+      
+    }
+  </script>
+
+  <script>
+    //This function checks if the current page is a child page and genreate a link to the parent page.
+            function isChild(){
+               params = window.location.search.split('=')[1];
+               if (params == undefined) {
+                return false;
+               }
+               params = params.split("&");
+               for (let i = 0; i < params.length; i++) {
+                if (params[i].includes("child")) {
+                  console.log("found child  ");
+                  console.log(params[i].split("child=")[1]);
+                  return params[i].split("child=")[1];
+                }
+               }
+               return false;
+            }
+    
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log("responseId:",window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../html/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+  <script>
+    function loadMarkdownFile() {
+      const markdownFilePath = "./markdown/764208a0-34e6-48.md"; // Path to the markdown file
+      fetch(markdownFilePath)
+        .then(response => response.text())
+        .then(data => {
+          const blob = new Blob([data], { type: 'text/markdown' }); // Create a Blob from the markdown content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download = '764208a0-34e6-48.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        })
+        .catch(error => console.error('Error loading markdown file:', error));
+    }
+  </script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

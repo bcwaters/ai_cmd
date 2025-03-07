@@ -1,0 +1,540 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Home Page</title>
+  <style>
+    pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
+  Theme: StackOverflow Light
+  Description: Light theme as used on stackoverflow.com
+  Author: stackoverflow.com
+  Maintainer: @Hirse
+  Website: https://github.com/StackExchange/Stacks
+  License: MIT
+  Updated: 2021-05-15
+
+  Updated for @stackoverflow/stacks v0.64.0
+  Code Blocks: /blob/v0.64.0/lib/css/components/_stacks-code-blocks.less
+  Colors: /blob/v0.64.0/lib/css/exports/_stacks-constants-colors.less
+*/.hljs{color:#2f3337;background:#f6f6f6}.hljs-subst{color:#2f3337}.hljs-comment{color:#656e77}.hljs-attr,.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-section,.hljs-selector-tag{color:#015692}.hljs-attribute{color:#803378}.hljs-name,.hljs-number,.hljs-quote,.hljs-selector-id,.hljs-template-tag,.hljs-type{color:#b75501}.hljs-selector-class{color:#015692}.hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-string,.hljs-symbol,.hljs-template-variable,.hljs-variable{color:#54790d}.hljs-meta,.hljs-selector-pseudo{color:#015692}.hljs-built_in,.hljs-literal,.hljs-title{color:#b75501}.hljs-bullet,.hljs-code{color:#535a60}.hljs-meta .hljs-string{color:#54790d}.hljs-deletion{color:#c02d2e}.hljs-addition{color:#2f6f44}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: left;
+      padding: 10px;
+    }
+    
+    .nav-right {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a id="parentContentLink" href='/?context=ae217a57-ece2-47'>Home</a>
+    <select id="childSubjects">
+      <option value="home">Home</option>
+      <!-- Children are added here onload with setChildSubjects -->
+    </select>
+    <!-- Add a previous and next button for prior requests? -->
+    <!-- Add a button to save the current page as a markdown file -->
+
+    <div class="nav-right">
+      <button id="saveButton" onclick="saveButton()">Save html</button>
+
+    </div>
+
+  </nav>
+
+  <div id="content">  
+    <div id="parentContent">
+        <p>California and New York.</p>
+<hr>
+<h3>Follow-up Questions:</h3>
+<ul>
+<li>Are you interested in learning more about these states?</li>
+<li>Would you like to know about other states as well?</li>
+<li>Do you have a specific reason for asking about these states?</li>
+</ul>
+
+    </div>
+    <div id="childDivs">
+      <div title="California" id="childContent1" onclick="setVisibileChild('childContent1')" hidden=true><h1>California</h1>
+<p>California, often referred to as the Golden State, is the most populous state in the United States, with a diverse population of over 39 million people. It spans a vast area of approximately 163,696 square miles, making it the third-largest state by area. The state is known for its varied geography, which includes the Pacific coastline, the Sierra Nevada mountain range, and the Central Valley.</p>
+<h3>Geography and Climate</h3>
+<ul>
+<li><strong>Coastal Regions</strong>: The western part of California is dominated by the Pacific Ocean, offering beaches and cliffs. Cities like San Francisco and Los Angeles are along this coast.</li>
+<li><strong>Mountain Ranges</strong>: The Sierra Nevada, home to Yosemite National Park, runs north to south and is known for its high peaks and stunning landscapes.</li>
+<li><strong>Deserts</strong>: The Mojave Desert, including Death Valley, is one of the hottest and driest places in North America.</li>
+<li><strong>Climate</strong>: California's climate varies widely, from the Mediterranean climate of the coastal areas to the arid desert climate in the southeast.</li>
+</ul>
+<h3>Economy</h3>
+<p>California has the largest economy of any state in the U.S., and if it were a country, it would rank as the fifth-largest economy in the world. Key industries include:</p>
+<ul>
+<li><strong>Technology</strong>: Silicon Valley, located in the San Francisco Bay Area, is the global hub for tech companies like Apple, Google, and Facebook.</li>
+<li><strong>Entertainment</strong>: Hollywood, in Los Angeles, is the center of the American film and television industry.</li>
+<li><strong>Agriculture</strong>: The Central Valley is one of the most productive agricultural regions in the world, known for producing fruits, vegetables, and nuts.</li>
+</ul>
+<h3>Culture and Diversity</h3>
+<p>California is known for its cultural diversity, with significant populations of Latino, Asian, African American, and Native American communities. This diversity is reflected in its cuisine, festivals, and arts.</p>
+<h3>Major Cities</h3>
+<ul>
+<li><strong>Los Angeles</strong>: Known for its entertainment industry, diverse neighborhoods, and landmarks like the Hollywood Sign and Griffith Observatory.</li>
+<li><strong>San Francisco</strong>: Famous for the Golden Gate Bridge, cable cars, and its historic Fisherman's Wharf.</li>
+<li><strong>San Diego</strong>: Known for its beaches, Balboa Park, and the San Diego Zoo.</li>
+</ul>
+<h3>Education</h3>
+<p>California is home to some of the top universities in the world, including:</p>
+<ul>
+<li><strong>University of California System</strong>: With campuses like UC Berkeley and UCLA, known for their research and academic excellence.</li>
+<li><strong>Stanford University</strong>: Located near Silicon Valley, renowned for its contributions to technology and business.</li>
+</ul>
+<h3>Environmental Initiatives</h3>
+<p>California is a leader in environmental protection and sustainability, with initiatives like:</p>
+<ul>
+<li><strong>Renewable Energy</strong>: The state has ambitious goals to transition to 100% clean energy by 2045.</li>
+<li><strong>Water Conservation</strong>: Due to its arid climate in parts, California has strict water conservation laws.</li>
+</ul>
+<p>This detailed overview covers the key aspects of California, highlighting its geography, economy, culture, major cities, education, and environmental efforts.</p>
+<p>ResponseID:8868c92c-2f37-43</p>
+</div><div title="New York" id="childContent2" onclick="setVisibileChild('childContent2')" hidden=true><h1>New York</h1>
+<p>New York, often referred to as the Empire State, is a hub of culture, finance, and tourism in the United States. Here are some detailed aspects of New York:</p>
+<h2>Geography and Climate</h2>
+<ul>
+<li><strong>Location</strong>: New York is located in the northeastern part of the United States, bordered by New Jersey, Pennsylvania, Connecticut, Massachusetts, and Vermont.</li>
+<li><strong>Climate</strong>: The state experiences a humid continental climate, with cold, snowy winters and warm, humid summers. New York City, in particular, has a more moderate climate due to its coastal location.</li>
+</ul>
+<h2>Major Cities</h2>
+<ul>
+<li><strong>New York City</strong>: The largest city in the state and a global center for finance, media, and culture. It consists of five boroughs: Manhattan, Brooklyn, Queens, The Bronx, and Staten Island.</li>
+<li><strong>Buffalo</strong>: Known for its proximity to Niagara Falls and its role in the steel industry.</li>
+<li><strong>Rochester</strong>: Famous for its contributions to photography and optics, home to the Eastman Kodak Company.</li>
+<li><strong>Albany</strong>: The state capital, significant for its historical and political importance.</li>
+</ul>
+<h2>Economy</h2>
+<ul>
+<li><strong>Industries</strong>: New York's economy is diverse, with major sectors including finance, healthcare, media, technology, and tourism.</li>
+<li><strong>Financial Hub</strong>: Wall Street in New York City is the world's leading financial center.</li>
+<li><strong>Agriculture</strong>: Upstate New York is known for dairy farming, apples, and maple syrup production.</li>
+</ul>
+<h2>Culture and Tourism</h2>
+<ul>
+<li><strong>Landmarks</strong>: Iconic sites include the Statue of Liberty, Empire State Building, and Central Park.</li>
+<li><strong>Arts</strong>: New York City is a global center for the arts, with institutions like the Metropolitan Museum of Art, Broadway, and Lincoln Center.</li>
+<li><strong>Events</strong>: The state hosts numerous events such as the New York Marathon, the Macy's Thanksgiving Day Parade, and the Tribeca Film Festival.</li>
+</ul>
+<h2>Education</h2>
+<ul>
+<li><strong>Universities</strong>: Home to prestigious institutions like Columbia University, New York University, and Cornell University.</li>
+<li><strong>Public Education</strong>: The New York City Department of Education is the largest school district in the United States.</li>
+</ul>
+<h2>Transportation</h2>
+<ul>
+<li><strong>Public Transit</strong>: The Metropolitan Transportation Authority (MTA) operates an extensive subway and bus system in New York City.</li>
+<li><strong>Airports</strong>: Major airports include John F. Kennedy International Airport (JFK), LaGuardia Airport (LGA), and Newark Liberty International Airport (EWR).</li>
+</ul>
+<h2>History</h2>
+<ul>
+<li><strong>Colonial Period</strong>: New York was originally settled by the Dutch as New Amsterdam in 1624 before being taken over by the British in 1664.</li>
+<li><strong>Revolutionary War</strong>: New York played a crucial role in the American Revolutionary War, with significant battles like the Battle of Saratoga.</li>
+<li><strong>Modern Era</strong>: The state has been at the forefront of numerous historical events, including the September 11 attacks.</li>
+</ul>
+<h2>Demographics</h2>
+<ul>
+<li><strong>Population</strong>: New York is one of the most populous states in the U.S., with a diverse population of over 19 million people.</li>
+<li><strong>Ethnic Diversity</strong>: The state is known for its multiculturalism, with large communities of various ethnic groups including Hispanic, Asian, and African American populations.</li>
+</ul>
+<hr>
+<h3>Follow-up Questions:</h3>
+<ul>
+<li>Are you interested in learning more about these states?</li>
+<li>Would you like to know about other states as well?</li>
+<li>Do you have a specific reason for asking about these states?</li>
+</ul>
+<p>ResponseID:ac2c0746-6eed-4d</p>
+</div><div title="US States" id="childContent3" onclick="setVisibileChild('childContent3')" hidden=true><h3>US States: California and New York</h3>
+<h4>California</h4>
+<ul>
+<li><p><strong>Geography</strong>: California is the third-largest state in the United States by area, covering an area of 163,696 square miles. It spans from the Mexican border in the south to Oregon in the north, and includes diverse landscapes such as mountains, deserts, and coastlines.</p>
+</li>
+<li><p><strong>Population</strong>: With a population of over 39 million, California is the most populous state in the U.S. It's known for its diversity, with significant populations of various ethnic groups including Hispanics, Asians, and African Americans.</p>
+</li>
+<li><p><strong>Economy</strong>: California has the largest economy of any state in the U.S., and if it were a country, it would rank as the fifth-largest economy in the world. Key industries include technology (Silicon Valley), entertainment (Hollywood), agriculture (Central Valley), and tourism.</p>
+</li>
+<li><p><strong>Climate</strong>: The state experiences a variety of climates, from Mediterranean in coastal areas to desert in the southeast and alpine in the mountains. This diversity supports a wide range of agricultural products.</p>
+</li>
+<li><p><strong>Culture</strong>: California is known for its progressive culture and is often at the forefront of social and environmental movements. It's also famous for its landmarks like the Golden Gate Bridge, Yosemite National Park, and the beaches of Los Angeles.</p>
+</li>
+</ul>
+<h4>New York</h4>
+<ul>
+<li><p><strong>Geography</strong>: New York is located in the northeastern United States and covers an area of 54,556 square miles. It includes a diverse range of landscapes, from the urban sprawl of New York City to the rural areas of upstate New York.</p>
+</li>
+<li><p><strong>Population</strong>: New York is the fourth most populous state in the U.S., with a population of over 19 million. New York City alone has over 8 million residents, making it the most populous city in the country.</p>
+</li>
+<li><p><strong>Economy</strong>: New York's economy is diverse and robust, with key sectors including finance (Wall Street), media, technology, and tourism. The state is also a major hub for international trade.</p>
+</li>
+<li><p><strong>Climate</strong>: New York experiences a humid continental climate, with cold, snowy winters and warm, humid summers. The climate varies across the state, with coastal areas being milder than inland regions.</p>
+</li>
+<li><p><strong>Culture</strong>: New York is known for its cultural diversity and is often referred to as the "cultural capital of the world." It's home to iconic landmarks such as the Statue of Liberty, Times Square, and the Metropolitan Museum of Art.</p>
+</li>
+</ul>
+<hr>
+<h3>Follow-up Questions:</h3>
+<ul>
+<li>Are you interested in learning more about these states?</li>
+<li>Would you like to know about other states as well?</li>
+<li>Do you have a specific reason for asking about these states?</li>
+</ul>
+<p>ResponseID:72af9a81-55d3-40</p>
+</div><div title="Geography" id="childContent4" onclick="setVisibileChild('childContent4')" hidden=true><h1>Geography of California and New York</h1>
+<h2>California Geography</h2>
+<h3>Overview</h3>
+<p>California is the third-largest state in the United States by area and the most populous state. It spans from the Mexican border in the south to the Oregon border in the north, with a coastline along the Pacific Ocean.</p>
+<h3>Key Features</h3>
+<ul>
+<li><strong>Mountain Ranges</strong>: The Sierra Nevada and the Cascade Range in the east, with the highest peak being Mount Whitney at 14,505 feet.</li>
+<li><strong>Coastal Range</strong>: The Coast Ranges run parallel to the Pacific coast, influencing the state's climate.</li>
+<li><strong>Deserts</strong>: The Mojave and Sonoran Deserts in the southeastern part of the state.</li>
+<li><strong>Valleys</strong>: The Central Valley, a major agricultural region, lies between the Sierra Nevada and the Coast Ranges.</li>
+</ul>
+<h3>Climate</h3>
+<ul>
+<li><strong>Diverse Climate Zones</strong>: From Mediterranean along the coast to desert in the southeast and alpine in the high mountains.</li>
+<li><strong>Weather Patterns</strong>: Influenced by the Pacific Ocean, leading to mild, wet winters and dry summers in most parts.</li>
+</ul>
+<h3>Water Bodies</h3>
+<ul>
+<li><strong>Rivers</strong>: Major rivers include the Sacramento and San Joaquin, which flow into the San Francisco Bay and the Pacific Ocean.</li>
+<li><strong>Lakes</strong>: Notable lakes include Lake Tahoe, known for its clarity and depth.</li>
+</ul>
+<h2>New York Geography</h2>
+<h3>Overview</h3>
+<p>New York is located in the northeastern United States and is the fourth most populous state. It borders the Atlantic Ocean to the east and shares borders with several other states.</p>
+<h3>Key Features</h3>
+<ul>
+<li><strong>Appalachian Mountains</strong>: The Catskill and Adirondack Mountains are part of this range, offering scenic landscapes and recreational opportunities.</li>
+<li><strong>Coastal Plain</strong>: The Atlantic Coastal Plain along the state's eastern edge.</li>
+<li><strong>Great Lakes</strong>: New York shares borders with Lake Ontario and Lake Erie.</li>
+</ul>
+<h3>Climate</h3>
+<ul>
+<li><strong>Varied Climate</strong>: Ranging from humid subtropical in the south to humid continental in the north.</li>
+<li><strong>Seasonal Changes</strong>: Distinct seasons with cold, snowy winters and warm, humid summers.</li>
+</ul>
+<h3>Water Bodies</h3>
+<ul>
+<li><strong>Rivers</strong>: The Hudson River is one of the most significant, flowing from the Adirondacks to New York Harbor.</li>
+<li><strong>Lakes</strong>: The Finger Lakes, a group of long, narrow lakes in the central part of the state, are known for their beauty and wine production.</li>
+</ul>
+<hr>
+<h3>Follow-up Questions:</h3>
+<ul>
+<li>Are you interested in learning more about these states?</li>
+<li>Would you like to know about other states as well?</li>
+<li>Do you have a specific reason for asking about these states?</li>
+</ul>
+<p>ResponseID:45088f7c-c076-46</p>
+</div><div title="Travel" id="childContent5" onclick="setVisibileChild('childContent5')" hidden=true><h3>Travel</h3>
+<p>Travel encompasses a wide range of activities and experiences, often involving movement from one place to another for various purposes such as leisure, business, or personal growth. Here's a more detailed look at the aspects of travel:</p>
+<h4>Types of Travel</h4>
+<ul>
+<li><strong>Leisure Travel</strong>: This includes vacations and holidays where the primary goal is relaxation and enjoyment. Destinations can range from beaches and mountains to cities and cultural sites.</li>
+<li><strong>Business Travel</strong>: Involves traveling for work-related purposes, such as attending meetings, conferences, or exploring new business opportunities.</li>
+<li><strong>Adventure Travel</strong>: Focuses on exploring remote or exotic locations, often involving activities like hiking, climbing, or wildlife watching.</li>
+<li><strong>Educational Travel</strong>: Travel with the purpose of learning, which can include study abroad programs, language courses, or cultural immersion trips.</li>
+</ul>
+<h4>Planning and Preparation</h4>
+<ul>
+<li><strong>Destination Research</strong>: Understanding the culture, customs, and local laws of the destination is crucial. This includes researching the best times to visit, safety concerns, and must-see attractions.</li>
+<li><strong>Budgeting</strong>: Planning the financial aspect of travel, including accommodation, transportation, food, and activities. Budget travel options like hostels, public transport, and free walking tours can be considered.</li>
+<li><strong>Packing</strong>: Deciding what to bring based on the destination's climate, the nature of the trip, and personal needs. Packing light is often recommended to enhance mobility and reduce stress.</li>
+</ul>
+<h4>Transportation</h4>
+<ul>
+<li><strong>Air Travel</strong>: The most common way for long-distance travel, offering speed and convenience but often at a higher cost.</li>
+<li><strong>Rail and Bus Travel</strong>: More economical and environmentally friendly options, suitable for shorter distances or for those who enjoy the journey itself.</li>
+<li><strong>Car Rentals and Road Trips</strong>: Offer flexibility and the ability to explore off-the-beaten-path locations at one's own pace.</li>
+</ul>
+<h4>Accommodation</h4>
+<ul>
+<li><strong>Hotels</strong>: Range from luxury to budget, providing various amenities and services.</li>
+<li><strong>Hostels</strong>: Popular among budget travelers and backpackers, often offering shared rooms and communal spaces.</li>
+<li><strong>Vacation Rentals</strong>: Such as Airbnb, providing a home-like experience and often more space and amenities than hotels.</li>
+<li><strong>Camping and Glamping</strong>: For those seeking a closer connection to nature, ranging from basic tent camping to luxurious glamping setups.</li>
+</ul>
+<h4>Cultural and Social Aspects</h4>
+<ul>
+<li><strong>Cultural Immersion</strong>: Engaging with local cultures through food, festivals, and interactions with residents can enrich the travel experience.</li>
+<li><strong>Language Barriers</strong>: Learning basic phrases in the local language can enhance communication and show respect for the culture.</li>
+<li><strong>Etiquette and Customs</strong>: Understanding and respecting local customs and etiquette can prevent misunderstandings and enhance the travel experience.</li>
+</ul>
+<h4>Safety and Health</h4>
+<ul>
+<li><strong>Travel Insurance</strong>: Essential for covering unexpected medical expenses or trip cancellations.</li>
+<li><strong>Health Precautions</strong>: Depending on the destination, vaccinations, medications, and health advice may be necessary.</li>
+<li><strong>Safety Measures</strong>: Being aware of local safety concerns, such as crime rates or natural hazards, and taking appropriate precautions.</li>
+</ul>
+<h4>Environmental Impact</h4>
+<ul>
+<li><strong>Sustainable Travel</strong>: Efforts to minimize the environmental impact of travel, such as choosing eco-friendly accommodations, reducing plastic use, and supporting local economies.</li>
+<li><strong>Carbon Footprint</strong>: Awareness of the carbon emissions associated with travel and exploring ways to offset them, such as through carbon offset programs.</li>
+</ul>
+<p>Travel is not just about the destination but also about the journey itself, offering opportunities for personal growth, cultural exchange, and unforgettable experiences.</p>
+<p>ResponseID:f93dfb84-c651-47</p>
+</div>
+    </div>
+  </div>
+
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+
+    <script>
+      function setChildSubjects(){
+        let dropDownOptions = [];
+        let childSubjects = document.getElementById('childDivs');
+        for (let child of childSubjects.children){
+           let subject = child.title;
+           let optionValue = child.id;
+
+           dropDownOptions.push({subject: subject, value: optionValue});
+        
+        }
+
+        for (let option of dropDownOptions){
+          let optionElement = document.createElement('option');
+          optionElement.value = option.value;
+          optionElement.text = option.subject;
+          document.getElementById('childSubjects').appendChild(optionElement);
+        }
+
+        document.getElementById('childSubjects').addEventListener('change', function() {
+          if(this.value == "home"){
+            goHomePage();
+          }else{
+            setVisibleChild(this.value);
+          }
+
+          }
+        );
+      }
+    </script>
+
+
+    <script>
+      function setVisibleChild(id){
+        //quick flicker home to reset state, this allows hoping between child views
+     
+    
+           let topNode = document.getElementById('content');
+           let parentNode = document.getElementById('parentContent');
+           let childVisibleNode = document.getElementById(id);
+           let childDivs = document.getElementById('childDivs');
+           for (let child of childDivs.children){
+            if(child.id != id){
+              child.hidden = true;
+            }else{
+              child.hidden = false; //redudant
+            }
+           }
+           parentNode.hidden = true;
+           childVisibleNode.hidden = false;
+         }
+      
+    </script>
+
+    <script>
+      function goHomePage(){
+         let topNode = document.getElementById('content');
+         let parentNode = document.getElementById('parentContent');
+         let children = document.getElementById('childDivs');
+         for (let child of children.children){
+            child.hidden = true;
+         }
+         parentNode.hidden = false;
+      }
+    </script>
+
+    <script>
+      function setChildLinks(){
+        let children = document.getElementById('childDivs'); 
+        let childSubjects = [];
+        let discoveredMatches = [];
+
+        
+        for (let child of children.children){
+          let subject = child.title;
+          childSubjects.push({subject: subject, child: child});
+          }
+             
+          let parentNodeH2Subjects = []
+          let parentNodeH3Subjects = []
+          let parentNodeH4Subjects = []
+          let parentNode = document.getElementById('parentContent');
+          let H2s = parentNode.getElementsByTagName("H2");
+          let H3s = parentNode.getElementsByTagName("H3");
+          let H4s = parentNode.getElementsByTagName("H4");
+          let isH2Match = false;
+          let isH3Match = false;
+          let isH4Match = false;
+
+          H2s.length > 0? parentNodeH2Subjects = H2s.map(item => ({subject: item.innerText, item: item})):isH2Match = false;
+          H3s.length > 0?parentNodeH3Subjects = H3s.map(item => ({subject: item.innerText, item: item})):isH3Match = false;
+          H4s.length > 0?parentNodeH4Subjects = H4s.map(item => ({subject: item.innerText, item: item})):isH4Match = false;
+
+          
+           isH3Match = H3s.length == childSubjects.length;
+           isH2Match = H2s.length == childSubjects.length;
+           isH4Match = H4s.length == childSubjects.length;
+          let allDiscovered = false;
+
+          if (isH3Match){
+            //We have a match.  We need to find the H2s
+            allDiscovered = true;
+          }
+          if (isH2Match){
+            //We have a match.  We need to find the H3s
+            allDiscovered = true;
+          }
+          if (isH4Match){
+            //We have a match.  We need to find the H2s
+            allDiscovered = true;
+          }
+
+          if(allDiscovered && (isH3Match + isH2Match + isH4Match) > 1){
+            //wierd.  ok we work from scratch.
+            allDiscovered = false;
+          }
+
+          if(!allDiscovered){
+
+            let fluffWords = ["a", "an", "the", "and", "but", "or", "for", "nor", "on", "at", "to", "from", "by", "with", "of"];
+            let fluffWordsRegex = new RegExp(fluffWords.join("|"), "g");
+          
+          //OK time to stumble through unpredictable llm output
+          //First check if the child subjects are in the parent node h2 subjects
+          let isH2 = false;
+          let isH3 = false;
+          let isH4 = false;
+      
+          //This can be optimized later.  Probably doesnt matter since it is client side with modern computing.
+          for (let i = 0; i < parentNodeH2Subjects.length; i++){
+            let subject = parentNodeH2Subjects[i].subject;
+            for (let j = 0; j < childSubjects.length; j++){
+              let childSubject = childSubjects[j].subject;
+              if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                isH2 = true;
+                discoveredMatches.push({parentLink: parentNodeH2Subjects[i].item, childLink: childSubjects[j].child});
+              }
+            }
+
+          }
+         
+          if(!isH2){
+            for (let i = 0; i < parentNodeH3Subjects.length; i++){
+              let subject = parentNodeH3Subjects[i].subject;
+              for (let j = 0; j < childSubjects.length; j++){
+                let childSubject = childSubjects[j].subject;  
+                if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                  isH3 = true;
+                  discoveredMatches.push({parentLink: parentNodeH3Subjects[i].item, childLink: childSubjects[j].child});
+                }
+              }
+            }
+          }
+
+          if(!isH3){
+            for (let i = 0; i < parentNodeH4Subjects.length; i++){
+              let subject = parentNodeH4Subjects[i].subject;
+              for (let j = 0; j < childSubjects.length; j++){
+                let childSubject = childSubjects[j].subject;
+                if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                  isH4 = true;
+                  discoveredMatches.push({parentLink: parentNodeH4Subjects[i].item, childLink: childSubjects[j].child});
+                }
+              }
+            }
+          }
+
+          if(!isH4){
+              //I suppose there are edge cases but this surely covers 99.9% of the cases.
+          }
+
+          }else{
+            if(isH3Match){
+              for (let i = 0; i < parentNodeH3Subjects.length; i++){
+                let child = childSubjects[i].child;
+                makeChildLinks(parentNodeH3Subjects[i].item, child);
+              }
+              return; //bye bye
+            }
+            if(isH2Match){
+              for (let i = 0; i < parentNodeH2Subjects.length; i++){
+                let child = childSubjects[i].child;
+                makeChildLinks(parentNodeH2Subjects[i].item, child);
+                return; //bye bye
+              }
+              if(isH4Match){
+                for (let i = 0; i < parentNodeH4Subjects.length; i++){
+                  let child = childSubjects[i].child;
+                  makeChildLinks(parentNodeH4Subjects[i].item, child);
+                }
+              }
+
+            }
+
+          }
+
+          for (let match of discoveredMatches){
+            makeChildLinks(match.parentLink, match.childLink);
+            if(match.length < childSubjects.length){ alert("LLMM added additional info that is hidden");}
+          }
+
+        }
+    </script>
+
+    <script>
+       function makeChildLinks(parent, child){
+            parent.style.cursor = "pointer";
+            parent.style.textDecoration = "underline";
+            parent.style.color = "blue";
+            parent.onclick = function(){
+              setVisibleChild(child.id);
+            }
+       }
+
+    </script>
+
+<script>window.onload = setChildSubjects;</script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

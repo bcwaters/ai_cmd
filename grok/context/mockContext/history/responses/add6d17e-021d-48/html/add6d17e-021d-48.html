@@ -1,0 +1,195 @@
+<!doctype html>
+<html>
+<head>
+  <style>
+    pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
+  Theme: StackOverflow Light
+  Description: Light theme as used on stackoverflow.com
+  Author: stackoverflow.com
+  Maintainer: @Hirse
+  Website: https://github.com/StackExchange/Stacks
+  License: MIT
+  Updated: 2021-05-15
+
+  Updated for @stackoverflow/stacks v0.64.0
+  Code Blocks: /blob/v0.64.0/lib/css/components/_stacks-code-blocks.less
+  Colors: /blob/v0.64.0/lib/css/exports/_stacks-constants-colors.less
+*/.hljs{color:#2f3337;background:#f6f6f6}.hljs-subst{color:#2f3337}.hljs-comment{color:#656e77}.hljs-attr,.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-section,.hljs-selector-tag{color:#015692}.hljs-attribute{color:#803378}.hljs-name,.hljs-number,.hljs-quote,.hljs-selector-id,.hljs-template-tag,.hljs-type{color:#b75501}.hljs-selector-class{color:#015692}.hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-string,.hljs-symbol,.hljs-template-variable,.hljs-variable{color:#54790d}.hljs-meta,.hljs-selector-pseudo{color:#015692}.hljs-built_in,.hljs-literal,.hljs-title{color:#b75501}.hljs-bullet,.hljs-code{color:#535a60}.hljs-meta .hljs-string{color:#54790d}.hljs-deletion{color:#c02d2e}.hljs-addition{color:#2f6f44}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}
+
+    
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: left;
+      padding: 10px;
+    }
+    
+    .nav-right {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+  </style>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+ 
+    <a id="home" href="/?context=add6d17e-021d-48">Prompt again</a>
+    <div class="nav-right">
+    <a id="markdown" href="../history/responses/add6d17e-021d-48/markdown/add6d17e-021d-48.md"> markdown</a>
+    <a id="previous" href="../history/responses/759a657f-2005-40/html/759a657f-2005-40.html?responseId=add6d17e-021d-48">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    </div>
+  </nav>
+
+  <div id="content" class="markdown-body"><p>This code appears to be a comprehensive JavaScript application for managing and processing user prompts, likely for use with AI models like those from OpenAI or xAI. Here's a breakdown of its functionality:</p>
+<h3>Main Components and Functionality:</h3>
+<ol>
+<li><p><strong>Imports and Configuration:</strong></p>
+<ul>
+<li>The code imports various Node.js modules and external libraries, including <code>fs</code> for file system operations, <code>OpenAI</code> for interacting with AI models, <code>marked</code> for parsing Markdown, and others for HTML sanitization and code highlighting.</li>
+<li>It configures the environment using <code>dotenv</code>, sets up DOMPurify for HTML sanitization, and initializes the <code>marked</code> library for Markdown parsing with syntax highlighting.</li>
+</ul>
+</li>
+<li><p><strong>Command Line Argument Parsing:</strong></p>
+<ul>
+<li>The <code>parseCommandLineArgs</code> function processes command line arguments to configure the behavior of the application, such as choosing the AI model, setting the prompt depth, and handling file paths.</li>
+</ul>
+</li>
+<li><p><strong>Context Management:</strong></p>
+<ul>
+<li>The <code>getConversationContext</code> function reads and processes a context file, which might contain previous conversation history or other relevant data.</li>
+<li><code>appendToContext</code> and <code>savePreviousId</code> functions manage the context history, updating it with new data and logging previous IDs for reference.</li>
+</ul>
+</li>
+<li><p><strong>API Request Creation:</strong></p>
+<ul>
+<li><code>createApiRequest</code> constructs the request object for the AI API, using a <code>PromptProfile</code> or <code>TreeModeProfile</code> to format the prompt based on the user's request and context.</li>
+</ul>
+</li>
+<li><p><strong>Response Processing:</strong></p>
+<ul>
+<li><code>parseCompletionForResponseAndMetaResponse</code> splits the AI's response into Markdown content and metadata.</li>
+<li><code>preprocessResponse</code> converts the Markdown to HTML and sanitizes it.</li>
+</ul>
+</li>
+<li><p><strong>Response Saving:</strong></p>
+<ul>
+<li>Functions like <code>saveHtmlResponse</code>, <code>saveMarkdownResponse</code>, and <code>saveCompletion</code> handle the saving of responses in various formats (HTML, Markdown, JSON) to the file system.</li>
+</ul>
+</li>
+<li><p><strong>Main Function:</strong></p>
+<ul>
+<li>The <code>main</code> function orchestrates the entire process:<ul>
+<li>It parses command line arguments to create a <code>UserPromptRequest</code> object.</li>
+<li>It fetches prior conversation context and constructs an API request.</li>
+<li>It sends the request to the chosen AI model and processes the response.</li>
+<li>It saves the response in multiple formats and updates the context.</li>
+<li>In tree mode, it handles branching and child responses, creating a structured output.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Tree Mode:</strong></p>
+<ul>
+<li>If <code>treeMode</code> is enabled, the application processes a root node and its branches, creating a hierarchical structure of responses.</li>
+<li>It uses <code>TreeModeProfile</code> to manage the tree structure, creating child directories and HTML files for each branch.</li>
+</ul>
+</li>
+<li><p><strong>Browser Integration:</strong></p>
+<ul>
+<li>If <code>browserMode</code> is enabled, the application attempts to open the generated HTML file in the default browser.</li>
+</ul>
+</li>
+</ol>
+<h3>Summary:</h3>
+<p>This application is designed to interact with AI models, process user prompts, manage conversation context, and generate structured responses, potentially in a tree-like format. It handles file I/O operations, command line argument parsing, and integrates with the file system to save and retrieve data. The code also includes features for debugging and logging to enhance development and troubleshooting.</p>
+<p>ResponseID:add6d17e-021d-48</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+
+  <script>
+    //This function checks if the current page is a child page and genreate a link to the parent page.
+            function isChild(){
+               params = window.location.search.split('=')[1];
+               if (params == undefined) {
+                return false;
+               }
+               params = params.split("&");
+               for (let i = 0; i < params.length; i++) {
+                if (params[i].includes("child")) {
+                  console.log("found child  ");
+                  console.log(params[i].split("child=")[1]);
+                  return params[i].split("child=")[1];
+                }
+               }
+               return false;
+            }
+    
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log("responseId:",window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../html/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+  <script>
+    function loadMarkdownFile() {
+      const markdownFilePath = "./markdown/add6d17e-021d-48.md"; // Path to the markdown file
+      fetch(markdownFilePath)
+        .then(response => response.text())
+        .then(data => {
+          const blob = new Blob([data], { type: 'text/markdown' }); // Create a Blob from the markdown content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download = 'add6d17e-021d-48.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        })
+        .catch(error => console.error('Error loading markdown file:', error));
+    }
+  </script>
+
+</body>
+</html>
+
+
+   

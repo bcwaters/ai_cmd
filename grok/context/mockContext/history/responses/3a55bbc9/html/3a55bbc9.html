@@ -1,0 +1,157 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    <a id="markdown" href="./markdown/3a55bbc9.md"> markdown</a>
+    <a id="previous" href="../224cd642/html/224cd642.html?responseId=3a55bbc9">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+  </nav>
+
+  <div id="content"><h1>Brent's Hero's Journey: Elite Coder and Forest Dweller</h1>
+<h2>1. The Ordinary World</h2>
+<p>Brent, an elite coder, lives in a secluded cabin deep within Oscar Scherer State Park. His days are split between crafting intricate code and embracing the solitude of the forest. This dual life offers him peace and a unique perspective on technology and nature.</p>
+<h2>2. The Call to Adventure</h2>
+<p>An urgent message arrives from a tech startup, seeking Brent's coding expertise to solve a groundbreaking problem that could revolutionize digital connectivity in remote areas. This opportunity challenges Brent to blend his two worlds.</p>
+<h2>3. Refusal of the Call</h2>
+<p>Initially, Brent resists the call, fearing that engaging with the tech world might disrupt his harmonious life in the forest. He values his solitude and the balance he has achieved between coding and nature.</p>
+<h2>4. Meeting the Mentor</h2>
+<p>An old friend, a former tech mogul turned environmentalist, visits Brent. He encourages Brent to see the potential of using his skills to benefit both technology and the environment, convincing him to reconsider the offer.</p>
+<h2>5. Crossing the Threshold</h2>
+<p>Brent decides to accept the challenge and steps out of his forest haven, embarking on a journey to the startup's headquarters. This marks his transition from the familiar to the unknown, blending his dual lives.</p>
+<h2>6. Tests, Allies, and Enemies</h2>
+<p>At the startup, Brent faces coding challenges that push his skills to the limit. He forms alliances with like-minded tech enthusiasts and encounters resistance from those who prioritize profit over environmental impact.</p>
+<h2>7. Approach to the Inmost Cave</h2>
+<p>Brent prepares for the critical phase of the project, where he must integrate his code with a new satellite system. He spends time in nature, reflecting on how to maintain his values amidst the corporate world.</p>
+<h2>8. The Ordeal</h2>
+<p>The system faces a critical failure during a live demonstration. Brent must quickly adapt his code to save the project, testing his ability to balance technological innovation with environmental responsibility.</p>
+<h2>9. Reward</h2>
+<p>Successfully resolving the crisis, Brent's solution not only saves the project but also ensures minimal environmental impact. He is celebrated as a visionary coder who brings a unique perspective to the tech world.</p>
+<h2>10. The Road Back</h2>
+<p>With the project completed, Brent feels a pull back to his forest home. He navigates the complexities of leaving the corporate world, eager to return to his peaceful life but enriched by his experiences.</p>
+<h2>11. Resurrection</h2>
+<p>Before leaving, Brent is offered a permanent position, challenging him to decide between his newfound influence in tech and his hermit lifestyle. He chooses to return to the forest, feeling reborn with a clearer understanding of his dual passions.</p>
+<h2>12. Return with the Elixir</h2>
+<p>Back in his cabin, Brent shares his insights and technology with the local community, enhancing their connectivity while preserving the natural environment. He continues to live his dual life, now more harmoniously than ever.</p>
+<p>ResponseID:3a55bbc9</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+
+  <script>
+    function saveMarkdown() {
+      const content = document.documentElement.outerHTML; // Get the entire HTML content
+
+      let markdownLocation = "./markdown/";
+      let markdownFileName = "3a55bbc9.md";
+      let markdownFile = markdownLocation + markdownFileName;
+      
+
+      const url = URL.createObjectURL(blob); // Create a URL for the Blob
+      const divInnerText = document.getElementById('content').innerText;
+      let filename = divInnerText.substring(0, 25);
+      const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+          a.download =  filename + '.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+      
+    }
+  </script>
+
+  <script>
+    //This function checks if the current page is a child page and genreate a link to the parent page.
+            function isChild(){
+               params = window.location.search.split('=')[1];
+               if (params == undefined) {
+                return false;
+               }
+               params = params.split("&");
+               for (let i = 0; i < params.length; i++) {
+                if (params[i].includes("child")) {
+                  console.log("found child  ");
+                  console.log(params[i].split("child=")[1]);
+                  return params[i].split("child=")[1];
+                }
+               }
+               return false;
+            }
+    
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log("responseId:",window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../html/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+  <script>
+    function loadMarkdownFile() {
+      const markdownFilePath = "./markdown/3a55bbc9.md"; // Path to the markdown file
+      fetch(markdownFilePath)
+        .then(response => response.text())
+        .then(data => {
+          const blob = new Blob([data], { type: 'text/markdown' }); // Create a Blob from the markdown content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download = '3a55bbc9.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        })
+        .catch(error => console.error('Error loading markdown file:', error));
+    }
+  </script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

@@ -1,0 +1,642 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Home Page</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    <a id="parentContentLink" href='javascript:goHomePage()'>Home</a>
+    <select id="childSubjects">
+      <option value="home">Home</option>
+      <!-- Children are added here onload with setChildSubjects -->
+    </select>
+    <!-- Add a previous and next button for prior requests? -->
+    <!-- Add a button to save the current page as a markdown file -->
+  </nav>
+
+  <div id="content">  
+    <div id="parentContent">
+        <h1>Brent's Hero's Journey Outline: The Duality of Technology and Forest Life</h1>
+<h2>1. Ordinary World</h2>
+<p>Brent, an elite coder, lives secluded within a cabin tucked away in a lush, tranquil forest. Days consist of meditative coding sessions, quiet contemplation, and deep communion with nature. Despite the satisfaction this dual life offers, Brent senses a subtle feeling—something missing from his tranquil existence.</p>
+<p><em>Note: Add introspective dialogue about Brent's daily routine and satisfaction.</em></p>
+<h2>2. Call to Adventure</h2>
+<p>A mysterious encrypted message arrives on Brent's isolated workstation. It reveals an opportunity to lead an ambitious, groundbreaking technological project in a bustling urban setting. It challenges Brent's comfortable equilibrium, insisting it's a chance to profoundly impact the world.</p>
+<p><em>Note: Add intriguing dialogue from the mysterious message and internal monologue of Brent discovering it.</em></p>
+<h2>3. Refusal of the Call</h2>
+<p>Initially, Brent fears the disruption of his peaceful solitude. Worried he'll lose his deep connection to the forest and simplicity, Brent rationalizes a rejection, hesitant to venture from his established haven.</p>
+<p><em>Note: Dialogue showing Brent debating internally, listing fears about losing forest life and peace.</em></p>
+<h2>4. Meeting the Mentor</h2>
+<p>While working in the forest, Brent encounters an elderly hermit—a retired technology pioneer who similarly sought peace in nature after changing the tech world. The mentor discusses blending innovation with inner peace, encouraging Brent to undertake the journey by sharing profound insights.</p>
+<p><em>Note: Include mentor's dialogue, sharing stories, advice, and wisdom.</em></p>
+<h2>5. Crossing the Threshold</h2>
+<p>Inspired by the mentor's wisdom, Brent accepts the challenge. He packs his belongings, crosses beyond the familiar forest edge, and descends towards civilization. Brent immediately faces the jarring contrast of busy urban life compared to his serene forest solitude.</p>
+<p><em>Note: Dialog describing anticipation, hesitation, and determination during departure.</em></p>
+<h2>6. Tests, Allies, and Enemies</h2>
+<p>In this new landscape of bustling tech offices, Brent encounters allies—colleagues fascinated by his uniquely balanced perspective—faces enemies—corporate officials skeptical of his idealistic methods—and endures tests balancing aggressive project deadlines while maintaining his Zen-like approach.</p>
+<p><em>Note: Dialogue exchanges highlighting allies' interest, enemies' skepticism, internal struggle, and perseverance.</em></p>
+<h2>7. Approach to the Inmost Cave</h2>
+<p>As the tech project escalates in its enormity, tension mounts. Brent yearns for the comfort of the forest, wrestling with self-doubt in preparation for a significant demonstration required for further funding. Anxiety threatens Brent's balance.</p>
+<p><em>Note: Internal dialogue expressing doubts, longing for the forest, and questioning identity.</em></p>
+<h2>8. Ordeal</h2>
+<p>The demonstration confronts Brent with technological failure at a critical juncture. Forced into immediate improvisation, Brent integrates lessons learned from forest contemplation—calm, focus, and adaptability—into a successful recovery. Transformed by the realization of blending nature's wisdom with technological mastery.</p>
+<p><em>Note: Dialogue illustrating initial panic, revelation, successful recovery.</em></p>
+<h2>9. Reward (Seizing the Sword)</h2>
+<p>With the ordeal overcome, Brent earns respect and trust, receiving backing and widespread recognition. He realizes his balanced lifestyle equipped him uniquely, understanding fully the benefit of his journey as it solidifies his dual identity into a singular strength.</p>
+<p><em>Note: Dialog illustrating praise, gratitude, and clear realization of strength derived from duality.</em></p>
+<h2>10. The Road Back</h2>
+<p>With success secured, Brent yearns to return to his forest cabin. Preparing to depart, he navigates corporate expectations to become more entrenched, understanding nevertheless the necessity of returning to solitude to reflect further on what he's learned.</p>
+<p><em>Note: Dialog reflecting Brent's conviction in returning despite invitations to stay.</em></p>
+<h2>11. Resurrection</h2>
+<p>Before Brent reaches the forest, a crisis emerges—large-scale technical sabotage intended to undo Brent's innovations. Forced back into a decisive confrontation, Brent demonstrates the depth of his transformation, protecting his creation while embodying calm integrity, combining technological brilliance and nature-inspired wisdom.</p>
+<p><em>Note: Dialog showing confrontation, wisdom in action resolved through balanced perspective.</em></p>
+<h2>12. Return with the Elixir</h2>
+<p>Returning finally to his forest home, transformed, Brent has fully integrated his dual, disparate selves. He settles back into the forest now teaching visiting students and researchers how to harmonize technological innovation with the serenity found in nature. Brent's journey brings balance, peace, and understanding back to his original community.</p>
+<p><em>Note: Closing dialog showing Brent's insights and his imparted lessons to visitors.</em></p>
+
+    </div>
+    <div id="childDivs">
+      <div title="Ordinary World" id="childContent1" onclick="setVisibileChild('childContent1')" hidden=true><h1>Brent's Ordinary World: Detailed Exploration</h1>
+<h2>Daily Life in the Forest Cabin</h2>
+<p>Brent chose isolation purposefully, settling into a secluded cabin nestled deep within an expansive, lush forest. Through large wood-framed windows, filtered sunlight gently illuminates his workspace, creating an atmosphere ideal for both contemplation and coding. The natural rhythms—birds softly singing at dawn, whispering leaves rustling in afternoon breezes, distant calls of wildlife in twilight—structure his daily routine into peaceful intervals that guide workflow and reflection.</p>
+<h2>Routine of Meditative Coding</h2>
+<p>Each morning begins in quiet mindfulness. Brent rises early, immersing himself in practiced meditation before approaching his meticulously organized workstation. His coding sessions aren't typical corporate sprints: instead, they flow steadily from contemplative stillness. Brent intentionally codes slowly, deliberately, technical progress measured not by speed alone, but also depth of understanding and elegant clarity. This unusual balance between mindfulness meditation and careful algorithmic craftsmanship yields technological solutions that are creative, sophisticated, and sustainable.</p>
+<h3>Sample internal dialog on Brent's routine:</h3>
+<blockquote>
+<p><em>Brent, reflecting quietly to himself</em>:<br><em>"This life I've built—it's become a refuge. Funny how clearly ideas come when my mind isn't rushed. But lately...I can't ignore that whispering feeling. Am I playing it safe out here?"</em></p>
+</blockquote>
+<h2>Satisfaction and Subtle Restlessness</h2>
+<p>Brent finds genuine peace and satisfaction in his solitude, his rhythmic lifestyle enhancing clarity and productivity. Yet, beneath this tranquil satisfaction stirs subtle restlessness—a faint but persistent whisper challenging him. Despite the fulfillment derived from benevolent solitude, Brent increasingly senses something missing, a lingering uncertainty gently pushing at the edges of his settled contentment.</p>
+<h3>Internal reflections on satisfaction versus restlessness:</h3>
+<blockquote>
+<p><em>“Solitude isn't loneliness, it’s bliss—at least, that's what I've convinced myself. But if I'm honest, pure isolation wasn't the goal. It was about purposeful creation, real impact from thoughtful silence. Have I drifted from purpose to comfort?”</em></p>
+</blockquote>
+<h2>Deep Connection to Nature</h2>
+<p>Brent consciously practices deep communion with his surrounding natural environment. Daily walks within the forest, prolonged observation of subtle seasonal changes—a flower opening, a deer cautiously crossing the clearing—reinforce a symbiotic relationship between technology and nature within Brent’s philosophy. Nature informs his technical creativity, nurturing ideas that resonate deeply with harmony and purpose.</p>
+<h3>Reflective self-dialogue focused on nature's influence:</h3>
+<blockquote>
+<p><em>“Every algorithm I write mirrors this forest in miniature—complexity hidden within elegant simplicity. Nature always knows when to rest, when to grow, when to sustain. Perhaps that's the secret to innovation as well. How can I bring that insight to others out there who've ignored balance?”</em></p>
+</blockquote>
+<h2>Brent's Internal Contradictions</h2>
+<p>Careful introspection reveals internal contradictions Brent cannot easily dismiss. His solitary, idyllic sanctuary fosters profound technological breakthroughs, yet simultaneously isolates him from direct human impact. This awareness creates an uneasy tension—Brent feels both the comfort in determined detachment and a vague dissatisfaction signaling a critical missing element: empirical validation from more dynamic societal interactions.</p>
+<h3>Introspective dialogue about internal contradiction:</h3>
+<blockquote>
+<p><em>“The solitude offers safety, a perfect cradle for elegant solutions—yet am I running from accountability? I've mastered creating ideas freed from pressure, but perhaps the truth of an idea only emerges when tested by reality’s raw chaos.”</em></p>
+</blockquote>
+<hr>
+<p>ResponseID:chatcmpl-B6u8FH5</p>
+</div><div title="Call to Adventure" id="childContent2" onclick="setVisibileChild('childContent2')" hidden=true><h2>2. Call to Adventure (Expanded Detail)</h2>
+<p>One early morning, sitting quietly in front of the soft glow of his isolated workstation amidst the gentle hum of nature awakening outside, Brent notices a new message notification flickering in the corner of his screen—encrypted heavily, unusual, intriguing. His pulse quickens slightly, curiosity rippling beneath his normally calm exterior. Carefully, he initiates the decryption routine he coded himself—a labor of both ingenuity and meditation during past quiet nights.</p>
+<p>The decrypted message appears slowly:</p>
+<blockquote>
+<p><strong>"Brent,</strong></p>
+<p><strong>We've observed your work—innovative, balanced, effective. We represent an ambitious project in the city: an initiative to reshape societal interactions through conscious, mindful applications of technology. Your approach aligns deeply with ours. Join us to redefine how humanity integrates technology with daily life. Your perspective from solitude could shift paradigms. The world needs your vision—urgently. Awaiting your response."</strong></p>
+</blockquote>
+<p>Brent reads it again, more slowly this time, his initial excitement now mingling with apprehension. His tranquil haven suddenly feels fragile, vulnerable. Internally, a dialogue spins swiftly:</p>
+<blockquote>
+<p><em>"Who could have found me? I've intentionally kept my distance...and yet their words... ‘reshaping societal interactions’? They speak the language of purposeful tech, mindful integration—exactly my vision when I chose this place of isolation. Could this be the missing element I've felt?"</em></p>
+</blockquote>
+<p>For a lingering moment, he looks out toward the unfolding morning, its gentle rhythms now tinged by potential upheaval. His mind quietly whispers reasonings of caution and resistance, already bracing against potential disruption—yet the resonance in the message refuses to fade:</p>
+<blockquote>
+<p><em>"But what if they're right? What if my solitude hasn't been merely comfort, but stagnation in disguise? Am I meant to remain withdrawn here forever, developing ideas in isolation, never truly tested against the realities out there? Could something profound actually emerge from my silent meditations and quiet coding—something larger than my solitary vision?"</em></p>
+</blockquote>
+<p>He stares blankly at the screen, suspended between thrilling possibility and crippling uncertainty, aware deeply that he suddenly stands on the threshold between calm safety and unpredictable growth. The compelling mystery and vision in the message form a beacon stirring something deep within Brent—uncomfortable, yet undeniably compelling.</p>
+<p><em>Note: Intensify Brent's internal debate here about his role in society, the potential to impact others positively, fears of losing tranquility, and curiosity driven by the hopeful yet vague tone of the message.</em></p>
+<p>ResponseID:chatcmpl-B6u7dV5</p>
+</div><div title="Refusal of the Call" id="childContent3" onclick="setVisibileChild('childContent3')" hidden=true><h2>3. Refusal of the Call</h2>
+<p>Initially, upon receiving the intriguing encrypted message, Brent experiences an immediate wave of uncertainty and fear. Seated at his isolated workstation surrounded by comforting silence and lush forest foliage visible through a nearby window, Brent stares in uneasy contemplation at the screen, caught between curiosity and apprehension.</p>
+<p>He begins listing internally what he'd lose by embracing this opportunity:</p>
+<ul>
+<li><strong>"If I leave here, will I lose this calm?"</strong> Brent whispers to himself, glancing at the serene landscape outside.  </li>
+<li><strong>"The city runs at a furious pace. It'll swallow my peace entirely. Gone will be morning sunlight filtering through leaves, replaced instead by harsh artificial illumination."</strong>  </li>
+<li>Imagery of bustling urban commotion and ceaseless productivity fills Brent's mind, contrasted painfully against his present solitude.</li>
+</ul>
+<p>Brent rationalizes why he should avoid leaving the security of the forest, focusing deeply on his insecurities:</p>
+<ul>
+<li><strong>“How successful could I possibly be, anyway, amidst that harsh competitive chaos? Would they even understand or care about balance?”</strong>  </li>
+<li>Brent fears being misunderstood and undervalued, feeling his current approach of contemplative, mindful technology creation might be incompatible with fast-paced corporate demands.  </li>
+<li>He reminds himself repeatedly of past peace-diminishing experiences in stressful tech environments.</li>
+</ul>
+<p>Even as his mind rationally argues caution, something within Brent pushes back gently against his hesitation, hinting subtly at missed potential, whispering quietly of unexplored abilities, growth, and impact. Brent's internal struggle becomes real and profoundly palpable as doubt wages against completely resigning himself to isolation.</p>
+<p>Ultimately, however, at this stage, Brent remains initially convinced:</p>
+<ul>
+<li><strong>"No, it's safer to stay here—I built this life purposefully. Out there might disrupt everything I’ve realized so far."</strong></li>
+</ul>
+<p>Yet, beneath these justifications, a small seed of doubt is planted—a subtle dissatisfaction in his choice, leaving Brent uneasily aware something he doesn't yet fully understand may be lost if he turns back entirely from this calling.</p>
+<p><em>Note: Incorporate Brent’s introspection and dialogue to emphasize internal tension and conflict, the fear of sacrificing peace, and initial internal rationalization to reject the adventure.</em></p>
+<p>ResponseID:chatcmpl-B6u75M4</p>
+</div><div title="Meeting the Mentor" id="childContent4" onclick="setVisibileChild('childContent4')" hidden=true><h1>Meeting the Mentor: Brent’s Encounter with the Elderly Hermit</h1>
+<h2>Mentor's Background and Significance</h2>
+<p>While Brent wanders contemplatively through his familiar forest paths, he unexpectedly stumbles upon a secluded clearing he's sure he hasn’t seen before. Nestled in this hidden glen is a modest hut enveloped in wild greenery. Cautiously entering, Brent is surprised to find an elderly man inside: serene, wise-eyed, and emanating an almost mystical tranquility.</p>
+<p>Through their conversation, Brent learns that this elderly hermit—known simply as "Eli"—was once an esteemed figure in the technology world, a transformative visionary who ascended quickly in the corporate ranks due to groundbreaking innovations. Eli, weary of the noise and superficiality of corporate society, made the controversial decision to abandon fame and financial reward, choosing instead the simple, spiritually rich solitude of the woods. Within the quiet embrace of the natural world, Eli discovered profound truths.</p>
+<h2>Dialogue Exchange on Technology and Nature</h2>
+<blockquote>
+<p><strong>Eli:</strong><br><em>"I climbed the highest peaks of the digital realm, Brent. Change, transformation—all intoxicating. But I found the towers we build out there crumble all too easily if they lack true purpose or authenticity."</em></p>
+</blockquote>
+<p>Brent listens intently, weighing deeply Eli’s wisdom against the encrypted message challenging him to forge his own future.</p>
+<h2>Guidance on Balancing Innovation with Inner Peace</h2>
+<p>Eli shares profound insights born of hard-won experience, helping Brent see clearly that his path forward doesn't have to sacrifice his connection with nature. Instead, Brent can pursue innovation without compromising serenity. Eli's advice becomes pivotal:</p>
+<blockquote>
+<p><strong>Eli:</strong><br><em>"People assume technology is antithetical to inner peace—this isn’t necessarily true. True innovation must come from a rooted calm within. Allow your technological creations to be extensions of truth and harmony. Balance is key. The best solutions emerge when clarity of the mind meets the urgency of progress."</em></p>
+</blockquote>
+<p>Brent questions how one's inner tranquility can translate into a rapid-paced technology environment. Eli responds with patient certainty:</p>
+<blockquote>
+<p><strong>Eli:</strong><br><em>“You’ll carry your forest within you wherever you go. Bring mindfulness to your every endeavor. Pause often; recalibrate. Guide others by modeling stillness amid the storm.”</em></p>
+</blockquote>
+<h2>The Mentor’s Own Journey and Past Sacrifices</h2>
+<p>Eli's history profoundly affects Brent, showing him not only what could happen should he fully abandon the outside world, but also revealing alternative paths that might have been possible had Eli balanced both worlds instead.</p>
+<p>In a thoughtful voice filled with a mix of pride, grief, and hope, Eli recounts:</p>
+<blockquote>
+<p><strong>Eli:</strong><br><em>"When I withdrew, I chose peace over continued impact. Had I understood then what I do now, perhaps I'd have blended both lives differently. It's now your time, Brent—you might accomplish what I couldn't: bridging those two worlds for the benefit of both."</em></p>
+</blockquote>
+<p>Eli's regret becomes Brent's inspiration. He sees clearly now that leaving the forest doesn't mean abandoning its gifts. Rather, he could become an ambassador of balance—evidence that technology can coexist harmoniously with nature and mindfulness.</p>
+<h2>Brent's Internal Reflections After Speaking With the Mentor</h2>
+<p>Post-encounter, Brent feels inspired yet humbly cautious. Eli’s stories and profound insights resonate deeply, guiding Brent toward courage to accept the challenging urban opportunity. Now convinced he can integrate Eli's advice, Brent begins to reconcile internal fears—embracing the adventure ahead, confident the mentor’s wisdom and his genuine connection with nature can guide his path.</p>
+<blockquote>
+<p><strong>Brent’s internal dialogue:</strong><br><em>"If Eli, wiser and more experienced, sees clearly my capacity to blend these worlds, how could I retreat from this path? Maybe this encrypted message, this summons, isn't just about technology's potential—perhaps it's about finding truth in blending worlds I've thought separate. Eli showed me the route; it's mine now to journey forward."</em></p>
+</blockquote>
+<p>Now deeply influenced by Eli’s mentorship, Brent steps toward the future with newfound clarity, conviction, and determination.</p>
+<p>ResponseID:chatcmpl-B6u5x90</p>
+</div><div title="Crossing the Threshold" id="childContent5" onclick="setVisibileChild('childContent5')" hidden=true><h2>5. Crossing the Threshold</h2>
+<h3><strong>Decision and Commitment</strong></h3>
+<p>After extensive contemplation and insightful conversations with his trusted mentor, Brent decisively accepts his call to adventure. Packing both excitement and uncertainty into his sparse belongings, he prepares methodically for departure. His farewell to the forest cabin feels ceremonial—each familiar object, tree, and sound resonating deeply as he steps away from this sanctuary.</p>
+<h3><strong>Inner Dialogue of Anticipation</strong></h3>
+<blockquote>
+<p><em>Brent (internal thoughts):</em><br>"I've prepared myself intellectually, emotionally—even spiritually. Yet, why does leaving this place, my forest haven, strike such a bittersweet chord? Perhaps true growth lies beyond the comfort and familiarity of home."</p>
+</blockquote>
+<h3><strong>Physical Crossing and Threshold Symbolism</strong></h3>
+<p>The particular threshold Brent crosses is vividly represented by the forest boundary that separates wilderness from human civilization, symbolizing Brent's departure from intuitive solitude into structured complexity. Standing at this boundary, Brent intentionally pauses, breathing deeply, acknowledging the importance of leaving one life trajectory for another distinctly uncertain yet promising path forward.</p>
+<h3><strong>Inner Dialogue of Hesitation</strong></h3>
+<blockquote>
+<p><em>Brent (internal reflection):</em><br>"Once I take this step, there's no immediate turning back. The downtown's pulse beats loudly, in stark contradiction to this natural silence I've grown accustomed to. Am I truly ready to face the chaos, the noise, the demand?"</p>
+</blockquote>
+<h3><strong>Journey into Unfamiliar Territory</strong></h3>
+<p>Upon stepping definitively away from the boundary and onto the urban path, uncertainty momentarily grips Brent, heightened by the intrusive sounds of traffic, the unfamiliar rhythm, and relentless pace. Each step toward civilization deepens awareness of the stark contrast ahead—the bustling cityscape feels initially oppressive, almost hostile, compared to serene woodland harmony.</p>
+<h3><strong>First Confrontation with Urban Life</strong></h3>
+<p>The sensory overload of the city's frenetic activity tests Brent's cultivated tranquility almost immediately. Neon-lit streets, rushing pedestrians absorbed by handheld screens, and ceaseless noise—all seem daunting after the organic simplicity of his cabin existence.</p>
+<h3><strong>Resolute Determination</strong></h3>
+<p>Despite discomfort, Brent's thoughts channel the advice and wisdom shared by his mentor about blending inner tranquility with external chaos. Invoking his mentor's words grounds him:</p>
+<blockquote>
+<p><em>Mentor's voice (memory recalled by Brent):</em><br>"True inward balance doesn’t falter amid external storms; it deepens. Carry the forest's calm within, no matter how turbulent your surroundings become."</p>
+</blockquote>
+<p>Strengthened by these words and renewed determination, Brent commits unequivocally to complete his transition. He continues forward, stepping into this unfamiliar urban environment, now prepared internally to face both tests and potentials awaiting ahead.</p>
+<hr>
+<p>ResponseID:chatcmpl-B6u5CG4</p>
+</div><div title="Tests Allies Enemies" id="childContent6" onclick="setVisibileChild('childContent6')" hidden=true><h2>Step 6: Tests, Allies, and Enemies - Challenges in the Corporate World</h2>
+<h3>Overview:</h3>
+<p>Upon entering the urban landscape, Brent now faces the complexities inherent to corporate culture, a stark contrast to his tranquil forest life. Challenges arise from navigating the demanding new environment, discerning trustworthy collaborators, and confronting overt and covert oppositions. Brent's inner balance and mindful approach will be consistently tested through these interactions.</p>
+<h3>Tests:</h3>
+<ul>
+<li><p><strong>Aggressive Project Deadlines:</strong><br>The corporate environment relentlessly demands quick results. Brent finds the pace initially overwhelming, the non-stop barrage of meetings, emails, and deadlines challenging his crystallized inner calm. He grapples internally to maintain his mindful approach while operating within strict time constraints.</p>
+<blockquote>
+<p><em>Internal Dialogue (Brent):</em> "Can I preserve clarity when minutes rush like restless streams? I must remember the forest's advice—time isn't mastered by haste but by meaningful rhythms."</p>
+</blockquote>
+</li>
+<li><p><strong>Balancing Mindfulness and Productivity:</strong><br>Brent's intuitive, reflective approach to innovation faces its toughest test. The corporate culture demands constant measurable output and quantifiable results, skeptical of intuitive leaps and meditative methods. He's forced to negotiate daily between contemplation and performance.</p>
+<blockquote>
+<p><em>Internal Thought (Brent):</em> "They see mindfulness as idleness. Perhaps, if I stay resolute, they'll realize true creativity lives quietly underneath surface productivity."</p>
+</blockquote>
+</li>
+</ul>
+<h3>Allies:</h3>
+<ul>
+<li><p><strong>Sophia (Project Analyst):</strong><br>Sophia, inspired by Brent's unique integration of mindfulness into work strategies, becomes his strongest advocate. She offers unwavering trust and introduces Brent’s philosophies to others, ensuring his voice is heard among decision-makers.</p>
+<blockquote>
+<p><em>Dialogue (Sophia to Brent):</em> "Brent, the entire team notices something vibrant in your approach. Keep sharing your methods—we can all benefit in ways we're just beginning to understand."</p>
+</blockquote>
+</li>
+<li><p><strong>Liam (Junior Developer):</strong><br>Profoundly drawn to Brent’s unconventional yet thoughtful style, Liam eagerly absorbs Brent’s insights on intuitive coding practices navigating challenges calmly but effectively. Liam symbolizes youthful enthusiasm reconnecting corporatism with deeper humanistic values.</p>
+<blockquote>
+<p><em>Dialogue (Liam to Brent):</em> "I'm amazed at how you remain so calm. Teach me? It seems like magic, but clearly there's logic behind your quiet ways."</p>
+</blockquote>
+</li>
+</ul>
+<h3>Enemies:</h3>
+<ul>
+<li><p><strong>Evelyn Harper (Executive Operations Manager):</strong><br>Evelyn, embodying corporate skepticism, challenges Brent's approach openly, questioning his methods and dismissing mindfulness as impractical idealism. Her mistrust creates tension, frequently putting Brent on defensive in team conversations.</p>
+<blockquote>
+<p><em>Dialogue (Evelyn to Brent):</em> "Mindfulness has charm, but projects succeed on proven efficiency. How can contemplative pauses create tangible breakthroughs?"</p>
+</blockquote>
+</li>
+<li><p><strong>Corporate Skepticism (General Attitude):</strong><br>A latent but pervasive enemy, skepticism within the corporate environment represents cumulative doubt challenging Brent's every suggestion. This collective doubt demands constant proof from Brent and undermines morale subtly yet persistently.</p>
+<blockquote>
+<p><em>Overheard Office Chatter:</em> "Brent's methods sound poetic, but who has time for poetry amid deadlines? Results matter, not philosophy."</p>
+</blockquote>
+</li>
+</ul>
+<h3>Internal Struggle:</h3>
+<p>Within this new dynamic, Brent faces an inner struggle: staying authentic despite external pressures. Anxiety intermittently disrupts his carefully cultivated balance. Silent yet intense introspection reveals his longing for forest rituals and tranquility. Despite external validations from allies, corporate resistance heavily weighs.</p>
+<blockquote>
+<p><em>Inner Monologue (Brent):</em> "Isolation didn't feel like this in the forest. Am I strong enough to persist without losing who I truly am?"</p>
+</blockquote>
+<hr>
+<p>This stage, <strong>Tests, Allies, and Enemies</strong>, profoundly deepens Brent's character, testing his capability to harmonize the calm of intuitive wisdom with the relentless practicality of innovation. His interactions with Sophia, Liam, Evelyn, and general corporate skepticism build foundational tension preceding Brent’s transformative ordeal in the narrative arc. </p>
+<p>ResponseID:chatcmpl-B6u3rXL</p>
+</div><div title="Approach to the Inmost Cave" id="childContent7" onclick="setVisibileChild('childContent7')" hidden=true><h2>7. Approach to the Inmost Cave: Anxiety, Doubts, and Longing for the Forest</h2>
+<p>As the ambitious project advances toward its climax—an important demonstration that will determine the availability of essential funding and sustained support—Brent begins to feel internal tensions intensify. The project, once an exciting challenge aligned with his inner compass, now feels overwhelming, imposing, and stressful. Deadlines become more aggressive, demands more relentless, and pacing increasingly unsustainable. Brent finds himself at the center of intense corporate scrutiny as executives convey openly skeptical attitudes towards his mindful, intuitive approach.</p>
+<p>Internally, a storm brews within Brent, one driven by self-doubt, exhaustion, and anxiety. He recognizes a creeping fear that he's beginning to lose clarity on his actual identity amidst the frantic frenzy of corporate bureaucracy, competition, and high expectations. Introspection reveals a sense of isolation—even amongst supportive teammates—as Brent struggles silently, managing anxiety regarding the impending demonstration. Brent longs deeply for the calming embrace of his forest sanctuary, painfully missing his simple rituals: meditations by a quiet, reflective pond, mindful walks amidst rustling leaves, and the utter stillness of mornings filled only with birdsong.</p>
+<p>Internally, Brent battles chaotic thoughts, his mind wavering between determination and doubt:</p>
+<blockquote>
+<p><strong>Internal Dialogue (Brent):</strong><br>"Was I wrong to leave the forest? Was I arrogant, believing that tranquility and innovation can truly coexist? Perhaps this isn't progressive—maybe my approach is just impractical idealism."</p>
+</blockquote>
+<p>He examines harsh critiques by skeptical corporate heads reverberating ominously through his psyche:</p>
+<blockquote>
+<p><strong>External Corporate Dialogue (Recalled Skepticism):</strong><br>"Idealism is attractive but rarely pragmatic. Can mindfulness really lead groundbreaking innovation?"</p>
+</blockquote>
+<p>Haunted by past decisions and present uncertainties, Brent considers that this journey might end in disappointment—proof that his dual existence of innovation guided by nature's wisdom is inherently flawed. The cave he's approaching represents not only the peril of professional failure but also an existential abyss: the possible loss of authenticity, identity, and the conviction he's cultivated throughout his journey.</p>
+<p>Nevertheless, amidst his darkest doubts emerges a spark of understanding: this anxious prelude is not merely a precarious plunge into darkness. Rather, it's a moment pivotal to Brent's self-awareness, setting the stage for profound revelations to come. Though Brent doesn't yet realize fully, facing this cave—and the vulnerabilities it holds—is crucial. It positions him precisely to discover greater inner strength awaiting recognition, hidden beneath layers of anxiety and longing. It serves as a deeply transformative initiation, preparing Brent to integrate harmoniously the most profound aspects of himself, poised at the very threshold of a defining ordeal.</p>
+<p>ResponseID:chatcmpl-B6u30VY</p>
+</div><div title="Ordeal" id="childContent8" onclick="setVisibileChild('childContent8')" hidden=true><h2>8. The Ordeal: Confronting Failure and Rediscovering Inner Wisdom</h2>
+<p>During the pivotal demonstration required to secure critical funding and support for Brent's ambitious technological venture, an unforeseen and rare system malfunction occurs—a scenario Brent had feared deeply. In an instant, the presentation screens flicker erratically, the audience murmurs anxiously, and Brent's team exchanges frantic glances, panic palpable in the room.</p>
+<p>Initially overwhelmed by anxiety, Brent's internal stability greatly diminishes as self-doubt rushes forward uninvited:</p>
+<blockquote>
+<p><strong>Internal Dialogue (Panic Rising):</strong><br><em>"No, this can't be happening—not now, not here… My worst fear, in front of everyone!"</em></p>
+</blockquote>
+<p>As stress amplifies, external pressure mounts, manifesting through skeptical mutters from corporate directors watching critically from across the room:</p>
+<blockquote>
+<p><strong>External Dialogue (Skeptical Official):</strong><br><em>"Just as we feared—too idealistic and impractical. Is this the 'innovation' we were promised?"</em></p>
+</blockquote>
+<p>While colleagues hastily propose makeshift technical solutions, Brent stands frozen momentarily, breath quickening, until gradually, a deeper voice from his secluded forest memories emerges clearly. The labored breathing calms, and Brent reconnects instinctively to tranquil moments quietly spent in nature—gentle rustling leaves, calm reflective waters, and mindful breaths. His mentor's voice echoes distinctly within:</p>
+<blockquote>
+<p><strong>Mentor's Recalled Wisdom (Memory):</strong><br><em>"True brilliance shines clearest not when it's planned, Brent, but when chaos descends. Nature doesn't fight chaos—it harmonizes. Use your tranquility not as retreat, but strength."</em></p>
+</blockquote>
+<p>Profound clarity floods Brent, washing away confusion. Poised once more, he exhales deeply, taking control of the chaotic situation by intuitively improvising a calm and focused solution, mixing technological expertise with deeply internalized contemplative serenity. Brent addresses the audience confidently yet humbly:</p>
+<blockquote>
+<p><strong>Brent's Dialogue (Resolute Calm):</strong><br><em>"Challenges remind us of what matters most: flexibility, clarity, and calm in chaos. Bear with me—together, we will adapt."</em></p>
+</blockquote>
+<p>In minutes, Brent deftly implements a creative on-the-fly solution integrating previously overlooked coding techniques inspired directly by ecosystem adaptability he observed in forest life. Swiftly stabilizing the system, screens blink back confidently online, presenting flawlessly innovative performance. Awed applause erupts, astonished gasps echoing through the room.</p>
+<p>Amidst gratitude and relief, Brent reaches a powerful realization—he didn't merely survive adversity; rather, he triumphed uniquely because of his blended duality of identities. The ordeal validates decisively that technological expertise amplified by mindful tranquility was not only compatible but profoundly powerful.</p>
+<blockquote>
+<p><strong>Internal Dialogue (Realization &amp; Affirmation):</strong><br><em>"This wasn't just technology or forest wisdom separate—I needed both all along. Tranquility guided innovation in a moment of chaos. My duality isn't weakness…it's my strongest advantage."</em></p>
+</blockquote>
+<p>Brent knows profoundly his earlier inner conflict resolved, forever reshaping his perspective on innovation, chaos, and the integrative harmony of his two worlds. </p>
+<p>Thus, the ordeal emerges more than a test of resilience—it's Brent's transformative recognition of duality as integrated strength.</p>
+<p>ResponseID:chatcmpl-B6u1Jnc</p>
+</div><div title="Reward Seizing the Sword" id="childContent9" onclick="setVisibileChild('childContent9')" hidden=true><h1>9. Reward (Seizing the Sword): Brent's Realization and Integration of Dual Identity</h1>
+<h2>Recognition and Respect</h2>
+<p>After managing to avert failure during a pivotal technological demonstration, Brent gains immediate admiration and respect within the industry. His colleagues, previously doubtful or hesitant, now openly acknowledge the unique strengths of Brent's methods, attributing success directly to his uncommon blend of technological rigor and serene, contemplative consistency.</p>
+<p><strong>Dialog illustrating praise and admiration:</strong></p>
+<blockquote>
+<p>"Brent, we were skeptical at first—but witnessing your calm amid chaos was genuinely inspirational. Whatever secret you discovered during your forest exile, it clearly works," remarked his most skeptical colleague, now humbled by the outcome.</p>
+</blockquote>
+<blockquote>
+<p>"Your balanced perspective is groundbreaking," another team member admitted enthusiastically, "You've shown us that innovation isn't just about pushing harder, faster, and louder, but about clarity, patience, and thoughtful simplicity."</p>
+</blockquote>
+<h2>Clear Realization of Strength Through Duality</h2>
+<p>More significantly, Brent experiences a profound internal revelation, solidifying clarity about why his seemingly conflicting identities—technological visionary and contemplative forest-dweller—strengthen each other rather than compete. This harmonious integration deeply validates his unconventional journey, confirming that wisdom from nature wasn't a retreat, but rather a necessary foundation empowering his technological creativity.</p>
+<p><strong>Internal Dialog reflecting clarity and insight:</strong></p>
+<blockquote>
+<p>"This journey wasn't merely about proving my technology viable—it was about validating my whole approach to life," Brent contemplated quietly. "I needed both identities, not one or the other. Without the forest, the technology would have faltered; without technology, I'd have missed this deeper understanding."</p>
+</blockquote>
+<blockquote>
+<p>"Finally, it’s clear," Brent resolves internally, feeling profound peace, "These seemingly opposing worlds have always belonged together. Tranquility became my secret weapon—innovation, my channel to share its power. The forest is not an escape from the world but a path toward clearer contributions to it."</p>
+</blockquote>
+<h2>Confidence in Authenticity</h2>
+<p>With recognition comes a widespread corporate acknowledgment of Brent's uniquely authentic style. This inspires greater industry openness to alternative approaches to technological development, especially ones harmonizing innovation with mindfulness and emotional insight.</p>
+<p><strong>Brief internal dialog highlighting renewed confidence:</strong></p>
+<blockquote>
+<p>"I've proven there's room for authenticity amid ambition," Brent realized. "The respect earned today isn't just personal affirmation; it's permission for others to embrace their own balanced truths."</p>
+</blockquote>
+<h2>Grounded Gratitude</h2>
+<p>Lastly, Brent feels deeply grateful—not just for the external success—but for the internal validation that the path chosen, though difficult and often questioned, was undeniably correct. With lessons learned in moments of meditative solitude now paying dividends in corporate boardrooms, Brent senses profound, integrative gratitude.</p>
+<p><strong>Internal dialog capturing gratitude:</strong></p>
+<blockquote>
+<p>"Every quiet sunrise, whispering leaf, and mindful breath prepared me for today," Brent gratefully reflects, "I owe my greatest thanks to the simplicity of the woods—the true master of innovation hidden plainly in tranquility."</p>
+</blockquote>
+<p>Ultimately, Brent's reward is not simply professional success or external glory, but a profound internal triumph: blending seeming opposites into a uniquely powerful and profoundly authentic integrated identity.</p>
+<p>ResponseID:chatcmpl-B6u0Ubr</p>
+</div><div title="The Road Back" id="childContent10" onclick="setVisibileChild('childContent10')" hidden=true><h2>10. The Road Back: Returning to the Forest Sanctuary</h2>
+<p>Having achieved victory and recognition, Brent now finds himself at a critical juncture. Though his groundbreaking technological project has proven successful, celebrated widely by colleagues and industry leaders, Brent feels increasingly drawn to the solitude of his forest sanctuary. He vividly remembers the peace, simplicity, and deeper clarity that the solitude of the woods brought him, as if each leaf and breeze whispered reminders of the meaningful inner transformations he cultivated during quiet contemplation.</p>
+<p><strong>Internal Conflict and Dialog</strong> Brent's inner dialogue reflects both gratitude and resolve, capturing the nuanced tension between fulfilling external obligations and honoring one’s internal compass:</p>
+<blockquote>
+<p>"I've accomplished what others didn’t think possible— combining innovation with tranquility, technology with nature. Yet, something remains incomplete. Success here feels meaningful, but it doesn’t compare with the clarity, silence, and depth of insight I experienced in my forest solitude. Could there again be a way to unite these two worlds permanently?"</p>
+</blockquote>
+<p><strong>External Pressures and Dialog</strong> At the same time, influential corporate allies encourage Brent to remain in the bustling city, offering prestigious positions and opportunities to further embed his technological philosophies within the corporate and urban environment:</p>
+<blockquote>
+<p>"Brent, your vision is what our world needs desperately right now. Imagine what we could achieve if you stay, lead these initiatives further, and influence a larger audience. You've unlocked something remarkable."</p>
+</blockquote>
+<p>Faced with such compelling offers, Brent experiences tensions tugging at him from both ends. However, he has now fully internalized the wisdom gained from his mentor's teachings—the necessity of balance and the importance of following authentic inner purpose, rather than external validation alone.</p>
+<p><strong>Decisive Inner Clarity and Dialogue</strong> Reflecting internally, Brent acknowledges the depth of his personal growth, realizing profoundly why returning to the forest is not merely an escape but an essential continuation of his journey:</p>
+<blockquote>
+<p>"What I've discovered stretched beyond creating technology—it has always been about harmony, balance, and integration. Staying here indefinitely would diminish that insight. It is in the forest where I learned strength, clarity, and peace. Returning is necessary—not to retreat, but to deepen, reflect, and build further authenticity. My path forward requires another journey inward."</p>
+</blockquote>
+<p>Convinced of the necessity to fully assimilate these insights, Brent gracefully yet firmly declines further corporate entanglement. This decision surprises some, while others, inspired by his commitment to deeper authenticity, secretly admire Brent even more profoundly.</p>
+<p>Thus, the Road Back is more than geographical—it signifies a deeply intentional commitment returning to the core essence of his transformation. Brent intentionally chooses introspection, refining and solidifying the lessons he learned, ready to manifest even greater future impacts born from solitude-inspired wisdom.</p>
+<p>ResponseID:chatcmpl-B6tzjt8</p>
+</div><div title="Resurrection" id="childContent11" onclick="setVisibileChild('childContent11')" hidden=true><h2>11. Resurrection: Brent's Decisive Transformation in Crisis</h2>
+<h3>Sabotage and Sudden Crisis</h3>
+<p>As Brent journeys quietly back towards his forest cabin, eager for a period of reflection and assimilation, news reaches him of a devastating cyber attack designed specifically to dismantle the groundbreaking technological innovations he worked tirelessly to realize. The sophisticated sabotage threatens not only the project but the wellbeing of the broader community relying on the new solutions he championed.</p>
+<p><em>Note:</em> Narrative dialogue describing Brent first hearing the alarming news:</p>
+<blockquote>
+<p>"I was minutes from breathing the rich air of the forest again when my phone erupted in calls and notifications. My heart sank as I realized what was unfolding."</p>
+</blockquote>
+<h3>Inner Conflict &amp; Initial Doubt</h3>
+<p>For a brief moment, Brent questions himself—has he unwisely pursued something incompatible with the simplicity and peace he sought in his forest sanctuary? Self-doubt resurfaces, threatening the balance he had worked so painstakingly to develop:</p>
+<p><em>Note:</em> Internal monologue capturing his initial hesitation and uncertainty:</p>
+<blockquote>
+<p>"Maybe peace and innovation were never meant to coexist. Maybe I ventured too far into a world unwilling to accept harmony."</p>
+</blockquote>
+<h3>Moment of Decisive Clarity</h3>
+<p>Drawing upon every moment of wisdom discovered in his forest solitude, especially the mentor's teachings and his experiences managing the stressful project phase, Brent regains composure. He accesses an internal resilience that reveals his transformed identity—seamlessly incorporating calm derived from nature and resolute courage born out of technological innovation.</p>
+<p><em>Note:</em> Reflective internal dialogue showcasing Brent regaining purpose:</p>
+<blockquote>
+<p>"But no, harmony was always within me, within these hands that built solutions from silence and trees. Calm clarity is perhaps most needed amid chaos."</p>
+</blockquote>
+<h3>Face-to-Face Confrontation</h3>
+<p>Summoned urgently to the scene of the sabotage, Brent faces the perpetrators—a disillusioned, competing group convinced technology cannot coexist peacefully alongside natural harmony. Rather than condemning them outright, Brent embodies the integrated philosophy he's cultivated, calmly confronting their skepticism and fear head-on with gentle integrity and insightful dialogue:</p>
+<p><em>Note:</em> Dialog displaying Brent approaching confrontation through calm authority and wisdom:</p>
+<blockquote>
+<p>"You see technology as something apart, something threatening. Yet technology and nature are merely branches from the same root. Fear won't unify them—but an open heart and clear mind will."</p>
+</blockquote>
+<h3>Technology &amp; Wisdom United in Action</h3>
+<p>In real-time, Brent swiftly coordinates an adaptive response to mitigate the sabotage's potential harm. His plan intuitively mirrors ecological methods he observed countless times within the forest—resilience, adaptation, interconnected defenses. As he works, observers notice how his hands and mind move with quiet confidence, mirroring his calm demeanor as if playing a gentle melody influenced by his countless hours meditating among the trees.</p>
+<p><em>Note:</em> Observers’ reflections and Brent’s concise instruction during the crisis:</p>
+<blockquote>
+<p>"Watch closely—nature shows us resilience through adaptability and cooperation. Our response must mirror nature itself."</p>
+</blockquote>
+<h3>Resolution Through Integrated Identity</h3>
+<p>Ultimately, Brent's swift, calm handling of the situation not only prevents lasting damage but instills deeper lessons in all who witness the event. The crisis becomes a powerful teaching moment. It confirms Brent’s committed advocacy for harmony between seemingly conflicting worlds, solidifying his reputation as a transformative voice capable of reconciling the previously irreconcilable.</p>
+<p><em>Note:</em> Reflective internal dialogue from Brent acknowledging this powerful realization:</p>
+<blockquote>
+<p>"The sabotage, intended to divide us, only made our connectedness clearer. From crisis arises clarity, fulfilling my greatest lesson."</p>
+</blockquote>
+<h3>Profound Community Impact</h3>
+<p>Immediately following the confrontation, allies and even former skeptics begin reexamining their assumptions about technology and nature—initiating meaningful conversations around sustainability, cooperation, and integration. Rather than merely rectifying sabotage, Brent's actions illuminate a better way forward, birthing a deeper understanding within society.</p>
+<p><em>Note:</em> Observers' dialogue reflecting their transformed viewpoints after witnessing Brent’s balanced approach:</p>
+<blockquote>
+<p>"I never realized technology could reflect the quiet strength of a forest. Brent showed us a new vision."</p>
+</blockquote>
+<p>Thus, in the Resurrection stage, Brent doesn't simply overcome sabotage—he stands as living proof of an integrated ideal, permanently transformed and stronger for the crisis, fully embodying a harmonious union of technological innovation and serene, natural wisdom.</p>
+<p>ResponseID:chatcmpl-B6tyeVA</p>
+</div><div title="Return with the Elixir" id="childContent12" onclick="setVisibileChild('childContent12')" hidden=true><h2>12. Return with the Elixir: Brent’s Harmonized Wisdom</h2>
+<p>After confronting and overcoming the intense crisis of sabotage, Brent returns to his forest cabin, significantly changed by his journey. His return marks not just a physical homecoming but an ideological transformation—a perfect fusion of technological innovation and the serenity of the natural world.</p>
+<p>Upon arriving, Brent observes the familiar landscape anew—the quiet symphony of birdsong, the gentle whispers of wind in the trees, the calming presence of the wooded paths around him. Yet it all seems profoundly different, enriched by the knowledge he is bringing back.</p>
+<p><strong>Brent's Integration of His Dual Self</strong><br>Previously, Brent had seen his two worlds—technology and nature—as incompatible, separate realms of his life. Now, after enduring multiple tests, trials, and ultimately triumphant resolutions, he sees himself as fully harmonized. The once distinct aspects of his identity have seamlessly integrated. His unique perspective enables him to understand and explain technology as an extension of natural evolution and growth, rather than a detached force opposed to nature.</p>
+<p><strong>Sharing Knowledge and Wisdom</strong><br>With this newfound clarity, Brent feels a compulsion to teach others what he has learned. He begins welcoming visiting students, researchers, entrepreneurs, and even fellow technologists seeking respite or insight. They come to hear Brent speak, to better understand his rare perspective on balancing inner tranquility, nature’s majesty, and technological progress. Brent guides visitors through immersive natural sessions, pausing occasionally to sit in contemplation near the cabin’s edge, encouraging students to listen attentively to the forest as he speaks:</p>
+<blockquote>
+<p>"When we listen carefully, nature herself whispers the secrets to sustainable innovation. Technology is most powerful when it mirrors the interconnectedness we see within this forest.”</p>
+</blockquote>
+<p>His lessons often include engaging exercises—meditative walks, nature journaling, and collaborative design sessions beneath towering trees—to foster deeply integrated thinking.</p>
+<p><strong>Healing and Renewing the Original Community</strong><br>Brent's insights quickly ripple outward. His teaching serves as an elixir, revitalizing his original community. As visitors carry back Brent’s wisdom to their urban worlds, they begin initiating subtle yet monumental shifts: workplaces infused with mindfulness practices, technological designs inspired by ecological systems, and a collective feeling of responsibility—for nature, community, and personal well-being—slowly develops.</p>
+<p>Further reinforced by the intimate conversations Brent holds at the cabin—around evening campfires, under open skies or beside the nearby tranquil creek—the lessons become more than ideas; they become lived experiences. The visitors observe Brent’s calm presence, blended seamlessly with an impressive mastery of technology, and find a beacon of hope for their own paths forward.</p>
+<p><strong>Brent’s Final Reflection</strong><br>Brent's own final reflection embodies the essence of his journey, shared quietly yet profoundly with a close group of visitors gathered near his cabin fire one starry night:</p>
+<blockquote>
+<p>“I once feared that technology threatened my connection with nature. But now I understand—we only oppose them because we’ve seen them as separate. The balance lives within us; integration is the natural order. Our duty is simply to harmonize the wisdom of the ancient trees with the insights hidden in our circuits and code."</p>
+</blockquote>
+<p>Thus, Brent not only returns home with his personal transformation—his elixir—but generously shares it with others, propagating a much deeper, global impact born from his journey. The community he nurtures is grounded, flourishing, and empowered, awakened by the vision of a wise man whose transformative experience united two worlds previously seen as separate.</p>
+<p>ResponseID:chatcmpl-B6txUcB</p>
+</div>
+    </div>
+  </div>
+
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+
+    <script>
+      function setChildSubjects(){
+        let dropDownOptions = [];
+        let childSubjects = document.getElementById('childDivs');
+        for (let child of childSubjects.children){
+           let subject = child.title;
+           let optionValue = child.id;
+
+           dropDownOptions.push({subject: subject, value: optionValue});
+        
+        }
+
+        for (let option of dropDownOptions){
+          let optionElement = document.createElement('option');
+          optionElement.value = option.value;
+          optionElement.text = option.subject;
+          document.getElementById('childSubjects').appendChild(optionElement);
+        }
+
+        document.getElementById('childSubjects').addEventListener('change', function() {
+          if(this.value == "home"){
+            goHomePage();
+          }else{
+            setVisibleChild(this.value);
+          }
+
+          }
+        );
+      }
+    </script>
+
+
+    <script>
+      function setVisibleChild(id){
+        //quick flicker home to reset state, this allows hoping between child views
+     
+    
+           let topNode = document.getElementById('content');
+           let parentNode = document.getElementById('parentContent');
+           let childVisibleNode = document.getElementById(id);
+           let childDivs = document.getElementById('childDivs');
+           for (let child of childDivs.children){
+            if(child.id != id){
+              child.hidden = true;
+            }else{
+              child.hidden = false; //redudant
+            }
+           }
+           parentNode.hidden = true;
+           childVisibleNode.hidden = false;
+         }
+      
+    </script>
+
+    <script>
+      function goHomePage(){
+         let topNode = document.getElementById('content');
+         let parentNode = document.getElementById('parentContent');
+         let children = document.getElementById('childDivs');
+         for (let child of children.children){
+            child.hidden = true;
+         }
+         parentNode.hidden = false;
+      }
+    </script>
+
+    <script>
+      function setChildLinks(){
+        let children = document.getElementById('childDivs'); 
+        let childSubjects = [];
+        let discoveredMatches = [];
+
+        
+        for (let child of children.children){
+          let subject = child.title;
+          childSubjects.push({subject: subject, child: child});
+          }
+             
+          let parentNodeH2Subjects = []
+          let parentNodeH3Subjects = []
+          let parentNodeH4Subjects = []
+          let parentNode = document.getElementById('parentContent');
+          let H2s = parentNode.getElementsByTagName("H2");
+          let H3s = parentNode.getElementsByTagName("H3");
+          let H4s = parentNode.getElementsByTagName("H4");
+          let isH2Match = false;
+          let isH3Match = false;
+          let isH4Match = false;
+
+          H2s.length > 0? parentNodeH2Subjects = H2s.map(item => ({subject: item.innerText, item: item})):isH2Match = false;
+          H3s.length > 0?parentNodeH3Subjects = H3s.map(item => ({subject: item.innerText, item: item})):isH3Match = false;
+          H4s.length > 0?parentNodeH4Subjects = H4s.map(item => ({subject: item.innerText, item: item})):isH4Match = false;
+
+          
+           isH3Match = H3s.length == childSubjects.length;
+           isH2Match = H2s.length == childSubjects.length;
+           isH4Match = H4s.length == childSubjects.length;
+          let allDiscovered = false;
+
+          if (isH3Match){
+            //We have a match.  We need to find the H2s
+            allDiscovered = true;
+          }
+          if (isH2Match){
+            //We have a match.  We need to find the H3s
+            allDiscovered = true;
+          }
+          if (isH4Match){
+            //We have a match.  We need to find the H2s
+            allDiscovered = true;
+          }
+
+          if(allDiscovered && (isH3Match + isH2Match + isH4Match) > 1){
+            //wierd.  ok we work from scratch.
+            allDiscovered = false;
+          }
+
+          if(!allDiscovered){
+
+            let fluffWords = ["a", "an", "the", "and", "but", "or", "for", "nor", "on", "at", "to", "from", "by", "with", "of"];
+            let fluffWordsRegex = new RegExp(fluffWords.join("|"), "g");
+          
+          //OK time to stumble through unpredictable llm output
+          //First check if the child subjects are in the parent node h2 subjects
+          let isH2 = false;
+          let isH3 = false;
+          let isH4 = false;
+      
+          //This can be optimized later.  Probably doesnt matter since it is client side with modern computing.
+          for (let i = 0; i < parentNodeH2Subjects.length; i++){
+            let subject = parentNodeH2Subjects[i].subject;
+            for (let j = 0; j < childSubjects.length; j++){
+              let childSubject = childSubjects[j].subject;
+              if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                isH2 = true;
+                discoveredMatches.push({parentLink: parentNodeH2Subjects[i].item, childLink: childSubjects[j].child});
+              }
+            }
+
+          }
+         
+          if(!isH2){
+            for (let i = 0; i < parentNodeH3Subjects.length; i++){
+              let subject = parentNodeH3Subjects[i].subject;
+              for (let j = 0; j < childSubjects.length; j++){
+                let childSubject = childSubjects[j].subject;  
+                if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                  isH3 = true;
+                  discoveredMatches.push({parentLink: parentNodeH3Subjects[i].item, childLink: childSubjects[j].child});
+                }
+              }
+            }
+          }
+
+          if(!isH3){
+            for (let i = 0; i < parentNodeH4Subjects.length; i++){
+              let subject = parentNodeH4Subjects[i].subject;
+              for (let j = 0; j < childSubjects.length; j++){
+                let childSubject = childSubjects[j].subject;
+                if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                  isH4 = true;
+                  discoveredMatches.push({parentLink: parentNodeH4Subjects[i].item, childLink: childSubjects[j].child});
+                }
+              }
+            }
+          }
+
+          if(!isH4){
+              //I suppose there are edge cases but this surely covers 99.9% of the cases.
+          }
+
+          }else{
+            if(isH3Match){
+              for (let i = 0; i < parentNodeH3Subjects.length; i++){
+                let child = childSubjects[i].child;
+                makeChildLinks(parentNodeH3Subjects[i].item, child);
+              }
+              return; //bye bye
+            }
+            if(isH2Match){
+              for (let i = 0; i < parentNodeH2Subjects.length; i++){
+                let child = childSubjects[i].child;
+                makeChildLinks(parentNodeH2Subjects[i].item, child);
+                return; //bye bye
+              }
+              if(isH4Match){
+                for (let i = 0; i < parentNodeH4Subjects.length; i++){
+                  let child = childSubjects[i].child;
+                  makeChildLinks(parentNodeH4Subjects[i].item, child);
+                }
+              }
+
+            }
+
+          }
+
+          for (let match of discoveredMatches){
+            makeChildLinks(match.parentLink, match.childLink);
+            if(match.length < childSubjects.length){ alert("LLMM added additional info that is hidden");}
+          }
+
+        }
+    </script>
+
+    <script>
+       function makeChildLinks(parent, child){
+            parent.style.cursor = "pointer";
+            parent.style.textDecoration = "underline";
+            parent.style.color = "blue";
+            parent.onclick = function(){
+              setVisibleChild(child.id);
+            }
+       }
+
+    </script>
+
+<script>window.onload = setChildSubjects;</script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

@@ -1,0 +1,146 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    <a id="markdown" href="./markdown/9669121e.md"> markdown</a>
+    <a id="previous" href="../314765aa/html/314765aa.html?responseId=9669121e">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+  </nav>
+
+  <div id="content"><h3>URL Validation Regex Pattern</h3>
+<p><strong>Regex Pattern:</strong> <code>regexhttps?://[a-z0-9.-]+/[a-z0-9-._~:/?#[\]@!REPLACEMEamp;'()*+,;=]*$</code></p>
+<p><strong>Explanation:</strong> This regex pattern is used to validate URLs. Let's break down its components and functionality:</p>
+<ul>
+<li><p><strong>Protocol:</strong> <code>https?://</code> - This part of the regex checks for the presence of either <code>http://</code> or <code>https://</code> at the beginning of the URL. The <code>?</code> after <code>s</code> makes it optional, allowing for both HTTP and HTTPS protocols.</p>
+</li>
+<li><p><strong>Domain Name:</strong> <code>[a-z0-9.-]+</code> - This segment validates the domain name of the URL. It allows for alphanumeric characters (<code>a-z0-9</code>), dots (<code>.</code>), and hyphens (<code>-</code>). The <code>+</code> indicates that at least one of these characters must be present.</p>
+</li>
+<li><p><strong>Path and Query:</strong> <code>/[a-z0-9-._~:/?#[\]@!REPLACEMEamp;'()*+,;=]*$</code> - This part checks for any path or query string following the domain name. It allows for a wide range of characters that are commonly used in URLs, such as letters, numbers, and various special characters. The <code>*</code> at the end indicates that these characters can appear zero or more times, and the <code>$</code> ensures that the pattern matches until the end of the string.</p>
+</li>
+</ul>
+<p><strong>Usage:</strong> This pattern can be used in various programming languages and tools to ensure that a given string meets the criteria for a properly formatted URL. It's particularly useful in web development for validating user input, filtering data, or ensuring that links within a website or application are correctly formatted.</p>
+<p><strong>Example Use Case:</strong> When a user submits a URL on a website, this regex can be applied to check if the input is a valid URL. If the URL passes the validation, the website can proceed to process it further, perhaps by redirecting to the URL or storing it in a database. If the URL fails the validation, the website can prompt the user to enter a correctly formatted URL.</p>
+<p>By using this regex pattern, developers can ensure that their applications handle URLs correctly, enhancing user experience and maintaining data integrity.</p>
+<p>ResponseID:9669121e</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+
+  <script>
+    function saveMarkdown() {
+      const content = document.documentElement.outerHTML; // Get the entire HTML content
+
+      let markdownLocation = "./markdown/";
+      let markdownFileName = "9669121e.md";
+      let markdownFile = markdownLocation + markdownFileName;
+      
+
+      const url = URL.createObjectURL(blob); // Create a URL for the Blob
+      const divInnerText = document.getElementById('content').innerText;
+      let filename = divInnerText.substring(0, 25);
+      const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+          a.download =  filename + '.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+      
+    }
+  </script>
+
+  <script>
+    //This function checks if the current page is a child page and genreate a link to the parent page.
+            function isChild(){
+               params = window.location.search.split('=')[1];
+               if (params == undefined) {
+                return false;
+               }
+               params = params.split("&");
+               for (let i = 0; i < params.length; i++) {
+                if (params[i].includes("child")) {
+                  console.log("found child  ");
+                  console.log(params[i].split("child=")[1]);
+                  return params[i].split("child=")[1];
+                }
+               }
+               return false;
+            }
+    
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log("responseId:",window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../html/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+  <script>
+    function loadMarkdownFile() {
+      const markdownFilePath = "./markdown/9669121e.md"; // Path to the markdown file
+      fetch(markdownFilePath)
+        .then(response => response.text())
+        .then(data => {
+          const blob = new Blob([data], { type: 'text/markdown' }); // Create a Blob from the markdown content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download = '9669121e.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        })
+        .catch(error => console.error('Error loading markdown file:', error));
+    }
+  </script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

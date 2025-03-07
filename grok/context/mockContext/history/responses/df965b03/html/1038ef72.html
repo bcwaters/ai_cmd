@@ -1,0 +1,158 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    <a id="markdown" href="./markdown/1038ef72.md"> markdown</a>
+    <a id="previous" href="../63e7632a/html/63e7632a.html?responseId=1038ef72">Previous</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+  </nav>
+
+  <div id="content"><h2>Known Festival in Late Spring: Sarasota Music Festival</h2>
+<p>The <strong>Sarasota Music Festival</strong> is a highlight of the late spring calendar in Sarasota, attracting a diverse crowd including many from the vanlife community who are drawn to its bohemian and artistic atmosphere. Here's a deeper dive into what makes this festival so special:</p>
+<h3>Event Overview</h3>
+<ul>
+<li><strong>Timing</strong>: The festival typically takes place in late spring, often around May or early June, which aligns perfectly with the time when many vanlifers are traveling through the area.</li>
+<li><strong>Duration</strong>: It spans several weeks, offering a variety of performances and workshops that cater to different musical interests and skill levels.</li>
+</ul>
+<h3>Activities and Attractions</h3>
+<ul>
+<li><strong>Performances</strong>: The festival features an array of concerts ranging from classical to contemporary music. These performances are often held in various venues around Sarasota, providing a rich cultural experience.</li>
+<li><strong>Workshops</strong>: For those interested in learning or honing their musical skills, the festival offers workshops led by professional musicians. These sessions can be particularly appealing to vanlifers who often have a creative bent and enjoy learning new skills.</li>
+<li><strong>Open Rehearsals</strong>: Attendees can also participate in or observe open rehearsals, which offer a behind-the-scenes look at the preparation that goes into the performances.</li>
+</ul>
+<h3>Community and Atmosphere</h3>
+<ul>
+<li><strong>Bohemian Vibe</strong>: The festival's relaxed and artistic atmosphere resonates strongly with the vanlife ethos. Many attendees are seen in bohemian attire, and the event often feels like a gathering of like-minded individuals.</li>
+<li><strong>Social Opportunities</strong>: The festival provides ample opportunities for socializing. Vanlifers can connect with other festival-goers, share experiences, and even camp nearby to fully immerse themselves in the event.</li>
+<li><strong>Cultural Immersion</strong>: It's not just about the music; the festival is a celebration of the arts, with local artists often showcasing their work. This adds another layer of cultural engagement for attendees.</li>
+</ul>
+<h3>Practical Tips for Vanlifers</h3>
+<ul>
+<li><strong>Parking and Camping</strong>: While the festival itself may not offer camping, vanlifers can find nearby spots to park and stay overnight. Checking local regulations and festival guidelines is crucial to ensure compliance.</li>
+<li><strong>Engagement</strong>: Joining festival-related social media groups or forums can provide insider tips on the best ways to experience the event, including where to park, what performances to see, and how to connect with other attendees.</li>
+</ul>
+<h3>Why It's a Must-Visit</h3>
+<p>The Sarasota Music Festival is more than just a series of concerts; it's a cultural event that encapsulates the spirit of Sarasota's vibrant arts scene. For vanlifers, it offers a unique opportunity to engage with the local community, enjoy high-quality music, and perhaps even participate in the artistic process. It's an event that truly embodies the bohemian and nature-loving ethos that many vanlifers cherish.</p>
+<p>ResponseID:1038ef72</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+
+  <script>
+    function saveMarkdown() {
+      const content = document.documentElement.outerHTML; // Get the entire HTML content
+
+      let markdownLocation = "./markdown/";
+      let markdownFileName = "1038ef72.md";
+      let markdownFile = markdownLocation + markdownFileName;
+      
+
+      const url = URL.createObjectURL(blob); // Create a URL for the Blob
+      const divInnerText = document.getElementById('content').innerText;
+      let filename = divInnerText.substring(0, 25);
+      const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+          a.download =  filename + '.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+      
+    }
+  </script>
+
+  <script>
+    //This function checks if the current page is a child page and genreate a link to the parent page.
+            function isChild(){
+               params = window.location.search.split('=')[1];
+               if (params == undefined) {
+                return false;
+               }
+               params = params.split("&");
+               for (let i = 0; i < params.length; i++) {
+                if (params[i].includes("child")) {
+                  console.log("found child  ");
+                  console.log(params[i].split("child=")[1]);
+                  return params[i].split("child=")[1];
+                }
+               }
+               return false;
+            }
+    
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log("responseId:",window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../html/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+  <script>
+    function loadMarkdownFile() {
+      const markdownFilePath = "./markdown/1038ef72.md"; // Path to the markdown file
+      fetch(markdownFilePath)
+        .then(response => response.text())
+        .then(data => {
+          const blob = new Blob([data], { type: 'text/markdown' }); // Create a Blob from the markdown content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download = '1038ef72.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        })
+        .catch(error => console.error('Error loading markdown file:', error));
+    }
+  </script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

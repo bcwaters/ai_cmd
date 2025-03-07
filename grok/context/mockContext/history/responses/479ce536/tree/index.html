@@ -1,0 +1,367 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Home Page</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    <a id="parentContentLink" href='javascript:goHomePage()'>Home</a>
+    <select id="childSubjects">
+      <option value="home">Home</option>
+      <!-- Children are added here onload with setChildSubjects -->
+    </select>
+    <!-- Add a previous and next button for prior requests? -->
+    <!-- Add a button to save the current page as a markdown file -->
+  </nav>
+
+  <div id="content">  
+    <div id="parentContent">
+        <h2>Terminal Mode -- Tree Mode</h2>
+<p>Hi! I'm doing well, thank you. How can I assist you today in terminal or tree mode?</p>
+
+    </div>
+    <div id="childDivs">
+      <div title="TerminalMode" id="childContent1" onclick="setVisibileChild('childContent1')" hidden=true><h1>TerminalMode: A Detailed Overview</h1>
+<p>TerminalMode is a feature designed to enhance user interaction and productivity within a command-line interface (CLI) environment. Below is an expanded explanation of TerminalMode, focusing on aspects already introduced:</p>
+<h3>Purpose of TerminalMode</h3>
+<p><strong>Efficient Command Execution:</strong> 
+TerminalMode is optimized for quick and efficient command execution. Users can enter commands directly, and the mode is designed to minimize latency, ensuring commands are processed as swiftly as possible.</p>
+<p><strong>Scripting and Automation:</strong>
+One of the key strengths of TerminalMode is its support for scripting. Users can write scripts to automate repetitive tasks, which can significantly boost productivity. The mode supports various scripting languages, allowing for flexible automation solutions.</p>
+<h3>Components of TerminalMode</h3>
+<p><strong>Command Line Interface (CLI):</strong>
+The CLI is the primary interface in TerminalMode. It provides a text-based input method where users can type commands to interact with the system. The interface is designed to be minimalistic, focusing on functionality over aesthetics.</p>
+<p><strong>Command History and Auto-Completion:</strong>
+TerminalMode includes features like command history, where users can recall previously entered commands, and auto-completion, which suggests commands as the user types, enhancing the speed and accuracy of command entry.</p>
+<h3>Impact on Interaction</h3>
+<p><strong>Enhanced Productivity:</strong>
+By allowing users to execute commands quickly and automate tasks, TerminalMode significantly enhances productivity. Users can accomplish more in less time compared to using graphical interfaces for similar tasks.</p>
+<p><strong>Flexibility and Control:</strong>
+TerminalMode offers users a high degree of control over system operations. The ability to directly manipulate system settings and execute complex commands provides a level of flexibility that is often not available in graphical interfaces.</p>
+<h3>Example of TerminalMode in Use</h3>
+<p>Imagine you are managing a server:</p>
+<ul>
+<li><strong>Command Execution:</strong> You can quickly type <code>sudo apt-get update</code> to update the package lists on your Debian-based system.</li>
+<li><strong>Scripting:</strong> You might write a script to automate the backup of critical data, running it daily without manual intervention.</li>
+</ul>
+<p>By using TerminalMode, users can efficiently manage and interact with systems, making it an invaluable tool for tasks that require direct system control and automation.</p>
+<p>ResponseID:4b120e2d</p>
+</div><div title="TreeMode" id="childContent2" onclick="setVisibileChild('childContent2')" hidden=true><h1>TreeMode</h1>
+<p>TreeMode is a feature designed to enhance the user experience by providing a visual representation of data in a hierarchical structure. Here's a more detailed breakdown of TreeMode:</p>
+<h3>Purpose of TreeMode</h3>
+<ul>
+<li><strong>Enhanced Visualization</strong>: TreeMode allows users to see data in a tree-like format, which can be particularly useful for understanding relationships and hierarchies within the data.</li>
+<li><strong>Navigation</strong>: It facilitates easier navigation through complex data sets by allowing users to expand and collapse branches of the tree, making it simpler to focus on relevant sections.</li>
+</ul>
+<h3>Components of TreeMode</h3>
+<ul>
+<li><strong>Nodes and Branches</strong>: Each piece of data is represented as a node, and the relationships between them are shown as branches. This structure helps in visualizing parent-child relationships.</li>
+<li><strong>Interactive Elements</strong>: Users can interact with the tree by clicking on nodes to expand or collapse them, which helps in managing the visibility of the data according to user needs.</li>
+</ul>
+<h3>Impact on Interaction</h3>
+<ul>
+<li><strong>Improved Understanding</strong>: By presenting data in a tree structure, users can better grasp the overall structure and organization of the data, which can lead to more informed decision-making.</li>
+<li><strong>Efficiency</strong>: TreeMode can significantly reduce the time needed to find specific pieces of information within large data sets, as users can quickly navigate through the tree.</li>
+</ul>
+<h3>Example of TreeMode in Use</h3>
+<p>Imagine you are working with a file system or a project structure:</p>
+<ul>
+<li><strong>Root Node</strong>: Represents the main directory or project.</li>
+<li><strong>Child Nodes</strong>: These could be sub-directories or files within the project.</li>
+<li><strong>User Interaction</strong>: You can click on the root node to see all child nodes, and further click on any child node to explore deeper levels.</li>
+</ul>
+<p>By using TreeMode, users can efficiently manage and understand complex data structures, making it an invaluable tool for tasks that involve hierarchical data.</p>
+<p>ResponseID:1fc1a502</p>
+</div><div title="Greeting" id="childContent3" onclick="setVisibileChild('childContent3')" hidden=true><h1>Greeting</h1>
+<p>In the context of our conversation, the greeting serves as the initial point of contact and sets the tone for the interaction. Here's a more detailed breakdown of the greeting and its significance:</p>
+<h3>Purpose of the Greeting</h3>
+<ul>
+<li><strong>Engagement</strong>: The greeting is designed to engage you immediately, making you feel welcomed and ready to proceed with any queries or issues you might have. It's an essential part of creating a positive user experience.</li>
+<li><strong>Contextual Help</strong>: By starting with a greeting, it allows for a smooth transition into asking how you can be assisted, thereby setting up the context for your subsequent requests. This helps in tailoring the assistance to your specific needs right from the start.</li>
+</ul>
+<h3>Components of the Greeting</h3>
+<ul>
+<li><strong>Friendly Tone</strong>: The greeting typically uses a friendly and approachable tone to ensure you feel comfortable and supported.</li>
+<li><strong>Open-Ended Question</strong>: Following the greeting, an open-ended question such as "How can I assist you today?" encourages you to express your needs freely, whether they relate to technical help, conceptual clarification, or guidance on using specific tools.</li>
+</ul>
+<h3>Impact on the Interaction</h3>
+<ul>
+<li><strong>Establishing Trust</strong>: A warm greeting helps in building trust, which is crucial for users to feel confident in seeking assistance.</li>
+<li><strong>Setting Expectations</strong>: It sets the stage for what you can expect from the interaction, whether it's detailed technical support or a more exploratory conversation about different topics.</li>
+</ul>
+<h3>Example of a Greeting in Our Context</h3>
+<ul>
+<li><strong>Initial Greeting</strong>: "Hello! How can I assist you today?"</li>
+<li><strong>Follow-Up</strong>: Depending on your response, the conversation could move into discussing terminal mode, tree mode, or any other specific topic you're interested in.</li>
+</ul>
+<p>By understanding the role of the greeting in our interaction, we ensure that the assistance provided is not only relevant but also delivered in a manner that aligns with your expectations and needs.</p>
+<p>ResponseID:22b4c593</p>
+</div><div title="Assistance" id="childContent4" onclick="setVisibileChild('childContent4')" hidden=true><h1>Assistance</h1>
+<p>When you requested assistance, it was in the context of choosing between Terminal Mode and Tree Mode for our interaction. Here's a more detailed breakdown of the assistance provided:</p>
+<ul>
+<li><p><strong>Modes of Interaction</strong>: You were offered a choice between Terminal Mode and Tree Mode. Terminal Mode is suited for command-line style interactions, which can be useful for users familiar with terminal environments. Tree Mode, on the other hand, might provide a more visual representation of information, which can be helpful for understanding hierarchical data or structures.</p>
+</li>
+<li><p><strong>Contextual Help</strong>: The assistance was tailored to your greeting and immediate needs. By asking how you can be assisted, it set the stage for you to specify your requirements, whether it be technical help, clarification on concepts, or guidance on using specific tools or modes.</p>
+</li>
+<li><p><strong>Engagement</strong>: The initial greeting and prompt for assistance were designed to engage you in a conversation, ensuring that you feel supported and ready to delve into any topic or issue you might have. This engagement is crucial for providing relevant and timely assistance.</p>
+</li>
+<li><p><strong>Flexibility</strong>: The offer of assistance was open-ended, allowing for a wide range of potential topics. Whether you needed help with Git commands, understanding Node.js module systems, or using curl for web requests, the initial assistance query was designed to be adaptable to your needs.</p>
+</li>
+</ul>
+<p>This detailed assistance approach ensures that you, as the user, have a clear understanding of the support available and can easily navigate to the specific help you require.</p>
+<p>ResponseID:dc9adde2</p>
+</div>
+    </div>
+  </div>
+
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+
+    <script>
+      function setChildSubjects(){
+        let dropDownOptions = [];
+        let childSubjects = document.getElementById('childDivs');
+        for (let child of childSubjects.children){
+           let subject = child.title;
+           let optionValue = child.id;
+
+           dropDownOptions.push({subject: subject, value: optionValue});
+        
+        }
+
+        for (let option of dropDownOptions){
+          let optionElement = document.createElement('option');
+          optionElement.value = option.value;
+          optionElement.text = option.subject;
+          document.getElementById('childSubjects').appendChild(optionElement);
+        }
+
+        document.getElementById('childSubjects').addEventListener('change', function() {
+          if(this.value == "home"){
+            goHomePage();
+          }else{
+            setVisibleChild(this.value);
+          }
+
+          }
+        );
+      }
+    </script>
+
+
+    <script>
+      function setVisibleChild(id){
+        //quick flicker home to reset state, this allows hoping between child views
+     
+    
+           let topNode = document.getElementById('content');
+           let parentNode = document.getElementById('parentContent');
+           let childVisibleNode = document.getElementById(id);
+           let childDivs = document.getElementById('childDivs');
+           for (let child of childDivs.children){
+            if(child.id != id){
+              child.hidden = true;
+            }else{
+              child.hidden = false; //redudant
+            }
+           }
+           parentNode.hidden = true;
+           childVisibleNode.hidden = false;
+         }
+      
+    </script>
+
+    <script>
+      function goHomePage(){
+         let topNode = document.getElementById('content');
+         let parentNode = document.getElementById('parentContent');
+         let children = document.getElementById('childDivs');
+         for (let child of children.children){
+            child.hidden = true;
+         }
+         parentNode.hidden = false;
+      }
+    </script>
+
+    <script>
+      function setChildLinks(){
+        let children = document.getElementById('childDivs'); 
+        let childSubjects = [];
+        let discoveredMatches = [];
+
+        
+        for (let child of children.children){
+          let subject = child.title;
+          childSubjects.push({subject: subject, child: child});
+          }
+             
+          let parentNodeH2Subjects = []
+          let parentNodeH3Subjects = []
+          let parentNodeH4Subjects = []
+          let parentNode = document.getElementById('parentContent');
+          let H2s = parentNode.getElementsByTagName("H2");
+          let H3s = parentNode.getElementsByTagName("H3");
+          let H4s = parentNode.getElementsByTagName("H4");
+          let isH2Match = false;
+          let isH3Match = false;
+          let isH4Match = false;
+
+          H2s.length > 0? parentNodeH2Subjects = H2s.map(item => ({subject: item.innerText, item: item})):isH2Match = false;
+          H3s.length > 0?parentNodeH3Subjects = H3s.map(item => ({subject: item.innerText, item: item})):isH3Match = false;
+          H4s.length > 0?parentNodeH4Subjects = H4s.map(item => ({subject: item.innerText, item: item})):isH4Match = false;
+
+          
+           isH3Match = H3s.length == childSubjects.length;
+           isH2Match = H2s.length == childSubjects.length;
+           isH4Match = H4s.length == childSubjects.length;
+          let allDiscovered = false;
+
+          if (isH3Match){
+            //We have a match.  We need to find the H2s
+            allDiscovered = true;
+          }
+          if (isH2Match){
+            //We have a match.  We need to find the H3s
+            allDiscovered = true;
+          }
+          if (isH4Match){
+            //We have a match.  We need to find the H2s
+            allDiscovered = true;
+          }
+
+          if(allDiscovered && (isH3Match + isH2Match + isH4Match) > 1){
+            //wierd.  ok we work from scratch.
+            allDiscovered = false;
+          }
+
+          if(!allDiscovered){
+
+            let fluffWords = ["a", "an", "the", "and", "but", "or", "for", "nor", "on", "at", "to", "from", "by", "with", "of"];
+            let fluffWordsRegex = new RegExp(fluffWords.join("|"), "g");
+          
+          //OK time to stumble through unpredictable llm output
+          //First check if the child subjects are in the parent node h2 subjects
+          let isH2 = false;
+          let isH3 = false;
+          let isH4 = false;
+      
+          //This can be optimized later.  Probably doesnt matter since it is client side with modern computing.
+          for (let i = 0; i < parentNodeH2Subjects.length; i++){
+            let subject = parentNodeH2Subjects[i].subject;
+            for (let j = 0; j < childSubjects.length; j++){
+              let childSubject = childSubjects[j].subject;
+              if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                isH2 = true;
+                discoveredMatches.push({parentLink: parentNodeH2Subjects[i].item, childLink: childSubjects[j].child});
+              }
+            }
+
+          }
+         
+          if(!isH2){
+            for (let i = 0; i < parentNodeH3Subjects.length; i++){
+              let subject = parentNodeH3Subjects[i].subject;
+              for (let j = 0; j < childSubjects.length; j++){
+                let childSubject = childSubjects[j].subject;  
+                if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                  isH3 = true;
+                  discoveredMatches.push({parentLink: parentNodeH3Subjects[i].item, childLink: childSubjects[j].child});
+                }
+              }
+            }
+          }
+
+          if(!isH3){
+            for (let i = 0; i < parentNodeH4Subjects.length; i++){
+              let subject = parentNodeH4Subjects[i].subject;
+              for (let j = 0; j < childSubjects.length; j++){
+                let childSubject = childSubjects[j].subject;
+                if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                  isH4 = true;
+                  discoveredMatches.push({parentLink: parentNodeH4Subjects[i].item, childLink: childSubjects[j].child});
+                }
+              }
+            }
+          }
+
+          if(!isH4){
+              //I suppose there are edge cases but this surely covers 99.9% of the cases.
+          }
+
+          }else{
+            if(isH3Match){
+              for (let i = 0; i < parentNodeH3Subjects.length; i++){
+                let child = childSubjects[i].child;
+                makeChildLinks(parentNodeH3Subjects[i].item, child);
+              }
+              return; //bye bye
+            }
+            if(isH2Match){
+              for (let i = 0; i < parentNodeH2Subjects.length; i++){
+                let child = childSubjects[i].child;
+                makeChildLinks(parentNodeH2Subjects[i].item, child);
+                return; //bye bye
+              }
+              if(isH4Match){
+                for (let i = 0; i < parentNodeH4Subjects.length; i++){
+                  let child = childSubjects[i].child;
+                  makeChildLinks(parentNodeH4Subjects[i].item, child);
+                }
+              }
+
+            }
+
+          }
+
+          for (let match of discoveredMatches){
+            makeChildLinks(match.parentLink, match.childLink);
+            if(match.length < childSubjects.length){ alert("LLMM added additional info that is hidden");}
+          }
+
+        }
+    </script>
+
+    <script>
+       function makeChildLinks(parent, child){
+            parent.style.cursor = "pointer";
+            parent.style.textDecoration = "underline";
+            parent.style.color = "blue";
+            parent.onclick = function(){
+              setVisibleChild(child.id);
+            }
+       }
+
+    </script>
+
+<script>window.onload = setChildSubjects;</script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

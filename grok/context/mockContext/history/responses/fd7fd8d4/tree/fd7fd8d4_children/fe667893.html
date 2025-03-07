@@ -1,0 +1,147 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Grok Response - CHILD of fd7fd8d4</title>
+</head>
+<body>
+  <nav>
+    <button id="saveButton" onclick="saveButton()">Save html</button>
+    <a id="markdown" href="../../markdown/fe667893.md"> markdown</a>
+    <a id="previous" href="../06c65354.html?responseId=fe667893">Previous</a>
+    <a id="Parent" href="../fd7fd8d4.html?responseId=fe667893">Parent</a>
+    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+  </nav>
+
+  <div id="content"><h1>Mars: The Red Planet</h1>
+<p>Mars, often referred to as the "Red Planet" due to its reddish appearance caused by iron oxide (rust) on its surface, is the fourth planet from the Sun and the second smallest planet in our solar system. It has a thin atmosphere composed mostly of carbon dioxide, with traces of nitrogen and argon. Mars has been a focal point of space exploration due to its potential to harbor life in the past and its similarity to Earth in some geological aspects.</p>
+<h3>Key Features of Mars:</h3>
+<ul>
+<li><strong>Olympus Mons</strong>: The largest volcano and the highest known mountain in the solar system.</li>
+<li><strong>Valles Marineris</strong>: A vast canyon system that stretches over 4,000 km long, 200 km wide and up to 7 km deep.</li>
+<li><strong>Polar Ice Caps</strong>: Composed of water ice and dry ice (frozen carbon dioxide), they change with the Martian seasons.</li>
+<li><strong>Moons</strong>: Mars has two small moons, Phobos and Deimos, which are thought to be captured asteroids.</li>
+</ul>
+<h3>Exploration:</h3>
+<p>Mars has been explored by numerous missions, including orbiters, landers, and rovers. Notable among these are the Viking program in the 1970s, the Mars Pathfinder in 1997, and more recent missions like the Mars Science Laboratory's Curiosity rover and the Perseverance rover, which are searching for signs of past microbial life.</p>
+<h3>Future Plans:</h3>
+<p>NASA, along with other space agencies like the European Space Agency (ESA) and private companies such as SpaceX, are planning manned missions to Mars in the coming decades. These missions aim to study Mars in greater detail and potentially establish human settlements.</p>
+<p>Would you like to know more about the geological features of Mars? Or perhaps about the ongoing and future missions to explore the planet? How about the potential for life on Mars?</p>
+<p>ResponseID:fe667893</p>
+</div>
+
+
+  <script>
+    function selectSavedChat() {
+      console.log("selectSavedChat");
+    }
+  </script>
+
+  <script>
+    function saveMarkdown() {
+      const content = document.documentElement.outerHTML; // Get the entire HTML content
+
+      let markdownLocation = "./markdown/";
+      let markdownFileName = "fe667893.md";
+      let markdownFile = markdownLocation + markdownFileName;
+      
+
+      const url = URL.createObjectURL(blob); // Create a URL for the Blob
+      const divInnerText = document.getElementById('content').innerText;
+      let filename = divInnerText.substring(0, 25);
+      const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+          a.download =  filename + '.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+      
+    }
+  </script>
+
+  <script>
+    //This function checks if the current page is a child page and genreate a link to the parent page.
+            function isChild(){
+               params = window.location.search.split('=')[1];
+               if (params == undefined) {
+                return false;
+               }
+               params = params.split("&");
+               for (let i = 0; i < params.length; i++) {
+                if (params[i].includes("child")) {
+                  console.log("found child  ");
+                  console.log(params[i].split("child=")[1]);
+                  return params[i].split("child=")[1];
+                }
+               }
+               return false;
+            }
+    
+  </script>
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+    <script>
+
+      const responseId = window.location.search.split('=')[1];
+      console.log("responseId:",window.location.search);
+      //document.getElementById('previous').href = "../responses/" + responseId + ".html";
+    
+      if (responseId == undefined) {
+        document.getElementById('next').hidden=true;
+      } else {
+        document.getElementById('next').href = "../html/" + responseId + ".html";
+      }
+    </script>
+
+   </script>
+
+  <script>
+    function loadMarkdownFile() {
+      const markdownFilePath = "./markdown/fe667893.md"; // Path to the markdown file
+      fetch(markdownFilePath)
+        .then(response => response.text())
+        .then(data => {
+          const blob = new Blob([data], { type: 'text/markdown' }); // Create a Blob from the markdown content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          a.download = 'fe667893.md'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        })
+        .catch(error => console.error('Error loading markdown file:', error));
+    }
+  </script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

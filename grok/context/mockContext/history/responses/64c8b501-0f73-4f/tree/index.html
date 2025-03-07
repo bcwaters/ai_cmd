@@ -1,0 +1,424 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Home Page</title>
+  <style>
+    pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
+  Theme: StackOverflow Light
+  Description: Light theme as used on stackoverflow.com
+  Author: stackoverflow.com
+  Maintainer: @Hirse
+  Website: https://github.com/StackExchange/Stacks
+  License: MIT
+  Updated: 2021-05-15
+
+  Updated for @stackoverflow/stacks v0.64.0
+  Code Blocks: /blob/v0.64.0/lib/css/components/_stacks-code-blocks.less
+  Colors: /blob/v0.64.0/lib/css/exports/_stacks-constants-colors.less
+*/.hljs{color:#2f3337;background:#f6f6f6}.hljs-subst{color:#2f3337}.hljs-comment{color:#656e77}.hljs-attr,.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-section,.hljs-selector-tag{color:#015692}.hljs-attribute{color:#803378}.hljs-name,.hljs-number,.hljs-quote,.hljs-selector-id,.hljs-template-tag,.hljs-type{color:#b75501}.hljs-selector-class{color:#015692}.hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-string,.hljs-symbol,.hljs-template-variable,.hljs-variable{color:#54790d}.hljs-meta,.hljs-selector-pseudo{color:#015692}.hljs-built_in,.hljs-literal,.hljs-title{color:#b75501}.hljs-bullet,.hljs-code{color:#535a60}.hljs-meta .hljs-string{color:#54790d}.hljs-deletion{color:#c02d2e}.hljs-addition{color:#2f6f44}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: left;
+      padding: 10px;
+    }
+    
+    .nav-right {
+      display: flex;
+      gap: 50px;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a id="parentContentLink" href='/?context=64c8b501-0f73-4f'>Prompt again</a>
+
+      <select id="childSubjects">
+        <option value="home">Home</option>
+        <!-- Children are added here onload with setChildSubjects -->
+      </select>
+      <!-- Add a previous and next button for prior requests? -->
+      <!-- Add a button to save the current page as a markdown file -->
+
+      
+      <button id="saveButton" onclick="saveButton()">Save html</button>
+
+
+  </nav>
+
+  <div id="content">  
+    <div id="parentContent">
+        <p>Here are two common mathematical equations:</p>
+<ol>
+<li><p><strong>Quadratic Equation:</strong>
+[
+ax^2 + bx + c = 0
+]
+This equation is used to solve for (x) where (a), (b), and (c) are constants, and (a 
+eq 0).</p>
+</li>
+<li><p><strong>Pythagorean Theorem:</strong>
+[
+a^2 + b^2 = c^2
+]
+This equation is used in geometry to find the length of the hypotenuse (c) of a right triangle, where (a) and (b) are the lengths of the other two sides.</p>
+</li>
+</ol>
+<p>Would you like to know more about these equations or are there other specific equations you're interested in?</p>
+
+    </div>
+    <div id="childDivs">
+      <div title="Quadratic Equation" id="childContent1" onclick="setVisibileChild('childContent1')" hidden=true><h1>Quadratic Equation</h1>
+<p>The quadratic equation is a fundamental concept in algebra, represented in its standard form as:</p>
+<p>[
+ax^2 + bx + c = 0
+]</p>
+<p>where:</p>
+<ul>
+<li>(a), (b), and (c) are coefficients, with (a 
+eq 0).</li>
+<li>(x) is the variable we aim to solve for.</li>
+</ul>
+<h3>Key Aspects of the Quadratic Equation:</h3>
+<h4><strong>Nature of the Equation:</strong></h4>
+<p>The quadratic equation is a second-degree polynomial equation, meaning the highest power of (x) is 2. This results in a parabolic curve when graphed, which can either open upwards (if (a &gt; 0)) or downwards (if (a &lt; 0)).</p>
+<h4><strong>Solving the Equation:</strong></h4>
+<p>There are several methods to solve a quadratic equation, each with its own advantages depending on the nature of the coefficients and the specific problem at hand:</p>
+<ol>
+<li><p><strong>Factoring:</strong>
+If the quadratic can be factored into the form ((px + q)(rx + s) = 0), then (x) can be found by setting each factor equal to zero. This method is straightforward but not always possible.</p>
+</li>
+<li><p><strong>Quadratic Formula:</strong>
+The most universal method to solve a quadratic equation is using the quadratic formula:
+[
+x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+]
+Here, the term under the square root, (b^2 - 4ac), is known as the discriminant ((\Delta)). The value of the discriminant determines the nature of the roots:</p>
+<ul>
+<li>If (\Delta &gt; 0), there are two distinct real roots.</li>
+<li>If (\Delta = 0), there is exactly one real root (a repeated root).</li>
+<li>If (\Delta &lt; 0), there are two complex roots.</li>
+</ul>
+</li>
+<li><p><strong>Completing the Square:</strong>
+This method involves transforming the quadratic equation into a perfect square trinomial. It's particularly useful when the quadratic formula isn't immediately applicable or for understanding the geometric interpretation of the quadratic equation.</p>
+</li>
+</ol>
+<h4><strong>Applications:</strong></h4>
+<p>Quadratic equations are widely used in various fields:</p>
+<ul>
+<li><strong>Physics:</strong> To describe the motion of objects under the influence of gravity (e.g., projectile motion).</li>
+<li><strong>Economics:</strong> In models that involve optimization, such as profit maximization or cost minimization.</li>
+<li><strong>Engineering:</strong> For designing structures or analyzing systems where variables interact quadratically.</li>
+</ul>
+<h4><strong>Graphical Representation:</strong></h4>
+<p>When plotted on a graph, a quadratic equation forms a parabola. The vertex of the parabola represents the maximum or minimum value of the function, depending on the direction the parabola opens. The (x)-intercepts (if they exist) are the solutions to the equation (ax^2 + bx + c = 0).</p>
+<h4><strong>Real-World Example:</strong></h4>
+<p>Consider a scenario where a ball is thrown upwards. The height (h) of the ball at time (t) can be modeled by a quadratic equation:
+[
+h = -16t^2 + vt + h_0
+]
+where (v) is the initial velocity, (h_0) is the initial height, and (-16) is the acceleration due to gravity in feet per second squared. Solving this equation helps determine when and where the ball will hit the ground or reach its maximum height.</p>
+<p>ResponseID:0faaacc7-e50d-41</p>
+</div><div title="Pythagorean Theorem
+
+Followup questions
+- Do you need help solving a specific type of equation?
+- A" id="childContent2" onclick="setVisibileChild('childContent2')" hidden=true><h1>Pythagorean Theorem: Detailed Explanation</h1>
+<h2>The Formula</h2>
+<p>The Pythagorean Theorem is represented by the equation:
+[ a^2 + b^2 = c^2 ]
+where (a) and (b) are the lengths of the two legs of a right triangle, and (c) is the length of the hypotenuse, the side opposite the right angle.</p>
+<h2>Historical Context</h2>
+<p>The theorem is named after the ancient Greek mathematician Pythagoras, though it was known to the Babylonians 1000 years earlier. It is one of the fundamental theorems in geometry.</p>
+<h2>Proofs</h2>
+<p>There are over 300 known proofs of the Pythagorean Theorem. One of the simplest is the geometric proof using similar triangles:</p>
+<ul>
+<li>Consider a right triangle with legs (a) and (b), and hypotenuse (c).</li>
+<li>Draw a perpendicular from the right angle to the hypotenuse, dividing the original triangle into two smaller right triangles.</li>
+<li>Each of these smaller triangles is similar to the original triangle.</li>
+<li>Using the properties of similar triangles, the relationship (a^2 + b^2 = c^2) can be derived.</li>
+</ul>
+<h2>Applications</h2>
+<p>The Pythagorean Theorem is widely used in various fields:</p>
+<ul>
+<li><strong>Architecture and Construction:</strong> To ensure that corners are square.</li>
+<li><strong>Navigation:</strong> For calculating distances in two-dimensional space.</li>
+<li><strong>Engineering:</strong> In the design of structures and machinery.</li>
+<li><strong>Computer Graphics:</strong> For rendering and calculating distances in 3D spaces.</li>
+</ul>
+<h2>Solving for Sides</h2>
+<p>To find the length of any side of a right triangle when the lengths of the other two sides are known:</p>
+<ul>
+<li>If (a) and (b) are known, (c) can be calculated using (c = \sqrt{a^2 + b^2}).</li>
+<li>If (a) and (c) are known, (b) can be calculated using (b = \sqrt{c^2 - a^2}).</li>
+<li>If (b) and (c) are known, (a) can be calculated using (a = \sqrt{c^2 - b^2}).</li>
+</ul>
+<h2>Generalizations</h2>
+<p>The Pythagorean Theorem has been generalized to higher dimensions and other geometries:</p>
+<ul>
+<li><strong>Three-Dimensional Space:</strong> The Pythagorean Theorem extends to three dimensions as (a^2 + b^2 + c^2 = d^2), where (d) is the diagonal of a rectangular box.</li>
+<li><strong>Non-Euclidean Geometry:</strong> In hyperbolic and spherical geometries, the theorem takes different forms.</li>
+</ul>
+<h2>Follow-Up Questions</h2>
+<ul>
+<li><strong>Do you need help solving a specific type of equation?</strong> If so, please provide the details of the equation you're working with.</li>
+<li><strong>A</strong> (It seems like your question was cut off. Please complete your question if you have another specific inquiry.)</li>
+</ul>
+<p>ResponseID:3ea6ae95-5752-4a</p>
+</div>
+    </div>
+  </div>
+
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+
+    <script>
+      function setChildSubjects(){
+        let dropDownOptions = [];
+        let childSubjects = document.getElementById('childDivs');
+        for (let child of childSubjects.children){
+           let subject = child.title;
+           let optionValue = child.id;
+
+           dropDownOptions.push({subject: subject, value: optionValue});
+        
+        }
+
+        for (let option of dropDownOptions){
+          let optionElement = document.createElement('option');
+          optionElement.value = option.value;
+          optionElement.text = option.subject;
+          document.getElementById('childSubjects').appendChild(optionElement);
+        }
+
+        document.getElementById('childSubjects').addEventListener('change', function() {
+          if(this.value == "home"){
+            goHomePage();
+          }else{
+            setVisibleChild(this.value);
+          }
+
+          }
+        );
+      }
+    </script>
+
+
+    <script>
+      function setVisibleChild(id){
+        //quick flicker home to reset state, this allows hoping between child views
+     
+    
+           let topNode = document.getElementById('content');
+           let parentNode = document.getElementById('parentContent');
+           let childVisibleNode = document.getElementById(id);
+           let childDivs = document.getElementById('childDivs');
+           for (let child of childDivs.children){
+            if(child.id != id){
+              child.hidden = true;
+            }else{
+              child.hidden = false; //redudant
+            }
+           }
+           parentNode.hidden = true;
+           childVisibleNode.hidden = false;
+         }
+      
+    </script>
+
+    <script>
+      function goHomePage(){
+         let topNode = document.getElementById('content');
+         let parentNode = document.getElementById('parentContent');
+         let children = document.getElementById('childDivs');
+         for (let child of children.children){
+            child.hidden = true;
+         }
+         parentNode.hidden = false;
+      }
+    </script>
+
+    <script>
+      function setChildLinks(){
+        let children = document.getElementById('childDivs'); 
+        let childSubjects = [];
+        let discoveredMatches = [];
+
+        
+        for (let child of children.children){
+          let subject = child.title;
+          childSubjects.push({subject: subject, child: child});
+          }
+             
+          let parentNodeH2Subjects = []
+          let parentNodeH3Subjects = []
+          let parentNodeH4Subjects = []
+          let parentNode = document.getElementById('parentContent');
+          let H2s = parentNode.getElementsByTagName("H2");
+          let H3s = parentNode.getElementsByTagName("H3");
+          let H4s = parentNode.getElementsByTagName("H4");
+          let isH2Match = false;
+          let isH3Match = false;
+          let isH4Match = false;
+
+          H2s.length > 0? parentNodeH2Subjects = H2s.map(item => ({subject: item.innerText, item: item})):isH2Match = false;
+          H3s.length > 0?parentNodeH3Subjects = H3s.map(item => ({subject: item.innerText, item: item})):isH3Match = false;
+          H4s.length > 0?parentNodeH4Subjects = H4s.map(item => ({subject: item.innerText, item: item})):isH4Match = false;
+
+          
+           isH3Match = H3s.length == childSubjects.length;
+           isH2Match = H2s.length == childSubjects.length;
+           isH4Match = H4s.length == childSubjects.length;
+          let allDiscovered = false;
+
+          if (isH3Match){
+            //We have a match.  We need to find the H2s
+            allDiscovered = true;
+          }
+          if (isH2Match){
+            //We have a match.  We need to find the H3s
+            allDiscovered = true;
+          }
+          if (isH4Match){
+            //We have a match.  We need to find the H2s
+            allDiscovered = true;
+          }
+
+          if(allDiscovered && (isH3Match + isH2Match + isH4Match) > 1){
+            //wierd.  ok we work from scratch.
+            allDiscovered = false;
+          }
+
+          if(!allDiscovered){
+
+            let fluffWords = ["a", "an", "the", "and", "but", "or", "for", "nor", "on", "at", "to", "from", "by", "with", "of"];
+            let fluffWordsRegex = new RegExp(fluffWords.join("|"), "g");
+          
+          //OK time to stumble through unpredictable llm output
+          //First check if the child subjects are in the parent node h2 subjects
+          let isH2 = false;
+          let isH3 = false;
+          let isH4 = false;
+      
+          //This can be optimized later.  Probably doesnt matter since it is client side with modern computing.
+          for (let i = 0; i < parentNodeH2Subjects.length; i++){
+            let subject = parentNodeH2Subjects[i].subject;
+            for (let j = 0; j < childSubjects.length; j++){
+              let childSubject = childSubjects[j].subject;
+              if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                isH2 = true;
+                discoveredMatches.push({parentLink: parentNodeH2Subjects[i].item, childLink: childSubjects[j].child});
+              }
+            }
+
+          }
+         
+          if(!isH2){
+            for (let i = 0; i < parentNodeH3Subjects.length; i++){
+              let subject = parentNodeH3Subjects[i].subject;
+              for (let j = 0; j < childSubjects.length; j++){
+                let childSubject = childSubjects[j].subject;  
+                if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                  isH3 = true;
+                  discoveredMatches.push({parentLink: parentNodeH3Subjects[i].item, childLink: childSubjects[j].child});
+                }
+              }
+            }
+          }
+
+          if(!isH3){
+            for (let i = 0; i < parentNodeH4Subjects.length; i++){
+              let subject = parentNodeH4Subjects[i].subject;
+              for (let j = 0; j < childSubjects.length; j++){
+                let childSubject = childSubjects[j].subject;
+                if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                  isH4 = true;
+                  discoveredMatches.push({parentLink: parentNodeH4Subjects[i].item, childLink: childSubjects[j].child});
+                }
+              }
+            }
+          }
+
+          if(!isH4){
+              //I suppose there are edge cases but this surely covers 99.9% of the cases.
+          }
+
+          }else{
+            if(isH3Match){
+              for (let i = 0; i < parentNodeH3Subjects.length; i++){
+                let child = childSubjects[i].child;
+                makeChildLinks(parentNodeH3Subjects[i].item, child);
+              }
+              return; //bye bye
+            }
+            if(isH2Match){
+              for (let i = 0; i < parentNodeH2Subjects.length; i++){
+                let child = childSubjects[i].child;
+                makeChildLinks(parentNodeH2Subjects[i].item, child);
+                return; //bye bye
+              }
+              if(isH4Match){
+                for (let i = 0; i < parentNodeH4Subjects.length; i++){
+                  let child = childSubjects[i].child;
+                  makeChildLinks(parentNodeH4Subjects[i].item, child);
+                }
+              }
+
+            }
+
+          }
+
+          for (let match of discoveredMatches){
+            makeChildLinks(match.parentLink, match.childLink);
+            if(match.length < childSubjects.length){ alert("LLMM added additional info that is hidden");}
+          }
+
+        }
+    </script>
+
+    <script>
+       function makeChildLinks(parent, child){
+            parent.style.cursor = "pointer";
+            parent.style.textDecoration = "underline";
+            parent.style.color = "blue";
+            parent.onclick = function(){
+              setVisibleChild(child.id);
+            }
+       }
+
+    </script>
+
+<script>window.onload = setChildSubjects;</script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

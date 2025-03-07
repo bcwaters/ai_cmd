@@ -1,0 +1,422 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Home Page</title>
+  <style>
+    pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
+  Theme: StackOverflow Light
+  Description: Light theme as used on stackoverflow.com
+  Author: stackoverflow.com
+  Maintainer: @Hirse
+  Website: https://github.com/StackExchange/Stacks
+  License: MIT
+  Updated: 2021-05-15
+
+  Updated for @stackoverflow/stacks v0.64.0
+  Code Blocks: /blob/v0.64.0/lib/css/components/_stacks-code-blocks.less
+  Colors: /blob/v0.64.0/lib/css/exports/_stacks-constants-colors.less
+*/.hljs{color:#2f3337;background:#f6f6f6}.hljs-subst{color:#2f3337}.hljs-comment{color:#656e77}.hljs-attr,.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-section,.hljs-selector-tag{color:#015692}.hljs-attribute{color:#803378}.hljs-name,.hljs-number,.hljs-quote,.hljs-selector-id,.hljs-template-tag,.hljs-type{color:#b75501}.hljs-selector-class{color:#015692}.hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-string,.hljs-symbol,.hljs-template-variable,.hljs-variable{color:#54790d}.hljs-meta,.hljs-selector-pseudo{color:#015692}.hljs-built_in,.hljs-literal,.hljs-title{color:#b75501}.hljs-bullet,.hljs-code{color:#535a60}.hljs-meta .hljs-string{color:#54790d}.hljs-deletion{color:#c02d2e}.hljs-addition{color:#2f6f44}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: left;
+      padding: 10px;
+    }
+    
+    .nav-right {
+      display: flex;
+      gap: 50px;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a id="parentContentLink" href='/?context=2b2c4d21-67c5-4c'>Prompt again</a>
+
+      <select id="childSubjects">
+        <option value="home">Home</option>
+        <!-- Children are added here onload with setChildSubjects -->
+      </select>
+      <!-- Add a previous and next button for prior requests? -->
+      <!-- Add a button to save the current page as a markdown file -->
+
+      
+      <button id="saveButton" onclick="saveButton()">Save html</button>
+
+
+  </nav>
+
+  <div id="content">  
+    <div id="parentContent">
+        <p>Here are two fruits:</p>
+<ul>
+<li><p><strong>Apple</strong>: A widely cultivated fruit known for its sweet and tart flavors. Apples are often eaten raw but can also be used in cooking and baking.</p>
+</li>
+<li><p><strong>Banana</strong>: A tropical fruit that is soft, sweet, and easily digestible. Bananas are popular in many dishes and are often eaten as a snack.</p>
+</li>
+</ul>
+<p>Would you like to know more about these fruits or are there other fruits you're interested in? Perhaps you'd like to learn about their nutritional benefits or different ways to enjoy them?</p>
+
+    </div>
+    <div id="childDivs">
+      <div title="Apple" id="childContent1" onclick="setVisibileChild('childContent1')" hidden=true><h1>Apple: A Detailed Overview</h1>
+<h2>Overview</h2>
+<p>The apple, scientifically known as <em>Malus domestica</em>, is one of the most widely cultivated tree fruits. Originating from Central Asia, apples have been grown for thousands of years and have become a staple in diets around the world.</p>
+<h2>Varieties</h2>
+<p>There are over 7,500 known varieties of apples, each with unique characteristics. Some popular types include:</p>
+<ul>
+<li><strong>Gala</strong>: Known for its sweet flavor and crisp texture.</li>
+<li><strong>Granny Smith</strong>: Noted for its tart flavor and bright green color, often used in cooking.</li>
+<li><strong>Fuji</strong>: A sweet and juicy apple, ideal for snacking.</li>
+<li><strong>Honeycrisp</strong>: Famous for its exceptional crunch and balanced sweet-tart flavor.</li>
+</ul>
+<h2>Nutritional Profile</h2>
+<p>Apples are not only delicious but also packed with nutrients:</p>
+<ul>
+<li><strong>Calories</strong>: About 95 per medium apple.</li>
+<li><strong>Fiber</strong>: Approximately 4 grams, aiding in digestion.</li>
+<li><strong>Vitamins</strong>: Rich in vitamin C, which supports the immune system, and vitamin A, important for eye health.</li>
+<li><strong>Antioxidants</strong>: Contains quercetin and catechin, which help reduce the risk of chronic diseases.</li>
+</ul>
+<h2>Culinary Uses</h2>
+<p>Apples are versatile in the kitchen:</p>
+<ul>
+<li><strong>Raw</strong>: Often eaten as a healthy snack or sliced into salads.</li>
+<li><strong>Cooking</strong>: Used in pies, tarts, and other baked goods. Apples can also be stewed or turned into sauces.</li>
+<li><strong>Beverages</strong>: Apple juice and cider are popular drinks, with cider sometimes fermented into alcoholic beverages.</li>
+</ul>
+<h2>Health Benefits</h2>
+<p>Apples offer numerous health benefits:</p>
+<ul>
+<li><strong>Heart Health</strong>: The fiber, potassium, and antioxidants in apples contribute to cardiovascular health.</li>
+<li><strong>Weight Management</strong>: Their high fiber content can help with weight control by promoting a feeling of fullness.</li>
+<li><strong>Digestive Health</strong>: Apples support a healthy digestive system due to their fiber content.</li>
+</ul>
+<h2>Cultural Significance</h2>
+<p>Apples hold a special place in many cultures:</p>
+<ul>
+<li><strong>Mythology</strong>: In Norse mythology, apples are symbols of eternal youth.</li>
+<li><strong>Traditions</strong>: The phrase "an apple a day keeps the doctor away" highlights their perceived health benefits.</li>
+<li><strong>Festivals</strong>: Many regions celebrate apple harvests with festivals, showcasing apple-based foods and drinks.</li>
+</ul>
+<h2>Growing and Harvesting</h2>
+<p>Apples require specific conditions to thrive:</p>
+<ul>
+<li><strong>Climate</strong>: They prefer temperate climates with cold winters.</li>
+<li><strong>Soil</strong>: Well-drained, fertile soil is ideal.</li>
+<li><strong>Harvesting</strong>: Apples are typically picked in the fall, with some varieties stored for year-round consumption.</li>
+</ul>
+<p>This detailed look at apples showcases their importance in both culinary and health contexts, as well as their cultural significance and the specifics of their cultivation.</p>
+<p>ResponseID:f30be3d8-95e9-4d</p>
+</div><div title="Banana" id="childContent2" onclick="setVisibileChild('childContent2')" hidden=true><h1>Banana: A Detailed Exploration</h1>
+<h2>Overview</h2>
+<ul>
+<li><strong>Scientific Name</strong>: Musa spp.</li>
+<li><strong>Type</strong>: Tropical fruit</li>
+<li><strong>Origin</strong>: Southeast Asia</li>
+</ul>
+<h2>Characteristics</h2>
+<ul>
+<li><strong>Texture</strong>: Soft and creamy when ripe.</li>
+<li><strong>Flavor</strong>: Sweet with a subtle tartness, varying by ripeness.</li>
+<li><strong>Color</strong>: Typically yellow when ripe, with green and brown stages.</li>
+</ul>
+<h2>Nutritional Profile</h2>
+<ul>
+<li><strong>Calories</strong>: Approximately 90 calories per medium banana.</li>
+<li><strong>Carbohydrates</strong>: Rich in sugars and fiber.</li>
+<li><strong>Vitamins</strong>: High in vitamin C, vitamin B6, and potassium.</li>
+<li><strong>Minerals</strong>: Contains magnesium and manganese.</li>
+</ul>
+<h2>Health Benefits</h2>
+<ul>
+<li><strong>Digestive Health</strong>: High in fiber, aiding in regular bowel movements.</li>
+<li><strong>Heart Health</strong>: Potassium helps manage blood pressure.</li>
+<li><strong>Mood and Energy</strong>: Vitamin B6 is crucial for brain health and energy production.</li>
+</ul>
+<h2>Culinary Uses</h2>
+<ul>
+<li><strong>Raw Consumption</strong>: Often eaten as a snack due to its convenience and nutritional value.</li>
+<li><strong>Cooking and Baking</strong>: Used in a variety of recipes, from smoothies to baked goods like banana bread.</li>
+<li><strong>Cultural Dishes</strong>: Integral in many cuisines, such as in African, Asian, and Latin American dishes.</li>
+</ul>
+<h2>Ripening and Storage</h2>
+<ul>
+<li><strong>Ripening</strong>: Can be ripened at room temperature; placing in a paper bag speeds up the process.</li>
+<li><strong>Storage</strong>: Once ripe, can be refrigerated to extend freshness or frozen for long-term storage.</li>
+</ul>
+<h2>Varieties</h2>
+<ul>
+<li><strong>Cavendish</strong>: The most commonly exported banana.</li>
+<li><strong>Plantain</strong>: A starchy variety often cooked before eating.</li>
+<li><strong>Red Banana</strong>: Sweeter and smaller, with a reddish-purple hue.</li>
+</ul>
+<h2>Environmental Impact</h2>
+<ul>
+<li><strong>Cultivation</strong>: Banana plants are perennial herbs, not trees, and are often grown on large plantations.</li>
+<li><strong>Sustainability</strong>: Concerns about monoculture and pesticide use in commercial banana farming.</li>
+</ul>
+<h2>Fun Facts</h2>
+<ul>
+<li><strong>Botanical Classification</strong>: Technically a berry.</li>
+<li><strong>World Production</strong>: Leading producers include India, China, and the Philippines.</li>
+<li><strong>Cultural Significance</strong>: Often used in religious and ceremonial contexts in various cultures.</li>
+</ul>
+<p>Would you like to know more about any specific aspect of bananas or explore other fruits?</p>
+<p>ResponseID:d6421844-38d6-42</p>
+</div>
+    </div>
+  </div>
+
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+
+    <script>
+      function setChildSubjects(){
+        let dropDownOptions = [];
+        let childSubjects = document.getElementById('childDivs');
+        for (let child of childSubjects.children){
+           let subject = child.title;
+           let optionValue = child.id;
+
+           dropDownOptions.push({subject: subject, value: optionValue});
+        
+        }
+
+        for (let option of dropDownOptions){
+          let optionElement = document.createElement('option');
+          optionElement.value = option.value;
+          optionElement.text = option.subject;
+          document.getElementById('childSubjects').appendChild(optionElement);
+        }
+
+        document.getElementById('childSubjects').addEventListener('change', function() {
+          if(this.value == "home"){
+            goHomePage();
+          }else{
+            setVisibleChild(this.value);
+          }
+
+          }
+        );
+      }
+    </script>
+
+
+    <script>
+      function setVisibleChild(id){
+        //quick flicker home to reset state, this allows hoping between child views
+     
+    
+           let topNode = document.getElementById('content');
+           let parentNode = document.getElementById('parentContent');
+           let childVisibleNode = document.getElementById(id);
+           let childDivs = document.getElementById('childDivs');
+           for (let child of childDivs.children){
+            if(child.id != id){
+              child.hidden = true;
+            }else{
+              child.hidden = false; //redudant
+            }
+           }
+           parentNode.hidden = true;
+           childVisibleNode.hidden = false;
+         }
+      
+    </script>
+
+    <script>
+      function goHomePage(){
+         let topNode = document.getElementById('content');
+         let parentNode = document.getElementById('parentContent');
+         let children = document.getElementById('childDivs');
+         for (let child of children.children){
+            child.hidden = true;
+         }
+         parentNode.hidden = false;
+      }
+    </script>
+
+    <script>
+      function setChildLinks(){
+        let children = document.getElementById('childDivs'); 
+        let childSubjects = [];
+        let discoveredMatches = [];
+
+        
+        for (let child of children.children){
+          let subject = child.title;
+          childSubjects.push({subject: subject, child: child});
+          }
+             
+          let parentNodeH2Subjects = []
+          let parentNodeH3Subjects = []
+          let parentNodeH4Subjects = []
+          let parentNode = document.getElementById('parentContent');
+          let H2s = parentNode.getElementsByTagName("H2");
+          let H3s = parentNode.getElementsByTagName("H3");
+          let H4s = parentNode.getElementsByTagName("H4");
+          let isH2Match = false;
+          let isH3Match = false;
+          let isH4Match = false;
+
+          H2s.length > 0? parentNodeH2Subjects = H2s.map(item => ({subject: item.innerText, item: item})):isH2Match = false;
+          H3s.length > 0?parentNodeH3Subjects = H3s.map(item => ({subject: item.innerText, item: item})):isH3Match = false;
+          H4s.length > 0?parentNodeH4Subjects = H4s.map(item => ({subject: item.innerText, item: item})):isH4Match = false;
+
+          
+           isH3Match = H3s.length == childSubjects.length;
+           isH2Match = H2s.length == childSubjects.length;
+           isH4Match = H4s.length == childSubjects.length;
+          let allDiscovered = false;
+
+          if (isH3Match){
+            //We have a match.  We need to find the H2s
+            allDiscovered = true;
+          }
+          if (isH2Match){
+            //We have a match.  We need to find the H3s
+            allDiscovered = true;
+          }
+          if (isH4Match){
+            //We have a match.  We need to find the H2s
+            allDiscovered = true;
+          }
+
+          if(allDiscovered && (isH3Match + isH2Match + isH4Match) > 1){
+            //wierd.  ok we work from scratch.
+            allDiscovered = false;
+          }
+
+          if(!allDiscovered){
+
+            let fluffWords = ["a", "an", "the", "and", "but", "or", "for", "nor", "on", "at", "to", "from", "by", "with", "of"];
+            let fluffWordsRegex = new RegExp(fluffWords.join("|"), "g");
+          
+          //OK time to stumble through unpredictable llm output
+          //First check if the child subjects are in the parent node h2 subjects
+          let isH2 = false;
+          let isH3 = false;
+          let isH4 = false;
+      
+          //This can be optimized later.  Probably doesnt matter since it is client side with modern computing.
+          for (let i = 0; i < parentNodeH2Subjects.length; i++){
+            let subject = parentNodeH2Subjects[i].subject;
+            for (let j = 0; j < childSubjects.length; j++){
+              let childSubject = childSubjects[j].subject;
+              if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                isH2 = true;
+                discoveredMatches.push({parentLink: parentNodeH2Subjects[i].item, childLink: childSubjects[j].child});
+              }
+            }
+
+          }
+         
+          if(!isH2){
+            for (let i = 0; i < parentNodeH3Subjects.length; i++){
+              let subject = parentNodeH3Subjects[i].subject;
+              for (let j = 0; j < childSubjects.length; j++){
+                let childSubject = childSubjects[j].subject;  
+                if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                  isH3 = true;
+                  discoveredMatches.push({parentLink: parentNodeH3Subjects[i].item, childLink: childSubjects[j].child});
+                }
+              }
+            }
+          }
+
+          if(!isH3){
+            for (let i = 0; i < parentNodeH4Subjects.length; i++){
+              let subject = parentNodeH4Subjects[i].subject;
+              for (let j = 0; j < childSubjects.length; j++){
+                let childSubject = childSubjects[j].subject;
+                if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                  isH4 = true;
+                  discoveredMatches.push({parentLink: parentNodeH4Subjects[i].item, childLink: childSubjects[j].child});
+                }
+              }
+            }
+          }
+
+          if(!isH4){
+              //I suppose there are edge cases but this surely covers 99.9% of the cases.
+          }
+
+          }else{
+            if(isH3Match){
+              for (let i = 0; i < parentNodeH3Subjects.length; i++){
+                let child = childSubjects[i].child;
+                makeChildLinks(parentNodeH3Subjects[i].item, child);
+              }
+              return; //bye bye
+            }
+            if(isH2Match){
+              for (let i = 0; i < parentNodeH2Subjects.length; i++){
+                let child = childSubjects[i].child;
+                makeChildLinks(parentNodeH2Subjects[i].item, child);
+                return; //bye bye
+              }
+              if(isH4Match){
+                for (let i = 0; i < parentNodeH4Subjects.length; i++){
+                  let child = childSubjects[i].child;
+                  makeChildLinks(parentNodeH4Subjects[i].item, child);
+                }
+              }
+
+            }
+
+          }
+
+          for (let match of discoveredMatches){
+            makeChildLinks(match.parentLink, match.childLink);
+            if(match.length < childSubjects.length){ alert("LLMM added additional info that is hidden");}
+          }
+
+        }
+    </script>
+
+    <script>
+       function makeChildLinks(parent, child){
+            parent.style.cursor = "pointer";
+            parent.style.textDecoration = "underline";
+            parent.style.color = "blue";
+            parent.onclick = function(){
+              setVisibleChild(child.id);
+            }
+       }
+
+    </script>
+
+<script>window.onload = setChildSubjects;</script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->

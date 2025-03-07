@@ -1,0 +1,438 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Home Page</title>
+  <style>
+    pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
+  Theme: StackOverflow Light
+  Description: Light theme as used on stackoverflow.com
+  Author: stackoverflow.com
+  Maintainer: @Hirse
+  Website: https://github.com/StackExchange/Stacks
+  License: MIT
+  Updated: 2021-05-15
+
+  Updated for @stackoverflow/stacks v0.64.0
+  Code Blocks: /blob/v0.64.0/lib/css/components/_stacks-code-blocks.less
+  Colors: /blob/v0.64.0/lib/css/exports/_stacks-constants-colors.less
+*/.hljs{color:#2f3337;background:#f6f6f6}.hljs-subst{color:#2f3337}.hljs-comment{color:#656e77}.hljs-attr,.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-section,.hljs-selector-tag{color:#015692}.hljs-attribute{color:#803378}.hljs-name,.hljs-number,.hljs-quote,.hljs-selector-id,.hljs-template-tag,.hljs-type{color:#b75501}.hljs-selector-class{color:#015692}.hljs-link,.hljs-regexp,.hljs-selector-attr,.hljs-string,.hljs-symbol,.hljs-template-variable,.hljs-variable{color:#54790d}.hljs-meta,.hljs-selector-pseudo{color:#015692}.hljs-built_in,.hljs-literal,.hljs-title{color:#b75501}.hljs-bullet,.hljs-code{color:#535a60}.hljs-meta .hljs-string{color:#54790d}.hljs-deletion{color:#c02d2e}.hljs-addition{color:#2f6f44}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: left;
+      padding: 10px;
+    }
+    
+    .nav-right {
+      display: flex;
+      gap: 50px;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a id="parentContentLink" href='/?context=d14562eb-be19-48'>Prompt again</a>
+
+      <select id="childSubjects">
+        <option value="home">Home</option>
+        <!-- Children are added here onload with setChildSubjects -->
+      </select>
+      <!-- Add a previous and next button for prior requests? -->
+      <!-- Add a button to save the current page as a markdown file -->
+
+      
+      <button id="saveButton" onclick="saveButton()">Save html</button>
+
+
+  </nav>
+
+  <div id="content">  
+    <div id="parentContent">
+        <p>Here are two simple equations for you:</p>
+<ol>
+<li><p><strong>Linear Equation:</strong>
+[
+y = mx + b
+]
+This equation represents a straight line where ( m ) is the slope and ( b ) is the y-intercept.</p>
+</li>
+<li><p><strong>Quadratic Equation:</strong>
+[
+ax^2 + bx + c = 0
+]
+This equation represents a parabola where ( a ), ( b ), and ( c ) are coefficients that determine the shape and position of the parabola.</p>
+</li>
+</ol>
+<p>Would you like to know more about these equations or perhaps see some examples of how they are used? Here are a few follow-up questions you might consider:</p>
+<ul>
+<li>Can you explain what the slope and y-intercept mean in the context of the linear equation?</li>
+<li>How do you solve a quadratic equation?</li>
+<li>Are there real-world applications for these equations?</li>
+</ul>
+
+    </div>
+    <div id="childDivs">
+      <div title="Linear Equation" id="childContent1" onclick="setVisibileChild('childContent1')" hidden=true><h1>Linear Equation</h1>
+<h2>Detailed Explanation</h2>
+<p>A linear equation in its standard form is expressed as:</p>
+<p>[
+y = mx + b
+]</p>
+<h3>Components of the Linear Equation</h3>
+<ul>
+<li><strong>( y )</strong>: This is the dependent variable, representing the output or the value we are trying to predict or calculate.</li>
+<li><strong>( x )</strong>: This is the independent variable, representing the input or the variable that influences ( y ).</li>
+<li><strong>( m )</strong>: The slope of the line. It represents the rate of change of ( y ) with respect to ( x ). If ( m ) is positive, the line rises from left to right; if negative, it falls from left to right. The magnitude of ( m ) indicates the steepness of the line.</li>
+<li><strong>( b )</strong>: The y-intercept. This is the point where the line crosses the y-axis, which occurs when ( x = 0 ). It represents the starting value of ( y ) when there is no influence from ( x ).</li>
+</ul>
+<h3>Slope and Y-Intercept in Context</h3>
+<ul>
+<li><strong>Slope (( m ))</strong>: Imagine you are climbing a hill. The slope tells you how steep the hill is. For example, if ( m = 2 ), for every unit increase in ( x ), ( y ) increases by 2 units. If ( m = -0.5 ), for every unit increase in ( x ), ( y ) decreases by 0.5 units.</li>
+<li><strong>Y-Intercept (( b ))</strong>: This is like the starting point on your journey up the hill. If ( b = 3 ), you start your climb at ( y = 3 ) when ( x = 0 ).</li>
+</ul>
+<h3>Graphical Representation</h3>
+<p>On a graph, the linear equation ( y = mx + b ) plots as a straight line. The slope ( m ) determines the angle of the line, and the y-intercept ( b ) determines where the line touches the y-axis.</p>
+<h3>Examples</h3>
+<ol>
+<li><p><strong>Example 1</strong>: ( y = 2x + 3 )</p>
+<ul>
+<li>Here, ( m = 2 ) and ( b = 3 ). The line rises steeply (because ( m ) is positive and large) and starts at ( y = 3 ) on the y-axis.</li>
+</ul>
+</li>
+<li><p><strong>Example 2</strong>: ( y = -0.5x + 1 )</p>
+<ul>
+<li>Here, ( m = -0.5 ) and ( b = 1 ). The line falls gently (because ( m ) is negative and small in magnitude) and starts at ( y = 1 ) on the y-axis.</li>
+</ul>
+</li>
+</ol>
+<h3>Real-World Applications</h3>
+<p>Linear equations are used in various fields:</p>
+<ul>
+<li><strong>Economics</strong>: To model the relationship between supply and demand.</li>
+<li><strong>Physics</strong>: To describe motion where velocity is constant.</li>
+<li><strong>Statistics</strong>: In regression analysis to predict outcomes based on input variables.</li>
+</ul>
+<h3>Summary</h3>
+<p>The linear equation ( y = mx + b ) is fundamental in mathematics and its applications. Understanding the slope ( m ) and y-intercept ( b ) allows us to interpret and predict how changes in one variable affect another in a linear fashion.</p>
+<p>ResponseID:0230e7c6-a40c-41</p>
+</div><div title="Quadratic Equation" id="childContent2" onclick="setVisibileChild('childContent2')" hidden=true><h1>Quadratic Equation</h1>
+<p>A quadratic equation is a second-degree polynomial equation of the form:</p>
+<p>[
+ax^2 + bx + c = 0
+]</p>
+<p>where (a), (b), and (c) are constants, and (a 
+eq 0). This equation represents a parabola, which is a U-shaped or inverted U-shaped curve on a graph.</p>
+<h2>Detailed Explanation of Components</h2>
+<ul>
+<li><p><strong>(a)</strong>: This coefficient determines the direction and width of the parabola. If (a &gt; 0), the parabola opens upwards, and if (a &lt; 0), it opens downwards. The absolute value of (a) affects the steepness of the parabola; a larger absolute value makes the parabola narrower, while a smaller absolute value makes it wider.</p>
+</li>
+<li><p><strong>(b)</strong>: This coefficient affects the position of the parabola along the x-axis. It shifts the parabola horizontally and influences the x-coordinate of the vertex of the parabola. The term (bx) also affects the symmetry of the parabola about the axis of symmetry.</p>
+</li>
+<li><p><strong>(c)</strong>: This constant term represents the y-intercept of the parabola, which is the point where the parabola crosses the y-axis. It shifts the parabola vertically.</p>
+</li>
+</ul>
+<h2>Solving Quadratic Equations</h2>
+<p>There are several methods to solve quadratic equations:</p>
+<h3>1. <strong>Factoring</strong></h3>
+<p>If the quadratic equation can be factored into the form ((px + q)(rx + s) = 0), then the solutions are found by setting each factor equal to zero:</p>
+<p>[
+px + q = 0 \quad \text{and} \quad rx + s = 0
+]</p>
+<h3>2. <strong>Quadratic Formula</strong></h3>
+<p>The quadratic formula provides a direct method to find the roots of the equation:</p>
+<p>[
+x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+]</p>
+<p>Here, the term under the square root, (b^2 - 4ac), is called the discriminant. It determines the nature of the roots:</p>
+<ul>
+<li>If the discriminant is positive, there are two distinct real roots.</li>
+<li>If the discriminant is zero, there is one real root (a repeated root).</li>
+<li>If the discriminant is negative, there are two complex conjugate roots.</li>
+</ul>
+<h3>3. <strong>Completing the Square</strong></h3>
+<p>This method involves transforming the quadratic equation into a perfect square trinomial:</p>
+<p>[
+ax^2 + bx + c = a\left(x + \frac{b}{2a}\right)^2 - \frac{b^2 - 4ac}{4a}
+]</p>
+<p>Solving for (x) after setting the equation to zero gives the roots.</p>
+<h2>Real-World Applications</h2>
+<p>Quadratic equations are used in various fields:</p>
+<ul>
+<li><strong>Physics</strong>: To describe the motion of objects under the influence of gravity, such as projectile motion.</li>
+<li><strong>Engineering</strong>: For designing parabolic reflectors in satellite dishes and telescopes.</li>
+<li><strong>Economics</strong>: To model profit and cost functions, where the maximum or minimum value of a quadratic function can represent the optimal production level.</li>
+<li><strong>Biology</strong>: To model population growth or decay over time.</li>
+</ul>
+<h2>Examples</h2>
+<h3>Example 1: Solving a Quadratic Equation</h3>
+<p>Consider the equation (2x^2 - 5x + 2 = 0). Using the quadratic formula:</p>
+<p>[
+x = \frac{5 \pm \sqrt{25 - 16}}{4} = \frac{5 \pm 3}{4}
+]</p>
+<p>This gives us two solutions:</p>
+<p>[
+x = \frac{8}{4} = 2 \quad \text{and} \quad x = \frac{2}{4} = \frac{1}{2}
+]</p>
+<h3>Example 2: Projectile Motion</h3>
+<p>If a ball is thrown upward with an initial velocity of 30 m/s from a height of 2 meters, its height (h) as a function of time (t) can be modeled by:</p>
+<p>[
+h(t) = -4.9t^2 + 30t + 2
+]</p>
+<p>This is a quadratic equation where the maximum height can be found by determining the vertex of the parabola.</p>
+<p>ResponseID:73b43b8a-588f-48</p>
+</div>
+    </div>
+  </div>
+
+    <script>
+        function saveButton() {
+          const content = document.documentElement.outerHTML; // Get the entire HTML content
+          const blob = new Blob([content], { type: 'text/html' }); // Create a Blob from the content
+          const url = URL.createObjectURL(blob); // Create a URL for the Blob
+          const divInnerText = document.getElementById('content').innerText;
+          let filename = divInnerText.substring(0, 25);
+          const a = document.createElement('a'); // Create an anchor element
+          a.href = url; // Set the href to the Blob URL
+          
+        a.download =  filename + '.html'; // Set the download attribute with a filename
+          document.body.appendChild(a); // Append the anchor to the body
+          a.click(); // Programmatically click the anchor to trigger the download
+          document.body.removeChild(a); // Remove the anchor from the document
+          URL.revokeObjectURL(url); // Release the Blob URL
+        }
+    </script>
+
+    <script>
+      function setChildSubjects(){
+        let dropDownOptions = [];
+        let childSubjects = document.getElementById('childDivs');
+        for (let child of childSubjects.children){
+           let subject = child.title;
+           let optionValue = child.id;
+
+           dropDownOptions.push({subject: subject, value: optionValue});
+        
+        }
+
+        for (let option of dropDownOptions){
+          let optionElement = document.createElement('option');
+          optionElement.value = option.value;
+          optionElement.text = option.subject;
+          document.getElementById('childSubjects').appendChild(optionElement);
+        }
+
+        document.getElementById('childSubjects').addEventListener('change', function() {
+          if(this.value == "home"){
+            goHomePage();
+          }else{
+            setVisibleChild(this.value);
+          }
+
+          }
+        );
+      }
+    </script>
+
+
+    <script>
+      function setVisibleChild(id){
+        //quick flicker home to reset state, this allows hoping between child views
+     
+    
+           let topNode = document.getElementById('content');
+           let parentNode = document.getElementById('parentContent');
+           let childVisibleNode = document.getElementById(id);
+           let childDivs = document.getElementById('childDivs');
+           for (let child of childDivs.children){
+            if(child.id != id){
+              child.hidden = true;
+            }else{
+              child.hidden = false; //redudant
+            }
+           }
+           parentNode.hidden = true;
+           childVisibleNode.hidden = false;
+         }
+      
+    </script>
+
+    <script>
+      function goHomePage(){
+         let topNode = document.getElementById('content');
+         let parentNode = document.getElementById('parentContent');
+         let children = document.getElementById('childDivs');
+         for (let child of children.children){
+            child.hidden = true;
+         }
+         parentNode.hidden = false;
+      }
+    </script>
+
+    <script>
+      function setChildLinks(){
+        let children = document.getElementById('childDivs'); 
+        let childSubjects = [];
+        let discoveredMatches = [];
+
+        
+        for (let child of children.children){
+          let subject = child.title;
+          childSubjects.push({subject: subject, child: child});
+          }
+             
+          let parentNodeH2Subjects = []
+          let parentNodeH3Subjects = []
+          let parentNodeH4Subjects = []
+          let parentNode = document.getElementById('parentContent');
+          let H2s = parentNode.getElementsByTagName("H2");
+          let H3s = parentNode.getElementsByTagName("H3");
+          let H4s = parentNode.getElementsByTagName("H4");
+          let isH2Match = false;
+          let isH3Match = false;
+          let isH4Match = false;
+
+          H2s.length > 0? parentNodeH2Subjects = H2s.map(item => ({subject: item.innerText, item: item})):isH2Match = false;
+          H3s.length > 0?parentNodeH3Subjects = H3s.map(item => ({subject: item.innerText, item: item})):isH3Match = false;
+          H4s.length > 0?parentNodeH4Subjects = H4s.map(item => ({subject: item.innerText, item: item})):isH4Match = false;
+
+          
+           isH3Match = H3s.length == childSubjects.length;
+           isH2Match = H2s.length == childSubjects.length;
+           isH4Match = H4s.length == childSubjects.length;
+          let allDiscovered = false;
+
+          if (isH3Match){
+            //We have a match.  We need to find the H2s
+            allDiscovered = true;
+          }
+          if (isH2Match){
+            //We have a match.  We need to find the H3s
+            allDiscovered = true;
+          }
+          if (isH4Match){
+            //We have a match.  We need to find the H2s
+            allDiscovered = true;
+          }
+
+          if(allDiscovered && (isH3Match + isH2Match + isH4Match) > 1){
+            //wierd.  ok we work from scratch.
+            allDiscovered = false;
+          }
+
+          if(!allDiscovered){
+
+            let fluffWords = ["a", "an", "the", "and", "but", "or", "for", "nor", "on", "at", "to", "from", "by", "with", "of"];
+            let fluffWordsRegex = new RegExp(fluffWords.join("|"), "g");
+          
+          //OK time to stumble through unpredictable llm output
+          //First check if the child subjects are in the parent node h2 subjects
+          let isH2 = false;
+          let isH3 = false;
+          let isH4 = false;
+      
+          //This can be optimized later.  Probably doesnt matter since it is client side with modern computing.
+          for (let i = 0; i < parentNodeH2Subjects.length; i++){
+            let subject = parentNodeH2Subjects[i].subject;
+            for (let j = 0; j < childSubjects.length; j++){
+              let childSubject = childSubjects[j].subject;
+              if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                isH2 = true;
+                discoveredMatches.push({parentLink: parentNodeH2Subjects[i].item, childLink: childSubjects[j].child});
+              }
+            }
+
+          }
+         
+          if(!isH2){
+            for (let i = 0; i < parentNodeH3Subjects.length; i++){
+              let subject = parentNodeH3Subjects[i].subject;
+              for (let j = 0; j < childSubjects.length; j++){
+                let childSubject = childSubjects[j].subject;  
+                if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                  isH3 = true;
+                  discoveredMatches.push({parentLink: parentNodeH3Subjects[i].item, childLink: childSubjects[j].child});
+                }
+              }
+            }
+          }
+
+          if(!isH3){
+            for (let i = 0; i < parentNodeH4Subjects.length; i++){
+              let subject = parentNodeH4Subjects[i].subject;
+              for (let j = 0; j < childSubjects.length; j++){
+                let childSubject = childSubjects[j].subject;
+                if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
+                  isH4 = true;
+                  discoveredMatches.push({parentLink: parentNodeH4Subjects[i].item, childLink: childSubjects[j].child});
+                }
+              }
+            }
+          }
+
+          if(!isH4){
+              //I suppose there are edge cases but this surely covers 99.9% of the cases.
+          }
+
+          }else{
+            if(isH3Match){
+              for (let i = 0; i < parentNodeH3Subjects.length; i++){
+                let child = childSubjects[i].child;
+                makeChildLinks(parentNodeH3Subjects[i].item, child);
+              }
+              return; //bye bye
+            }
+            if(isH2Match){
+              for (let i = 0; i < parentNodeH2Subjects.length; i++){
+                let child = childSubjects[i].child;
+                makeChildLinks(parentNodeH2Subjects[i].item, child);
+                return; //bye bye
+              }
+              if(isH4Match){
+                for (let i = 0; i < parentNodeH4Subjects.length; i++){
+                  let child = childSubjects[i].child;
+                  makeChildLinks(parentNodeH4Subjects[i].item, child);
+                }
+              }
+
+            }
+
+          }
+
+          for (let match of discoveredMatches){
+            makeChildLinks(match.parentLink, match.childLink);
+            if(match.length < childSubjects.length){ alert("LLMM added additional info that is hidden");}
+          }
+
+        }
+    </script>
+
+    <script>
+       function makeChildLinks(parent, child){
+            parent.style.cursor = "pointer";
+            parent.style.textDecoration = "underline";
+            parent.style.color = "blue";
+            parent.onclick = function(){
+              setVisibleChild(child.id);
+            }
+       }
+
+    </script>
+
+<script>window.onload = setChildSubjects;</script>
+
+</body>
+</html>
+
+
+   
+    <!-- <textarea id="userPrompt"></textarea>
+
+    <script>
+        function nextButton() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            console.log(userPrompt);
+        }
+    </script> -->
