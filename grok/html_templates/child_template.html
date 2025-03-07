@@ -6,15 +6,64 @@
   <title>Grok Response - CHILD of @PARENT_ID@</title>
   <style>
     @CSS_GOES_HERE@
+    
+    .nav-button {
+      background-color: transparent;
+      border: 2px solid #008CBA;
+      color: #008CBA;
+      font-size: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .nav-button:hover {
+      background-color: #008CBA;
+      color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
     nav {
       display: flex;
-      justify-content: flex-start;
-      align-items: left;
-      padding: 10px;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #f8f9fa;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+    }
+
+    /* Navbar links */
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+
+    nav li {
+      margin-right: 20px;
+    }
+
+    nav a {
+      color: #333;
+      text-decoration: none;
+      font-family: 'Arial', sans-serif;
+      text-transform: uppercase;
+      font-weight: 300;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #007bff;
+      text-decoration: underline;
+      background-color: rgba(0, 123, 255, 0.1);
+      transition: all 0.3s ease;
     }
     
     .nav-right {
-      align-self: flex-end;
       display: flex;
       gap: 20px;
       align-items: center;
@@ -25,11 +74,11 @@
   <nav>
     <a id="home" href="/?context=@CURRENT_ID@">Prompt again</a>
     <div class="nav-right">
-      <button id="saveButton" onclick="saveButton()">Save html</button>
+      <button class="nav-button" id="saveButton" onclick="saveButton()">Save</button>
       <a id="markdown" href="../../markdown/@CURRENT_ID@.md"> markdown</a>
-      <a id="previous" href="./@PREVIOUS_ID@.html?responseId=@CURRENT_ID@">Previous</a>
+
       <a id="Parent" href="./@PARENT_ID@.html?responseId=@CURRENT_ID@">Parent</a>
-    <a id="next" href="javascript:void(0);" onclick="window.history.back();">Next</a>
+
     </div>
   </nav>
 

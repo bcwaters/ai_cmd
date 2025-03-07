@@ -5,23 +5,96 @@
   <title>Home Page</title>
   <style>
     @CSS_GOES_HERE@
+    
+    .nav-button {
+      background-color: transparent;
+      border: 2px solid #008CBA;
+      color: #008CBA;
+      font-size: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .nav-button:hover {
+      background-color: #008CBA;
+      color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
     nav {
       display: flex;
       justify-content: space-between;
-      align-items: left;
-      padding: 10px;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #f8f9fa;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+    }
+
+    /* Navbar links */
+    nav a {
+      color: #333;
+      text-decoration: none;
+      font-family: 'Arial', sans-serif;
+      text-transform: uppercase;
+      font-weight: 300;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #007bff;
+      text-decoration: underline;
+      background-color: rgba(0, 123, 255, 0.1);
+      transition: all 0.3s ease;
     }
     
     .nav-right {
       display: flex;
-      gap: 50px;
+      gap: 20px;
       align-items: center;
+    }
+    
+    /* Dropdown styling */
+    select {
+      padding: 5px 10px;
+      border: 2px solid #008CBA;
+      border-radius: 4px;
+      background-color: white;
+      color: #333;
+      font-family: 'Arial', sans-serif;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    select:hover {
+      border-color: #007bff;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+    }
+    
+    select:focus {
+      outline: none;
+      border-color: #007bff;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+    
+    option {
+      padding: 5px;
+      background-color: white;
+      color: #333;
+    }
+    
+    option:hover {
+      background-color: #f0f0f0;
     }
   </style>
 </head>
 <body>
   <nav>
-    <a id="parentContentLink" href='/?context=@CURRENT_ID@'>Prompt again</a>
+    <a id="parentContentLink" href='/?context=@CURRENT_ID@'>Home</a>
 
       <select id="childSubjects">
         <option value="home">Home</option>
@@ -31,7 +104,7 @@
       <!-- Add a button to save the current page as a markdown file -->
 
       
-      <button id="saveButton" onclick="saveButton()">Save html</button>
+      <button class="nav-button" id="saveButton" onclick="saveButton()">Save</button>
 
 
   </nav>
@@ -128,144 +201,7 @@
          parentNode.hidden = false;
       }
     </script>
-
-    <script>
-      function setChildLinks(){
-        let children = document.getElementById('childDivs'); 
-        let childSubjects = [];
-        let discoveredMatches = [];
-
         
-        for (let child of children.children){
-          let subject = child.title;
-          childSubjects.push({subject: subject, child: child});
-          }
-             
-          let parentNodeH2Subjects = []
-          let parentNodeH3Subjects = []
-          let parentNodeH4Subjects = []
-          let parentNode = document.getElementById('parentContent');
-          let H2s = parentNode.getElementsByTagName("H2");
-          let H3s = parentNode.getElementsByTagName("H3");
-          let H4s = parentNode.getElementsByTagName("H4");
-          let isH2Match = false;
-          let isH3Match = false;
-          let isH4Match = false;
-
-          H2s.length > 0? parentNodeH2Subjects = H2s.map(item => ({subject: item.innerText, item: item})):isH2Match = false;
-          H3s.length > 0?parentNodeH3Subjects = H3s.map(item => ({subject: item.innerText, item: item})):isH3Match = false;
-          H4s.length > 0?parentNodeH4Subjects = H4s.map(item => ({subject: item.innerText, item: item})):isH4Match = false;
-
-          
-           isH3Match = H3s.length == childSubjects.length;
-           isH2Match = H2s.length == childSubjects.length;
-           isH4Match = H4s.length == childSubjects.length;
-          let allDiscovered = false;
-
-          if (isH3Match){
-            //We have a match.  We need to find the H2s
-            allDiscovered = true;
-          }
-          if (isH2Match){
-            //We have a match.  We need to find the H3s
-            allDiscovered = true;
-          }
-          if (isH4Match){
-            //We have a match.  We need to find the H2s
-            allDiscovered = true;
-          }
-
-          if(allDiscovered && (isH3Match + isH2Match + isH4Match) > 1){
-            //wierd.  ok we work from scratch.
-            allDiscovered = false;
-          }
-
-          if(!allDiscovered){
-
-            let fluffWords = ["a", "an", "the", "and", "but", "or", "for", "nor", "on", "at", "to", "from", "by", "with", "of"];
-            let fluffWordsRegex = new RegExp(fluffWords.join("|"), "g");
-          
-          //OK time to stumble through unpredictable llm output
-          //First check if the child subjects are in the parent node h2 subjects
-          let isH2 = false;
-          let isH3 = false;
-          let isH4 = false;
-      
-          //This can be optimized later.  Probably doesnt matter since it is client side with modern computing.
-          for (let i = 0; i < parentNodeH2Subjects.length; i++){
-            let subject = parentNodeH2Subjects[i].subject;
-            for (let j = 0; j < childSubjects.length; j++){
-              let childSubject = childSubjects[j].subject;
-              if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
-                isH2 = true;
-                discoveredMatches.push({parentLink: parentNodeH2Subjects[i].item, childLink: childSubjects[j].child});
-              }
-            }
-
-          }
-         
-          if(!isH2){
-            for (let i = 0; i < parentNodeH3Subjects.length; i++){
-              let subject = parentNodeH3Subjects[i].subject;
-              for (let j = 0; j < childSubjects.length; j++){
-                let childSubject = childSubjects[j].subject;  
-                if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
-                  isH3 = true;
-                  discoveredMatches.push({parentLink: parentNodeH3Subjects[i].item, childLink: childSubjects[j].child});
-                }
-              }
-            }
-          }
-
-          if(!isH3){
-            for (let i = 0; i < parentNodeH4Subjects.length; i++){
-              let subject = parentNodeH4Subjects[i].subject;
-              for (let j = 0; j < childSubjects.length; j++){
-                let childSubject = childSubjects[j].subject;
-                if(childSubject.replace(fluffWordsRegex, "") == subject.replace(fluffWordsRegex, "")){
-                  isH4 = true;
-                  discoveredMatches.push({parentLink: parentNodeH4Subjects[i].item, childLink: childSubjects[j].child});
-                }
-              }
-            }
-          }
-
-          if(!isH4){
-              //I suppose there are edge cases but this surely covers 99.9% of the cases.
-          }
-
-          }else{
-            if(isH3Match){
-              for (let i = 0; i < parentNodeH3Subjects.length; i++){
-                let child = childSubjects[i].child;
-                makeChildLinks(parentNodeH3Subjects[i].item, child);
-              }
-              return; //bye bye
-            }
-            if(isH2Match){
-              for (let i = 0; i < parentNodeH2Subjects.length; i++){
-                let child = childSubjects[i].child;
-                makeChildLinks(parentNodeH2Subjects[i].item, child);
-                return; //bye bye
-              }
-              if(isH4Match){
-                for (let i = 0; i < parentNodeH4Subjects.length; i++){
-                  let child = childSubjects[i].child;
-                  makeChildLinks(parentNodeH4Subjects[i].item, child);
-                }
-              }
-
-            }
-
-          }
-
-          for (let match of discoveredMatches){
-            makeChildLinks(match.parentLink, match.childLink);
-            if(match.length < childSubjects.length){ alert("LLMM added additional info that is hidden");}
-          }
-
-        }
-    </script>
 
     <script>
        function makeChildLinks(parent, child){

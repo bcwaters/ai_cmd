@@ -270,6 +270,10 @@ export async function  saveHtmlResponse(userPromptRequest, markdownContent, prio
     let indexHtml = await fs.readFile('./grok/html_templates/template.html', "utf8");
 
     let cssForMarkdown = await fs.readFile('./grok/html_templates/highlightStyle.css', "utf8");
+    
+    //// Add KaTeX CSS
+    //let katexCss = await fs.readFile('./grok/html_templates/katex.css', "utf8");
+    //cssForMarkdown = cssForMarkdown + "\n" + katexCss;
 
     markdownContent =  markdownContent + "\n\nResponseID:" + userPromptRequest.dynamicResponseId ;
     let sanitizedMarkdownContent = await preprocessResponse(markdownContent);
@@ -343,56 +347,22 @@ export async function saveMarkdownResponse(userPromptRequest, markdownContent) {
 }
 
 export async function preprocessResponse(response) {   
+
+    
+    // Simplified preprocessing without unified-latex
     response = await unified()
-    .use(remarkParse) // Parse markdown to MDAST
-    .use(remarkMath) // Parse math expressions
-    .use(remarkHighlight) // Apply syntax highlighting to code blocks
-    .use(remarkRehype, { allowDangerousHtml: true }) // Convert MDAST to HAST with HTML allowed
-    .use(() => (tree) => {
-        // Debug visitor to find unprocessed LaTeX
-        const visit = (node, callback) => {
-            callback(node);
-            if (node.children) {
-                node.children.forEach(child => visit(child, callback));
-            }
-        };
-        
-        visit(tree, (node) => {
-            // Look for text nodes that might contain LaTeX
-            if (node.type === 'text' && node.value) {
-                if (node.value.includes('$') || 
-                    node.value.includes('\\[') || 
-                    node.value.includes('\\]') ||
-                    node.value.includes('\\(') || 
-                    node.value.includes('\\)') ||
-                    node.value.includes('[') && node.value.includes(']')) {
-                    console.log('Potential unprocessed LaTeX:', node.value);
-                    console.log('Parent node type:', node.parent ? node.parent.tagName : 'No parent');
-                }
-            }
-            
-            // Look for math nodes that might not have been processed
-            if (node.tagName === 'span' && node.properties && node.properties.className) {
-                const classes = Array.isArray(node.properties.className) 
-                    ? node.properties.className 
-                    : [node.properties.className];
-                
-                if (classes.includes('math') || classes.includes('katex')) {
-                    console.log('Found math node:', node);
-                    if (node.children && node.children.length > 0) {
-                        console.log('Math node content:', node.children[0].value);
-                    }
-                }
-            }
-        });
-    })
-    .use(rehypeKatex, { 
-        throwOnError: false, // Don't throw on parse errors
-        output: 'htmlAndMathml' // Output both HTML and MathML
-    })
-    .use(rehypeStringify, { allowDangerousHtml: true }) // Stringify HAST to HTML with HTML allowed
-    .process(response)
-    .then(result => String(result));
+        .use(remarkParse) // Parse markdown
+        .use(remarkMath) // Parse math expressions
+        .use(remarkHighlight) // Apply syntax highlighting to code blocks
+        .use(remarkRehype, { allowDangerousHtml: true }) // Convert MDAST to HAST with HTML allowed
+        .use(rehypeKatex, { 
+            throwOnError: false, // Don't throw on parse errors
+            output: 'htmlAndMathml', // Output both HTML and MathML
+            strict: false // Be more lenient with LaTeX syntax
+        })
+        .use(rehypeStringify, { allowDangerousHtml: true }) // Stringify HAST to HTML with HTML allowed
+        .process(response)
+        .then(result => String(result));
     
     while(response.charAt(0) != "<" && response.length > 0){
         response = response.substring(1);
