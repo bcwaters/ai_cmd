@@ -4,122 +4,181 @@
     <title>Prompt Interface</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-   body {
-    font-family: 'Courier New', monospace;
-    background: #000000;
-    color: #00FF00;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    animation: pulse 5s infinite;
-}
+        /* Clean, professional styling based on templates */
+        body {
+            color: #444;
+            font-family: 'Arial', sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            padding: 1em;
+            margin: auto;
+            max-width: 800px;
+            background: #fefefe;
+        }
 
-@keyframes pulse {
-    0% { background-color: #000000; }
-    50% { background-color: #1a1a1a; }
-    100% { background-color: #000000; }
-}
+        h1, h2, h3, h4 {
+            font-weight: normal;
+            color: #111;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            padding: 0;
+        }
 
-h1, h2 {
-    color: #FF00FF;
-    text-shadow: 0 0 5px rgba(255, 0, 255, 0.7), 0 0 15px rgba(255, 0, 255, 0.5), 0 0 30px rgba(255, 0, 255, 0.3);
-    font-size: clamp(1.5rem, 5vw, 2.5rem);
-    word-wrap: break-word;
-}
+        h1 {
+            font-size: 2em;
+        }
 
-textarea {
-    width: 100%;
-    height: 150px;
-    margin-bottom: 10px;
-    padding: 8px;
-    background: #1a1a1a;
-    border: 1px solid #00FF00;
-    color: #00FF00;
-    box-shadow: 0 0 10px #00FF00;
-    box-sizing: border-box;
-}
+        h2 {
+            font-size: 1.6em;
+            margin: 24px 0 6px;
+        }
 
-button {
-    padding: 8px 16px;
-    background-color: #FF00FF;
-    color: #000000;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 0 10px #FF00FF;
-    width: 100%;
-    margin-top: 10px;
-    font-size: 1rem;
-}
+        h3 {
+            font-size: 1.3em;
+        }
 
-button:hover {
-    background-color: #FF00CC;
-    box-shadow: 0 0 20px #FF00CC;
-}
+        p {
+            margin: 1em 0;
+            line-height: 1.5;
+            max-width: 100%;
+        }
 
-p {
-    color: #00FFFF;
-    font-size: clamp(0.9rem, 3vw, 1rem);
-    word-wrap: break-word;
-}
+        a {
+            color: #0645ad;
+            text-decoration: none;
+        }
 
-form {
-    border: 1px solid #00FF00;
-    padding: 20px;
-    box-shadow: 0 0 10px #00FF00;
-    width: 100%;
-    box-sizing: border-box;
-}
+        a:hover {
+            color: #06e;
+            text-decoration: underline;
+        }
 
-::placeholder {
-    color: #00FF00;
-    opacity: 0.5;
-}
+        a:visited {
+            color: #0b0080;
+        }
 
-/* Add styles for checkbox */
-.checkbox-container {
-    margin: 10px 0;
-    display: flex;
-    align-items: center;
-}
+        textarea {
+            width: 100%;
+            height: 150px;
+            margin-bottom: 10px;
+            padding: 8px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            color: #333;
+            box-sizing: border-box;
+            font-size: 16px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
 
-.checkbox-container input[type="checkbox"] {
-    margin-right: 10px;
-    cursor: pointer;
-    transform: scale(1.2);
-}
+        textarea:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 1px #007bff;
+        }
 
-.checkbox-container label {
-    color: #00FFFF;
-    cursor: pointer;
-    font-size: clamp(0.9rem, 3vw, 1rem);
-}
+        button {
+            display: inline-block;
+            padding: 8px 16px;
+            font-family: "Arial", sans-serif;
+            font-size: 14px;
+            line-height: 1.5;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: #fff;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: auto;
+            margin-top: 10px;
+        }
 
-/* Mobile responsive styles */
-@media (max-width: 600px) {
-    body {
-        padding: 10px;
-    }
-    
-    form {
-        padding: 15px;
-    }
-    
-    textarea {
-        height: 120px;
-        font-size: 16px;
-    }
-    
-    button {
-        padding: 12px 16px;
-        font-size: 1.1rem;
-    }
-    
-    .checkbox-container input[type="checkbox"] {
-        transform: scale(1.4);
-        margin-right: 15px;
-    }
-}
+        button:hover {
+            background-color: #0056b3;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+        }
+
+        ::placeholder {
+            color: #999;
+            opacity: 0.7;
+        }
+
+        /* Checkbox styling */
+        .checkbox-container {
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .checkbox-container label {
+            color: #333;
+            cursor: pointer;
+        }
+
+        /* Mobile responsive styles */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            
+            form {
+                padding: 15px;
+            }
+            
+            textarea {
+                height: 120px;
+            }
+            
+            button {
+                padding: 12px 16px;
+            }
+        }
+
+        /* Navigation styling from template */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #f8f9fa;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        nav a {
+            color: #333;
+            text-decoration: none;
+            font-family: 'Arial', sans-serif;
+            text-transform: uppercase;
+            font-weight: 300;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #007bff;
+            text-decoration: underline;
+            background-color: rgba(0, 123, 255, 0.1);
+            transition: all 0.3s ease;
+        }
     </style>
     <script>
     // Add event listener for Enter key and focus textarea on load
@@ -157,14 +216,19 @@ form {
             <input type="checkbox" id="treeMode" name="treeMode" value="true">
             <label for="treeMode">Enable Tree Mode</label>
         </div>
-        <button type="submit" onclick="this.disabled=true; this.innerText='Processing...'; this.style.backgroundColor='#666666'; this.style.boxShadow='0 0 10px #666666'; this.form.submit();">Submit</button>
+        <button type="submit" onclick="this.disabled=true; this.innerText='Processing...'; this.style.backgroundColor='#666666'; this.form.submit();">Submit</button>
     </form>
-    <p> This servers up docs generated by ai_cmd. This is a simple express server that uses grok 2, give it a second to generate the doc.  When set to treeMode, it branches out on each subject in the response, and then returns a consolidated html.<br></br>
-    Try a prompt like: "What are the benefits of static html pages"<br></br>
-    or "What are some data structures in JS"<br></br>
-    or "tell me about applied linear algebra in machine learning"<br></br>
-    </p>
-
-    <h2> this is way better in terminal mode, clone it and use it. </h2>
+    
+    <h2>About This Service</h2>
+    <p>This server provides documentation generated by ai_cmd using Grok 2. When set to Tree Mode, it branches out on each subject in the response and returns a consolidated HTML document.</p>
+    
+    <h3>Example Prompts</h3>
+    <ul>
+        <li>"What are the benefits of static HTML pages"</li>
+        <li>"What are some data structures in JS"</li>
+        <li>"Tell me about applied linear algebra in machine learning"</li>
+    </ul>
+    
+    <p><strong>Note:</strong> This service works even better in terminal mode. Clone the repository to use it locally.</p>
 </body>
 </html>
