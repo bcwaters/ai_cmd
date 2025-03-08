@@ -13,6 +13,7 @@ grok/context/context.history
 grok/context/context.data
 
 grok/context/history/*
+grok/context/mockContext/*
 
 !grok/context/currentChat/README.md
 !grok/context/history/responses/README.md

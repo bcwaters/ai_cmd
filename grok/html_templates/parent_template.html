@@ -17,11 +17,18 @@
 
 
     .dropdown-container {
+      border-bottom-right-radius: 5px;
+      border-bottom-left-radius: 5px;
       display: flex;
       align-items: center;
       padding: 10px;
       justify-content: center;
-      width: 100%;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      max-width: 100%;
+      border-bottom: 1px solid #008CBA;
+      background-color: #4b4b4b22;
+      box-sizing: border-box;
+      margin: 0 auto;
     }
 
 
@@ -32,8 +39,8 @@
     }
 
     .topic-select {
-      padding:0px !important;
-      border:0px solid #008CBA !important;
+    
+      font-size: 12px;
     }
 
     nav {
@@ -47,6 +54,10 @@
       z-index: 100;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       border-radius: 5px;
+       /* Account for padding */
+      max-width: 100%;
+      box-sizing: border-box;
+      margin: 0 auto;
     }
 
     /* Navbar links */
@@ -136,8 +147,8 @@
     
     /* Dropdown styling */
     select {
-      padding: 5px 10px;
-      border: 2px solid #008CBA;
+      padding: 4px;
+      border: 0px solid #008CBA;
       border-radius: 4px;
       background-color: white;
       color: #333;
@@ -192,7 +203,7 @@
   </nav>
   <div class="dropdown-container">
     <select class="topic-select" id="childSubjects">
-      <option value="home">Home</option>
+      <option value="home">Topics</option>
       <!-- Children are added here onload with setChildSubjects -->
   </select>
   </div>

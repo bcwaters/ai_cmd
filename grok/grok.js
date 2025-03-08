@@ -76,7 +76,7 @@ export function parseCommandLineArgs(serverArgs) {
     let baseContextDirectory ="./grok/context/";
 
     if(args.includes("--mockMode")){
-        baseContextDirectory = "./grok/context/mockContext/"
+        baseContextDirectory = `${baseContextDirectory}mockContext/`
     }
 
     if(args.includes("--openai")){
@@ -137,14 +137,14 @@ export function parseCommandLineArgs(serverArgs) {
 }
 
 // Read and parse the context file
-export async function getConversationContext(context, isNew) {
-
+export async function getConversationContext(userPromptRequest, isNew) {
+let context = userPromptRequest.context;
     //isNew? return "string for a new context": do other stuff
     try {
   
         //TODO FIX CONTEXT HSITRY for new flag
         if (context == "") {
-            const context = await fs.readFile('./grok/context/currentChat/currentChat.json', "utf8");
+            const context = await fs.readFile(userPromptRequest.baseContextDirectory + 'currentChat/currentChat.json', "utf8");
             const parsedContext = JSON.parse(context);
            
             const messages = parsedContext.choices[0]
@@ -157,7 +157,7 @@ export async function getConversationContext(context, isNew) {
         } else {
       
 
-            const storedContext = await fs.readFile('./grok/context/history/fullCompletion/' + context + '.json', "utf8");
+            const storedContext = await fs.readFile(userPromptRequest.baseContextDirectory + 'history/fullCompletion/' + context + '.json', "utf8");
             const parsedContext = JSON.parse(storedContext);
            
             const messages = parsedContext.choices[0]
@@ -257,7 +257,7 @@ export async function parseCompletionForResponseAndMetaResponse(completion){
 }
 
 export function htmlReplaceTemplateValues(cssForMarkdown, html_string, sanitizedMarkdownContent, priorContextId, responseId){
-    //TODO ParentID technically is null here, there needs to be inheritance form a prompt class for a default value
+
     html_string = html_string.replaceAll("@PARENT_ID@", GlobalPromptProfile.ParentId) //NICE THIS IS STATIC AND AVAIALBLE!
     .replaceAll("REPLACEME", sanitizedMarkdownContent)
     .replaceAll("@CSS_GOES_HERE@", cssForMarkdown)
@@ -299,7 +299,7 @@ export async function  saveHtmlResponse(userPromptRequest, markdownContent, prio
         terminal.log("childDirectory being written to", userPromptRequest.childDirectory);
         terminal.log(terminal.colors.red,terminal.logDivider, terminal. colors.reset );
         await fs.writeFile(
-            `./grok/context/history/responses/${userPromptRequest.rootResponseId}/tree/${userPromptRequest.childDirectory}/${userPromptRequest.dynamicResponseId}.html`,
+            `${userPromptRequest.baseContextDirectory}history/responses/${userPromptRequest.rootResponseId}/tree/${userPromptRequest.childDirectory}/${userPromptRequest.dynamicResponseId}.html`,
             childHtml,
             "utf8"
         );
@@ -315,17 +315,17 @@ export async function  saveHtmlResponse(userPromptRequest, markdownContent, prio
     // Obfucscated logic to create the directory structure before writing the file, do so before methd call.
     // Create the directory structure before writing the file
     //this only has to be called once if called elsewhere
-    await fs.mkdir(`./grok/context/history/responses/${userPromptRequest.rootResponseId}/html`, { recursive: true });
+    await fs.mkdir(`${userPromptRequest.baseContextDirectory}history/responses/${userPromptRequest.rootResponseId}/html`, { recursive: true });
 
     //UPDATE writer class path here
     await fs.writeFile(   
-        `./grok/context/history/responses/${userPromptRequest.rootResponseId}/html/${userPromptRequest.dynamicResponseId}.html`,
+        `${userPromptRequest.baseContextDirectory}history/responses/${userPromptRequest.rootResponseId}/html/${userPromptRequest.dynamicResponseId}.html`,
             indexHtml,
             "utf8"
     );
     
     await fs.writeFile(
-        `./grok/context/currentChat/currentChat.html`,
+        `${userPromptRequest.baseContextDirectory}currentChat/currentChat.html`,
         indexHtml,
         "utf8"
     );
@@ -336,16 +336,16 @@ export async function saveMarkdownResponse(userPromptRequest, markdownContent) {
     terminal.debug(terminal.logDivider);
     terminal.debug(terminal.colors.green, "markdownContent\n",terminal.colors.reset, markdownContent);
     terminal.debug(terminal.logDivider);
-    await fs.mkdir(`./grok/context/history/responses/${userPromptRequest.rootResponseId}/markdown`, { recursive: true });
+    await fs.mkdir(`${userPromptRequest.baseContextDirectory}history/responses/${userPromptRequest.rootResponseId}/markdown`, { recursive: true });
     // Save markdown response
     await fs.writeFile(
-        `./grok/context/history/responses/${userPromptRequest.rootResponseId}/markdown/${userPromptRequest.dynamicResponseId}.md`,
+        `${userPromptRequest.baseContextDirectory}history/responses/${userPromptRequest.rootResponseId}/markdown/${userPromptRequest.dynamicResponseId}.md`,
         markdownContent,
         "utf8"
     );
 
     await fs.writeFile(
-        `./grok/context/currentChat/currentChat.md`,
+        `${userPromptRequest.baseContextDirectory}currentChat/currentChat.md`,
         markdownContent,
         "utf8"
     );
@@ -481,7 +481,7 @@ export async function main( ...serverArgs) {
          terminal.debug(terminal.colors.green, "User Prompt Request", terminal.colors.reset, userPromptRequest.toString());
 
     //TODO Load the previous propmt - there is probably a clever way to use previous id and load as much history as requested... add parent to context.history
-    const priorConverstation = await getConversationContext(userPromptRequest.context, userPromptRequest.isNew); // Ensure context is fetched based on context
+    const priorConverstation = await getConversationContext(userPromptRequest, userPromptRequest.isNew); // Ensure context is fetched based on context
     const contextData = await fs.readFile(userPromptRequest.baseContextDirectory + "context.data", "utf8");
 
 
@@ -489,7 +489,7 @@ export async function main( ...serverArgs) {
     //Context is loaded for the api request
     let apiRequest = await createApiRequest(userPromptRequest, priorConverstation, userPromptRequest.isNew, userPromptRequest.isShort, contextData, userPromptRequest.context, userPromptRequest.filePath, userPromptRequest.specialty, processingRootNode);
     let completion;
-    if(userPromptRequest.baseContextDirectory == "./grok/context/mockContext/"){
+    if(userPromptRequest.baseContextDirectory == "${userPromptRequest.baseContextDirectory}mockContext/"){
         completion = await fs.readFile(userPromptRequest.baseContextDirectory + "currentChat/currentChat.json")
         completion = JSON.parse(completion)
     }else{
@@ -649,7 +649,7 @@ export async function main( ...serverArgs) {
             parentHtml = parentHtml.replace("@CURRENT_ID@", GlobalPromptProfile.ParentId);
             //parentHtml = parentHtml.replace("@PREVIOUS_ID@", dynamicResponseId);
 
-            savePreviousId(userPromptRequest.rootResponseId, userPromptRequest.userPrompt, contextHistoryLength);
+            savePreviousId(userPromptRequest.rootResponseId, userPromptRequest, contextHistoryLength);
             //I could name this more intelligently.
             //I want to explorer a recursive approach for deeper trees. How do i template a child that is a parent and a child
             //I am pretty sure a recursive approach seting the context to the child repsonse ID and the recursively prompts from there
@@ -684,7 +684,7 @@ export async function main( ...serverArgs) {
         }
    
     const openCommand = os.platform() === 'win32' ? 'start' : 'open';
-    exec(`${openCommand} ./grok/context/${htmlDir}`, (err) => {
+    exec(`${openCommand} ${userPromptRequest.baseContextDirectory}${htmlDir}`, (err) => {
         if (err) {
                 terminal.error("Error opening the HTML file:", err);
             }

@@ -11,8 +11,8 @@ class UserPromptRequest {
         this.filePath = filePath;
         this.specialty = specialty;
         this.treeMode = treeMode;
+        this._baseContextDirectory = baseContextDirectory;
         this.browserMode = browserMode;
-        this._baseContextDirectory = baseContextDirectory
         this.rootResponseId = "";
         this.codeReviewMode = codeReviewMode;
         this._dynamicPrompt = userPrompt;
