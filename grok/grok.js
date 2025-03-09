@@ -9,12 +9,14 @@ import dotenv from "dotenv"                //use dotenv to load environment vari
 
 //new way for markdown
 import {unified} from 'unified';
+import {visit} from 'unist-util-visit';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import rehypeStringify from 'rehype-stringify';
 import remarkHighlight from 'remark-highlight.js';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
+import hljs from 'highlight.js';
 
 //Local packages
 import {PromptProfile} from './prompt_profiles/PromptProfile.js';
@@ -352,12 +354,52 @@ export async function saveMarkdownResponse(userPromptRequest, markdownContent) {
     
 }
 
-export async function preprocessResponse(response) {   
+/*
+        .use(() => (tree) => {
+            // Process code blocks to ensure valid language
+            let supportedLanguages = remarkHighlight.languages;
+            supportedLanguages = Object.keys(supportedLanguages);
+            visit(tree, 'code', (node) => {
 
-    
+                if (node.lang && !supportedLanguages.includes(node.lang)) {
+                    node.lang = "text";
+                }
+            });
+            return tree;
+        })
+
+*/
+
+export async function preprocessResponse(response) {   
+    // Use hljs.listLanguages() instead
+    let supportedLanguages = hljs.listLanguages();
+ 
+   
     // Simplified preprocessing without unified-latex
     response = await unified()
+
         .use(remarkParse) // Parse markdown
+        .use(() => (tree) => {
+ 
+            visit(tree, 'code', (node) => {
+
+                if (node.lang && !supportedLanguages.includes(node.lang)) {
+                    node.lang = "text";
+                }
+            });
+            return tree;
+        })
+
+        .use(() => (tree) => {
+ 
+            visit(tree, 'code', (node) => {
+
+                if (node.lang && !supportedLanguages.includes(node.lang)) {
+                    node.lang = "text";
+                }
+            });
+            return tree;
+        })
         .use(remarkMath) // Parse math expressions
         .use(remarkHighlight) // Apply syntax highlighting to code blocks
         .use(remarkRehype, { allowDangerousHtml: true }) // Convert MDAST to HAST with HTML allowed

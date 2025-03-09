@@ -25,33 +25,38 @@ export class CodeReviewPromptProfile extends PromptProfile {
         let filePrompt = this._prepareFilePrompt();
         
         console.log("writing code review profile");
-        this.specialty = "review code and debug any errors. Suggest improvements, fix any issues such as typos, syntax errors, outdated approaches. Each file with suggestions should have it's own heading.";
+        this.specialty = 
+            "review code"+
+            "Suggest improvements and fix any issues such as typos, syntax errors, outdated approaches. "+
+            "Each file with suggestions should show the suggestions. Make sure suggestions have a description before the code block. In its own code block.  Be thorough in your explanation for the suggestion and link to relevant documentation when available for major packages used."
         
+        let systemRoleDefinePrompt = `You are a helpful assistant that wants to help me ${this.specialty}.  All answers should be in markdown format.`;
+       
+        isNew=true; //clear context for code reviews
+        let contextPrimePrompt = `Context of the conversation so far: ${isNew ? "This is the beginning of the conversation. After answering the question suggest a few follow up questions." : messagesString + contextData}`; 
+        
+        let eofStructurePrompt = "There will be a separate response indicated by @EOF@ so response.split(@EOF@)[1] should return the other response. All latex should be in Math format $...$ or $$...$$"+
+        "The seperate response will be 500 characters max and 400 character min. it will be a list of keywords which capture the key information provided. SEO style  READMEDOC@EOF@KEYWORDS"+
+        "Remember to include an @EOF@ in the response.  It should be after the readme section and before the keywords";
         this.profile = [
             {
                 role: "system",
                 content: [
                     {
                         type: "text",
-                        text: `You are a helpful assistant that wants to help me${this.specialty}.  All answers should be in markdown format.  `
+                        text: systemRoleDefinePrompt
                     },
                     {
                         type: "text",
-                        text: `Context of the conversation so far: ${isNew ? "This is the beginning of the conversation. After answering the question suggest a few follow up questions." : messagesString + contextData}`
+                        text: contextPrimePrompt
                     },
                     {
                         type: "text",
-                        text: "There will be a separate response indicated by @EOF@ so response.split(@EOF@)[1] should return the other response. All latex should be in Math format $...$"
+                        text: eofStructurePrompt
                     },
-                    {
-                        type: "text",
-                        text: "The seperate response will be 500 characters max and 400 character min. it will be a list of keywords which capture the key information provided. SEO style  READMEDOC@EOF@KEYWORDS"
-                    },
-                    {
-                        type: "text",
-                        text: "Remember to include an @EOF@ in the response.  It should be after the readme section and before the keywords"
-                    }
-                ]
+
+                    
+                    ]
             },
             
             {
