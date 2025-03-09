@@ -22,6 +22,7 @@ import hljs from 'highlight.js';
 import {PromptProfile} from './prompt_profiles/PromptProfile.js';
 import {TreeModeProfile} from './prompt_profiles/TreeMode.js';
 import {CodeReviewPromptProfile} from './prompt_profiles/CodeReview.js';
+import {VisionDescribe} from './prompt_profiles/VisionDescribe.js';
 import UserPromptRequest from './utils/UserPromptRequest.js';
 import terminal from './utils/terminal.js'; 
 import {minimizeTokens, sleep, removeWhiteSpaceAndEnsureAlphabet } from './utils/utils.js';
@@ -43,6 +44,7 @@ const xai = new OpenAI({
     apiKey: process.env.XAI_API_KEY,
     baseURL: "https://api.x.ai/v1",
 });
+
 
 let chosenModel = xai;
 let GlobalPromptProfile = PromptProfile;
@@ -76,9 +78,13 @@ export function parseCommandLineArgs(serverArgs) {
     let browserMode = true;
     let codeReviewMode = false;
     let baseContextDirectory ="./grok/context/";
-
+    let visionMode = false; 
     if(args.includes("--mockMode")){
         baseContextDirectory = `${baseContextDirectory}mockContext/`
+    }
+
+    if(args.includes("--visionMode")){
+        visionMode = true;
     }
 
     if(args.includes("--openai")){
@@ -135,7 +141,7 @@ export function parseCommandLineArgs(serverArgs) {
     }
 
 
-    return new UserPromptRequest(userPrompt, isShort, isNew, context, depth, filePath, specialty, treeMode , browserMode, codeReviewMode, baseContextDirectory);
+    return new UserPromptRequest(userPrompt, isShort, isNew, context, depth, filePath, specialty, treeMode , browserMode, codeReviewMode, baseContextDirectory, visionMode);
 }
 
 // Read and parse the context file
@@ -174,6 +180,53 @@ let context = userPromptRequest.context;
         terminal.error("Error reading or processing the context file:", error);
         return "";
     }
+}
+
+
+// Create the request object for the API
+export async function createApiRequestForVision(userPromptRequest, priorConverstation, isNew, isShort, contextData, context, filePath, specialty, processingRootNode) {
+    //TODO implement abstraction for profiles before this explodes in complexity
+    
+    let messages = [];
+    if (isShort) {
+  
+    }
+   GlobalPromptProfile = VisionDescribe;    
+
+  
+    PromptProfile.isLogging = false;
+    
+    //This can be encapulated into getProfile method
+    if(userPromptRequest.treeMode){
+        if(processingRootNode){
+            messages = GlobalPromptProfile.getDefaultProfile(isNew, priorConverstation, contextData, userPromptRequest.dynamicPrompt); // Load the array from the default file
+        }else{
+            //TYPESCRIPT ERROR HERE but i'm not using ts haha
+            messages = GlobalPromptProfile.getBranchProfile(isNew, priorConverstation, contextData, userPromptRequest.dynamicPrompt); // Load the array from the default file
+        }
+    }else{
+   
+        //load filepaths from userPromptRequest.filePath
+        let fileContent = await ProfileFileLoader.loadFileContent(userPromptRequest.filePath);
+        terminal.debug(terminal.colors.green, "fileContent", terminal.colors.reset, fileContent);
+
+        if(fileContent.length > 0){
+            GlobalPromptProfile.addFile(fileContent);
+        }
+        messages = GlobalPromptProfile.getDefaultProfile(isNew, priorConverstation, contextData, userPromptRequest.dynamicPrompt); // Load the array from the default file
+    }
+    
+    terminal.debug(terminal.colors.green, "Prompt Sent to Grok", terminal.colors.reset, JSON.stringify(messages, null, 4));
+  
+ 
+
+    //grok-2-latest
+    //grok-2-vision-1212
+    //terminal.debug(terminal.colors.green, "Prompt Sent to Grok", terminal.colors.reset, JSON.stringify(messages, null, 4));
+    return {
+        model: chosenModel == openai ? "gpt-4.5-preview" : "grok-2-vision-1212",
+        messages: messages, // Use the loaded variable here
+    };
 }
 
 // Create the request object for the API
@@ -224,6 +277,7 @@ export async function createApiRequest(userPromptRequest, priorConverstation, is
  
 
     //grok-2-latest
+    //grok-2-vision-1212
     //terminal.debug(terminal.colors.green, "Prompt Sent to Grok", terminal.colors.reset, JSON.stringify(messages, null, 4));
     return {
         model: chosenModel == openai ? "gpt-4.5-preview" : "grok-2-latest",
@@ -526,10 +580,14 @@ export async function main( ...serverArgs) {
     const priorConverstation = await getConversationContext(userPromptRequest, userPromptRequest.isNew); // Ensure context is fetched based on context
     const contextData = await fs.readFile(userPromptRequest.baseContextDirectory + "context.data", "utf8");
 
-
+    let apiRequest;
 
     //Context is loaded for the api request
-    let apiRequest = await createApiRequest(userPromptRequest, priorConverstation, userPromptRequest.isNew, userPromptRequest.isShort, contextData, userPromptRequest.context, userPromptRequest.filePath, userPromptRequest.specialty, processingRootNode);
+    if(userPromptRequest.visionMode){
+        apiRequest = await createApiRequestForVision(userPromptRequest, priorConverstation, userPromptRequest.isNew, userPromptRequest.isShort, contextData, userPromptRequest.context, userPromptRequest.filePath, userPromptRequest.specialty, processingRootNode);
+    }else{
+        apiRequest = await createApiRequest(userPromptRequest, priorConverstation, userPromptRequest.isNew, userPromptRequest.isShort, contextData, userPromptRequest.context, userPromptRequest.filePath, userPromptRequest.specialty, processingRootNode);
+    }
     let completion;
     if(userPromptRequest.baseContextDirectory == "${userPromptRequest.baseContextDirectory}mockContext/"){
         completion = await fs.readFile(userPromptRequest.baseContextDirectory + "currentChat/currentChat.json")

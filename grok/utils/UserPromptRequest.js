@@ -1,8 +1,8 @@
 import fs from "fs/promises";
 
 //Represents the prompt recieved from the user, with dynamic variables for tree mode
-class UserPromptRequest {
-    constructor(userPrompt, isShort, isNew, context, depth, filePath, specialty, treeMode, browserMode, codeReviewMode, baseContextDirectory) {
+class   UserPromptRequest {
+    constructor(userPrompt, isShort, isNew, context, depth, filePath, specialty, treeMode, browserMode, codeReviewMode, baseContextDirectory, visionMode) {
         this.userPrompt = userPrompt?userPrompt:"";
         this.isShort = isShort;
         this.isNew = isNew;
@@ -21,7 +21,7 @@ class UserPromptRequest {
         this._currentSubject = "";
         this._branchList = [];
         this._branchIndex = 0;
-        
+        this.visionMode = visionMode;
     }
 
     get baseContextDirectory() {
