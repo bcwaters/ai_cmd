@@ -17,6 +17,7 @@ export class PromptProfile {
 
     static getDefaultProfile(isNew, messagesString, contextData, userPrompt) {
         if (this.isLogging) {
+            console.log("getDefaultProfile");
             console.log({ isNew, messagesString, contextData, userPrompt });
         }
         
@@ -73,6 +74,7 @@ export class PromptProfile {
         if(filePrompt != ""){
             this.profile.push(filePrompt);
         }
+
 
         //add the user prompt
         this.profile.push(

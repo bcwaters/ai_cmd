@@ -17,12 +17,12 @@ export class VisionDescribe {
         }
     }
 
-    static getDefaultProfile(isNew, messagesString, contextData, userPrompt) {
+    static getDefaultProfile(isNew, messagesString, contextData, userPromptRequest) {
         if (this.isLogging) {
-            console.log({ isNew, messagesString, contextData, userPrompt });
+            console.log( isNew, messagesString, contextData, userPromptRequest.dynamicPrompt );
         }
         
-        let filePrompt = this._prepareFilePrompt();
+      
         
         this.profile = [
             {
@@ -71,12 +71,9 @@ export class VisionDescribe {
             },
         ];
 
-        //add any files for context
-        if(filePrompt != ""){
-            this.profile.push(filePrompt);
-        }
+       
 
-        let image_path = "./grok/images/image.jpg";
+        let image_path = userPromptRequest.filePath;
         let imageUrl = this.base64_encode_image(image_path);
         //add the user prompt
         this.profile.push(
@@ -90,7 +87,7 @@ export class VisionDescribe {
                             detail: "high",
                         },
                     },
-                    {"type": "text", "text": userPrompt},
+                    {"type": "text", "text": userPromptRequest.dynamicPrompt},
                 ],
             },
         );
@@ -98,36 +95,85 @@ export class VisionDescribe {
         return this.profile;
     }
 
-    static _prepareFilePrompt() {
-        let includedFiles = [];
-        let filePrompt = "";
+  
 
-        if(this.files.length > 0){
-            for(let file of this.files){
-                includedFiles.push({
-                    type: "text",
-                    text: file.fileName + "\n" + file.content
-                });
-            }
+
+    
+
+
+    static getJsonProfile(isNew, messagesString, contextData, userPromptRequest) {
+        if (this.isLogging) {
+            console.log( isNew, messagesString, contextData, userPromptRequest.dynamicPrompt );
         }
+        
+        
+        
 
-        if(includedFiles.length > 0){
-            filePrompt = {
+        //TODO  specialize the return format once the while loop is subdivided into different modes
+        this.profile = [
+            {
                 role: "system",
-                content: includedFiles
-            };
-        }
+                content: [
+                    {
+                        type: "text",
+                        text: `You are a data structuring expert.  Examine an image of a page and convert any tables into JSON, returning each table in a code block. All other information in the image can be represented in markdown as descriptions and auxilary information.`
+                    },
+                    {
+                        type: "text",
+                        text: "Here is some context from the previous image: " + messagesString + contextData
+                    },
+                    {
+                        type: "text",
+                        text: "The format for your response should have a descriptive title, the tables, and then any other information. Example: ## Character Sheets \n ### Tables \n```json \n{}```` ### markdown for other info"
+                    },
+                    {
+                        type: "text",
+                        text: "Include a json for everytable in the image.  Have an extensive markdown section for any other information in the image. Do not leave out any data."
+                    },
+                    {
+                        type: "text",
+                        text: "There will be a separate response indicated by @EOF@ so response.split(@EOF@)[1] should return the other response"
+                    },
+                    {
+                        type: "text",
+                        text: "The seperate response will be 500 characters max and 400 character min. it will be a list of keywords which capture the key information provided. SEO style  READMEDOC@EOF@KEYWORDS"
+                    },
+                    {
+                        type: "text",
+                        text: "Remember to include an @EOF@ in the response.  It should be after the readme section and before the keywords. All latex should be in Math format $...$"
+                    }
+                ]
+            },
+            
+    
+        ];
 
-        return filePrompt;
+        console.log("fileapth:" , userPromptRequest.filePath);
+        let image_path = userPromptRequest.filePath;
+        let imageUrl = this.base64_encode_image(image_path);
+        //add the user prompt
+        this.profile.push(
+            {
+                role: "user",
+                content: [
+                    {
+                        type: "image_url",
+                        image_url: {
+                            url: "data:image/jpg;base64," + imageUrl,
+                            detail: "high",
+                        },
+                    },
+                    {"type": "text", "text": userPromptRequest.dynamicPrompt},
+                ],
+            },
+        );
+        
+        return this.profile;
     }
 
-    static addFile(fileContent){
-        if(fileContent.length > 0){ 
-            for(let file of fileContent){
-                this.files.push(file);
-            }
-        }
-    }
+
+
+
 
     static base64_encode_image(image_path){
         return fs.readFileSync(image_path).toString('base64');

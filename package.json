@@ -24,6 +24,7 @@
     "katex": "^0.16.21",
     "mermaid": "^11.4.1",
     "openai": "^4.83.0",
+    "pdf-parse": "^1.1.1",
     "rehype-highlight": "^7.0.2",
     "rehype-katex": "^7.0.1",
     "rehype-mermaid": "^3.0.0",
@@ -34,6 +35,7 @@
     "remark-math": "^6.0.0",
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.1.1",
+    "remark-stringify": "^11.0.0",
     "unified": "^11.0.5",
     "unified-latex": "^1.1.3"
   },

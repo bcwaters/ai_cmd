@@ -1,5 +1,6 @@
 import fs from 'fs/promises'
 import { join } from 'path';
+import path from 'path';
 import os from 'os'
 import {exec} from 'child_process'         //use exec to run commands like open browser
 
@@ -17,6 +18,7 @@ import remarkHighlight from 'remark-highlight.js';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import hljs from 'highlight.js';
+import remarkStringify from 'remark-stringify';
 
 //Local packages
 import {PromptProfile} from './prompt_profiles/PromptProfile.js';
@@ -79,12 +81,14 @@ export function parseCommandLineArgs(serverArgs) {
     let codeReviewMode = false;
     let baseContextDirectory ="./grok/context/";
     let visionMode = false; 
+    let visionModeDirectory = "";
     if(args.includes("--mockMode")){
         baseContextDirectory = `${baseContextDirectory}mockContext/`
     }
 
     if(args.includes("--visionMode")){
         visionMode = true;
+        visionModeDirectory = args[args.indexOf("--visionMode") + 1];
     }
 
     if(args.includes("--openai")){
@@ -141,7 +145,7 @@ export function parseCommandLineArgs(serverArgs) {
     }
 
 
-    return new UserPromptRequest(userPrompt, isShort, isNew, context, depth, filePath, specialty, treeMode , browserMode, codeReviewMode, baseContextDirectory, visionMode);
+    return new UserPromptRequest(userPrompt, isShort, isNew, context, depth, filePath, specialty, treeMode , browserMode, codeReviewMode, baseContextDirectory, visionMode, visionModeDirectory);
 }
 
 // Read and parse the context file
@@ -195,34 +199,15 @@ export async function createApiRequestForVision(userPromptRequest, priorConverst
 
   
     PromptProfile.isLogging = false;
-    
-    //This can be encapulated into getProfile method
-    if(userPromptRequest.treeMode){
-        if(processingRootNode){
-            messages = GlobalPromptProfile.getDefaultProfile(isNew, priorConverstation, contextData, userPromptRequest.dynamicPrompt); // Load the array from the default file
-        }else{
-            //TYPESCRIPT ERROR HERE but i'm not using ts haha
-            messages = GlobalPromptProfile.getBranchProfile(isNew, priorConverstation, contextData, userPromptRequest.dynamicPrompt); // Load the array from the default file
-        }
-    }else{
-   
-        //load filepaths from userPromptRequest.filePath
-        let fileContent = await ProfileFileLoader.loadFileContent(userPromptRequest.filePath);
-        terminal.debug(terminal.colors.green, "fileContent", terminal.colors.reset, fileContent);
 
-        if(fileContent.length > 0){
-            GlobalPromptProfile.addFile(fileContent);
-        }
-        messages = GlobalPromptProfile.getDefaultProfile(isNew, priorConverstation, contextData, userPromptRequest.dynamicPrompt); // Load the array from the default file
-    }
+ 
+    messages = GlobalPromptProfile.getJsonProfile(isNew, priorConverstation, contextData, userPromptRequest); // Load the array from the default file
     
     terminal.debug(terminal.colors.green, "Prompt Sent to Grok", terminal.colors.reset, JSON.stringify(messages, null, 4));
   
- 
-
     //grok-2-latest
     //grok-2-vision-1212
-    //terminal.debug(terminal.colors.green, "Prompt Sent to Grok", terminal.colors.reset, JSON.stringify(messages, null, 4));
+
     return {
         model: chosenModel == openai ? "gpt-4.5-preview" : "grok-2-vision-1212",
         messages: messages, // Use the loaded variable here
@@ -232,7 +217,6 @@ export async function createApiRequestForVision(userPromptRequest, priorConverst
 // Create the request object for the API
 export async function createApiRequest(userPromptRequest, priorConverstation, isNew, isShort, contextData, context, filePath, specialty, processingRootNode) {
     //TODO implement abstraction for profiles before this explodes in complexity
-    
     let messages = [];
     if (isShort) {
   
@@ -269,6 +253,7 @@ export async function createApiRequest(userPromptRequest, priorConverstation, is
         if(fileContent.length > 0){
             GlobalPromptProfile.addFile(fileContent);
         }
+  
         messages = GlobalPromptProfile.getDefaultProfile(isNew, priorConverstation, contextData, userPromptRequest.dynamicPrompt); // Load the array from the default file
     }
     
@@ -424,6 +409,55 @@ export async function saveMarkdownResponse(userPromptRequest, markdownContent) {
 
 */
 
+export async function writeJsonToFile(response, fileName){
+    fileName = path.basename(fileName, path.extname(fileName));
+    terminal.log("writing json to files");
+    let jsonList = [];
+    response = await unified()
+        .use(remarkParse) // Parse markdown
+        .use(() => (tree) => {
+            // Process code blocks
+            visit(tree, 'code', (node, index, parent) => {
+                if(node.lang == "json"){
+                    jsonList.push(node.value);
+                    
+                    // Create a link node to replace the code block
+                    const linkPath = "./" + fileName + (jsonList.length) + ".json";
+                    const linkText = "table " + (jsonList.length);
+                    
+                    // Create a new paragraph node with a link inside
+                    const linkNode = {
+                        type: 'paragraph',
+                        children: [{
+                            type: 'link',
+                            url: linkPath,
+                            children: [{
+                                type: 'text',
+                                value: linkText
+                            }]
+                        }]
+                    };
+                    
+                    // Replace the code block with the link
+                    parent.children.splice(index, 1, linkNode);
+                }
+            });
+            
+            return tree;
+        })
+        .use(remarkStringify) // Add this compiler
+        .process(response)
+        .then(result => String(result));
+        //make a dir for the json
+        await fs.mkdir("./grok/json_output/"+fileName, { recursive: true });
+    for(let i = 0; i < jsonList.length; i++){   
+        await fs.writeFile("./grok/json_output/"+fileName+"/"+fileName+i+".json", jsonList[i]);
+    }
+    await fs.writeFile("./grok/json_output/"+fileName+"/"+fileName +".md", response);
+    // Return the processed response if needed
+    return response;
+}
+
 export async function preprocessResponse(response) {   
     // Use hljs.listLanguages() instead
     let supportedLanguages = hljs.listLanguages();
@@ -440,6 +474,8 @@ export async function preprocessResponse(response) {
                 if (node.lang && !supportedLanguages.includes(node.lang)) {
                     node.lang = "text";
                 }
+
+
             });
             return tree;
         })
@@ -461,7 +497,7 @@ export async function preprocessResponse(response) {
         response = response.substring(1);
     }
 
-    console.log(response);
+ 
     return response;
 }
 
@@ -549,7 +585,37 @@ export async function main( ...serverArgs) {
     let morePrompts = true;
     let processingRootNode = userPromptRequest.treeMode;
 
-    while( morePrompts == true){
+    let imageList = [];
+    let imageCount = 0;
+    if(userPromptRequest.visionMode){
+        //get a list of images with fs from directory releated to the prompt
+        //check visionmode directory is dir or image
+        try {
+            let stats = await fs.stat(userPromptRequest.visionModeDirectory);
+            if(stats.isDirectory()){
+                imageList = await fs.readdir(userPromptRequest.visionModeDirectory);
+            }else{
+                imageList = [userPromptRequest.visionModeDirectory];
+            }
+            //TODO: check if the images are valid
+            imageList = imageList.filter(image => image.endsWith(".png") || image.endsWith(".jpg") || image.endsWith(".jpeg"));
+            for(let i = 0; i < imageList.length; i++){
+                imageList[i] = userPromptRequest.visionModeDirectory + "/" + imageList[i];
+            }
+            imageCount = imageList.length;
+            imageList = imageList.reverse();
+        } catch (error) {
+            terminal.error("Error accessing vision mode directory or file:", error);
+            imageCount = 0;
+        }
+    }
+
+//TODO subdivide the logic into different loops for each mode.  
+    while( morePrompts == true  || imageCount > 0){
+        if(imageCount > 0){
+            imageCount--;
+            userPromptRequest.filePath =  imageList[imageCount];
+        }
  
         //If this is branching request and there are branches to process
         if( userPromptRequest.treeMode && userPromptRequest.branchIndex >= 1){
@@ -584,11 +650,12 @@ export async function main( ...serverArgs) {
         completion = await fs.readFile(userPromptRequest.baseContextDirectory + "currentChat/currentChat.json")
         completion = JSON.parse(completion)
     }else{
+     
         completion = await chosenModel.chat.completions.create(apiRequest);
     }
     
     await fs.writeFile(userPromptRequest.baseContextDirectory + "currentChat/currentChat.json", JSON.stringify(completion));
-    
+  
 
     //TODO rmove this logic into userPromptRequest as a process completion method
     if(userPromptRequest.treeMode){
@@ -615,7 +682,7 @@ export async function main( ...serverArgs) {
         userPromptRequest.parentReadme = markdownContent;
     }
 
-    console.log(terminal.colors.red,  "USERPROMPT", userPromptRequest)
+    terminal.log(terminal.colors.red,  "USERPROMPT", userPromptRequest)
     //STEP 3 now update the context for future prompts
     //let priorContextId = await saveContextFiles(userPromptRequest.dynamicResponseId, metaResponse, completion, markdownContent, userPromptRequest.depth);
     await appendToContext(metaResponse, userPromptRequest);
@@ -629,7 +696,10 @@ export async function main( ...serverArgs) {
     await saveCompletion(completion, userPromptRequest.dynamicResponseId);
     await saveHtmlResponse(userPromptRequest, markdownContent, priorContextId);
     await saveMarkdownResponse(userPromptRequest, markdownContent);
-        //consider whether or not to append response ID
+    if(userPromptRequest.visionMode){
+    await writeJsonToFile(markdownContent, userPromptRequest.filePath);
+    }
+    //consider whether or not to append response ID
     //ALL makr and html should be saved to the disk now
 
    //TODO name a bool for this   userPromptRequest.treeMode && !processingRootNode   
@@ -735,6 +805,7 @@ export async function main( ...serverArgs) {
             let css = await fs.readFile("./grok/html_templates/highlightStyle.css", "utf8");
             parentHtml = parentHtml.replace("@CSS_GOES_HERE@", css);
             let processedParentReadme = await preprocessResponse(GlobalPromptProfile.ParentReadme);
+        
             parentHtml = parentHtml.replace("REPLACEME", processedParentReadme);
             parentHtml = parentHtml.replace("@REPLACEWITHCHILDRENDIVS@", childDivs);
             parentHtml = parentHtml.replace("@CURRENT_ID@", GlobalPromptProfile.ParentId);

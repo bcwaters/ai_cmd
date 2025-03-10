@@ -4,6 +4,9 @@ node_modules/*
 shell_helpers/.grokRuntime
 terraform/*
 
+grok/images/*
+grok/json_output/*
+
 grok/context/currentCha
 user_saved_readmes/*
 grok/context/history/*

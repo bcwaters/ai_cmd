@@ -1,8 +1,9 @@
 import fs from "fs/promises";
 
 //Represents the prompt recieved from the user, with dynamic variables for tree mode
+//TODO: find a btter way to represent the modes
 class   UserPromptRequest {
-    constructor(userPrompt, isShort, isNew, context, depth, filePath, specialty, treeMode, browserMode, codeReviewMode, baseContextDirectory, visionMode) {
+    constructor(userPrompt, isShort, isNew, context, depth, filePath, specialty, treeMode, browserMode, codeReviewMode, baseContextDirectory, visionMode, visionModeDirectory) {
         this.userPrompt = userPrompt?userPrompt:"";
         this.isShort = isShort;
         this.isNew = isNew;
@@ -15,13 +16,14 @@ class   UserPromptRequest {
         this.browserMode = browserMode;
         this.rootResponseId = "";
         this.codeReviewMode = codeReviewMode;
-        this._dynamicPrompt = userPrompt;
+        this._dynamicPrompt = this.userPrompt;
         this._dynamicResponseId = "";
         this._childDirectory = "";
         this._currentSubject = "";
         this._branchList = [];
         this._branchIndex = 0;
-        this.visionMode = visionMode;
+        this._visionMode = visionMode;
+        this._visionModeDirectory = visionModeDirectory;
     }
 
     get baseContextDirectory() {
@@ -80,6 +82,20 @@ class   UserPromptRequest {
     set branchIndex(value) {
         this._branchIndex = value;
     }
+
+    get visionMode() {
+        return this._visionMode;
+    }
+
+    set visionMode(value) {
+        this._visionMode = value;
+    }
+
+    get visionModeDirectory() {
+        return this._visionModeDirectory;
+    }
+    
+    
 
     toString(){
         return JSON.stringify(this);

@@ -219,7 +219,8 @@ while true; do
     fi
 
     if [ "$prompt" == "visionMode" ]; then
-        flags="$flags --visionMode"
+        read -p "Enter the file path to the images: " visionModeDirectory
+        flags="$flags --visionMode $visionModeDirectory"
         draw_border
         continue
     fi
