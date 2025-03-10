@@ -444,16 +444,7 @@ export async function preprocessResponse(response) {
             return tree;
         })
 
-        .use(() => (tree) => {
- 
-            visit(tree, 'code', (node) => {
 
-                if (node.lang && !supportedLanguages.includes(node.lang)) {
-                    node.lang = "text";
-                }
-            });
-            return tree;
-        })
         .use(remarkMath) // Parse math expressions
         .use(remarkHighlight) // Apply syntax highlighting to code blocks
         .use(remarkRehype, { allowDangerousHtml: true }) // Convert MDAST to HAST with HTML allowed
@@ -749,7 +740,8 @@ export async function main( ...serverArgs) {
             parentHtml = parentHtml.replace("@CURRENT_ID@", GlobalPromptProfile.ParentId);
             //parentHtml = parentHtml.replace("@PREVIOUS_ID@", dynamicResponseId);
 
-            savePreviousId(userPromptRequest.rootResponseId, userPromptRequest, contextHistoryLength);
+            //TODO this gets the id history to work properly for the server, but the userPrompt is not correctly mapped
+            savePreviousId(GlobalPromptProfile.ParentId, userPromptRequest, contextHistoryLength);
             //I could name this more intelligently.
             //I want to explorer a recursive approach for deeper trees. How do i template a child that is a parent and a child
             //I am pretty sure a recursive approach seting the context to the child repsonse ID and the recursively prompts from there
