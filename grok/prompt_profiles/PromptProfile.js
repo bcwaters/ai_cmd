@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 export class PromptProfile {
     static isLogging = false;
     static specialty = " ";  //user can set this to "write code" or "write a readme" or "write a blog post" etc.
@@ -29,45 +31,26 @@ export class PromptProfile {
                 content: [
                     {
                         type: "text",
-                        text: `You are a helpful assistant that wants to help me${this.specialty}.  All response should be in markdown format. include keywords in the response `
+                        text: `You are a helpful assistant that wants to help me${this.specialty}.  All responses should be in markdown format.`
                     },
                     {
                         type: "text",
                         text: `Context of the conversation so far: ${isNew ? "This is the beginning of the conversation. After answering the question suggest a few follow up questions." : messagesString + contextData}`
                     },
+
                     {
                         type: "text",
-                        text: "There will be a separate response indicated by @EOF@ so response.split(@EOF@)[1] should return the other response"
+                        text: "For keywords include all relevant context. Anticpate related topics within the keywords also. it will be a list of keywords which capture the key information provided. SEO style. the keywords are metadata for the response {markdown: string, keywords: [string...]}"
                     },
                     {
                         type: "text",
-                        text: "The seperate response will be 500 characters max and 400 character min. it will be a list of keywords which capture the key information provided. SEO style  READMEDOC@EOF@KEYWORDS"
-                    },
-                    {
-                        type: "text",
-                        text: "Remember to include an @EOF@ in the response.  It should be after the readme section and before the keywords. All latex should be in Math format $...$"
+                        text: "All latex should be in Math format $...$ or $$...$$"
                     }
                 ]
             },
             
-            {
-                role: "user",
-                content: [
-                    {
-                        type: "text",
-                        text: "Please show me you understand the instructions by responding with one word. do you understand?"
-                    },
-                ],
-            },
-            {
-                role: "system",
-                content: [
-                    {
-                        type: "text",
-                        text: "# yes@EOF@[understanding, ReadmeFormat, delimiter,]"
-                    },
-                ],
-            },
+      
+          
         ];
 
         //add any files for context
@@ -89,29 +72,6 @@ export class PromptProfile {
             },
         );
 
-        return [
-        {
-        role: "system",
-        content: [
-            {
-                type: "text",
-                text: `You are a helpful assistant that wants to help me${this.specialty}.  All response should be in markdown format.`
-            },]
-
-
-        },
-        {
-            role: "user",
-            content: [
-                {
-                    type: "text",
-                    text: userPrompt,
-                },
-            ],
-        }
-    ]
-        
-        
         return this.profile;
     }
 
@@ -144,6 +104,13 @@ export class PromptProfile {
                 this.files.push(file);
             }
         }
+    }
+
+    static getSchema(){
+        return z.object({
+            markdown: z.string().describe("The markdown content to display to the user"),
+            keywords: z.array(z.string()).describe("Keywords extracted from the response")
+        });
     }
 }
 

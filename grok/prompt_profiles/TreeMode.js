@@ -20,48 +20,28 @@ export class TreeModeProfile extends PromptProfile {
                 content: [
                     {
                         type: "text",
-                        text: `You are a helpful assistant that wants to help me${this.specialty}.  All answers should be in markdown format.  `
+                        text: `You are a helpful assistant that wants to help me research a subject. You will be providing an informational page on multiple aspects of the subject.  Include headings with a brief explanation and subtopics available. If a user asks for a list or specific number of things, the answer will be your headingsAll answers should be in markdown format.  `
                     },
                     {
                         type: "text",
-                        text: `Context of the conversation so far: ${isNew ? "This is the beginning of the conversation. After answering the question suggest a few follow up questions." : messagesString + contextData}`
+                        text: `Context of the conversation so far: ${isNew ? "This is the beginning of the conversation. Be sure to be verbose and provide lots of context for further research." : messagesString + contextData}`
                     },
                     {
                         type: "text",
-                        text: "There will be a separate response indicated by @EOF@ so response.split(@EOF@)[1] should return the other response. All latex should be in Math format $...$ or $$...$$"
+                        text: "All latex should be in Math format $...$ or $$...$$"
                     },
                     {
                         type: "text",
-                        text: "The seperate response will be a list of headings used for subjects in the doc.  READMEDOC@EOF@[HEADING1, HEADING2, HEADING3, ...]}"
+                        text: "When answering the question think of the subjects first. If the user asks for a precise number or a list on a specific top use that.  Otherwise do research. These will be the headings for frontpage of the research. the keywords should match the exact phrases of the headings use in the reponse and be stored in the keyword array. do not include the list in the markdown"
                     },
+                    
                     {
                         type: "text",
-                        text: "Remember to include an @EOF@ in the response.  It should be after the readme section and before the keywords"
-                    },
-                    {
-                        type: "text",
-                        text: "The response should be a list of headings. Keep it simple for the details about each item.  Each heading should be a list of keywords.  The headings should be SEO friendly and have a summary of the key information .  The headings should be 6 words max and 2 words min."
+                        text: "After you have chosen the subjects you will complete the description and details beneath each heading.  Be sure to be descriptive, include foundational information, and breach upon important related subtopics."
                     }
                 ]
             },
-            {
-                role: "user",
-                content: [
-                    {
-                        type: "text",
-                        text: "Please show me you understand the instructions by responding with a list of ## headings, you can leave out the summaries. do you understand?"
-                    },
-                ],
-            },
-            {
-                role: "system",
-                content: [
-                    {
-                        type: "text",
-                        text: "# Do I understand?  ## yes  ## demonstrate understanding ## how I respond  ## why respond this way ## summary of all topics covered ## @EOF@[yes, demonstrate understanding, how I respond, why respond this way, summary of all topics covered]"
-                    },
-                ],
-            },
+
             {
                 role: "user",
                 content: [
@@ -87,56 +67,27 @@ export class TreeModeProfile extends PromptProfile {
                 content: [
                     {
                         type: "text",
-                        text: `You are a helpful assistant that wants to help me${this.specialty}.  All answers should be in markdown format.  `
+                        text: `You are a helpful assistant research that is examining a topic with deeper insights.  All answers should be in markdown format.  `
                     },
                     {
                         type: "text",
-                        text: `Context of the conversation so far: ${isNew ? "" : messagesString + contextData}`
+                        text: "Here is some context to help with research relation.  \n " + contextData + messagesString
                     },
                     {
                         type: "text",
-                        text: "There will be a separate response indicated by @EOF@ so response.split(@EOF@)[1] should return the other response. All latex should be in Math format $...$"
+                        text: "All latex should be in Math format $...$ or $$...$$"
                     },
-                    {
-                        type: "text",
-                        text: "The seperate response will be a list of headings used for subjects in the doc.  READMEDOC@EOF@[HEADING1, HEADING2, HEADING3, ...]}"
-                    },
-                    {
-                        type: "text",
-                        text: "Remember to include an @EOF@ in the response.  It should be after the readme section and before the keywords"
-                    },
-                    {
-                        type: "text",
-                        text: "The response should be a list of headings. Keep it simple for the details about each item.  Each heading should be a list of keywords.  The headings should be SEO friendly and have a summary of the key information .  The headings should be 6 words max and 2 words min."
-                    }
+                
+                        {
+                            type: "text",
+                            text: "You are going into detail into a part of the you last response. Consolidate the topics for this subject on the front page, add any additonal useful ones, and use them for the reponse.  Once you have chosen the headings Cover all info with greater detail.  Your prior response: "+ this.ParentReadme  
+                    
+                        }
+                       
                 ]
             },
-            {
-                role: "user",
-                content: [
-                    {
-                        type: "text",
-                        text: "Please show me you understand the instructions by responding with a list of ## headings, you can leave out the summaries. do you understand?"
-                    },
-                ],
-            },
-            {
-                role: "system",
-                content: [
-                    {
-                        type: "text",
-                        text: "# Do I understand?  ## yes  ## demonstrate understanding ## how I respond  ## why respond this way ## summary of all topics covered ## @EOF@[yes, demonstrate understanding, how I respond, why respond this way, summary of all topics covered]"
-                    },
-                ],
-            },
-            {
-                role: "system",
-                content: [
-                    {
-                        type: "text",
-                        text: "You are going into detail into a part of the you last response.  Cover all info in that section with much greater detail.  Your prior response: "+ this.ParentReadme  }
-                ]
-            },
+    
+  
             {
                 role: "user",
                 content: [
@@ -158,12 +109,7 @@ export class TreeModeProfile extends PromptProfile {
         this.ParentReadme = markdownResponse;
     }
 
-    //subject parser
-    static parseSubject(subjectList){
-        this.subjectList = subjectList.replace("[","").replace("]","").split(","); //make an array
-        this.subjectList = this.subjectList.map(subject => removeWhiteSpaceAndEnsureAlphabet(subject));
-        return this.subjectList;
-    }
+
 
     // ChildReadme is an object with two properites
     // 1. subjectList value - a good prediction of what the LLM will output as the title for the page

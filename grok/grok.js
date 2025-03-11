@@ -27,13 +27,12 @@ import {CodeReviewPromptProfile} from './prompt_profiles/CodeReview.js';
 import {VisionDescribe} from './prompt_profiles/VisionDescribe.js';
 import UserPromptRequest from './utils/UserPromptRequest.js';
 import terminal from './utils/terminal.js'; 
-import {minimizeTokens, sleep, removeWhiteSpaceAndEnsureAlphabet } from './utils/utils.js';
+import {minimizeTokens, sleep } from './utils/utils.js';
 import ProfileFileLoader from './utils/ProfileFileLoader.js';
 //TODO schema belond in reponse
 import schema from './prompt_profiles/ResponseSchema.js';
 import { zodResponseFormat } from "openai/helpers/zod";
 import { z } from "zod";
-import DefaultResponseFormat from './utils/DefaultResponseFormat.js';
 
 //Configuration before main -------------------------------
 dotenv.config();
@@ -156,6 +155,9 @@ export function parseCommandLineArgs(serverArgs) {
 // Read and parse the context file
 export async function getConversationContext(userPromptRequest, isNew) {
 let context = userPromptRequest.context;
+if(isNew){
+    return "";
+}
     //isNew? return "string for a new context": do other stuff
     try {
   
@@ -195,18 +197,9 @@ let context = userPromptRequest.context;
 // Create the request object for the API
 export async function createApiRequestForVision(userPromptRequest, priorConverstation, isNew, isShort, contextData, context, filePath, specialty, processingRootNode) {
     //TODO implement abstraction for profiles before this explodes in complexity
-    
+    GlobalPromptProfile = VisionDescribe;
     let messages = [];
-    if (isShort) {
-  
-    }
-   GlobalPromptProfile = VisionDescribe;    
-
-  
-    PromptProfile.isLogging = false;
-
- 
-    messages = GlobalPromptProfile.getJsonProfile(isNew, priorConverstation, contextData, userPromptRequest); // Load the array from the default file
+    messages = VisionDescribe.getJsonProfile(isNew, priorConverstation, contextData, userPromptRequest); // Load the array from the default file
     
     terminal.debug(terminal.colors.green, "Prompt Sent to Grok", terminal.colors.reset, JSON.stringify(messages, null, 4));
   
@@ -214,8 +207,9 @@ export async function createApiRequestForVision(userPromptRequest, priorConverst
     //grok-2-vision-1212
 
     return {
-        model: chosenModel == openai ? "gpt-4.5-preview" : "grok-2-vision-1212",
+        model: chosenModel == openai ? "gpt-4o-mini" : "grok-2-vision-1212",
         messages: messages, // Use the loaded variable here
+    
     };
 }
 
@@ -266,10 +260,6 @@ export async function createApiRequest(userPromptRequest, priorConverstation, is
   
         
 
- const responseSchema = z.object({
-    markdown: z.string().describe("The markdown content to display to the user"),
-    keywords: z.array(z.string()).describe("Keywords extracted from the response")
-});
 
 //     response_format: zodResponseFormat(responseSchema, "responseSchema")
     //grok-2-latest
@@ -278,10 +268,11 @@ export async function createApiRequest(userPromptRequest, priorConverstation, is
     return {
         model: chosenModel == openai ? "gpt-4.5-preview" : "grok-2-latest",
         messages: messages, // Use the loaded variable here
-        response_format: zodResponseFormat(responseSchema, "response")
+        response_format: zodResponseFormat(GlobalPromptProfile.getSchema(), "response")
     };
 }
 
+//TODO move this into the class which contains the schema
 export async function parseCompletionForResponseAndMetaResponse(completion){
 
     console.log(completion.choices[0].message)
@@ -289,27 +280,7 @@ export async function parseCompletionForResponseAndMetaResponse(completion){
     let metaResponse = jsonResponse.keywords;
     let markdownContent = jsonResponse.markdown;
     return {metaResponse, markdownContent};
-    const content = completion.choices[0].message.content.replace(/\\n/g, '\n');
-    terminal.debug(terminal.colors.yellow, "\n\nunprocessed response", terminal.colors.green, content, terminal.colors.reset);
-   try{
-     [markdownContent, metaResponse] = content.split("@EOF@"); 
-   }catch(error){
-    terminal.log(terminal.colors.red, "error", terminal.colors.reset, error);
-     [markdownContent, metaResponse] = ["## Heading 1\n\n## Heading 2\n\n## Heading 3\n\n", "@EOF[keywords,list,always]"];
-   }
 
-   try{
-    metaResponse = metaResponse.replace("@EOF@", "");
-    if (metaResponse.length < 1){
- 
-        throw new Error("AI_CMD repsonded without the @EOF@ tag");
-    }
-   }catch(error){
-    
-    terminal.log(terminal.colors.red, "AI)CMD repsonded without the @EOF@ tag", terminal.colors.reset, error);
-   }
-
-       return {metaResponse, markdownContent};
 }
 
 export function htmlReplaceTemplateValues(cssForMarkdown, html_string, sanitizedMarkdownContent, priorContextId, responseId){
@@ -342,7 +313,7 @@ export async function  saveHtmlResponse(userPromptRequest, markdownContent, prio
 
     indexHtml = htmlReplaceTemplateValues(cssForMarkdown, indexHtml, sanitizedMarkdownContent, priorContextId, userPromptRequest.dynamicResponseId);
 
-
+    //TODO obfucated info here. Branch logic more clearly for each mode
     //If it is treeMode then the children are created here.
     if(userPromptRequest.childDirectory != ""){
         let childHtml = await fs.readFile('./grok/html_templates/child_template.html', "utf8");
@@ -408,22 +379,7 @@ export async function saveMarkdownResponse(userPromptRequest, markdownContent) {
     
 }
 
-/*
-        .use(() => (tree) => {
-            // Process code blocks to ensure valid language
-            let supportedLanguages = remarkHighlight.languages;
-            supportedLanguages = Object.keys(supportedLanguages);
-            visit(tree, 'code', (node) => {
-
-                if (node.lang && !supportedLanguages.includes(node.lang)) {
-                    node.lang = "text";
-                }
-            });
-            return tree;
-        })
-
-*/
-
+//Extracts json from AST and writes to file, replace markdown with links to json.
 export async function writeJsonToFile(response, fileName){
     fileName = path.basename(fileName, path.extname(fileName));
     terminal.log("writing json to files");
@@ -463,11 +419,16 @@ export async function writeJsonToFile(response, fileName){
         .use(remarkStringify) // Add this compiler
         .process(response)
         .then(result => String(result));
-        //make a dir for the json
-        await fs.mkdir("./grok/json_output/"+fileName, { recursive: true });
+
+    //make a dir for the json
+    await fs.mkdir("./grok/json_output/"+fileName, { recursive: true });
+
+    //write the json to files
     for(let i = 0; i < jsonList.length; i++){   
         await fs.writeFile("./grok/json_output/"+fileName+"/"+fileName+i+".json", jsonList[i]);
     }
+
+    //write the markdown to a file
     await fs.writeFile("./grok/json_output/"+fileName+"/"+fileName +".md", response);
     // Return the processed response if needed
     return response;
@@ -477,25 +438,17 @@ export async function preprocessResponse(response) {
     // Use hljs.listLanguages() instead
     let supportedLanguages = hljs.listLanguages();
  
-   
     // Simplified preprocessing without unified-latex
     response = await unified()
-
         .use(remarkParse) // Parse markdown
-        .use(() => (tree) => {
- 
+        .use(() => (tree) => { //Filter out unsupported languages
             visit(tree, 'code', (node) => {
-
                 if (node.lang && !supportedLanguages.includes(node.lang)) {
                     node.lang = "text";
                 }
-
-
             });
             return tree;
         })
-
-
         .use(remarkMath) // Parse math expressions
         .use(remarkHighlight) // Apply syntax highlighting to code blocks
         .use(remarkRehype, { allowDangerousHtml: true }) // Convert MDAST to HAST with HTML allowed
@@ -518,10 +471,8 @@ export async function preprocessResponse(response) {
 
 
 export async function appendToContext(newContent, userPromptRequest) {
-    let MAX_CONTEXT_LENGTH = userPromptRequest.depth;
 
- 
-    
+    let MAX_CONTEXT_LENGTH = userPromptRequest.depth;
     let contextData = await fs.readFile(userPromptRequest.baseContextDirectory + "context.data", "utf8");
    
   
@@ -549,7 +500,7 @@ export async function appendToContext(newContent, userPromptRequest) {
     terminal.debug(terminal.logDivider);
     terminal.debug(terminal.colors.green, "Current Subject:",terminal.colors.reset, newContent);
     terminal.debug(terminal.logDivider);
-    terminal.debug(terminal.colors.green + "Current Context[" + MAX_CONTEXT_LENGTH, + "]:"+terminal.colors.reset, contextData);
+    terminal.debug(terminal.colors.green + "Current Context[" + MAX_CONTEXT_LENGTH + "]:"+terminal.colors.reset, contextData);
     terminal.debug(terminal.logDivider);
     await fs.writeFile(userPromptRequest.baseContextDirectory + "context.data", contextData);
 
@@ -591,7 +542,6 @@ export async function saveCompletion(completion, id, baseDir = './grok/context')
 // Main function
 export async function main( ...serverArgs) {
     
-   
 //USER SET CONTEXT WITH REQUEST, OTHERWISE DEFAULTS TO STANDARD .grok/context/
     const userPromptRequest = parseCommandLineArgs(serverArgs);
 
@@ -684,8 +634,17 @@ export async function main( ...serverArgs) {
     }
 
 
- 
-    let {metaResponse, markdownContent} = await parseCompletionForResponseAndMetaResponse(completion);
+    let metaResponse;
+    let markdownContent;
+    if(userPromptRequest.visionMode){
+        metaResponse = ["image", "image", "image"];
+        markdownContent = completion.choices[0].message.content;
+    }else{
+        const result = await parseCompletionForResponseAndMetaResponse(completion);
+        console.log(result.metaResponse, result.markdownContent);
+        metaResponse = result.metaResponse;
+        markdownContent = result.markdownContent;
+    }
     terminal.debug(terminal.getDividerWithMessage("RESPONSE-AND-META-RESPONSE"));
     terminal.debug(terminal.colors.green, "metaResponse", terminal.colors.reset, metaResponse);
     terminal.debug(terminal.colors.green, "markdownContent", terminal.colors.reset, markdownContent);
@@ -729,7 +688,7 @@ export async function main( ...serverArgs) {
     terminal.log(terminal.colors.green, "Aprox price of prompt", terminal.colors.yellow, totalPrice, terminal.colors.reset, "cents ");
     //TODO ^^^in tree mode these values can be stored and added up
     terminal.log(terminal.logDivider);
-    //write settings to ../.grokRuntimeterminal
+ 
     if(terminal.debugLogger == false){
         terminal.log(terminal.colors.green, "\nResponse", terminal.colors.reset, markdownContent);
     }
@@ -740,7 +699,7 @@ export async function main( ...serverArgs) {
     //This is the first loop of treeMode
     if(processingRootNode){
         processingRootNode = false;
-        userPromptRequest.branchList = GlobalPromptProfile.parseSubject(metaResponse);
+        userPromptRequest.branchList = metaResponse;
 
         //userPromptRequest.branchList = userPromptRequest.branchList.map(subject => removeWhiteSpaceAndEnsureAlphabet(subject));
         userPromptRequest.branchIndex = userPromptRequest.branchList.length;
@@ -785,8 +744,9 @@ export async function main( ...serverArgs) {
             for(let i = 0; i < allChildReadmes.length; i++){
                 let childReadme = allChildReadmes[i];
                 // let childReadmeId = childReadme.contextId;   WOULD THIS BE USEFUL TO HAVE? perhaps in a more robust system.
-                let childReadmeSubject = subjectList[i];
-                childReadmeSubject = removeWhiteSpaceAndEnsureAlphabet(childReadmeSubject);
+                let childReadmeSubject =  userPromptRequest.branchList[i];
+                
+              
                 terminal.debug(terminal.colors.green, "childReadme: ", terminal.colors.reset, childReadme);
                 terminal.debug(terminal.colors.green, "childReadmeSubject: ", terminal.colors.reset, childReadmeSubject);
                 terminal.debug(terminal.colors.green, "index: ", terminal.colors.reset, i);
@@ -849,11 +809,11 @@ export async function main( ...serverArgs) {
             }
         }
 
-    // Open currentChat.html in the default browser
+
     if(userPromptRequest.browserMode){
         let htmlDir =   "currentChat/currentChat.html";
         if(!userPromptRequest.treeMode){
-            htmlDir = "currentChat/currentChat.html";
+            htmlDir = "history/responses/"+userPromptRequest.rootResponseId+"/html/"+userPromptRequest.dynamicResponseId+".html";
         }else{
             //open the last child soon to be MONO_HTML_FILE  this can be wapped for currentchathtml too
             htmlDir = "history/responses/"+userPromptRequest.rootResponseId+"/tree/index.html";

@@ -130,18 +130,8 @@ export class VisionDescribe {
                         type: "text",
                         text: "Include a json for everytable in the image.  Have an extensive markdown section for any other information in the image. Do not leave out any data."
                     },
-                    {
-                        type: "text",
-                        text: "There will be a separate response indicated by @EOF@ so response.split(@EOF@)[1] should return the other response"
-                    },
-                    {
-                        type: "text",
-                        text: "The seperate response will be 500 characters max and 400 character min. it will be a list of keywords which capture the key information provided. SEO style  READMEDOC@EOF@KEYWORDS"
-                    },
-                    {
-                        type: "text",
-                        text: "Remember to include an @EOF@ in the response.  It should be after the readme section and before the keywords. All latex should be in Math format $...$"
-                    }
+
+           
                 ]
             },
             
