@@ -29,7 +29,7 @@ export class PromptProfile {
                 content: [
                     {
                         type: "text",
-                        text: `You are a helpful assistant that wants to help me${this.specialty}.  All answers should be in markdown format.  `
+                        text: `You are a helpful assistant that wants to help me${this.specialty}.  All response should be in markdown format. include keywords in the response `
                     },
                     {
                         type: "text",
@@ -88,6 +88,29 @@ export class PromptProfile {
                 ],
             },
         );
+
+        return [
+        {
+        role: "system",
+        content: [
+            {
+                type: "text",
+                text: `You are a helpful assistant that wants to help me${this.specialty}.  All response should be in markdown format.`
+            },]
+
+
+        },
+        {
+            role: "user",
+            content: [
+                {
+                    type: "text",
+                    text: userPrompt,
+                },
+            ],
+        }
+    ]
+        
         
         return this.profile;
     }

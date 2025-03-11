@@ -29,6 +29,11 @@ import UserPromptRequest from './utils/UserPromptRequest.js';
 import terminal from './utils/terminal.js'; 
 import {minimizeTokens, sleep, removeWhiteSpaceAndEnsureAlphabet } from './utils/utils.js';
 import ProfileFileLoader from './utils/ProfileFileLoader.js';
+//TODO schema belond in reponse
+import schema from './prompt_profiles/ResponseSchema.js';
+import { zodResponseFormat } from "openai/helpers/zod";
+import { z } from "zod";
+import DefaultResponseFormat from './utils/DefaultResponseFormat.js';
 
 //Configuration before main -------------------------------
 dotenv.config();
@@ -259,21 +264,31 @@ export async function createApiRequest(userPromptRequest, priorConverstation, is
     
     terminal.debug(terminal.colors.green, "Prompt Sent to Grok", terminal.colors.reset, JSON.stringify(messages, null, 4));
   
- 
+        
 
+ const responseSchema = z.object({
+    markdown: z.string().describe("The markdown content to display to the user"),
+    keywords: z.array(z.string()).describe("Keywords extracted from the response")
+});
+
+//     response_format: zodResponseFormat(responseSchema, "responseSchema")
     //grok-2-latest
     //grok-2-vision-1212
     //terminal.debug(terminal.colors.green, "Prompt Sent to Grok", terminal.colors.reset, JSON.stringify(messages, null, 4));
     return {
         model: chosenModel == openai ? "gpt-4.5-preview" : "grok-2-latest",
         messages: messages, // Use the loaded variable here
+        response_format: zodResponseFormat(responseSchema, "response")
     };
 }
 
 export async function parseCompletionForResponseAndMetaResponse(completion){
 
-    let metaResponse = "";
-    let markdownContent = "";
+    console.log(completion.choices[0].message)
+    let jsonResponse = JSON.parse(completion.choices[0].message.content);
+    let metaResponse = jsonResponse.keywords;
+    let markdownContent = jsonResponse.markdown;
+    return {metaResponse, markdownContent};
     const content = completion.choices[0].message.content.replace(/\\n/g, '\n');
     terminal.debug(terminal.colors.yellow, "\n\nunprocessed response", terminal.colors.green, content, terminal.colors.reset);
    try{
@@ -504,20 +519,18 @@ export async function preprocessResponse(response) {
 
 export async function appendToContext(newContent, userPromptRequest) {
     let MAX_CONTEXT_LENGTH = userPromptRequest.depth;
-    if (typeof newContent !== 'string') {
-        terminal.error("AI_CMD answered but forgot to include include the proper format! PROMPT AGAIN it should work", newContent);
-        return; // Exit the function if newContent is invalid
-    }
+
+ 
     
     let contextData = await fs.readFile(userPromptRequest.baseContextDirectory + "context.data", "utf8");
-    newContent = newContent.replaceAll("[", "").replaceAll("]", "");
-    let newContextDataKeywords = newContent.split(",");
-    newContextDataKeywords.forEach(element => {
+   
+  
+    newContent.forEach(element => {
         contextData = contextData.replaceAll(element, "");
     });
     contextData = contextData.replaceAll(" ", "");
     contextData = contextData.replaceAll(",","");
-    contextData =  newContent + contextData;
+    contextData =  newContent.join(" ") + contextData;
     contextData = contextData.replaceAll("KEYWORDS", "");
  
     //CONTEXT can be improved by having separate lists. one is composed of Headings. another is keywords.
