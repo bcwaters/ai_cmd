@@ -69,7 +69,7 @@ export function parseCommandLineArgs(serverArgs) {
         args = serverArgs.slice(2);
 
     }
-    terminal.debug(terminal.colors.red, "Server request detected", terminal.colors.reset, args);
+    terminal.debug(terminal.colors.red, "Server request detected", terminal.colors.reset, serverArgs);
       
 
     let userPrompt = "Default prompt if none provided";

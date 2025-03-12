@@ -37,7 +37,7 @@ app.get('/prompt', async (req, res) => {
         let isNew = "";
         let isContext = "";
         let isTreeMode = "";
-        let additonalArgs = "terminalMode ";
+        let additonalArgs = "terminalMode";
         let treeMode = req.query.treeMode;
         if (treeMode == "true") {
             isTreeMode = "--treeMode";
@@ -53,7 +53,7 @@ app.get('/prompt', async (req, res) => {
         let additonalArgsArray = additonalArgs.split(" ");
         // Execute the JavaScript code
         //const result = execSync(`node ./grok/grok.js terminalMode ${additonalArgs} PROMPT "${prompt}"`, { encoding: 'utf-8' });
-        const result =await main(isNew, isContext, isTreeMode,"PROMPT", prompt);
+        const result =await main(isNew, isContext, additonalArgs, isTreeMode,"PROMPT", prompt);
         console.log("result", result);
         let history =  fs.readFileSync("./grok/context/context.history", 'utf8', (err, data) => {
             
