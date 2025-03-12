@@ -3,7 +3,7 @@ import fs from "fs/promises";
 //Represents the prompt recieved from the user, with dynamic variables for tree mode
 //TODO: find a btter way to represent the modes
 class   UserPromptRequest {
-    constructor(userPrompt, isShort, isNew, context, depth, filePath, specialty, treeMode, browserMode, codeReviewMode, baseContextDirectory, visionMode, visionModeDirectory) {
+    constructor(userPrompt, isShort, isNew, context, depth, filePath, specialty, treeMode, browserMode, codeReviewMode, baseContextDirectory, visionMode, visionModeDirectory, indexLookupMode) {
         this.userPrompt = userPrompt?userPrompt:"";
         this.isShort = isShort;
         this.isNew = isNew;
@@ -24,6 +24,15 @@ class   UserPromptRequest {
         this._branchIndex = 0;
         this._visionMode = visionMode;
         this._visionModeDirectory = visionModeDirectory;
+        this._indexLookupMode = indexLookupMode;
+    }
+
+    get indexLookupMode() {
+        return this._indexLookupMode;
+    }
+
+    set indexLookupMode(value) {
+        this._indexLookupMode = value;
     }
 
     get baseContextDirectory() {

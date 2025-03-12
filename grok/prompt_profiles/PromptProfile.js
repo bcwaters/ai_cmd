@@ -111,6 +111,15 @@ export class PromptProfile {
             markdown: z.string().describe("The markdown content to display to the user"),
             keywords: z.array(z.string()).describe("Keywords extracted from the response")
         });
+
+ 
+    }
+
+    static getIndexLookupSchema(){
+        return z.object({
+           
+            pages: z.array(z.number()).describe("The pages of the book that are relevant. Only the page numbers are needed. No other text.")
+        });
     }
 }
 

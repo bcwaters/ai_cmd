@@ -86,6 +86,7 @@ export function parseCommandLineArgs(serverArgs) {
     let baseContextDirectory ="./grok/context/";
     let visionMode = false; 
     let visionModeDirectory = "";
+    let indexLookupMode = false;
     if(args.includes("--mockMode")){
         baseContextDirectory = `${baseContextDirectory}mockContext/`
     }
@@ -114,6 +115,10 @@ export function parseCommandLineArgs(serverArgs) {
         if (specialtyIndex < args.length) {
             specialty = args[specialtyIndex]; //TODO: this should be a sentence and then passed to the profile... does a "sentence in quotes" work as one argument?
         }
+    }
+
+    if(args.includes("--indexLookupMode")){
+        indexLookupMode = true;
     }
 
     if (args.includes("--depth")) {
@@ -149,7 +154,7 @@ export function parseCommandLineArgs(serverArgs) {
     }
 
 
-    return new UserPromptRequest(userPrompt, isShort, isNew, context, depth, filePath, specialty, treeMode , browserMode, codeReviewMode, baseContextDirectory, visionMode, visionModeDirectory);
+    return new UserPromptRequest(userPrompt, isShort, isNew, context, depth, filePath, specialty, treeMode , browserMode, codeReviewMode, baseContextDirectory, visionMode, visionModeDirectory, indexLookupMode);
 }
 
 // Read and parse the context file
@@ -259,16 +264,25 @@ export async function createApiRequest(userPromptRequest, priorConverstation, is
     terminal.debug(terminal.colors.green, "Prompt Sent to Grok", terminal.colors.reset, JSON.stringify(messages, null, 4));
   
         
-
-
+    var response_format;
+    if(userPromptRequest.indexLookupMode){
+        response_format = zodResponseFormat(GlobalPromptProfile.getIndexLookupSchema(), "response");
+    }else{
+        response_format = zodResponseFormat(GlobalPromptProfile.getSchema(), "response");
+    }
 //     response_format: zodResponseFormat(responseSchema, "responseSchema")
     //grok-2-latest
     //grok-2-vision-1212
     //terminal.debug(terminal.colors.green, "Prompt Sent to Grok", terminal.colors.reset, JSON.stringify(messages, null, 4));
     return {
         model: chosenModel == openai ? "gpt-4.5-preview" : "grok-2-latest",
+        web_search_options: {
+            enabled: true,
+            num_results: 5,
+            search_engine: "google"
+        },
         messages: messages, // Use the loaded variable here
-        response_format: zodResponseFormat(GlobalPromptProfile.getSchema(), "response")
+        response_format: response_format
     };
 }
 
@@ -636,7 +650,11 @@ export async function main( ...serverArgs) {
 
     let metaResponse;
     let markdownContent;
-    if(userPromptRequest.visionMode){
+
+    if(userPromptRequest.indexLookupMode){
+        metaResponse = ["index", "index", "index"];
+        markdownContent = completion.choices[0].message.content;
+    }else if(userPromptRequest.visionMode){
         metaResponse = ["image", "image", "image"];
         markdownContent = completion.choices[0].message.content;
     }else{
