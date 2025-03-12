@@ -65,11 +65,11 @@ export function parseCommandLineArgs(serverArgs) {
     terminal.debugLogger = true;
     let args = process.argv.slice(2);
     if(serverArgs.length > 0){
+        terminal.debug(terminal.colors.red, "Server request detected", terminal.colors.reset, serverArgs);
         isServerRequest = true;
-        args = serverArgs.slice(2);
-
+        args = serverArgs;
     }
-    terminal.debug(terminal.colors.red, "Server request detected", terminal.colors.reset, serverArgs);
+
       
 
     let userPrompt = "Default prompt if none provided";
@@ -851,4 +851,7 @@ export async function main( ...serverArgs) {
     return userPromptRequest.rootResponseId;
 }
 
-main().catch(terminal.error);
+// Only run main() when this file is directly executed, not when imported
+if (import.meta.url === `file://${process.argv[1]}`) {
+    main().catch(terminal.error);
+  }
