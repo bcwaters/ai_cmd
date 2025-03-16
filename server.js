@@ -1,7 +1,6 @@
 import express from 'express';
 import fs from 'fs';
 import path from 'path';
-import { execSync } from 'child_process';
 import { fileURLToPath } from 'url';
 import { main } from './grok/grok.js';
 const app = express();
@@ -20,9 +19,12 @@ app.get('/', (req, res) => {
         console.log("context", context);
     }
     // Serve the HTML file from server_resources directory
-    res.sendFile(path.join(__dirname, 'server_resources', 'HomePage.html'));
-    
-
+    res.sendFile(path.join(__dirname, 'server_resources', 'HomePage.html'), (err) => {
+        if (err) {
+            console.error('Error sending home page:', err);
+            res.status(500).send('Error loading home page');
+        }
+    });
 });
 
 app.get('/prompt', async (req, res) => {
@@ -41,30 +43,48 @@ app.get('/prompt', async (req, res) => {
         let treeMode = req.query.treeMode;
         if (treeMode == "true") {
             isTreeMode = "--treeMode";
-        } else {
-       
         }
+        
         let context = req.query.context;
         if (context) {
             isContext = "--context " + context;
-        }else{
+        } else {
             isNew = "--new";
         }
-        let additonalArgsArray = additonalArgs.split(" ");
-        // Execute the JavaScript code
-        //const result = execSync(`node ./grok/grok.js terminalMode ${additonalArgs} PROMPT "${prompt}"`, { encoding: 'utf-8' });
-        const result =await main(isNew, isContext, additonalArgs, isTreeMode,"PROMPT", prompt);
-        console.log("result", result);
-        let history =  fs.readFileSync("./grok/context/context.history", 'utf8', (err, data) => {
+        // Execute the JavaScript code with proper error handling
+        let result;
+        try {
+            result = await main(isNew, isContext, additonalArgs, isTreeMode, "PROMPT", prompt);
+            console.log("result", result);
+        } catch (mainError) {
+            console.error("Error executing main function:", mainError);
+            return res.status(500).send(`Error processing prompt: ${mainError.message}`);
+        }
+
+        // Read and parse history file with error handling
+        let history;
+        try {
+            const historyPath = "./grok/context/context.history";
             
-            return data;
-        });
-    
-        history = JSON.parse(history);
-       // console.log("history length", history.length);
-       //console.log("history", history[history.length-1]);
-       let responseId = history[history.length-1].id;
-       console.log("responseId created and being returned:", responseId);
+            // Check if history file exists
+            if (!fs.existsSync(historyPath)) {
+                return res.status(500).send("History file not found");
+            }
+            
+            const historyData = fs.readFileSync(historyPath, 'utf8');
+            history = JSON.parse(historyData);
+            
+            // Validate history structure
+            if (!Array.isArray(history) || history.length === 0) {
+                return res.status(500).send("Invalid history data structure");
+            }
+        } catch (historyError) {
+            console.error("Error reading or parsing history:", historyError);
+            return res.status(500).send(`Error accessing history: ${historyError.message}`);
+        }
+       
+        let responseId = history[history.length-1].id;
+        console.log("responseId created and being returned:", responseId);
   
         // Define the path to the HTML file
         let outputPath = path.join(__dirname, "./grok/context/history/responses/"+responseId+"/html/"+responseId+".html");
@@ -72,23 +92,33 @@ app.get('/prompt', async (req, res) => {
             outputPath = path.join(__dirname, "./grok/context/history/responses/"+responseId+"/tree/index.html");
         }
     
+        // Check if the output file exists before sending
+        if (!fs.existsSync(outputPath)) {
+            return res.status(404).send(`Response file not found at ${outputPath}`);
+        }
       
         // Send the HTML content to be displayed in the browser
         res.setHeader('Content-Type', 'text/html');
         res.status(200).sendFile(outputPath, (err) => {
             if (err) {
+                console.error(`Error sending file ${outputPath}:`, err);
                 res.status(500).send('Error sending file: ' + err.message);
             }
-            // Note: Don't delete the file here if you need it for future requests
-            // fs.unlinkSync(outputPath);
         });
     } catch (error) {
-        res.status(500).send(`Error executing code: ${error.message}`);
+        console.error("Unhandled error in /prompt endpoint:", error);
+        res.status(500).send(`Error processing request: ${error.message}`);
     }
 });
 
 // Add a new endpoint to serve files from the history directory
 app.use('/history', express.static(path.join(__dirname, './grok/context/history')));
+
+// Global error handler for uncaught Express errors
+app.use((err, req, res, next) => {
+  console.error('Unhandled error:', err);
+  res.status(500).send('Internal Server Error');
+});
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
