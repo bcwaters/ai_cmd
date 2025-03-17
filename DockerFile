@@ -3,24 +3,33 @@ FROM node:lts
 
 # Install necessary tools
 RUN apt-get update && apt-get install -y git
+RUN apt-get install -y nginx
 
 # Clone your repository
 #  Cursor autocompleted this... i wonder if it is a leaked private repo
 #  RUN git clone https://github.com/jake-b/ai_cmd_line_tool.git /ai_cmd_line_tool
 
-#todo migrate to ai_cmd
+#this matches prod file structure
+RUN mkdir -p /ai_cmd
+RUN cd /ai_cmd
 RUN git clone https://github.com/bcwaters/ai_cmd.git /ai_cmd
 
 # Set the working directory
-WORKDIR /ai_cmd
+WORKDIR /ai_cmd/ai_cmd
 
 RUN npm install
 
-
+#copy nginx config
+COPY ./OS_CONFIG/ai_cmd_docker /etc/nginx/sites-available/ai_cmd
+RUN ln -s /etc/nginx/sites-available/ai_cmd /etc/nginx/sites-enabled/
+RUN rm -rf /etc/nginx/sites-enabled/default
 
 COPY shell_helpers/.docker_grokRuntime shell_helpers/.grokRuntime
 COPY .env .env
 
+RUN node server
+
+CMD ["nginx", "-g", "daemon off;"]
 # sudo docker build -t ai_cmd -f ./DockerFile .
 # sudo docker run -it --name diagnostic-container ai_cmd /bin/bash
 
