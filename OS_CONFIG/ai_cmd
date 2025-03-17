@@ -1,0 +1,25 @@
+server{
+	
+		listen 80;
+		server_name ai_cmd;
+
+		location / {
+			root /var/www/ai_cmd;
+			index index.html;
+		}
+		
+		location /prompt {
+			proxy_pass http://localhost:3002;
+			proxy_set_header Host $host;
+			proxy_set_header X-Real-IP $remote_addr;
+		}
+		
+		location /history/responses {
+			root /home/ubuntu/ai_cmd/ai_cmd/grok/context/;
+			types {
+				text/plain md;
+				text/html html;
+			}
+			autoindex on;		
+		}	
+}	
