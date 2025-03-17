@@ -2,6 +2,7 @@ import { z } from "zod";
 
 export class PromptProfile {
     static isLogging = false;
+    static short = false;
     static specialty = " ";  //user can set this to "write code" or "write a readme" or "write a blog post" etc.
     static files = [];
 
@@ -56,6 +57,13 @@ export class PromptProfile {
         //add any files for context
         if(filePrompt != ""){
             this.profile.push(filePrompt);
+        }
+
+        if(this.short){
+            this.profile.push({
+                role: "system",
+                content: [{type: "text", text: "Please response in a short and concise manner.  When asked programming question return mostly code snippets and minimal text. Answer should be less than 280 tokens.  Always ensure the last token sent makes this a valid json object."}]
+            });
         }
 
 

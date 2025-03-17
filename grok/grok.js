@@ -134,6 +134,10 @@ export function parseCommandLineArgs(serverArgs) {
             filePath = args[filePathIndex];
         }
     }
+
+    if (args.includes("--shortMode")) {
+        isShort = true;
+    }
    
     if (args.includes("--new")) {
         isNew = true;
@@ -223,7 +227,7 @@ export async function createApiRequest(userPromptRequest, priorConverstation, is
     //TODO implement abstraction for profiles before this explodes in complexity
     let messages = [];
     if (isShort) {
-  
+        GlobalPromptProfile.short = true;
     }
     if (specialty) {
         GlobalPromptProfile.setSpecialty(specialty);
@@ -261,8 +265,7 @@ export async function createApiRequest(userPromptRequest, priorConverstation, is
         messages = GlobalPromptProfile.getDefaultProfile(isNew, priorConverstation, contextData, userPromptRequest.dynamicPrompt); // Load the array from the default file
     }
     
-    terminal.debug(terminal.colors.green, "Prompt Sent to Grok", terminal.colors.reset, JSON.stringify(messages, null, 4));
-  
+
         
     var response_format;
     if(userPromptRequest.indexLookupMode){
@@ -273,14 +276,15 @@ export async function createApiRequest(userPromptRequest, priorConverstation, is
 //     response_format: zodResponseFormat(responseSchema, "responseSchema")
     //grok-2-latest
     //grok-2-vision-1212
-    //terminal.debug(terminal.colors.green, "Prompt Sent to Grok", terminal.colors.reset, JSON.stringify(messages, null, 4));
+    terminal.debug(terminal.colors.green, "Prompt Sent to Grok", terminal.colors.reset, JSON.stringify(messages, null, 4));
+    //TODO: each model should have a different max completion tokens
+    let maxCompletionTokens = 125000;
+    if(userPromptRequest.isShort){
+        maxCompletionTokens = 300;
+    }
     return {
         model: chosenModel == openai ? "gpt-4.5-preview" : "grok-2-latest",
-        web_search_options: {
-            enabled: true,
-            num_results: 5,
-            search_engine: "google"
-        },
+        max_tokens: maxCompletionTokens,
         messages: messages, // Use the loaded variable here
         response_format: response_format
     };
@@ -621,7 +625,11 @@ export async function main( ...serverArgs) {
         apiRequest = await createApiRequestForVision(userPromptRequest, priorConverstation, userPromptRequest.isNew, userPromptRequest.isShort, contextData, userPromptRequest.context, userPromptRequest.filePath, userPromptRequest.specialty, processingRootNode);
     }else{
         apiRequest = await createApiRequest(userPromptRequest, priorConverstation, userPromptRequest.isNew, userPromptRequest.isShort, contextData, userPromptRequest.context, userPromptRequest.filePath, userPromptRequest.specialty, processingRootNode);
+   
     }
+
+    //terminal.debug(terminal.colors.green, "Prompt Sent to Grok", terminal.colors.reset, JSON.stringify(apiRequest, null, 4));
+  
     let completion;
     if(userPromptRequest.baseContextDirectory == "${userPromptRequest.baseContextDirectory}mockContext/"){
         completion = await fs.readFile(userPromptRequest.baseContextDirectory + "currentChat/currentChat.json")

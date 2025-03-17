@@ -108,6 +108,12 @@ It would be nice to output results to different mediumns.
 ## UI/UX Ideas
 - Implement spinner and countdown timer for better user experience
 
+## xAI Notes
+- xai has a subpar API relative to competitors with the first mover advantage.
+- Structured input less consistent
+- Responses update not available
+- certain fields like max_tokens are not available to fine tune request
+
 ## Claude Code notes
 I like the usage of background colors to make the starting text more readable.
 I also like the colored '-' for borders

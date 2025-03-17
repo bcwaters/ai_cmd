@@ -211,6 +211,12 @@ while true; do
         continue
     fi
 
+    if [ "$prompt" == "shortMode" ]; then
+        flags="$flags --shortMode"
+        draw_border
+        continue
+    fi
+
       if [ "$prompt" == "mockMode" ]; then
         
         flags="$flags --mockMode"
