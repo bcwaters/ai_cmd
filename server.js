@@ -58,9 +58,9 @@ app.get('/prompt', async (req, res) => {
         }
 
         // Define the path to the HTML file
-        let outputPath = path.join(__dirname, "./grok/context/history/responses/"+result+"/html/"+result+".html");
+        let outputPath = path.join(__dirname, "/history/responses/"+result+"/html/"+result+".html");
         if (treeMode == "true") {
-            outputPath = path.join(__dirname, "./grok/context/history/responses/"+result+"/tree/index.html");
+            outputPath = path.join(__dirname, "/history/responses/"+result+"/tree/index.html");
         }
     
         // Check if the output file exists before sending
@@ -68,7 +68,7 @@ app.get('/prompt', async (req, res) => {
             return res.status(404).send(`Response file not found at ${outputPath}`);
         }
       
-        res.set("X-Accel-Redirect", "/history/responses/"+result+"/html/"+result+".html");
+        res.set("X-Accel-Redirect", outputPath);
         res.set("Content-Type", "text/html");
   
         res.status(200).end();
