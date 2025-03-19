@@ -58,32 +58,18 @@ app.get('/prompt', async (req, res) => {
         }
 
         // Define the path to the HTML file
-        let outputPath = path.join(__dirname, "/history/responses/"+result+"/html/"+result+".html");
+        let outputPath =  "/history/responses/"+result+"/html/"+result+".html";
         if (treeMode == "true") {
-            outputPath = path.join(__dirname, "/history/responses/"+result+"/tree/index.html");
+            outputPath = "/history/responses/"+result+"/tree/index.html";
         }
     
-        // Check if the output file exists before sending
-        if (!fs.existsSync(outputPath)) {
-            return res.status(404).send(`Response file not found at ${outputPath}`);
-        }
+   
       
+        // Set X-Accel-Redirect to the internal path that NGINX should serve
         res.set("X-Accel-Redirect", outputPath);
         res.set("Content-Type", "text/html");
-  
         res.status(200).end();
         return;
-
-
-
-        // Send the HTML content to be displayed in the browser
-        res.setHeader('Content-Type', 'text/html');
-        res.status(200).sendFile(outputPath, (err) => {
-            if (err) {
-                console.error(`Error sending file ${outputPath}:`, err);
-                res.status(500).send('Error sending file: ' + err.message);
-            }
-        });
     } catch (error) {
         console.error("Unhandled error in /prompt endpoint:", error);
         res.status(500).send(`Error processing request: ${error.message}`);
