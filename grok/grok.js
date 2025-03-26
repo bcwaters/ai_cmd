@@ -222,6 +222,26 @@ export async function createApiRequestForVision(userPromptRequest, priorConverst
     };
 }
 
+
+// Create the request object for the API
+export async function createApiRequestForImageGeneration(userPromptRequest, priorConverstation, isNew, isShort, contextData, context, filePath, specialty, processingRootNode) {
+    //TODO implement abstraction for profiles before this explodes in complexity
+    GlobalPromptProfile = ImageGenerationPromptProfile;
+    let messages = [];
+    messages = ImageGenerationPromptProfile.getJsonProfile(isNew, priorConverstation, contextData, userPromptRequest); // Load the array from the default file
+    
+    terminal.debug(terminal.colors.green, "Prompt Sent to Grok", terminal.colors.reset, JSON.stringify(messages, null, 4));
+  
+    //grok-2-latest
+    //grok-2-vision-1212
+
+    return {
+        model: chosenModel == openai ? "gpt-4o-mini" : "grok-2-vision-1212",
+        messages: messages, // Use the loaded variable here
+    
+    };
+}
+
 // Create the request object for the API
 export async function createApiRequest(userPromptRequest, priorConverstation, isNew, isShort, contextData, context, filePath, specialty, processingRootNode) {
     //TODO implement abstraction for profiles before this explodes in complexity

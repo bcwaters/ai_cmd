@@ -1,0 +1,170 @@
+<!doctype html>
+  <html>
+    <head>
+      <link rel="stylesheet" href="https://unpkg.com/xterm@5.3.0/css/xterm.css" />
+      <script src="https://unpkg.com/xterm@5.3.0/lib/xterm.js"></script>
+      <style>
+        body {
+          margin: 0;
+          padding: 0;
+          background: #000;
+        }
+        #terminal {
+          height: 100vh;
+          width: 100vw;
+        }
+        .terminal {
+          padding: 8px;
+        }
+      </style>
+    </head>
+    <body>
+      <div id="terminal"></div>
+      <script>
+        var term = new Terminal({
+          cursorBlink: true,
+          fontSize: 14,
+          fontFamily: 'Menlo, Monaco, "Courier New", monospace',
+          theme: {
+            background: '#000000',
+            foreground: '#ffffff',
+            cursor: '#ffffff',
+            cursorAccent: '#000000',
+            selection: 'rgba(255, 255, 255, 0.3)',
+            black: '#000000',
+            red: '#cc0000',
+            green: '#4e9a06',
+            yellow: '#c4a000',
+            blue: '#3465a4',
+            magenta: '#75507b',
+            cyan: '#06989a',
+            white: '#d3d7cf',
+            brightBlack: '#555753',
+            brightRed: '#ef2929',
+            brightGreen: '#8ae234',
+            brightYellow: '#fce94f',
+            brightBlue: '#729fcf',
+            brightMagenta: '#ad7fa8',
+            brightCyan: '#34e2e2',
+            brightWhite: '#eeeeec'
+          },
+          allowTransparency: true,
+          rows: 24,
+          cols: 80,
+          scrollback: 1000,
+          convertEol: true,
+          termName: 'xterm-256color'
+        });
+        term.open(document.getElementById('terminal'));
+        
+        // Create WebSocket connection
+        const socket = new WebSocket('ws://localhost:3002');
+        
+        // Buffer for storing the current line being typed
+        let inputBuffer = '';
+        let cursorPosition = 0;
+        
+        // Handle incoming data from server
+        socket.onmessage = (event) => {
+          //console.log('Client received:', event.data);
+          term.write(event.data);
+        };
+        
+        // Handle user input with line buffering
+        term.onData(data => {
+          //console.log('User input:', data);
+          //console.log('Char codes:', Array.from(data).map(c => c.charCodeAt(0)));
+          
+          // Handle special keys
+          if (data === '\r') {
+            // Enter key - send the complete line to the server
+            //console.log('Sending complete line:', inputBuffer);
+            socket.send(inputBuffer + '\n');
+            
+            // Clear the buffer and reset cursor position
+            inputBuffer = '';
+            cursorPosition = 0;
+            
+            // Display newline
+            term.write('\r\n');
+          } 
+          else if (data === '\x7f') {
+            // Backspace key - handle locally
+            if (cursorPosition > 0) {
+              // Remove one character from the buffer
+              inputBuffer = inputBuffer.substring(0, cursorPosition - 1) + 
+                            inputBuffer.substring(cursorPosition);
+              cursorPosition--;
+              
+              // Update display: move cursor back, erase character, rewrite rest of line
+              term.write('\b \b'); // Erase one character
+              
+              // If we're deleting from the middle of the line, redraw everything after cursor
+              if (cursorPosition < inputBuffer.length) {
+                // Redraw the rest of the line
+                term.write(inputBuffer.substring(cursorPosition));
+                
+                // Move cursor back to the correct position
+                term.write('\x1b[' + (inputBuffer.length - cursorPosition) + 'D');
+              }
+            }
+          }
+          else if (data === '\x1b[A' || data === '\x1b[B') {
+            // Up/Down arrows - ignore for now
+            // Could implement command history here
+          }
+          else if (data === '\x1b[C') {
+            // Right arrow - move cursor right if possible
+            if (cursorPosition < inputBuffer.length) {
+              cursorPosition++;
+              term.write(data); // Move cursor right
+            }
+          }
+          else if (data === '\x1b[D') {
+            // Left arrow - move cursor left if possible
+            if (cursorPosition > 0) {
+              cursorPosition--;
+              term.write(data); // Move cursor left
+            }
+          }
+          else {
+            // Regular character input
+            // Insert at current cursor position
+            inputBuffer = inputBuffer.substring(0, cursorPosition) + 
+                         data + 
+                         inputBuffer.substring(cursorPosition);
+            cursorPosition += data.length;
+            
+            // Display the character
+            term.write(data);
+            
+            // If cursor is not at the end, redraw the rest of the line
+            if (cursorPosition < inputBuffer.length) {
+              // Write the rest of the buffer
+              term.write(inputBuffer.substring(cursorPosition));
+              
+              // Move cursor back to correct position
+              term.write('\x1b[' + (inputBuffer.length - cursorPosition) + 'D');
+            }
+          }
+        });
+
+        // Log when connection is established
+        socket.onopen = () => {
+          //.log('WebSocket connection established');
+          term.write('Connected to server\r\n');
+        };
+
+        // Handle connection errors
+        socket.onerror = (error) => {
+          //console.error('WebSocket error:', error);
+          term.write('\r\nWebSocket error\r\n');
+        };
+
+        socket.onclose = () => {
+          //console.log('WebSocket connection closed');
+          term.write('\r\nConnection closed\r\n');
+        };
+      </script>
+    </body>
+  </html>

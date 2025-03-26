@@ -1,22 +1,11 @@
 import fs from 'fs';
 import { PromptProfile } from './PromptProfile.js';
 
-export class VisionDescribe extends PromptProfile {
+export class ImageGenerationPromptProfile extends PromptProfile {
     static isLogging = false;
     static specialty = " ";  //user can set this to "write code" or "write a readme" or "write a blog post" etc.
     static files = [];
 
-    static setSpecialty(specialty) {
-        if (specialty == "software") {
-            this.specialty = "write software. It should be clean, modern, and follow best practices.  inline comments for what each line of code does.";
-        } else if (specialty == "teaching") {
-            this.specialty = " develop a lesson plan. I am a teacher and want to collaborate.";
-        } else if (specialty == "writing") {
-            this.specialty = " write elegantly. creativity is key.";
-        } else {
-            this.specialty = "to do" + specialty;
-        }
-    }
 
     static getDefaultProfile(isNew, messagesString, contextData, userPromptRequest) {
         if (this.isLogging) {
@@ -102,7 +91,7 @@ export class VisionDescribe extends PromptProfile {
     
 
 
-    static getJsonProfile(isNew, messagesString, contextData, userPromptRequest) {
+    static createImageFromImage(isNew, messagesString, contextData, userPromptRequest) {
         if (this.isLogging) {
             console.log( isNew, messagesString, contextData, userPromptRequest.dynamicPrompt );
         }
@@ -117,19 +106,12 @@ export class VisionDescribe extends PromptProfile {
                 content: [
                     {
                         type: "text",
-                        text: `You are a data structuring expert.  Examine an image of a page and convert any tables into JSON, returning each table in a code block. All other information in the image can be represented in markdown as descriptions and auxilary information.`
+                        text: `You are an expert at reimagining images.  You will be given an image and a prompt.  You will then create a new image based on image in a new style.  The form of the image and layout should be the same but the style should be updated to the prompt.`
                     },
+     
                     {
                         type: "text",
-                        text: "Here is some context from the previous image: " + messagesString + contextData
-                    },
-                    {
-                        type: "text",
-                        text: "The format for your response should have a descriptive title, the tables, and then any other information. Example: ## Character Sheets \n ### Tables \n```json \n{}```` ### markdown for other info"
-                    },
-                    {
-                        type: "text",
-                        text: "Include a json for everytable in the image.  Have an extensive markdown section for any other information in the image. Do not leave out any data."
+                        text: "Always respond with the image in base64 format.  Do not include any other text in your response."
                     },
 
            
@@ -163,10 +145,7 @@ export class VisionDescribe extends PromptProfile {
     }
 
 
-
-
-
-    static base64_encode_image(image_path){
+        static base64_encode_image(image_path){
         return fs.readFileSync(image_path).toString('base64');
     }
 }

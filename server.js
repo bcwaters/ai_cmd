@@ -1,14 +1,22 @@
 import express from 'express';
-import fs from 'fs';
+import { WebSocketServer } from 'ws';
+import http from 'http';
+import { spawn } from 'child_process';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 import { main } from './grok/grok.js';
+
+// Get current file's directory (equivalent to __dirname in CommonJS)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 const app = express();
+const server = http.createServer(app);
+const wss = new WebSocketServer({ server });
 const port = 3002;
 
-// Get __dirname equivalent in ES modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+app.use(express.static('server_resources'));
 
 app.get('/', (req, res) => {
     // Get the context query parameter (if provided)
@@ -19,6 +27,15 @@ app.get('/', (req, res) => {
         if (err) {
             console.error('Error sending home page:', err);
             res.status(500).send('Error loading home page');
+        }
+    });
+});
+
+app.get('/xterm', (req, res) => {
+    res.sendFile(path.join(__dirname, 'server_resources', 'XTerm.html'), (err) => {
+        if (err) {
+            console.error('Error sending XTerm:', err);
+            res.status(500).send('Error loading XTerm');
         }
     });
 });
@@ -79,12 +96,92 @@ app.get('/prompt', async (req, res) => {
 // Add a new endpoint to serve files from the history directory
 app.use('/history', express.static(path.join(__dirname, './grok/context/history')));
 
+// WebSocket connection handler
+wss.on('connection', (ws) => {
+  console.log('New client connected');
+  
+  // Spawn grok.sh
+  const grokProcess = spawn('bash', ['grok.sh'], {
+    cwd: process.cwd(),
+    env: { ...process.env, TERM: 'xterm-256color' },
+    stdio: ['pipe', 'pipe', 'pipe']
+  });
+
+  console.log('Grok process spawned with PID:', grokProcess.pid);
+  
+  // Handle process output
+  grokProcess.stdout.on('data', (data) => {
+    const output = data.toString();
+    console.log('Grok stdout:', output);
+    
+    if (ws.readyState === ws.OPEN) {
+      try {
+        ws.send(output);
+        console.log('Sent stdout to client:', output.length, 'chars');
+      } catch (error) {
+        console.error('Error sending stdout:', error);
+      }
+    }
+  });
+
+  grokProcess.stderr.on('data', (data) => {
+    const output = data.toString();
+    console.log('Grok stderr:', output);
+    
+    if (ws.readyState === ws.OPEN) {
+      try {
+        ws.send(output);
+        console.log('Sent stderr to client:', output.length, 'chars');
+      } catch (error) {
+        console.error('Error sending stderr:', error);
+      }
+    }
+  });
+
+  // Handle client input - This is where we write all input to the process
+  ws.on('message', (data) => {
+    console.log('Received from client:', data.toString());
+    
+    try {
+      if (grokProcess.stdin.writable) {
+        // Just write the data as-is - it should already have a newline
+        grokProcess.stdin.write(data.toString());
+        console.log('Successfully wrote to stdin');
+      } else {
+        console.log('grok process stdin not writable');
+      }
+    } catch (error) {
+      console.error('Error writing to stdin:', error);
+    }
+  });
+
+  grokProcess.on('error', (error) => {
+    console.error('Grok process error:', error);
+  });
+
+  grokProcess.on('exit', (code, signal) => {
+    console.log(`Grok process exited with code ${code} and signal ${signal}`);
+    if (ws.readyState === ws.OPEN) {
+      ws.close();
+    }
+  });
+
+  ws.on('close', () => {
+    console.log('Client disconnected');
+    try {
+      grokProcess.kill();
+    } catch (error) {
+      console.error('Error killing process:', error);
+    }
+  });
+});
+
 // Global error handler for uncaught Express errors
 app.use((err, req, res, next) => {
   console.error('Unhandled error:', err);
   res.status(500).send('Internal Server Error');
 });
 
-app.listen(port, () => {
+server.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });
