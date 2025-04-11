@@ -303,7 +303,7 @@ export async function createApiRequest(userPromptRequest, priorConverstation, is
         maxCompletionTokens = 300;
     }
     return {
-        model: chosenModel == openai ? "gpt-4.5-preview" : "grok-2-latest",
+        model: chosenModel == openai ? "gpt-4.5-preview" : "grok-3-beta",
         max_tokens: maxCompletionTokens,
         messages: messages, // Use the loaded variable here
         response_format: response_format
