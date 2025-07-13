@@ -7,7 +7,12 @@ terraform/*
 grok/images/*
 grok/json_output/*
 
-grok/context/currentCha
+grok/context/currentChat.html
+grok/context/currentChat.json
+grok/context/currentChat.md
+grok/context/context.data
+grok/context/context.history
+
 user_saved_readmes/*
 grok/context/history/*
 grok/context/fullCompletion/*

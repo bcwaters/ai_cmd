@@ -302,8 +302,9 @@ export async function createApiRequest(userPromptRequest, priorConverstation, is
     if(userPromptRequest.isShort){
         maxCompletionTokens = 300;
     }
+    //grok-4-0709
     return {
-        model: chosenModel == openai ? "gpt-4.5-preview" : "grok-3-beta",
+        model: chosenModel == openai ? "gpt-4.5-preview" : "grok-4-0709",
         max_tokens: maxCompletionTokens,
         messages: messages, // Use the loaded variable here
         response_format: response_format
